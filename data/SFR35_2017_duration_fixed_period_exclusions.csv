@@ -1,0 +1,1768 @@
+Year,level,country_code,country_name,school_type,duration_days_fixed_exclusions,fixed_excl
+201516,National,E92000001,England,Total,Total,339360
+201516,National,E92000001,England,Total,1,155250
+201516,National,E92000001,England,Total,2,80695
+201516,National,E92000001,England,Total,3,46735
+201516,National,E92000001,England,Total,4,11625
+201516,National,E92000001,England,Total,5,37245
+201516,National,E92000001,England,Total,6,1600
+201516,National,E92000001,England,Total,7,710
+201516,National,E92000001,England,Total,8,550
+201516,National,E92000001,England,Total,9,310
+201516,National,E92000001,England,Total,10,2480
+201516,National,E92000001,England,Total,11,235
+201516,National,E92000001,England,Total,12,225
+201516,National,E92000001,England,Total,13,140
+201516,National,E92000001,England,Total,14,180
+201516,National,E92000001,England,Total,15,735
+201516,National,E92000001,England,Total,16,145
+201516,National,E92000001,England,Total,17,65
+201516,National,E92000001,England,Total,18,40
+201516,National,E92000001,England,Total,19,30
+201516,National,E92000001,England,Total,20,125
+201516,National,E92000001,England,Total,21,20
+201516,National,E92000001,England,Total,22,20
+201516,National,E92000001,England,Total,23,20
+201516,National,E92000001,England,Total,24,15
+201516,National,E92000001,England,Total,25,20
+201516,National,E92000001,England,Total,26,10
+201516,National,E92000001,England,Total,27,15
+201516,National,E92000001,England,Total,28,5
+201516,National,E92000001,England,Total,29,10
+201516,National,E92000001,England,Total,30,10
+201516,National,E92000001,England,Total,31,10
+201516,National,E92000001,England,Total,32,15
+201516,National,E92000001,England,Total,33,5
+201516,National,E92000001,England,Total,34,5
+201516,National,E92000001,England,Total,35,10
+201516,National,E92000001,England,Total,36,5
+201516,National,E92000001,England,Total,37,10
+201516,National,E92000001,England,Total,38,5
+201516,National,E92000001,England,Total,39,5
+201516,National,E92000001,England,Total,40,5
+201516,National,E92000001,England,Total,41,5
+201516,National,E92000001,England,Total,42,x
+201516,National,E92000001,England,Total,43,5
+201516,National,E92000001,England,Total,44,5
+201516,National,E92000001,England,Total,45,10
+201516,National,E92000001,England,Total,46 or more,5
+201516,National,E92000001,England,State-funded primary,Total,55740
+201516,National,E92000001,England,State-funded primary,1,25605
+201516,National,E92000001,England,State-funded primary,2,15515
+201516,National,E92000001,England,State-funded primary,3,7115
+201516,National,E92000001,England,State-funded primary,4,2575
+201516,National,E92000001,England,State-funded primary,5,3720
+201516,National,E92000001,England,State-funded primary,6,430
+201516,National,E92000001,England,State-funded primary,7,160
+201516,National,E92000001,England,State-funded primary,8,85
+201516,National,E92000001,England,State-funded primary,9,60
+201516,National,E92000001,England,State-funded primary,10,195
+201516,National,E92000001,England,State-funded primary,11,50
+201516,National,E92000001,England,State-funded primary,12,25
+201516,National,E92000001,England,State-funded primary,13,35
+201516,National,E92000001,England,State-funded primary,14,25
+201516,National,E92000001,England,State-funded primary,15,35
+201516,National,E92000001,England,State-funded primary,16,15
+201516,National,E92000001,England,State-funded primary,17,10
+201516,National,E92000001,England,State-funded primary,18,10
+201516,National,E92000001,England,State-funded primary,19,10
+201516,National,E92000001,England,State-funded primary,20,10
+201516,National,E92000001,England,State-funded primary,21,5
+201516,National,E92000001,England,State-funded primary,22,5
+201516,National,E92000001,England,State-funded primary,23,5
+201516,National,E92000001,England,State-funded primary,24,5
+201516,National,E92000001,England,State-funded primary,25,x
+201516,National,E92000001,England,State-funded primary,26,5
+201516,National,E92000001,England,State-funded primary,27,5
+201516,National,E92000001,England,State-funded primary,28,x
+201516,National,E92000001,England,State-funded primary,29,5
+201516,National,E92000001,England,State-funded primary,30,x
+201516,National,E92000001,England,State-funded primary,31,x
+201516,National,E92000001,England,State-funded primary,32,x
+201516,National,E92000001,England,State-funded primary,33,x
+201516,National,E92000001,England,State-funded primary,34,x
+201516,National,E92000001,England,State-funded primary,35,x
+201516,National,E92000001,England,State-funded primary,37,x
+201516,National,E92000001,England,State-funded primary,38,x
+201516,National,E92000001,England,State-funded primary,44,x
+201516,National,E92000001,England,State-funded primary,45,x
+201516,National,E92000001,England,State-funded secondary,Total,270135
+201516,National,E92000001,England,State-funded secondary,1,122310
+201516,National,E92000001,England,State-funded secondary,2,62135
+201516,National,E92000001,England,State-funded secondary,3,38255
+201516,National,E92000001,England,State-funded secondary,4,8585
+201516,National,E92000001,England,State-funded secondary,5,32585
+201516,National,E92000001,England,State-funded secondary,6,1105
+201516,National,E92000001,England,State-funded secondary,7,500
+201516,National,E92000001,England,State-funded secondary,8,440
+201516,National,E92000001,England,State-funded secondary,9,225
+201516,National,E92000001,England,State-funded secondary,10,2220
+201516,National,E92000001,England,State-funded secondary,11,160
+201516,National,E92000001,England,State-funded secondary,12,180
+201516,National,E92000001,England,State-funded secondary,13,95
+201516,National,E92000001,England,State-funded secondary,14,155
+201516,National,E92000001,England,State-funded secondary,15,685
+201516,National,E92000001,England,State-funded secondary,16,130
+201516,National,E92000001,England,State-funded secondary,17,50
+201516,National,E92000001,England,State-funded secondary,18,25
+201516,National,E92000001,England,State-funded secondary,19,20
+201516,National,E92000001,England,State-funded secondary,20,110
+201516,National,E92000001,England,State-funded secondary,21,20
+201516,National,E92000001,England,State-funded secondary,22,10
+201516,National,E92000001,England,State-funded secondary,23,10
+201516,National,E92000001,England,State-funded secondary,24,10
+201516,National,E92000001,England,State-funded secondary,25,15
+201516,National,E92000001,England,State-funded secondary,26,5
+201516,National,E92000001,England,State-funded secondary,27,10
+201516,National,E92000001,England,State-funded secondary,28,5
+201516,National,E92000001,England,State-funded secondary,29,5
+201516,National,E92000001,England,State-funded secondary,30,10
+201516,National,E92000001,England,State-funded secondary,31,5
+201516,National,E92000001,England,State-funded secondary,32,10
+201516,National,E92000001,England,State-funded secondary,33,5
+201516,National,E92000001,England,State-funded secondary,34,5
+201516,National,E92000001,England,State-funded secondary,35,5
+201516,National,E92000001,England,State-funded secondary,36,5
+201516,National,E92000001,England,State-funded secondary,37,5
+201516,National,E92000001,England,State-funded secondary,38,x
+201516,National,E92000001,England,State-funded secondary,39,x
+201516,National,E92000001,England,State-funded secondary,40,x
+201516,National,E92000001,England,State-funded secondary,41,5
+201516,National,E92000001,England,State-funded secondary,42,x
+201516,National,E92000001,England,State-funded secondary,43,x
+201516,National,E92000001,England,State-funded secondary,44,5
+201516,National,E92000001,England,State-funded secondary,45,10
+201516,National,E92000001,England,State-funded secondary,46 or more,5
+201516,National,E92000001,England,Special school,Total,13485
+201516,National,E92000001,England,Special school,1,7335
+201516,National,E92000001,England,Special school,2,3045
+201516,National,E92000001,England,Special school,3,1365
+201516,National,E92000001,England,Special school,4,460
+201516,National,E92000001,England,Special school,5,940
+201516,National,E92000001,England,Special school,6,65
+201516,National,E92000001,England,Special school,7,50
+201516,National,E92000001,England,Special school,8,25
+201516,National,E92000001,England,Special school,9,20
+201516,National,E92000001,England,Special school,10,65
+201516,National,E92000001,England,Special school,11,20
+201516,National,E92000001,England,Special school,12,25
+201516,National,E92000001,England,Special school,13,5
+201516,National,E92000001,England,Special school,14,x
+201516,National,E92000001,England,Special school,15,15
+201516,National,E92000001,England,Special school,16,5
+201516,National,E92000001,England,Special school,17,5
+201516,National,E92000001,England,Special school,18,x
+201516,National,E92000001,England,Special school,19,x
+201516,National,E92000001,England,Special school,20,10
+201516,National,E92000001,England,Special school,22,x
+201516,National,E92000001,England,Special school,23,x
+201516,National,E92000001,England,Special school,24,x
+201516,National,E92000001,England,Special school,25,5
+201516,National,E92000001,England,Special school,26,x
+201516,National,E92000001,England,Special school,28,x
+201516,National,E92000001,England,Special school,34,x
+201516,National,E92000001,England,Special school,36,x
+201516,National,E92000001,England,Special school,37,x
+201516,National,E92000001,England,Special school,38,x
+201516,National,E92000001,England,Special school,39,x
+201516,National,E92000001,England,Special school,40,x
+201516,National,E92000001,England,Special school,41,x
+201516,National,E92000001,England,Special school,43,5
+201516,National,E92000001,England,Special school,45,x
+201516,National,E92000001,England,Special school,46 or more,x
+201415,National,E92000001,England,Total,Total,302975
+201415,National,E92000001,England,Total,1,135045
+201415,National,E92000001,England,Total,2,73235
+201415,National,E92000001,England,Total,3,42870
+201415,National,E92000001,England,Total,4,10575
+201415,National,E92000001,England,Total,5,33910
+201415,National,E92000001,England,Total,6,1350
+201415,National,E92000001,England,Total,7,665
+201415,National,E92000001,England,Total,8,475
+201415,National,E92000001,England,Total,9,330
+201415,National,E92000001,England,Total,10,2340
+201415,National,E92000001,England,Total,11,240
+201415,National,E92000001,England,Total,12,240
+201415,National,E92000001,England,Total,13,140
+201415,National,E92000001,England,Total,14,170
+201415,National,E92000001,England,Total,15,760
+201415,National,E92000001,England,Total,16,130
+201415,National,E92000001,England,Total,17,45
+201415,National,E92000001,England,Total,18,30
+201415,National,E92000001,England,Total,19,25
+201415,National,E92000001,England,Total,20,120
+201415,National,E92000001,England,Total,21,25
+201415,National,E92000001,England,Total,22,20
+201415,National,E92000001,England,Total,23,20
+201415,National,E92000001,England,Total,24,15
+201415,National,E92000001,England,Total,25,25
+201415,National,E92000001,England,Total,26,10
+201415,National,E92000001,England,Total,27,10
+201415,National,E92000001,England,Total,28,5
+201415,National,E92000001,England,Total,29,10
+201415,National,E92000001,England,Total,30,30
+201415,National,E92000001,England,Total,31,5
+201415,National,E92000001,England,Total,32,10
+201415,National,E92000001,England,Total,33,5
+201415,National,E92000001,England,Total,34,5
+201415,National,E92000001,England,Total,35,10
+201415,National,E92000001,England,Total,36,5
+201415,National,E92000001,England,Total,37,5
+201415,National,E92000001,England,Total,38,5
+201415,National,E92000001,England,Total,39,x
+201415,National,E92000001,England,Total,40,5
+201415,National,E92000001,England,Total,41,5
+201415,National,E92000001,England,Total,42,x
+201415,National,E92000001,England,Total,43,5
+201415,National,E92000001,England,Total,44,5
+201415,National,E92000001,England,Total,45,15
+201415,National,E92000001,England,Total,46 or more,x
+201415,National,E92000001,England,Total,Missing,x
+201415,National,E92000001,England,State-funded primary,Total,49655
+201415,National,E92000001,England,State-funded primary,1,23060
+201415,National,E92000001,England,State-funded primary,2,13520
+201415,National,E92000001,England,State-funded primary,3,6520
+201415,National,E92000001,England,State-funded primary,4,2070
+201415,National,E92000001,England,State-funded primary,5,3400
+201415,National,E92000001,England,State-funded primary,6,400
+201415,National,E92000001,England,State-funded primary,7,120
+201415,National,E92000001,England,State-funded primary,8,80
+201415,National,E92000001,England,State-funded primary,9,70
+201415,National,E92000001,England,State-funded primary,10,140
+201415,National,E92000001,England,State-funded primary,11,40
+201415,National,E92000001,England,State-funded primary,12,30
+201415,National,E92000001,England,State-funded primary,13,20
+201415,National,E92000001,England,State-funded primary,14,20
+201415,National,E92000001,England,State-funded primary,15,65
+201415,National,E92000001,England,State-funded primary,16,15
+201415,National,E92000001,England,State-funded primary,17,10
+201415,National,E92000001,England,State-funded primary,18,5
+201415,National,E92000001,England,State-funded primary,19,5
+201415,National,E92000001,England,State-funded primary,20,10
+201415,National,E92000001,England,State-funded primary,21,5
+201415,National,E92000001,England,State-funded primary,22,5
+201415,National,E92000001,England,State-funded primary,23,5
+201415,National,E92000001,England,State-funded primary,24,5
+201415,National,E92000001,England,State-funded primary,25,x
+201415,National,E92000001,England,State-funded primary,26,x
+201415,National,E92000001,England,State-funded primary,27,5
+201415,National,E92000001,England,State-funded primary,28,x
+201415,National,E92000001,England,State-funded primary,29,x
+201415,National,E92000001,England,State-funded primary,30,5
+201415,National,E92000001,England,State-funded primary,31,x
+201415,National,E92000001,England,State-funded primary,33,x
+201415,National,E92000001,England,State-funded primary,35,x
+201415,National,E92000001,England,State-funded primary,36,5
+201415,National,E92000001,England,State-funded primary,37,x
+201415,National,E92000001,England,State-funded primary,38,x
+201415,National,E92000001,England,State-funded primary,40,5
+201415,National,E92000001,England,State-funded primary,41,5
+201415,National,E92000001,England,State-funded primary,42,x
+201415,National,E92000001,England,State-funded primary,44,x
+201415,National,E92000001,England,State-funded primary,45,x
+201415,National,E92000001,England,State-funded primary,Missing,x
+201415,National,E92000001,England,State-funded secondary,Total,239240
+201415,National,E92000001,England,State-funded secondary,1,104355
+201415,National,E92000001,England,State-funded secondary,2,56635
+201415,National,E92000001,England,State-funded secondary,3,34845
+201415,National,E92000001,England,State-funded secondary,4,7990
+201415,National,E92000001,England,State-funded secondary,5,29505
+201415,National,E92000001,England,State-funded secondary,6,890
+201415,National,E92000001,England,State-funded secondary,7,505
+201415,National,E92000001,England,State-funded secondary,8,370
+201415,National,E92000001,England,State-funded secondary,9,240
+201415,National,E92000001,England,State-funded secondary,10,2130
+201415,National,E92000001,England,State-funded secondary,11,175
+201415,National,E92000001,England,State-funded secondary,12,205
+201415,National,E92000001,England,State-funded secondary,13,110
+201415,National,E92000001,England,State-funded secondary,14,140
+201415,National,E92000001,England,State-funded secondary,15,665
+201415,National,E92000001,England,State-funded secondary,16,115
+201415,National,E92000001,England,State-funded secondary,17,35
+201415,National,E92000001,England,State-funded secondary,18,25
+201415,National,E92000001,England,State-funded secondary,19,20
+201415,National,E92000001,England,State-funded secondary,20,105
+201415,National,E92000001,England,State-funded secondary,21,15
+201415,National,E92000001,England,State-funded secondary,22,10
+201415,National,E92000001,England,State-funded secondary,23,15
+201415,National,E92000001,England,State-funded secondary,24,10
+201415,National,E92000001,England,State-funded secondary,25,25
+201415,National,E92000001,England,State-funded secondary,26,5
+201415,National,E92000001,England,State-funded secondary,27,5
+201415,National,E92000001,England,State-funded secondary,28,5
+201415,National,E92000001,England,State-funded secondary,29,5
+201415,National,E92000001,England,State-funded secondary,30,25
+201415,National,E92000001,England,State-funded secondary,31,5
+201415,National,E92000001,England,State-funded secondary,32,10
+201415,National,E92000001,England,State-funded secondary,34,5
+201415,National,E92000001,England,State-funded secondary,35,10
+201415,National,E92000001,England,State-funded secondary,36,x
+201415,National,E92000001,England,State-funded secondary,37,x
+201415,National,E92000001,England,State-funded secondary,38,x
+201415,National,E92000001,England,State-funded secondary,39,x
+201415,National,E92000001,England,State-funded secondary,40,5
+201415,National,E92000001,England,State-funded secondary,43,5
+201415,National,E92000001,England,State-funded secondary,44,5
+201415,National,E92000001,England,State-funded secondary,45,5
+201415,National,E92000001,England,State-funded secondary,46 or more,x
+201415,National,E92000001,England,Special school,Total,14080
+201415,National,E92000001,England,Special school,1,7630
+201415,National,E92000001,England,Special school,2,3080
+201415,National,E92000001,England,Special school,3,1505
+201415,National,E92000001,England,Special school,4,515
+201415,National,E92000001,England,Special school,5,1005
+201415,National,E92000001,England,Special school,6,60
+201415,National,E92000001,England,Special school,7,40
+201415,National,E92000001,England,Special school,8,25
+201415,National,E92000001,England,Special school,9,20
+201415,National,E92000001,England,Special school,10,70
+201415,National,E92000001,England,Special school,11,25
+201415,National,E92000001,England,Special school,12,10
+201415,National,E92000001,England,Special school,13,10
+201415,National,E92000001,England,Special school,14,15
+201415,National,E92000001,England,Special school,15,30
+201415,National,E92000001,England,Special school,16,5
+201415,National,E92000001,England,Special school,17,x
+201415,National,E92000001,England,Special school,18,x
+201415,National,E92000001,England,Special school,19,5
+201415,National,E92000001,England,Special school,20,5
+201415,National,E92000001,England,Special school,21,x
+201415,National,E92000001,England,Special school,22,x
+201415,National,E92000001,England,Special school,23,x
+201415,National,E92000001,England,Special school,24,x
+201415,National,E92000001,England,Special school,25,x
+201415,National,E92000001,England,Special school,26,5
+201415,National,E92000001,England,Special school,29,5
+201415,National,E92000001,England,Special school,31,x
+201415,National,E92000001,England,Special school,32,x
+201415,National,E92000001,England,Special school,33,x
+201415,National,E92000001,England,Special school,34,x
+201415,National,E92000001,England,Special school,36,x
+201415,National,E92000001,England,Special school,37,x
+201415,National,E92000001,England,Special school,43,x
+201415,National,E92000001,England,Special school,44,x
+201415,National,E92000001,England,Special school,45,5
+201314,National,E92000001,England,Total,Total,269475
+201314,National,E92000001,England,Total,0,x
+201314,National,E92000001,England,Total,1,118260
+201314,National,E92000001,England,Total,2,66010
+201314,National,E92000001,England,Total,3,38995
+201314,National,E92000001,England,Total,4,9655
+201314,National,E92000001,England,Total,5,29940
+201314,National,E92000001,England,Total,6,1325
+201314,National,E92000001,England,Total,7,620
+201314,National,E92000001,England,Total,8,495
+201314,National,E92000001,England,Total,9,305
+201314,National,E92000001,England,Total,10,1955
+201314,National,E92000001,England,Total,11,195
+201314,National,E92000001,England,Total,12,180
+201314,National,E92000001,England,Total,13,140
+201314,National,E92000001,England,Total,14,150
+201314,National,E92000001,England,Total,15,615
+201314,National,E92000001,England,Total,16,155
+201314,National,E92000001,England,Total,17,45
+201314,National,E92000001,England,Total,18,30
+201314,National,E92000001,England,Total,19,30
+201314,National,E92000001,England,Total,20,100
+201314,National,E92000001,England,Total,21,20
+201314,National,E92000001,England,Total,22,20
+201314,National,E92000001,England,Total,23,15
+201314,National,E92000001,England,Total,24,20
+201314,National,E92000001,England,Total,25,30
+201314,National,E92000001,England,Total,26,15
+201314,National,E92000001,England,Total,27,10
+201314,National,E92000001,England,Total,28,5
+201314,National,E92000001,England,Total,29,10
+201314,National,E92000001,England,Total,30,15
+201314,National,E92000001,England,Total,31,5
+201314,National,E92000001,England,Total,32,10
+201314,National,E92000001,England,Total,33,10
+201314,National,E92000001,England,Total,34,10
+201314,National,E92000001,England,Total,35,10
+201314,National,E92000001,England,Total,36,5
+201314,National,E92000001,England,Total,37,5
+201314,National,E92000001,England,Total,38,5
+201314,National,E92000001,England,Total,39,5
+201314,National,E92000001,England,Total,40,10
+201314,National,E92000001,England,Total,41,x
+201314,National,E92000001,England,Total,42,5
+201314,National,E92000001,England,Total,43,5
+201314,National,E92000001,England,Total,44,10
+201314,National,E92000001,England,Total,45,10
+201314,National,E92000001,England,Total,46 or more,5
+201314,National,E92000001,England,Total,Missing,x
+201314,National,E92000001,England,State-funded primary,Total,45005
+201314,National,E92000001,England,State-funded primary,1,20340
+201314,National,E92000001,England,State-funded primary,2,12255
+201314,National,E92000001,England,State-funded primary,3,6120
+201314,National,E92000001,England,State-funded primary,4,2025
+201314,National,E92000001,England,State-funded primary,5,3180
+201314,National,E92000001,England,State-funded primary,6,385
+201314,National,E92000001,England,State-funded primary,7,140
+201314,National,E92000001,England,State-funded primary,8,75
+201314,National,E92000001,England,State-funded primary,9,65
+201314,National,E92000001,England,State-funded primary,10,160
+201314,National,E92000001,England,State-funded primary,11,45
+201314,National,E92000001,England,State-funded primary,12,30
+201314,National,E92000001,England,State-funded primary,13,20
+201314,National,E92000001,England,State-funded primary,14,15
+201314,National,E92000001,England,State-funded primary,15,45
+201314,National,E92000001,England,State-funded primary,16,15
+201314,National,E92000001,England,State-funded primary,17,10
+201314,National,E92000001,England,State-funded primary,18,10
+201314,National,E92000001,England,State-funded primary,19,5
+201314,National,E92000001,England,State-funded primary,20,10
+201314,National,E92000001,England,State-funded primary,21,5
+201314,National,E92000001,England,State-funded primary,22,5
+201314,National,E92000001,England,State-funded primary,23,5
+201314,National,E92000001,England,State-funded primary,24,5
+201314,National,E92000001,England,State-funded primary,25,5
+201314,National,E92000001,England,State-funded primary,26,x
+201314,National,E92000001,England,State-funded primary,27,x
+201314,National,E92000001,England,State-funded primary,29,x
+201314,National,E92000001,England,State-funded primary,30,5
+201314,National,E92000001,England,State-funded primary,31,x
+201314,National,E92000001,England,State-funded primary,32,x
+201314,National,E92000001,England,State-funded primary,33,x
+201314,National,E92000001,England,State-funded primary,34,x
+201314,National,E92000001,England,State-funded primary,35,5
+201314,National,E92000001,England,State-funded primary,36,x
+201314,National,E92000001,England,State-funded primary,37,x
+201314,National,E92000001,England,State-funded primary,38,x
+201314,National,E92000001,England,State-funded primary,40,x
+201314,National,E92000001,England,State-funded primary,42,5
+201314,National,E92000001,England,State-funded primary,44,x
+201314,National,E92000001,England,State-funded primary,45,x
+201314,National,E92000001,England,State-funded primary,46 or more,x
+201314,National,E92000001,England,State-funded secondary,Total,210580
+201314,National,E92000001,England,State-funded secondary,0,x
+201314,National,E92000001,England,State-funded secondary,1,90570
+201314,National,E92000001,England,State-funded secondary,2,50595
+201314,National,E92000001,England,State-funded secondary,3,31325
+201314,National,E92000001,England,State-funded secondary,4,7115
+201314,National,E92000001,England,State-funded secondary,5,25775
+201314,National,E92000001,England,State-funded secondary,6,855
+201314,National,E92000001,England,State-funded secondary,7,445
+201314,National,E92000001,England,State-funded secondary,8,390
+201314,National,E92000001,England,State-funded secondary,9,220
+201314,National,E92000001,England,State-funded secondary,10,1745
+201314,National,E92000001,England,State-funded secondary,11,135
+201314,National,E92000001,England,State-funded secondary,12,140
+201314,National,E92000001,England,State-funded secondary,13,110
+201314,National,E92000001,England,State-funded secondary,14,120
+201314,National,E92000001,England,State-funded secondary,15,545
+201314,National,E92000001,England,State-funded secondary,16,135
+201314,National,E92000001,England,State-funded secondary,17,30
+201314,National,E92000001,England,State-funded secondary,18,20
+201314,National,E92000001,England,State-funded secondary,19,20
+201314,National,E92000001,England,State-funded secondary,20,85
+201314,National,E92000001,England,State-funded secondary,21,15
+201314,National,E92000001,England,State-funded secondary,22,15
+201314,National,E92000001,England,State-funded secondary,23,10
+201314,National,E92000001,England,State-funded secondary,24,15
+201314,National,E92000001,England,State-funded secondary,25,20
+201314,National,E92000001,England,State-funded secondary,26,10
+201314,National,E92000001,England,State-funded secondary,27,10
+201314,National,E92000001,England,State-funded secondary,28,5
+201314,National,E92000001,England,State-funded secondary,29,5
+201314,National,E92000001,England,State-funded secondary,30,10
+201314,National,E92000001,England,State-funded secondary,31,5
+201314,National,E92000001,England,State-funded secondary,32,5
+201314,National,E92000001,England,State-funded secondary,33,10
+201314,National,E92000001,England,State-funded secondary,34,5
+201314,National,E92000001,England,State-funded secondary,35,5
+201314,National,E92000001,England,State-funded secondary,36,x
+201314,National,E92000001,England,State-funded secondary,37,5
+201314,National,E92000001,England,State-funded secondary,38,5
+201314,National,E92000001,England,State-funded secondary,39,5
+201314,National,E92000001,England,State-funded secondary,40,5
+201314,National,E92000001,England,State-funded secondary,41,x
+201314,National,E92000001,England,State-funded secondary,42,x
+201314,National,E92000001,England,State-funded secondary,43,5
+201314,National,E92000001,England,State-funded secondary,44,5
+201314,National,E92000001,England,State-funded secondary,45,10
+201314,National,E92000001,England,State-funded secondary,46 or more,5
+201314,National,E92000001,England,Special school,Total,13890
+201314,National,E92000001,England,Special school,1,7350
+201314,National,E92000001,England,Special school,2,3160
+201314,National,E92000001,England,Special school,3,1550
+201314,National,E92000001,England,Special school,4,515
+201314,National,E92000001,England,Special school,5,985
+201314,National,E92000001,England,Special school,6,85
+201314,National,E92000001,England,Special school,7,40
+201314,National,E92000001,England,Special school,8,30
+201314,National,E92000001,England,Special school,9,20
+201314,National,E92000001,England,Special school,10,55
+201314,National,E92000001,England,Special school,11,10
+201314,National,E92000001,England,Special school,12,10
+201314,National,E92000001,England,Special school,13,5
+201314,National,E92000001,England,Special school,14,15
+201314,National,E92000001,England,Special school,15,25
+201314,National,E92000001,England,Special school,16,5
+201314,National,E92000001,England,Special school,17,5
+201314,National,E92000001,England,Special school,18,x
+201314,National,E92000001,England,Special school,19,x
+201314,National,E92000001,England,Special school,20,5
+201314,National,E92000001,England,Special school,21,x
+201314,National,E92000001,England,Special school,24,x
+201314,National,E92000001,England,Special school,25,x
+201314,National,E92000001,England,Special school,26,x
+201314,National,E92000001,England,Special school,28,x
+201314,National,E92000001,England,Special school,29,x
+201314,National,E92000001,England,Special school,30,5
+201314,National,E92000001,England,Special school,32,x
+201314,National,E92000001,England,Special school,34,5
+201314,National,E92000001,England,Special school,36,x
+201314,National,E92000001,England,Special school,37,x
+201314,National,E92000001,England,Special school,39,x
+201314,National,E92000001,England,Special school,40,x
+201314,National,E92000001,England,Special school,43,x
+201314,National,E92000001,England,Special school,44,x
+201314,National,E92000001,England,Special school,Missing,x
+201213,National,E92000001,England,Total,Total,267520
+201213,National,E92000001,England,Total,0,x
+201213,National,E92000001,England,Total,1,114575
+201213,National,E92000001,England,Total,2,66235
+201213,National,E92000001,England,Total,3,39295
+201213,National,E92000001,England,Total,4,9805
+201213,National,E92000001,England,Total,5,30815
+201213,National,E92000001,England,Total,6,1320
+201213,National,E92000001,England,Total,7,680
+201213,National,E92000001,England,Total,8,480
+201213,National,E92000001,England,Total,9,315
+201213,National,E92000001,England,Total,10,2030
+201213,National,E92000001,England,Total,11,195
+201213,National,E92000001,England,Total,12,165
+201213,National,E92000001,England,Total,13,125
+201213,National,E92000001,England,Total,14,160
+201213,National,E92000001,England,Total,15,645
+201213,National,E92000001,England,Total,16,155
+201213,National,E92000001,England,Total,17,50
+201213,National,E92000001,England,Total,18,35
+201213,National,E92000001,England,Total,19,35
+201213,National,E92000001,England,Total,20,140
+201213,National,E92000001,England,Total,21,30
+201213,National,E92000001,England,Total,22,15
+201213,National,E92000001,England,Total,23,10
+201213,National,E92000001,England,Total,24,15
+201213,National,E92000001,England,Total,25,40
+201213,National,E92000001,England,Total,26,10
+201213,National,E92000001,England,Total,27,10
+201213,National,E92000001,England,Total,28,10
+201213,National,E92000001,England,Total,29,5
+201213,National,E92000001,England,Total,30,15
+201213,National,E92000001,England,Total,31,5
+201213,National,E92000001,England,Total,32,10
+201213,National,E92000001,England,Total,33,5
+201213,National,E92000001,England,Total,34,10
+201213,National,E92000001,England,Total,35,15
+201213,National,E92000001,England,Total,37,5
+201213,National,E92000001,England,Total,38,5
+201213,National,E92000001,England,Total,39,5
+201213,National,E92000001,England,Total,40,5
+201213,National,E92000001,England,Total,41,5
+201213,National,E92000001,England,Total,42,5
+201213,National,E92000001,England,Total,43,5
+201213,National,E92000001,England,Total,44,5
+201213,National,E92000001,England,Total,45,20
+201213,National,E92000001,England,Total,46 or more,5
+201213,National,E92000001,England,State-funded primary,Total,37865
+201213,National,E92000001,England,State-funded primary,1,17220
+201213,National,E92000001,England,State-funded primary,2,10145
+201213,National,E92000001,England,State-funded primary,3,4955
+201213,National,E92000001,England,State-funded primary,4,1710
+201213,National,E92000001,England,State-funded primary,5,2835
+201213,National,E92000001,England,State-funded primary,6,365
+201213,National,E92000001,England,State-funded primary,7,130
+201213,National,E92000001,England,State-funded primary,8,75
+201213,National,E92000001,England,State-funded primary,9,55
+201213,National,E92000001,England,State-funded primary,10,155
+201213,National,E92000001,England,State-funded primary,11,40
+201213,National,E92000001,England,State-funded primary,12,15
+201213,National,E92000001,England,State-funded primary,13,15
+201213,National,E92000001,England,State-funded primary,14,20
+201213,National,E92000001,England,State-funded primary,15,30
+201213,National,E92000001,England,State-funded primary,16,15
+201213,National,E92000001,England,State-funded primary,17,10
+201213,National,E92000001,England,State-funded primary,18,10
+201213,National,E92000001,England,State-funded primary,19,5
+201213,National,E92000001,England,State-funded primary,20,15
+201213,National,E92000001,England,State-funded primary,21,5
+201213,National,E92000001,England,State-funded primary,22,5
+201213,National,E92000001,England,State-funded primary,23,x
+201213,National,E92000001,England,State-funded primary,24,x
+201213,National,E92000001,England,State-funded primary,25,10
+201213,National,E92000001,England,State-funded primary,26,5
+201213,National,E92000001,England,State-funded primary,27,x
+201213,National,E92000001,England,State-funded primary,29,5
+201213,National,E92000001,England,State-funded primary,30,x
+201213,National,E92000001,England,State-funded primary,31,x
+201213,National,E92000001,England,State-funded primary,33,x
+201213,National,E92000001,England,State-funded primary,34,x
+201213,National,E92000001,England,State-funded primary,35,x
+201213,National,E92000001,England,State-funded primary,37,x
+201213,National,E92000001,England,State-funded primary,39,x
+201213,National,E92000001,England,State-funded primary,40,x
+201213,National,E92000001,England,State-funded primary,42,x
+201213,National,E92000001,England,State-funded primary,43,x
+201213,National,E92000001,England,State-funded primary,45,x
+201213,National,E92000001,England,State-funded primary,46 or more,x
+201213,National,E92000001,England,State-funded secondary,Total,215560
+201213,National,E92000001,England,State-funded secondary,0,x
+201213,National,E92000001,England,State-funded secondary,1,90050
+201213,National,E92000001,England,State-funded secondary,2,52825
+201213,National,E92000001,England,State-funded secondary,3,32755
+201213,National,E92000001,England,State-funded secondary,4,7515
+201213,National,E92000001,England,State-funded secondary,5,26930
+201213,National,E92000001,England,State-funded secondary,6,880
+201213,National,E92000001,England,State-funded secondary,7,510
+201213,National,E92000001,England,State-funded secondary,8,385
+201213,National,E92000001,England,State-funded secondary,9,240
+201213,National,E92000001,England,State-funded secondary,10,1810
+201213,National,E92000001,England,State-funded secondary,11,145
+201213,National,E92000001,England,State-funded secondary,12,140
+201213,National,E92000001,England,State-funded secondary,13,100
+201213,National,E92000001,England,State-funded secondary,14,130
+201213,National,E92000001,England,State-funded secondary,15,585
+201213,National,E92000001,England,State-funded secondary,16,135
+201213,National,E92000001,England,State-funded secondary,17,35
+201213,National,E92000001,England,State-funded secondary,18,25
+201213,National,E92000001,England,State-funded secondary,19,30
+201213,National,E92000001,England,State-funded secondary,20,125
+201213,National,E92000001,England,State-funded secondary,21,25
+201213,National,E92000001,England,State-funded secondary,22,10
+201213,National,E92000001,England,State-funded secondary,23,5
+201213,National,E92000001,England,State-funded secondary,24,10
+201213,National,E92000001,England,State-funded secondary,25,30
+201213,National,E92000001,England,State-funded secondary,26,10
+201213,National,E92000001,England,State-funded secondary,27,10
+201213,National,E92000001,England,State-funded secondary,28,10
+201213,National,E92000001,England,State-funded secondary,29,5
+201213,National,E92000001,England,State-funded secondary,30,15
+201213,National,E92000001,England,State-funded secondary,31,5
+201213,National,E92000001,England,State-funded secondary,32,10
+201213,National,E92000001,England,State-funded secondary,33,5
+201213,National,E92000001,England,State-funded secondary,34,5
+201213,National,E92000001,England,State-funded secondary,35,10
+201213,National,E92000001,England,State-funded secondary,37,5
+201213,National,E92000001,England,State-funded secondary,38,5
+201213,National,E92000001,England,State-funded secondary,39,5
+201213,National,E92000001,England,State-funded secondary,40,5
+201213,National,E92000001,England,State-funded secondary,41,5
+201213,National,E92000001,England,State-funded secondary,42,x
+201213,National,E92000001,England,State-funded secondary,43,x
+201213,National,E92000001,England,State-funded secondary,44,5
+201213,National,E92000001,England,State-funded secondary,45,15
+201213,National,E92000001,England,State-funded secondary,46 or more,5
+201213,National,E92000001,England,Special school,Total,14095
+201213,National,E92000001,England,Special school,1,7305
+201213,National,E92000001,England,Special school,2,3265
+201213,National,E92000001,England,Special school,3,1585
+201213,National,E92000001,England,Special school,4,580
+201213,National,E92000001,England,Special school,5,1050
+201213,National,E92000001,England,Special school,6,70
+201213,National,E92000001,England,Special school,7,35
+201213,National,E92000001,England,Special school,8,20
+201213,National,E92000001,England,Special school,9,15
+201213,National,E92000001,England,Special school,10,65
+201213,National,E92000001,England,Special school,11,10
+201213,National,E92000001,England,Special school,12,10
+201213,National,E92000001,England,Special school,13,10
+201213,National,E92000001,England,Special school,14,10
+201213,National,E92000001,England,Special school,15,30
+201213,National,E92000001,England,Special school,16,5
+201213,National,E92000001,England,Special school,17,x
+201213,National,E92000001,England,Special school,20,x
+201213,National,E92000001,England,Special school,21,x
+201213,National,E92000001,England,Special school,23,x
+201213,National,E92000001,England,Special school,24,x
+201213,National,E92000001,England,Special school,25,x
+201213,National,E92000001,England,Special school,27,x
+201213,National,E92000001,England,Special school,28,x
+201213,National,E92000001,England,Special school,30,x
+201213,National,E92000001,England,Special school,31,x
+201213,National,E92000001,England,Special school,32,x
+201213,National,E92000001,England,Special school,33,x
+201213,National,E92000001,England,Special school,37,x
+201213,National,E92000001,England,Special school,40,x
+201213,National,E92000001,England,Special school,43,x
+201213,National,E92000001,England,Special school,45,x
+201213,National,E92000001,England,Special school,46 or more,x
+201112,National,E92000001,England,Total,Total,304370
+201112,National,E92000001,England,Total,0,x
+201112,National,E92000001,England,Total,1,128175
+201112,National,E92000001,England,Total,2,75460
+201112,National,E92000001,England,Total,3,46090
+201112,National,E92000001,England,Total,4,11340
+201112,National,E92000001,England,Total,5,35300
+201112,National,E92000001,England,Total,6,1535
+201112,National,E92000001,England,Total,7,765
+201112,National,E92000001,England,Total,8,565
+201112,National,E92000001,England,Total,9,400
+201112,National,E92000001,England,Total,10,2375
+201112,National,E92000001,England,Total,11,275
+201112,National,E92000001,England,Total,12,220
+201112,National,E92000001,England,Total,13,145
+201112,National,E92000001,England,Total,14,210
+201112,National,E92000001,England,Total,15,755
+201112,National,E92000001,England,Total,16,175
+201112,National,E92000001,England,Total,17,55
+201112,National,E92000001,England,Total,18,40
+201112,National,E92000001,England,Total,19,30
+201112,National,E92000001,England,Total,20,120
+201112,National,E92000001,England,Total,21,20
+201112,National,E92000001,England,Total,22,25
+201112,National,E92000001,England,Total,23,25
+201112,National,E92000001,England,Total,24,20
+201112,National,E92000001,England,Total,25,30
+201112,National,E92000001,England,Total,26,15
+201112,National,E92000001,England,Total,27,15
+201112,National,E92000001,England,Total,28,10
+201112,National,E92000001,England,Total,29,20
+201112,National,E92000001,England,Total,30,30
+201112,National,E92000001,England,Total,31,10
+201112,National,E92000001,England,Total,32,5
+201112,National,E92000001,England,Total,33,5
+201112,National,E92000001,England,Total,34,10
+201112,National,E92000001,England,Total,35,5
+201112,National,E92000001,England,Total,36,10
+201112,National,E92000001,England,Total,37,5
+201112,National,E92000001,England,Total,38,10
+201112,National,E92000001,England,Total,39,5
+201112,National,E92000001,England,Total,40,15
+201112,National,E92000001,England,Total,41,5
+201112,National,E92000001,England,Total,42,5
+201112,National,E92000001,England,Total,43,5
+201112,National,E92000001,England,Total,44,5
+201112,National,E92000001,England,Total,45,25
+201112,National,E92000001,England,Total,46 or more,5
+201112,National,E92000001,England,State-funded primary,Total,37790
+201112,National,E92000001,England,State-funded primary,1,16965
+201112,National,E92000001,England,State-funded primary,2,10080
+201112,National,E92000001,England,State-funded primary,3,5065
+201112,National,E92000001,England,State-funded primary,4,1770
+201112,National,E92000001,England,State-funded primary,5,2855
+201112,National,E92000001,England,State-funded primary,6,335
+201112,National,E92000001,England,State-funded primary,7,135
+201112,National,E92000001,England,State-funded primary,8,85
+201112,National,E92000001,England,State-funded primary,9,65
+201112,National,E92000001,England,State-funded primary,10,155
+201112,National,E92000001,England,State-funded primary,11,45
+201112,National,E92000001,England,State-funded primary,12,40
+201112,National,E92000001,England,State-funded primary,13,20
+201112,National,E92000001,England,State-funded primary,14,20
+201112,National,E92000001,England,State-funded primary,15,50
+201112,National,E92000001,England,State-funded primary,16,10
+201112,National,E92000001,England,State-funded primary,17,5
+201112,National,E92000001,England,State-funded primary,18,10
+201112,National,E92000001,England,State-funded primary,19,5
+201112,National,E92000001,England,State-funded primary,20,10
+201112,National,E92000001,England,State-funded primary,21,x
+201112,National,E92000001,England,State-funded primary,22,5
+201112,National,E92000001,England,State-funded primary,23,5
+201112,National,E92000001,England,State-funded primary,24,5
+201112,National,E92000001,England,State-funded primary,25,5
+201112,National,E92000001,England,State-funded primary,26,5
+201112,National,E92000001,England,State-funded primary,27,5
+201112,National,E92000001,England,State-funded primary,28,x
+201112,National,E92000001,England,State-funded primary,29,5
+201112,National,E92000001,England,State-funded primary,30,5
+201112,National,E92000001,England,State-funded primary,31,5
+201112,National,E92000001,England,State-funded primary,32,x
+201112,National,E92000001,England,State-funded primary,34,x
+201112,National,E92000001,England,State-funded primary,35,x
+201112,National,E92000001,England,State-funded primary,36,x
+201112,National,E92000001,England,State-funded primary,37,x
+201112,National,E92000001,England,State-funded primary,38,5
+201112,National,E92000001,England,State-funded primary,39,x
+201112,National,E92000001,England,State-funded primary,40,5
+201112,National,E92000001,England,State-funded primary,41,5
+201112,National,E92000001,England,State-funded primary,42,x
+201112,National,E92000001,England,State-funded primary,43,x
+201112,National,E92000001,England,State-funded primary,45,5
+201112,National,E92000001,England,State-funded secondary,Total,252215
+201112,National,E92000001,England,State-funded secondary,0,x
+201112,National,E92000001,England,State-funded secondary,1,103935
+201112,National,E92000001,England,State-funded secondary,2,62055
+201112,National,E92000001,England,State-funded secondary,3,39310
+201112,National,E92000001,England,State-funded secondary,4,8990
+201112,National,E92000001,England,State-funded secondary,5,31355
+201112,National,E92000001,England,State-funded secondary,6,1100
+201112,National,E92000001,England,State-funded secondary,7,590
+201112,National,E92000001,England,State-funded secondary,8,455
+201112,National,E92000001,England,State-funded secondary,9,310
+201112,National,E92000001,England,State-funded secondary,10,2150
+201112,National,E92000001,England,State-funded secondary,11,215
+201112,National,E92000001,England,State-funded secondary,12,170
+201112,National,E92000001,England,State-funded secondary,13,125
+201112,National,E92000001,England,State-funded secondary,14,175
+201112,National,E92000001,England,State-funded secondary,15,675
+201112,National,E92000001,England,State-funded secondary,16,160
+201112,National,E92000001,England,State-funded secondary,17,45
+201112,National,E92000001,England,State-funded secondary,18,30
+201112,National,E92000001,England,State-funded secondary,19,25
+201112,National,E92000001,England,State-funded secondary,20,110
+201112,National,E92000001,England,State-funded secondary,21,15
+201112,National,E92000001,England,State-funded secondary,22,15
+201112,National,E92000001,England,State-funded secondary,23,20
+201112,National,E92000001,England,State-funded secondary,24,10
+201112,National,E92000001,England,State-funded secondary,25,25
+201112,National,E92000001,England,State-funded secondary,26,10
+201112,National,E92000001,England,State-funded secondary,27,10
+201112,National,E92000001,England,State-funded secondary,28,5
+201112,National,E92000001,England,State-funded secondary,29,15
+201112,National,E92000001,England,State-funded secondary,30,25
+201112,National,E92000001,England,State-funded secondary,31,5
+201112,National,E92000001,England,State-funded secondary,32,5
+201112,National,E92000001,England,State-funded secondary,33,5
+201112,National,E92000001,England,State-funded secondary,34,10
+201112,National,E92000001,England,State-funded secondary,35,5
+201112,National,E92000001,England,State-funded secondary,36,5
+201112,National,E92000001,England,State-funded secondary,37,x
+201112,National,E92000001,England,State-funded secondary,38,5
+201112,National,E92000001,England,State-funded secondary,39,5
+201112,National,E92000001,England,State-funded secondary,40,10
+201112,National,E92000001,England,State-funded secondary,41,x
+201112,National,E92000001,England,State-funded secondary,42,5
+201112,National,E92000001,England,State-funded secondary,43,5
+201112,National,E92000001,England,State-funded secondary,44,5
+201112,National,E92000001,England,State-funded secondary,45,20
+201112,National,E92000001,England,State-funded secondary,46 or more,x
+201112,National,E92000001,England,Special school,Total,14370
+201112,National,E92000001,England,Special school,1,7275
+201112,National,E92000001,England,Special school,2,3325
+201112,National,E92000001,England,Special school,3,1715
+201112,National,E92000001,England,Special school,4,580
+201112,National,E92000001,England,Special school,5,1085
+201112,National,E92000001,England,Special school,6,100
+201112,National,E92000001,England,Special school,7,40
+201112,National,E92000001,England,Special school,8,25
+201112,National,E92000001,England,Special school,9,20
+201112,National,E92000001,England,Special school,10,70
+201112,National,E92000001,England,Special school,11,15
+201112,National,E92000001,England,Special school,12,10
+201112,National,E92000001,England,Special school,13,5
+201112,National,E92000001,England,Special school,14,10
+201112,National,E92000001,England,Special school,15,35
+201112,National,E92000001,England,Special school,16,5
+201112,National,E92000001,England,Special school,17,10
+201112,National,E92000001,England,Special school,18,x
+201112,National,E92000001,England,Special school,19,x
+201112,National,E92000001,England,Special school,20,5
+201112,National,E92000001,England,Special school,21,x
+201112,National,E92000001,England,Special school,22,5
+201112,National,E92000001,England,Special school,23,x
+201112,National,E92000001,England,Special school,24,5
+201112,National,E92000001,England,Special school,25,5
+201112,National,E92000001,England,Special school,26,x
+201112,National,E92000001,England,Special school,27,x
+201112,National,E92000001,England,Special school,28,x
+201112,National,E92000001,England,Special school,29,5
+201112,National,E92000001,England,Special school,30,x
+201112,National,E92000001,England,Special school,31,x
+201112,National,E92000001,England,Special school,36,x
+201112,National,E92000001,England,Special school,37,x
+201112,National,E92000001,England,Special school,38,x
+201112,National,E92000001,England,Special school,40,5
+201112,National,E92000001,England,Special school,41,x
+201112,National,E92000001,England,Special school,42,x
+201112,National,E92000001,England,Special school,44,x
+201112,National,E92000001,England,Special school,45,5
+201112,National,E92000001,England,Special school,46 or more,x
+201011,National,E92000001,England,Total,Total,324105
+201011,National,E92000001,England,Total,1,130235
+201011,National,E92000001,England,Total,2,81975
+201011,National,E92000001,England,Total,3,50955
+201011,National,E92000001,England,Total,4,12200
+201011,National,E92000001,England,Total,5,39445
+201011,National,E92000001,England,Total,6,1775
+201011,National,E92000001,England,Total,7,960
+201011,National,E92000001,England,Total,8,650
+201011,National,E92000001,England,Total,9,420
+201011,National,E92000001,England,Total,10,2590
+201011,National,E92000001,England,Total,11,315
+201011,National,E92000001,England,Total,12,260
+201011,National,E92000001,England,Total,13,195
+201011,National,E92000001,England,Total,14,250
+201011,National,E92000001,England,Total,15,940
+201011,National,E92000001,England,Total,16,210
+201011,National,E92000001,England,Total,17,70
+201011,National,E92000001,England,Total,18,60
+201011,National,E92000001,England,Total,19,35
+201011,National,E92000001,England,Total,20,145
+201011,National,E92000001,England,Total,21,45
+201011,National,E92000001,England,Total,22,25
+201011,National,E92000001,England,Total,23,30
+201011,National,E92000001,England,Total,24,25
+201011,National,E92000001,England,Total,25,55
+201011,National,E92000001,England,Total,26,20
+201011,National,E92000001,England,Total,27,15
+201011,National,E92000001,England,Total,28,20
+201011,National,E92000001,England,Total,29,15
+201011,National,E92000001,England,Total,30,20
+201011,National,E92000001,England,Total,31,15
+201011,National,E92000001,England,Total,32,5
+201011,National,E92000001,England,Total,33,5
+201011,National,E92000001,England,Total,34,5
+201011,National,E92000001,England,Total,35,15
+201011,National,E92000001,England,Total,36,10
+201011,National,E92000001,England,Total,37,5
+201011,National,E92000001,England,Total,38,5
+201011,National,E92000001,England,Total,39,5
+201011,National,E92000001,England,Total,40,10
+201011,National,E92000001,England,Total,41,5
+201011,National,E92000001,England,Total,42,x
+201011,National,E92000001,England,Total,43,10
+201011,National,E92000001,England,Total,44,5
+201011,National,E92000001,England,Total,45,35
+201011,National,E92000001,England,Total,46 or more,5
+201011,National,E92000001,England,State-funded primary,Total,37790
+201011,National,E92000001,England,State-funded primary,1,16430
+201011,National,E92000001,England,State-funded primary,2,10175
+201011,National,E92000001,England,State-funded primary,3,5300
+201011,National,E92000001,England,State-funded primary,4,1815
+201011,National,E92000001,England,State-funded primary,5,2920
+201011,National,E92000001,England,State-funded primary,6,390
+201011,National,E92000001,England,State-funded primary,7,155
+201011,National,E92000001,England,State-funded primary,8,95
+201011,National,E92000001,England,State-funded primary,9,55
+201011,National,E92000001,England,State-funded primary,10,155
+201011,National,E92000001,England,State-funded primary,11,55
+201011,National,E92000001,England,State-funded primary,12,35
+201011,National,E92000001,England,State-funded primary,13,20
+201011,National,E92000001,England,State-funded primary,14,30
+201011,National,E92000001,England,State-funded primary,15,50
+201011,National,E92000001,England,State-funded primary,16,15
+201011,National,E92000001,England,State-funded primary,17,15
+201011,National,E92000001,England,State-funded primary,18,x
+201011,National,E92000001,England,State-funded primary,19,10
+201011,National,E92000001,England,State-funded primary,20,15
+201011,National,E92000001,England,State-funded primary,21,5
+201011,National,E92000001,England,State-funded primary,22,x
+201011,National,E92000001,England,State-funded primary,23,x
+201011,National,E92000001,England,State-funded primary,24,5
+201011,National,E92000001,England,State-funded primary,25,5
+201011,National,E92000001,England,State-funded primary,26,5
+201011,National,E92000001,England,State-funded primary,27,x
+201011,National,E92000001,England,State-funded primary,28,5
+201011,National,E92000001,England,State-funded primary,29,5
+201011,National,E92000001,England,State-funded primary,30,x
+201011,National,E92000001,England,State-funded primary,31,5
+201011,National,E92000001,England,State-funded primary,32,5
+201011,National,E92000001,England,State-funded primary,33,x
+201011,National,E92000001,England,State-funded primary,34,5
+201011,National,E92000001,England,State-funded primary,35,5
+201011,National,E92000001,England,State-funded primary,36,5
+201011,National,E92000001,England,State-funded primary,37,x
+201011,National,E92000001,England,State-funded primary,38,x
+201011,National,E92000001,England,State-funded primary,39,x
+201011,National,E92000001,England,State-funded primary,40,5
+201011,National,E92000001,England,State-funded primary,42,x
+201011,National,E92000001,England,State-funded primary,43,x
+201011,National,E92000001,England,State-funded primary,44,x
+201011,National,E92000001,England,State-funded primary,45,x
+201011,National,E92000001,England,State-funded primary,46 or more,5
+201011,National,E92000001,England,State-funded secondary,Total,271975
+201011,National,E92000001,England,State-funded secondary,1,106620
+201011,National,E92000001,England,State-funded secondary,2,68595
+201011,National,E92000001,England,State-funded secondary,3,43950
+201011,National,E92000001,England,State-funded secondary,4,9740
+201011,National,E92000001,England,State-funded secondary,5,35365
+201011,National,E92000001,England,State-funded secondary,6,1275
+201011,National,E92000001,England,State-funded secondary,7,755
+201011,National,E92000001,England,State-funded secondary,8,510
+201011,National,E92000001,England,State-funded secondary,9,350
+201011,National,E92000001,England,State-funded secondary,10,2360
+201011,National,E92000001,England,State-funded secondary,11,235
+201011,National,E92000001,England,State-funded secondary,12,215
+201011,National,E92000001,England,State-funded secondary,13,160
+201011,National,E92000001,England,State-funded secondary,14,215
+201011,National,E92000001,England,State-funded secondary,15,870
+201011,National,E92000001,England,State-funded secondary,16,190
+201011,National,E92000001,England,State-funded secondary,17,50
+201011,National,E92000001,England,State-funded secondary,18,55
+201011,National,E92000001,England,State-funded secondary,19,30
+201011,National,E92000001,England,State-funded secondary,20,125
+201011,National,E92000001,England,State-funded secondary,21,35
+201011,National,E92000001,England,State-funded secondary,22,20
+201011,National,E92000001,England,State-funded secondary,23,25
+201011,National,E92000001,England,State-funded secondary,24,15
+201011,National,E92000001,England,State-funded secondary,25,45
+201011,National,E92000001,England,State-funded secondary,26,15
+201011,National,E92000001,England,State-funded secondary,27,15
+201011,National,E92000001,England,State-funded secondary,28,10
+201011,National,E92000001,England,State-funded secondary,29,10
+201011,National,E92000001,England,State-funded secondary,30,20
+201011,National,E92000001,England,State-funded secondary,31,10
+201011,National,E92000001,England,State-funded secondary,32,x
+201011,National,E92000001,England,State-funded secondary,33,5
+201011,National,E92000001,England,State-funded secondary,34,5
+201011,National,E92000001,England,State-funded secondary,35,10
+201011,National,E92000001,England,State-funded secondary,36,5
+201011,National,E92000001,England,State-funded secondary,37,5
+201011,National,E92000001,England,State-funded secondary,38,x
+201011,National,E92000001,England,State-funded secondary,39,5
+201011,National,E92000001,England,State-funded secondary,40,10
+201011,National,E92000001,England,State-funded secondary,41,5
+201011,National,E92000001,England,State-funded secondary,43,5
+201011,National,E92000001,England,State-funded secondary,44,5
+201011,National,E92000001,England,State-funded secondary,45,30
+201011,National,E92000001,England,State-funded secondary,46 or more,x
+201011,National,E92000001,England,Special school,Total,14340
+201011,National,E92000001,England,Special school,1,7185
+201011,National,E92000001,England,Special school,2,3205
+201011,National,E92000001,England,Special school,3,1700
+201011,National,E92000001,England,Special school,4,645
+201011,National,E92000001,England,Special school,5,1165
+201011,National,E92000001,England,Special school,6,110
+201011,National,E92000001,England,Special school,7,50
+201011,National,E92000001,England,Special school,8,40
+201011,National,E92000001,England,Special school,9,15
+201011,National,E92000001,England,Special school,10,75
+201011,National,E92000001,England,Special school,11,25
+201011,National,E92000001,England,Special school,12,10
+201011,National,E92000001,England,Special school,13,15
+201011,National,E92000001,England,Special school,14,5
+201011,National,E92000001,England,Special school,15,25
+201011,National,E92000001,England,Special school,16,5
+201011,National,E92000001,England,Special school,17,5
+201011,National,E92000001,England,Special school,18,5
+201011,National,E92000001,England,Special school,20,10
+201011,National,E92000001,England,Special school,21,5
+201011,National,E92000001,England,Special school,22,x
+201011,National,E92000001,England,Special school,23,5
+201011,National,E92000001,England,Special school,24,5
+201011,National,E92000001,England,Special school,25,x
+201011,National,E92000001,England,Special school,26,x
+201011,National,E92000001,England,Special school,27,x
+201011,National,E92000001,England,Special school,28,5
+201011,National,E92000001,England,Special school,29,x
+201011,National,E92000001,England,Special school,30,x
+201011,National,E92000001,England,Special school,32,x
+201011,National,E92000001,England,Special school,35,x
+201011,National,E92000001,England,Special school,36,x
+201011,National,E92000001,England,Special school,37,x
+201011,National,E92000001,England,Special school,38,x
+201011,National,E92000001,England,Special school,41,x
+201011,National,E92000001,England,Special school,42,x
+201011,National,E92000001,England,Special school,44,x
+201011,National,E92000001,England,Special school,45,5
+201011,National,E92000001,England,Special school,46 or more,5
+200910,National,E92000001,England,Total,Total,331380
+200910,National,E92000001,England,Total,1,127135
+200910,National,E92000001,England,Total,2,84595
+200910,National,E92000001,England,Total,3,54290
+200910,National,E92000001,England,Total,4,13540
+200910,National,E92000001,England,Total,5,41775
+200910,National,E92000001,England,Total,6,1800
+200910,National,E92000001,England,Total,7,880
+200910,National,E92000001,England,Total,8,715
+200910,National,E92000001,England,Total,9,490
+200910,National,E92000001,England,Total,10,2920
+200910,National,E92000001,England,Total,11,325
+200910,National,E92000001,England,Total,12,305
+200910,National,E92000001,England,Total,13,190
+200910,National,E92000001,England,Total,14,195
+200910,National,E92000001,England,Total,15,1070
+200910,National,E92000001,England,Total,16,240
+200910,National,E92000001,England,Total,17,70
+200910,National,E92000001,England,Total,18,65
+200910,National,E92000001,England,Total,19,65
+200910,National,E92000001,England,Total,20,215
+200910,National,E92000001,England,Total,21,40
+200910,National,E92000001,England,Total,22,30
+200910,National,E92000001,England,Total,23,20
+200910,National,E92000001,England,Total,24,35
+200910,National,E92000001,England,Total,25,65
+200910,National,E92000001,England,Total,26,25
+200910,National,E92000001,England,Total,27,20
+200910,National,E92000001,England,Total,28,25
+200910,National,E92000001,England,Total,29,25
+200910,National,E92000001,England,Total,30,45
+200910,National,E92000001,England,Total,31,10
+200910,National,E92000001,England,Total,32,15
+200910,National,E92000001,England,Total,33,10
+200910,National,E92000001,England,Total,34,15
+200910,National,E92000001,England,Total,35,15
+200910,National,E92000001,England,Total,36,5
+200910,National,E92000001,England,Total,37,5
+200910,National,E92000001,England,Total,38,10
+200910,National,E92000001,England,Total,39,10
+200910,National,E92000001,England,Total,40,15
+200910,National,E92000001,England,Total,41,5
+200910,National,E92000001,England,Total,42,5
+200910,National,E92000001,England,Total,43,5
+200910,National,E92000001,England,Total,44,10
+200910,National,E92000001,England,Total,45,30
+200910,National,E92000001,England,Total,46 or more,x
+200910,National,E92000001,England,State-funded primary,Total,37210
+200910,National,E92000001,England,State-funded primary,1,15960
+200910,National,E92000001,England,State-funded primary,2,9780
+200910,National,E92000001,England,State-funded primary,3,5420
+200910,National,E92000001,England,State-funded primary,4,1960
+200910,National,E92000001,England,State-funded primary,5,2955
+200910,National,E92000001,England,State-funded primary,6,380
+200910,National,E92000001,England,State-funded primary,7,135
+200910,National,E92000001,England,State-funded primary,8,95
+200910,National,E92000001,England,State-funded primary,9,55
+200910,National,E92000001,England,State-funded primary,10,160
+200910,National,E92000001,England,State-funded primary,11,60
+200910,National,E92000001,England,State-funded primary,12,35
+200910,National,E92000001,England,State-funded primary,13,30
+200910,National,E92000001,England,State-funded primary,14,25
+200910,National,E92000001,England,State-funded primary,15,50
+200910,National,E92000001,England,State-funded primary,16,15
+200910,National,E92000001,England,State-funded primary,17,10
+200910,National,E92000001,England,State-funded primary,18,10
+200910,National,E92000001,England,State-funded primary,19,10
+200910,National,E92000001,England,State-funded primary,20,10
+200910,National,E92000001,England,State-funded primary,21,5
+200910,National,E92000001,England,State-funded primary,23,x
+200910,National,E92000001,England,State-funded primary,24,5
+200910,National,E92000001,England,State-funded primary,25,5
+200910,National,E92000001,England,State-funded primary,26,5
+200910,National,E92000001,England,State-funded primary,28,5
+200910,National,E92000001,England,State-funded primary,29,5
+200910,National,E92000001,England,State-funded primary,30,5
+200910,National,E92000001,England,State-funded primary,33,5
+200910,National,E92000001,England,State-funded primary,34,x
+200910,National,E92000001,England,State-funded primary,35,x
+200910,National,E92000001,England,State-funded primary,37,x
+200910,National,E92000001,England,State-funded primary,38,x
+200910,National,E92000001,England,State-funded primary,39,x
+200910,National,E92000001,England,State-funded primary,40,x
+200910,National,E92000001,England,State-funded primary,41,x
+200910,National,E92000001,England,State-funded primary,42,x
+200910,National,E92000001,England,State-funded primary,44,x
+200910,National,E92000001,England,State-funded primary,45,5
+200910,National,E92000001,England,State-funded primary,46 or more,x
+200910,National,E92000001,England,State-funded secondary,Total,279260
+200910,National,E92000001,England,State-funded secondary,1,103725
+200910,National,E92000001,England,State-funded secondary,2,71490
+200910,National,E92000001,England,State-funded secondary,3,47035
+200910,National,E92000001,England,State-funded secondary,4,10945
+200910,National,E92000001,England,State-funded secondary,5,37625
+200910,National,E92000001,England,State-funded secondary,6,1320
+200910,National,E92000001,England,State-funded secondary,7,685
+200910,National,E92000001,England,State-funded secondary,8,580
+200910,National,E92000001,England,State-funded secondary,9,405
+200910,National,E92000001,England,State-funded secondary,10,2700
+200910,National,E92000001,England,State-funded secondary,11,255
+200910,National,E92000001,England,State-funded secondary,12,250
+200910,National,E92000001,England,State-funded secondary,13,145
+200910,National,E92000001,England,State-funded secondary,14,155
+200910,National,E92000001,England,State-funded secondary,15,975
+200910,National,E92000001,England,State-funded secondary,16,215
+200910,National,E92000001,England,State-funded secondary,17,60
+200910,National,E92000001,England,State-funded secondary,18,50
+200910,National,E92000001,England,State-funded secondary,19,50
+200910,National,E92000001,England,State-funded secondary,20,200
+200910,National,E92000001,England,State-funded secondary,21,35
+200910,National,E92000001,England,State-funded secondary,22,25
+200910,National,E92000001,England,State-funded secondary,23,20
+200910,National,E92000001,England,State-funded secondary,24,25
+200910,National,E92000001,England,State-funded secondary,25,55
+200910,National,E92000001,England,State-funded secondary,26,20
+200910,National,E92000001,England,State-funded secondary,27,15
+200910,National,E92000001,England,State-funded secondary,28,20
+200910,National,E92000001,England,State-funded secondary,29,20
+200910,National,E92000001,England,State-funded secondary,30,40
+200910,National,E92000001,England,State-funded secondary,31,10
+200910,National,E92000001,England,State-funded secondary,32,15
+200910,National,E92000001,England,State-funded secondary,33,5
+200910,National,E92000001,England,State-funded secondary,34,15
+200910,National,E92000001,England,State-funded secondary,35,10
+200910,National,E92000001,England,State-funded secondary,36,5
+200910,National,E92000001,England,State-funded secondary,37,5
+200910,National,E92000001,England,State-funded secondary,38,5
+200910,National,E92000001,England,State-funded secondary,39,5
+200910,National,E92000001,England,State-funded secondary,40,10
+200910,National,E92000001,England,State-funded secondary,41,5
+200910,National,E92000001,England,State-funded secondary,42,x
+200910,National,E92000001,England,State-funded secondary,43,x
+200910,National,E92000001,England,State-funded secondary,44,10
+200910,National,E92000001,England,State-funded secondary,45,25
+200910,National,E92000001,England,State-funded secondary,46 or more,x
+200910,National,E92000001,England,Special school,Total,14905
+200910,National,E92000001,England,Special school,1,7455
+200910,National,E92000001,England,Special school,2,3325
+200910,National,E92000001,England,Special school,3,1835
+200910,National,E92000001,England,Special school,4,640
+200910,National,E92000001,England,Special school,5,1195
+200910,National,E92000001,England,Special school,6,105
+200910,National,E92000001,England,Special school,7,55
+200910,National,E92000001,England,Special school,8,45
+200910,National,E92000001,England,Special school,9,30
+200910,National,E92000001,England,Special school,10,55
+200910,National,E92000001,England,Special school,11,10
+200910,National,E92000001,England,Special school,12,15
+200910,National,E92000001,England,Special school,13,15
+200910,National,E92000001,England,Special school,14,15
+200910,National,E92000001,England,Special school,15,45
+200910,National,E92000001,England,Special school,16,10
+200910,National,E92000001,England,Special school,17,5
+200910,National,E92000001,England,Special school,18,5
+200910,National,E92000001,England,Special school,19,5
+200910,National,E92000001,England,Special school,20,5
+200910,National,E92000001,England,Special school,22,5
+200910,National,E92000001,England,Special school,24,5
+200910,National,E92000001,England,Special school,25,5
+200910,National,E92000001,England,Special school,26,x
+200910,National,E92000001,England,Special school,27,5
+200910,National,E92000001,England,Special school,30,x
+200910,National,E92000001,England,Special school,31,x
+200910,National,E92000001,England,Special school,32,5
+200910,National,E92000001,England,Special school,33,5
+200910,National,E92000001,England,Special school,34,x
+200910,National,E92000001,England,Special school,35,x
+200910,National,E92000001,England,Special school,37,x
+200910,National,E92000001,England,Special school,38,x
+200910,National,E92000001,England,Special school,39,x
+200910,National,E92000001,England,Special school,40,5
+200910,National,E92000001,England,Special school,42,x
+200910,National,E92000001,England,Special school,43,x
+200809,National,E92000001,England,Total,Total,363275
+200809,National,E92000001,England,Total,0,35
+200809,National,E92000001,England,Total,1,131620
+200809,National,E92000001,England,Total,2,92840
+200809,National,E92000001,England,Total,3,62325
+200809,National,E92000001,England,Total,4,15385
+200809,National,E92000001,England,Total,5,49440
+200809,National,E92000001,England,Total,6,2015
+200809,National,E92000001,England,Total,7,1065
+200809,National,E92000001,England,Total,8,765
+200809,National,E92000001,England,Total,9,565
+200809,National,E92000001,England,Total,10,3320
+200809,National,E92000001,England,Total,11,365
+200809,National,E92000001,England,Total,12,380
+200809,National,E92000001,England,Total,13,285
+200809,National,E92000001,England,Total,14,285
+200809,National,E92000001,England,Total,15,1280
+200809,National,E92000001,England,Total,16,240
+200809,National,E92000001,England,Total,17,105
+200809,National,E92000001,England,Total,18,80
+200809,National,E92000001,England,Total,19,75
+200809,National,E92000001,England,Total,20,260
+200809,National,E92000001,England,Total,21,50
+200809,National,E92000001,England,Total,22,45
+200809,National,E92000001,England,Total,23,35
+200809,National,E92000001,England,Total,24,30
+200809,National,E92000001,England,Total,25,80
+200809,National,E92000001,England,Total,26,30
+200809,National,E92000001,England,Total,27,20
+200809,National,E92000001,England,Total,28,15
+200809,National,E92000001,England,Total,29,20
+200809,National,E92000001,England,Total,30,35
+200809,National,E92000001,England,Total,31,10
+200809,National,E92000001,England,Total,32,20
+200809,National,E92000001,England,Total,33,10
+200809,National,E92000001,England,Total,34,10
+200809,National,E92000001,England,Total,35,10
+200809,National,E92000001,England,Total,36,15
+200809,National,E92000001,England,Total,37,10
+200809,National,E92000001,England,Total,38,10
+200809,National,E92000001,England,Total,39,10
+200809,National,E92000001,England,Total,40,35
+200809,National,E92000001,England,Total,41,5
+200809,National,E92000001,England,Total,42,5
+200809,National,E92000001,England,Total,43,5
+200809,National,E92000001,England,Total,44,5
+200809,National,E92000001,England,Total,45,35
+200809,National,E92000001,England,Total,46 or more,x
+200809,National,E92000001,England,State-funded primary,Total,39510
+200809,National,E92000001,England,State-funded primary,1,16670
+200809,National,E92000001,England,State-funded primary,2,10195
+200809,National,E92000001,England,State-funded primary,3,5770
+200809,National,E92000001,England,State-funded primary,4,2030
+200809,National,E92000001,England,State-funded primary,5,3505
+200809,National,E92000001,England,State-funded primary,6,445
+200809,National,E92000001,England,State-funded primary,7,155
+200809,National,E92000001,England,State-funded primary,8,105
+200809,National,E92000001,England,State-funded primary,9,70
+200809,National,E92000001,England,State-funded primary,10,170
+200809,National,E92000001,England,State-funded primary,11,55
+200809,National,E92000001,England,State-funded primary,12,55
+200809,National,E92000001,England,State-funded primary,13,40
+200809,National,E92000001,England,State-funded primary,14,30
+200809,National,E92000001,England,State-funded primary,15,70
+200809,National,E92000001,England,State-funded primary,16,20
+200809,National,E92000001,England,State-funded primary,17,15
+200809,National,E92000001,England,State-funded primary,18,10
+200809,National,E92000001,England,State-funded primary,19,20
+200809,National,E92000001,England,State-funded primary,20,15
+200809,National,E92000001,England,State-funded primary,21,10
+200809,National,E92000001,England,State-funded primary,22,10
+200809,National,E92000001,England,State-funded primary,23,5
+200809,National,E92000001,England,State-funded primary,24,5
+200809,National,E92000001,England,State-funded primary,25,x
+200809,National,E92000001,England,State-funded primary,26,5
+200809,National,E92000001,England,State-funded primary,27,5
+200809,National,E92000001,England,State-funded primary,28,x
+200809,National,E92000001,England,State-funded primary,29,x
+200809,National,E92000001,England,State-funded primary,31,x
+200809,National,E92000001,England,State-funded primary,32,5
+200809,National,E92000001,England,State-funded primary,33,5
+200809,National,E92000001,England,State-funded primary,34,x
+200809,National,E92000001,England,State-funded primary,35,5
+200809,National,E92000001,England,State-funded primary,36,x
+200809,National,E92000001,England,State-funded primary,37,x
+200809,National,E92000001,England,State-funded primary,38,x
+200809,National,E92000001,England,State-funded primary,39,x
+200809,National,E92000001,England,State-funded primary,40,5
+200809,National,E92000001,England,State-funded primary,43,x
+200809,National,E92000001,England,State-funded primary,45,5
+200809,National,E92000001,England,State-funded secondary,Total,307840
+200809,National,E92000001,England,State-funded secondary,0,35
+200809,National,E92000001,England,State-funded secondary,1,107415
+200809,National,E92000001,England,State-funded secondary,2,78865
+200809,National,E92000001,England,State-funded secondary,3,54525
+200809,National,E92000001,England,State-funded secondary,4,12585
+200809,National,E92000001,England,State-funded secondary,5,44630
+200809,National,E92000001,England,State-funded secondary,6,1460
+200809,National,E92000001,England,State-funded secondary,7,860
+200809,National,E92000001,England,State-funded secondary,8,620
+200809,National,E92000001,England,State-funded secondary,9,460
+200809,National,E92000001,England,State-funded secondary,10,3050
+200809,National,E92000001,England,State-funded secondary,11,290
+200809,National,E92000001,England,State-funded secondary,12,310
+200809,National,E92000001,England,State-funded secondary,13,230
+200809,National,E92000001,England,State-funded secondary,14,245
+200809,National,E92000001,England,State-funded secondary,15,1175
+200809,National,E92000001,England,State-funded secondary,16,210
+200809,National,E92000001,England,State-funded secondary,17,80
+200809,National,E92000001,England,State-funded secondary,18,70
+200809,National,E92000001,England,State-funded secondary,19,50
+200809,National,E92000001,England,State-funded secondary,20,235
+200809,National,E92000001,England,State-funded secondary,21,40
+200809,National,E92000001,England,State-funded secondary,22,30
+200809,National,E92000001,England,State-funded secondary,23,25
+200809,National,E92000001,England,State-funded secondary,24,25
+200809,National,E92000001,England,State-funded secondary,25,75
+200809,National,E92000001,England,State-funded secondary,26,20
+200809,National,E92000001,England,State-funded secondary,27,15
+200809,National,E92000001,England,State-funded secondary,28,10
+200809,National,E92000001,England,State-funded secondary,29,20
+200809,National,E92000001,England,State-funded secondary,30,35
+200809,National,E92000001,England,State-funded secondary,31,10
+200809,National,E92000001,England,State-funded secondary,32,15
+200809,National,E92000001,England,State-funded secondary,33,5
+200809,National,E92000001,England,State-funded secondary,34,10
+200809,National,E92000001,England,State-funded secondary,35,10
+200809,National,E92000001,England,State-funded secondary,36,10
+200809,National,E92000001,England,State-funded secondary,37,5
+200809,National,E92000001,England,State-funded secondary,38,10
+200809,National,E92000001,England,State-funded secondary,39,5
+200809,National,E92000001,England,State-funded secondary,40,30
+200809,National,E92000001,England,State-funded secondary,41,5
+200809,National,E92000001,England,State-funded secondary,42,5
+200809,National,E92000001,England,State-funded secondary,43,5
+200809,National,E92000001,England,State-funded secondary,44,5
+200809,National,E92000001,England,State-funded secondary,45,25
+200809,National,E92000001,England,Special school,Total,15930
+200809,National,E92000001,England,Special school,1,7535
+200809,National,E92000001,England,Special school,2,3780
+200809,National,E92000001,England,Special school,3,2025
+200809,National,E92000001,England,Special school,4,770
+200809,National,E92000001,England,Special school,5,1310
+200809,National,E92000001,England,Special school,6,110
+200809,National,E92000001,England,Special school,7,50
+200809,National,E92000001,England,Special school,8,40
+200809,National,E92000001,England,Special school,9,35
+200809,National,E92000001,England,Special school,10,100
+200809,National,E92000001,England,Special school,11,25
+200809,National,E92000001,England,Special school,12,15
+200809,National,E92000001,England,Special school,13,15
+200809,National,E92000001,England,Special school,14,10
+200809,National,E92000001,England,Special school,15,35
+200809,National,E92000001,England,Special school,16,10
+200809,National,E92000001,England,Special school,17,10
+200809,National,E92000001,England,Special school,18,x
+200809,National,E92000001,England,Special school,19,5
+200809,National,E92000001,England,Special school,20,10
+200809,National,E92000001,England,Special school,21,x
+200809,National,E92000001,England,Special school,22,5
+200809,National,E92000001,England,Special school,23,x
+200809,National,E92000001,England,Special school,25,5
+200809,National,E92000001,England,Special school,26,x
+200809,National,E92000001,England,Special school,28,x
+200809,National,E92000001,England,Special school,30,5
+200809,National,E92000001,England,Special school,31,x
+200809,National,E92000001,England,Special school,32,5
+200809,National,E92000001,England,Special school,33,x
+200809,National,E92000001,England,Special school,34,x
+200809,National,E92000001,England,Special school,35,x
+200809,National,E92000001,England,Special school,36,5
+200809,National,E92000001,England,Special school,37,x
+200809,National,E92000001,England,Special school,38,x
+200809,National,E92000001,England,Special school,40,x
+200809,National,E92000001,England,Special school,41,x
+200809,National,E92000001,England,Special school,42,x
+200809,National,E92000001,England,Special school,44,x
+200809,National,E92000001,England,Special school,45,5
+200809,National,E92000001,England,Special school,46 or more,x
+200708,National,E92000001,England,Total,Total,383830
+200708,National,E92000001,England,Total,1,134035
+200708,National,E92000001,England,Total,2,97160
+200708,National,E92000001,England,Total,3,66865
+200708,National,E92000001,England,Total,4,18255
+200708,National,E92000001,England,Total,5,55655
+200708,National,E92000001,England,Total,6,2210
+200708,National,E92000001,England,Total,7,1080
+200708,National,E92000001,England,Total,8,710
+200708,National,E92000001,England,Total,9,595
+200708,National,E92000001,England,Total,10,3180
+200708,National,E92000001,England,Total,11,395
+200708,National,E92000001,England,Total,12,335
+200708,National,E92000001,England,Total,13,220
+200708,National,E92000001,England,Total,14,305
+200708,National,E92000001,England,Total,15,1290
+200708,National,E92000001,England,Total,16,280
+200708,National,E92000001,England,Total,17,100
+200708,National,E92000001,England,Total,18,90
+200708,National,E92000001,England,Total,19,60
+200708,National,E92000001,England,Total,20,290
+200708,National,E92000001,England,Total,21,60
+200708,National,E92000001,England,Total,22,45
+200708,National,E92000001,England,Total,23,35
+200708,National,E92000001,England,Total,24,50
+200708,National,E92000001,England,Total,25,90
+200708,National,E92000001,England,Total,26,25
+200708,National,E92000001,England,Total,27,20
+200708,National,E92000001,England,Total,28,35
+200708,National,E92000001,England,Total,29,25
+200708,National,E92000001,England,Total,30,60
+200708,National,E92000001,England,Total,31,30
+200708,National,E92000001,England,Total,32,25
+200708,National,E92000001,England,Total,33,20
+200708,National,E92000001,England,Total,34,25
+200708,National,E92000001,England,Total,35,20
+200708,National,E92000001,England,Total,36,10
+200708,National,E92000001,England,Total,37,10
+200708,National,E92000001,England,Total,38,15
+200708,National,E92000001,England,Total,39,10
+200708,National,E92000001,England,Total,40,20
+200708,National,E92000001,England,Total,41,5
+200708,National,E92000001,England,Total,42,10
+200708,National,E92000001,England,Total,43,5
+200708,National,E92000001,England,Total,44,15
+200708,National,E92000001,England,Total,45,45
+200708,National,E92000001,England,Total,46 or more,5
+200708,National,E92000001,England,State-funded primary,Total,43295
+200708,National,E92000001,England,State-funded primary,1,18350
+200708,National,E92000001,England,State-funded primary,2,10775
+200708,National,E92000001,England,State-funded primary,3,6190
+200708,National,E92000001,England,State-funded primary,4,2340
+200708,National,E92000001,England,State-funded primary,5,4290
+200708,National,E92000001,England,State-funded primary,6,455
+200708,National,E92000001,England,State-funded primary,7,175
+200708,National,E92000001,England,State-funded primary,8,90
+200708,National,E92000001,England,State-funded primary,9,75
+200708,National,E92000001,England,State-funded primary,10,160
+200708,National,E92000001,England,State-funded primary,11,45
+200708,National,E92000001,England,State-funded primary,12,45
+200708,National,E92000001,England,State-funded primary,13,20
+200708,National,E92000001,England,State-funded primary,14,30
+200708,National,E92000001,England,State-funded primary,15,90
+200708,National,E92000001,England,State-funded primary,16,25
+200708,National,E92000001,England,State-funded primary,17,15
+200708,National,E92000001,England,State-funded primary,18,10
+200708,National,E92000001,England,State-funded primary,19,5
+200708,National,E92000001,England,State-funded primary,20,15
+200708,National,E92000001,England,State-funded primary,21,5
+200708,National,E92000001,England,State-funded primary,22,5
+200708,National,E92000001,England,State-funded primary,23,5
+200708,National,E92000001,England,State-funded primary,24,10
+200708,National,E92000001,England,State-funded primary,25,5
+200708,National,E92000001,England,State-funded primary,26,x
+200708,National,E92000001,England,State-funded primary,27,5
+200708,National,E92000001,England,State-funded primary,28,5
+200708,National,E92000001,England,State-funded primary,29,5
+200708,National,E92000001,England,State-funded primary,30,5
+200708,National,E92000001,England,State-funded primary,31,5
+200708,National,E92000001,England,State-funded primary,32,x
+200708,National,E92000001,England,State-funded primary,33,5
+200708,National,E92000001,England,State-funded primary,34,x
+200708,National,E92000001,England,State-funded primary,36,5
+200708,National,E92000001,England,State-funded primary,37,x
+200708,National,E92000001,England,State-funded primary,38,x
+200708,National,E92000001,England,State-funded primary,39,5
+200708,National,E92000001,England,State-funded primary,40,x
+200708,National,E92000001,England,State-funded primary,42,x
+200708,National,E92000001,England,State-funded primary,43,x
+200708,National,E92000001,England,State-funded primary,45,5
+200708,National,E92000001,England,State-funded secondary,Total,324185
+200708,National,E92000001,England,State-funded secondary,1,107995
+200708,National,E92000001,England,State-funded secondary,2,82620
+200708,National,E92000001,England,State-funded secondary,3,58435
+200708,National,E92000001,England,State-funded secondary,4,15140
+200708,National,E92000001,England,State-funded secondary,5,49945
+200708,National,E92000001,England,State-funded secondary,6,1640
+200708,National,E92000001,England,State-funded secondary,7,850
+200708,National,E92000001,England,State-funded secondary,8,585
+200708,National,E92000001,England,State-funded secondary,9,500
+200708,National,E92000001,England,State-funded secondary,10,2935
+200708,National,E92000001,England,State-funded secondary,11,330
+200708,National,E92000001,England,State-funded secondary,12,285
+200708,National,E92000001,England,State-funded secondary,13,185
+200708,National,E92000001,England,State-funded secondary,14,265
+200708,National,E92000001,England,State-funded secondary,15,1155
+200708,National,E92000001,England,State-funded secondary,16,250
+200708,National,E92000001,England,State-funded secondary,17,80
+200708,National,E92000001,England,State-funded secondary,18,80
+200708,National,E92000001,England,State-funded secondary,19,50
+200708,National,E92000001,England,State-funded secondary,20,270
+200708,National,E92000001,England,State-funded secondary,21,50
+200708,National,E92000001,England,State-funded secondary,22,35
+200708,National,E92000001,England,State-funded secondary,23,30
+200708,National,E92000001,England,State-funded secondary,24,40
+200708,National,E92000001,England,State-funded secondary,25,80
+200708,National,E92000001,England,State-funded secondary,26,25
+200708,National,E92000001,England,State-funded secondary,27,15
+200708,National,E92000001,England,State-funded secondary,28,30
+200708,National,E92000001,England,State-funded secondary,29,25
+200708,National,E92000001,England,State-funded secondary,30,55
+200708,National,E92000001,England,State-funded secondary,31,25
+200708,National,E92000001,England,State-funded secondary,32,20
+200708,National,E92000001,England,State-funded secondary,33,10
+200708,National,E92000001,England,State-funded secondary,34,20
+200708,National,E92000001,England,State-funded secondary,35,20
+200708,National,E92000001,England,State-funded secondary,36,5
+200708,National,E92000001,England,State-funded secondary,37,5
+200708,National,E92000001,England,State-funded secondary,38,10
+200708,National,E92000001,England,State-funded secondary,39,10
+200708,National,E92000001,England,State-funded secondary,40,20
+200708,National,E92000001,England,State-funded secondary,41,5
+200708,National,E92000001,England,State-funded secondary,42,10
+200708,National,E92000001,England,State-funded secondary,43,5
+200708,National,E92000001,England,State-funded secondary,44,15
+200708,National,E92000001,England,State-funded secondary,45,40
+200708,National,E92000001,England,State-funded secondary,46 or more,5
+200708,National,E92000001,England,Special school,Total,16355
+200708,National,E92000001,England,Special school,1,7690
+200708,National,E92000001,England,Special school,2,3765
+200708,National,E92000001,England,Special school,3,2240
+200708,National,E92000001,England,Special school,4,770
+200708,National,E92000001,England,Special school,5,1420
+200708,National,E92000001,England,Special school,6,115
+200708,National,E92000001,England,Special school,7,55
+200708,National,E92000001,England,Special school,8,40
+200708,National,E92000001,England,Special school,9,20
+200708,National,E92000001,England,Special school,10,85
+200708,National,E92000001,England,Special school,11,20
+200708,National,E92000001,England,Special school,12,5
+200708,National,E92000001,England,Special school,13,15
+200708,National,E92000001,England,Special school,14,10
+200708,National,E92000001,England,Special school,15,40
+200708,National,E92000001,England,Special school,16,5
+200708,National,E92000001,England,Special school,17,5
+200708,National,E92000001,England,Special school,18,x
+200708,National,E92000001,England,Special school,19,5
+200708,National,E92000001,England,Special school,20,5
+200708,National,E92000001,England,Special school,21,x
+200708,National,E92000001,England,Special school,22,x
+200708,National,E92000001,England,Special school,23,x
+200708,National,E92000001,England,Special school,24,x
+200708,National,E92000001,England,Special school,25,5
+200708,National,E92000001,England,Special school,26,x
+200708,National,E92000001,England,Special school,27,x
+200708,National,E92000001,England,Special school,30,x
+200708,National,E92000001,England,Special school,32,5
+200708,National,E92000001,England,Special school,33,x
+200708,National,E92000001,England,Special school,34,5
+200708,National,E92000001,England,Special school,36,x
+200708,National,E92000001,England,Special school,40,x
+200708,National,E92000001,England,Special school,42,x
+200708,National,E92000001,England,Special school,43,x
+200708,National,E92000001,England,Special school,44,x
+200708,National,E92000001,England,Special school,45,x
+200607,National,E92000001,England,Total,Total,425590
+200607,National,E92000001,England,Total,0,370
+200607,National,E92000001,England,Total,1,132455
+200607,National,E92000001,England,Total,2,101910
+200607,National,E92000001,England,Total,3,77570
+200607,National,E92000001,England,Total,4,20960
+200607,National,E92000001,England,Total,5,48990
+200607,National,E92000001,England,Total,6,7115
+200607,National,E92000001,England,Total,7,5250
+200607,National,E92000001,England,Total,8,3505
+200607,National,E92000001,England,Total,9,2320
+200607,National,E92000001,England,Total,10,11105
+200607,National,E92000001,England,Total,11,1505
+200607,National,E92000001,England,Total,12,1330
+200607,National,E92000001,England,Total,13,880
+200607,National,E92000001,England,Total,14,1275
+200607,National,E92000001,England,Total,15,4090
+200607,National,E92000001,England,Total,16,920
+200607,National,E92000001,England,Total,17,345
+200607,National,E92000001,England,Total,18,265
+200607,National,E92000001,England,Total,19,240
+200607,National,E92000001,England,Total,20,820
+200607,National,E92000001,England,Total,21,205
+200607,National,E92000001,England,Total,22,160
+200607,National,E92000001,England,Total,23,125
+200607,National,E92000001,England,Total,24,150
+200607,National,E92000001,England,Total,25,290
+200607,National,E92000001,England,Total,26,75
+200607,National,E92000001,England,Total,27,70
+200607,National,E92000001,England,Total,28,85
+200607,National,E92000001,England,Total,29,85
+200607,National,E92000001,England,Total,30,195
+200607,National,E92000001,England,Total,31,65
+200607,National,E92000001,England,Total,32,55
+200607,National,E92000001,England,Total,33,50
+200607,National,E92000001,England,Total,34,45
+200607,National,E92000001,England,Total,35,90
+200607,National,E92000001,England,Total,36,40
+200607,National,E92000001,England,Total,37,40
+200607,National,E92000001,England,Total,38,30
+200607,National,E92000001,England,Total,39,40
+200607,National,E92000001,England,Total,40,90
+200607,National,E92000001,England,Total,41,25
+200607,National,E92000001,England,Total,42,45
+200607,National,E92000001,England,Total,43,30
+200607,National,E92000001,England,Total,44,55
+200607,National,E92000001,England,Total,45,190
+200607,National,E92000001,England,Total,46 or more,45
+200607,National,E92000001,England,State-funded primary,Total,45720
+200607,National,E92000001,England,State-funded primary,0,35
+200607,National,E92000001,England,State-funded primary,1,18015
+200607,National,E92000001,England,State-funded primary,2,11125
+200607,National,E92000001,England,State-funded primary,3,6790
+200607,National,E92000001,England,State-funded primary,4,2570
+200607,National,E92000001,England,State-funded primary,5,3510
+200607,National,E92000001,England,State-funded primary,6,810
+200607,National,E92000001,England,State-funded primary,7,505
+200607,National,E92000001,England,State-funded primary,8,310
+200607,National,E92000001,England,State-funded primary,9,240
+200607,National,E92000001,England,State-funded primary,10,510
+200607,National,E92000001,England,State-funded primary,11,185
+200607,National,E92000001,England,State-funded primary,12,135
+200607,National,E92000001,England,State-funded primary,13,115
+200607,National,E92000001,England,State-funded primary,14,95
+200607,National,E92000001,England,State-funded primary,15,250
+200607,National,E92000001,England,State-funded primary,16,65
+200607,National,E92000001,England,State-funded primary,17,55
+200607,National,E92000001,England,State-funded primary,18,30
+200607,National,E92000001,England,State-funded primary,19,30
+200607,National,E92000001,England,State-funded primary,20,55
+200607,National,E92000001,England,State-funded primary,21,30
+200607,National,E92000001,England,State-funded primary,22,25
+200607,National,E92000001,England,State-funded primary,23,20
+200607,National,E92000001,England,State-funded primary,24,5
+200607,National,E92000001,England,State-funded primary,25,20
+200607,National,E92000001,England,State-funded primary,26,10
+200607,National,E92000001,England,State-funded primary,27,10
+200607,National,E92000001,England,State-funded primary,28,10
+200607,National,E92000001,England,State-funded primary,29,15
+200607,National,E92000001,England,State-funded primary,30,20
+200607,National,E92000001,England,State-funded primary,31,10
+200607,National,E92000001,England,State-funded primary,32,10
+200607,National,E92000001,England,State-funded primary,33,5
+200607,National,E92000001,England,State-funded primary,34,5
+200607,National,E92000001,England,State-funded primary,35,10
+200607,National,E92000001,England,State-funded primary,36,5
+200607,National,E92000001,England,State-funded primary,37,5
+200607,National,E92000001,England,State-funded primary,38,5
+200607,National,E92000001,England,State-funded primary,39,5
+200607,National,E92000001,England,State-funded primary,40,10
+200607,National,E92000001,England,State-funded primary,41,5
+200607,National,E92000001,England,State-funded primary,42,10
+200607,National,E92000001,England,State-funded primary,43,10
+200607,National,E92000001,England,State-funded primary,44,10
+200607,National,E92000001,England,State-funded primary,45,10
+200607,National,E92000001,England,State-funded primary,46 or more,10
+200607,National,E92000001,England,State-funded secondary,Total,363270
+200607,National,E92000001,England,State-funded secondary,0,315
+200607,National,E92000001,England,State-funded secondary,1,106720
+200607,National,E92000001,England,State-funded secondary,2,87335
+200607,National,E92000001,England,State-funded secondary,3,68685
+200607,National,E92000001,England,State-funded secondary,4,17500
+200607,National,E92000001,England,State-funded secondary,5,44365
+200607,National,E92000001,England,State-funded secondary,6,6060
+200607,National,E92000001,England,State-funded secondary,7,4555
+200607,National,E92000001,England,State-funded secondary,8,3095
+200607,National,E92000001,England,State-funded secondary,9,2005
+200607,National,E92000001,England,State-funded secondary,10,10380
+200607,National,E92000001,England,State-funded secondary,11,1270
+200607,National,E92000001,England,State-funded secondary,12,1140
+200607,National,E92000001,England,State-funded secondary,13,745
+200607,National,E92000001,England,State-funded secondary,14,1145
+200607,National,E92000001,England,State-funded secondary,15,3735
+200607,National,E92000001,England,State-funded secondary,16,830
+200607,National,E92000001,England,State-funded secondary,17,270
+200607,National,E92000001,England,State-funded secondary,18,215
+200607,National,E92000001,England,State-funded secondary,19,200
+200607,National,E92000001,England,State-funded secondary,20,745
+200607,National,E92000001,England,State-funded secondary,21,165
+200607,National,E92000001,England,State-funded secondary,22,130
+200607,National,E92000001,England,State-funded secondary,23,95
+200607,National,E92000001,England,State-funded secondary,24,135
+200607,National,E92000001,England,State-funded secondary,25,260
+200607,National,E92000001,England,State-funded secondary,26,60
+200607,National,E92000001,England,State-funded secondary,27,55
+200607,National,E92000001,England,State-funded secondary,28,70
+200607,National,E92000001,England,State-funded secondary,29,65
+200607,National,E92000001,England,State-funded secondary,30,170
+200607,National,E92000001,England,State-funded secondary,31,50
+200607,National,E92000001,England,State-funded secondary,32,45
+200607,National,E92000001,England,State-funded secondary,33,40
+200607,National,E92000001,England,State-funded secondary,34,35
+200607,National,E92000001,England,State-funded secondary,35,75
+200607,National,E92000001,England,State-funded secondary,36,30
+200607,National,E92000001,England,State-funded secondary,37,35
+200607,National,E92000001,England,State-funded secondary,38,25
+200607,National,E92000001,England,State-funded secondary,39,35
+200607,National,E92000001,England,State-funded secondary,40,75
+200607,National,E92000001,England,State-funded secondary,41,20
+200607,National,E92000001,England,State-funded secondary,42,35
+200607,National,E92000001,England,State-funded secondary,43,15
+200607,National,E92000001,England,State-funded secondary,44,45
+200607,National,E92000001,England,State-funded secondary,45,170
+200607,National,E92000001,England,State-funded secondary,46 or more,25
+200607,National,E92000001,England,Special school,Total,16600
+200607,National,E92000001,England,Special school,0,15
+200607,National,E92000001,England,Special school,1,7715
+200607,National,E92000001,England,Special school,2,3450
+200607,National,E92000001,England,Special school,3,2095
+200607,National,E92000001,England,Special school,4,885
+200607,National,E92000001,England,Special school,5,1115
+200607,National,E92000001,England,Special school,6,245
+200607,National,E92000001,England,Special school,7,190
+200607,National,E92000001,England,Special school,8,105
+200607,National,E92000001,England,Special school,9,80
+200607,National,E92000001,England,Special school,10,215
+200607,National,E92000001,England,Special school,11,50
+200607,National,E92000001,England,Special school,12,50
+200607,National,E92000001,England,Special school,13,25
+200607,National,E92000001,England,Special school,14,35
+200607,National,E92000001,England,Special school,15,105
+200607,National,E92000001,England,Special school,16,25
+200607,National,E92000001,England,Special school,17,15
+200607,National,E92000001,England,Special school,18,20
+200607,National,E92000001,England,Special school,19,10
+200607,National,E92000001,England,Special school,20,20
+200607,National,E92000001,England,Special school,21,15
+200607,National,E92000001,England,Special school,22,10
+200607,National,E92000001,England,Special school,23,10
+200607,National,E92000001,England,Special school,24,10
+200607,National,E92000001,England,Special school,25,15
+200607,National,E92000001,England,Special school,26,5
+200607,National,E92000001,England,Special school,27,5
+200607,National,E92000001,England,Special school,28,5
+200607,National,E92000001,England,Special school,29,5
+200607,National,E92000001,England,Special school,30,5
+200607,National,E92000001,England,Special school,31,5
+200607,National,E92000001,England,Special school,32,x
+200607,National,E92000001,England,Special school,33,5
+200607,National,E92000001,England,Special school,34,5
+200607,National,E92000001,England,Special school,35,x
+200607,National,E92000001,England,Special school,36,x
+200607,National,E92000001,England,Special school,37,x
+200607,National,E92000001,England,Special school,39,x
+200607,National,E92000001,England,Special school,40,5
+200607,National,E92000001,England,Special school,41,x
+200607,National,E92000001,England,Special school,42,x
+200607,National,E92000001,England,Special school,43,x
+200607,National,E92000001,England,Special school,44,5
+200607,National,E92000001,England,Special school,45,10
+200607,National,E92000001,England,Special school,46 or more,10
