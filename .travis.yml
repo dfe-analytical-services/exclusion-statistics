@@ -4,7 +4,7 @@ before_install:
 - sudo mkdir -p /usr/lib/R/library
 - echo 'R_LIBS=/usr/lib/R/library:/usr/lib/R/site-library/' > ~/.Renviron
 - sudo chmod 2777 /usr/lib/R/library
-- sudo apt-get install libproj-dev libgdal-dev libv8-3.14-dev
+- sudo apt-get install libproj-dev libgdal-dev libv8-3.14-dev libprotobuf-dev
 install:
 - R -e "0" --args --bootstrap-packrat
 cache:
@@ -19,3 +19,12 @@ addons:
   sauce_connect:
     username: "$SAUCE_USERNAME"
     access_key: "$SAUCE_SECRET_KEY"
+deploy:
+  provider: script
+  script: 
+  - R -f deploy.R
+  skip_cleanup: true
+  on: 
+    branch: master
+    repo: DFEAGILEDEVOPS/exclusion-statistics
+    
