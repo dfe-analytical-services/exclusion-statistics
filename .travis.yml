@@ -4,7 +4,7 @@ before_install:
 - sudo mkdir -p /usr/lib/R/library
 - echo 'R_LIBS=/usr/lib/R/library:/usr/lib/R/site-library/' > ~/.Renviron
 - sudo chmod 2777 /usr/lib/R/library
-- sudo apt-get install libproj-dev libgdal-dev libv8-3.14-dev libprotobuf-dev
+- sudo apt-get install libproj-dev libgdal-dev libv8-3.14-dev libprotobuf-dev protobuf-compiler 
 install:
 - R -e "0" --args --bootstrap-packrat
 cache:
