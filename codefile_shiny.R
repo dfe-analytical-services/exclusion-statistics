@@ -16,7 +16,7 @@ library(pander)
 #library(ggplot2)
 library(tidyverse)
 #library(dplyr)
-#library(shinycssloaders)
+library(shinycssloaders)
 library(plotly)
 
 library(DT)

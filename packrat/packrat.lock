@@ -576,8 +576,13 @@ Package: shiny
 Source: CRAN
 Version: 1.0.5
 Hash: 4d47532a807122bfd6bc3818310f9d2e
-Requires: R6, digest, htmltools, httpuv, jsonlite, mime, sourcetools,
-    xtable
+Requires: R6, digest, jsonlite, mime, sourcetools, xtable, httpuv,
+    htmltools
+
+Package: shinycssloaders
+Source: CRAN
+Version: 0.2.0
+Requires: digest, glue, shiny
 
 Package: sourcetools
 Source: CRAN
