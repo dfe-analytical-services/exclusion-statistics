@@ -576,12 +576,13 @@ Package: shiny
 Source: CRAN
 Version: 1.0.5
 Hash: 4d47532a807122bfd6bc3818310f9d2e
-Requires: R6, digest, jsonlite, mime, sourcetools, xtable, httpuv,
-    htmltools
+Requires: R6, digest, htmltools, httpuv, jsonlite, mime, sourcetools,
+    xtable
 
 Package: shinycssloaders
 Source: CRAN
 Version: 0.2.0
+Hash: a6b8033e66d69998a2b54059e6d53476
 Requires: digest, glue, shiny
 
 Package: sourcetools
@@ -637,12 +638,11 @@ Requires: Rcpp, glue, purrr, rlang
 
 Package: tidyverse
 Source: CRAN
-Version: 1.2.0
-Hash: f8b6d54478ec191e3a5ddcf82ba8d5ca
-Requires: broom, cli, crayon, dbplyr, dplyr, forcats, ggplot2, haven,
-    hms, httr, jsonlite, lubridate, magrittr, modelr, purrr, readr,
-    readxl, reprex, rlang, rstudioapi, rvest, stringr, tibble, tidyr,
-    xml2
+Version: 1.1.1
+Hash: 72d5fada870c90b835bbdfc281283c99
+Requires: broom, dplyr, forcats, ggplot2, haven, hms, httr, jsonlite,
+    lubridate, magrittr, modelr, purrr, readr, readxl, rvest, stringr,
+    tibble, tidyr, xml2
 
 Package: viridis
 Source: CRAN
