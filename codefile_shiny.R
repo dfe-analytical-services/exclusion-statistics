@@ -523,30 +523,36 @@ nat_summary <-
 
 national_bars <- function(category) {
   if (category == 'P') {
-    p_bar_g <- filter(nat_summary, school_type == 'total') %>%
+
+    data <- filter(nat_summary, school_type == 'total') %>%
       mutate(year = as.factor(year),
-             value = as.numeric(perm_excl_rate)) %>%
+             value = as.numeric(perm_excl_rate))
+      
+      p_bar_g <- data %>% 
       ggplot(aes(x = formatyr(year), y = value)) +
       geom_bar(fill = 'dodgerblue4', stat = "identity") +
       theme_classic() +
       ylab("Permanent exclusion rate") +
       xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(value + 0.01), 0.02)) +
+      scale_y_continuous(breaks = seq(0, max(data$value + 0.01), 0.02)) +
       theme(axis.title.x = element_blank())
     
     return(ggplotly(p_bar_g))
   }
   
   if (category == 'F') {
-    f_bar_g <- filter(nat_summary, school_type == 'total') %>%
+    
+    data <- filter(nat_summary, school_type == 'total') %>%
       mutate(year = as.factor(year),
-             value = as.numeric(fixed_excl_rate)) %>%
+             value = as.numeric(fixed_excl_rate))
+      
+    f_bar_g <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
       geom_bar(fill = 'dodgerblue3', stat = "identity") +
       theme_classic() +
       ylab("Fixed period exclusion rate") +
       xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(value + 0.5), 0.50)) +
+      scale_y_continuous(breaks = seq(0, max(data$value + 0.5), 0.50)) +
       theme(axis.title.x = element_blank())
     
     return(ggplotly(f_bar_g))
