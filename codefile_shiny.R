@@ -531,7 +531,7 @@ national_bars <- function(category) {
       theme_classic() +
       ylab("Permanent exclusion rate") +
       xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(pd$value + 0.01), 0.02)) +
+      scale_y_continuous(breaks = seq(0, max(value + 0.01), 0.02)) +
       theme(axis.title.x = element_blank())
     
     return(ggplotly(p_bar_g))
@@ -546,7 +546,7 @@ national_bars <- function(category) {
       theme_classic() +
       ylab("Fixed period exclusion rate") +
       xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(fd$value + 0.5), 0.50)) +
+      scale_y_continuous(breaks = seq(0, max(value + 0.5), 0.50)) +
       theme(axis.title.x = element_blank())
     
     return(ggplotly(f_bar_g))
