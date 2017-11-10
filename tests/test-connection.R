@@ -30,7 +30,7 @@ test_that("Can connect to app", {
   remDr$navigate(appURL)
   Sys.sleep(2)
   appTitle <- remDr$getTitle()[[1]]
-  expect_equal(appTitle, "Exclusion Statistics")  
+  expect_equal(appTitle, "Exclusion statistics")  
 })
 
 remDr$close()
