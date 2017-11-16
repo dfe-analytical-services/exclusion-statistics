@@ -1,4 +1,4 @@
-# Exclusion Statistics
+# Exclusion Statistics [![Build Status](https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master)](https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master)
 
 ## Summary
 
@@ -16,10 +16,15 @@ To run the project on your machine you need to do the following:
 
 2. Ensure that you have [Rtools](https://cran.r-project.org/bin/windows/Rtools/) installed. This is so that packrat can install dependencies correctly.
 
-3. Open the project by double clicking the schools_working_benchmarking.Rproj file.
+3. Open the project by double clicking the exclusion-statistics.Rproj file.
 
 4. Wait for packrat to install the packages (this can take a while). Until you see the following do not stop the code:
 
 `Packrat bootstrap successfully completed. Restarting R and entering packrat mode...`
    
 5. Open the UI.R or Server.R file and hit Run App.    
+
+https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master
+
+
+

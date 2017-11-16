@@ -43,7 +43,8 @@ formatyr <- function(refyear) {
 # load main_ud file
 # includes main measures at school, la, region and national level for 2006/07 to 2015/16
 
-main_ud <- read_csv('data/SFR35_2017_national_region_la_school_data.csv')
+main_ud <- read_csv('data/SFR35_2017_national_region_la_school_data.csv', col_types = cols(.default = "c"))
+
 
 #glimpse(main_ud)
 
@@ -51,13 +52,13 @@ main_ud <- read_csv('data/SFR35_2017_national_region_la_school_data.csv')
 # load reason_ud file
 # includes la, region and national level for 2006/07 to 2015/16
 # 
-reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv")
+reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = cols(.default = "c"))
 
 # head(reason_ud)
 
 # characteristics UD
 
-char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv')
+char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
 ####
 # 5. LA trends plot 
@@ -82,7 +83,7 @@ la_plot_data <-
            ifelse(school_type == "special", "Special", 
                   ifelse(school_type == "total", "Total", "NA")))))
 
-
+la <- 'Darlington'
 la_plot_rate <- function(la, category) {
   
   if(category=='P') {
@@ -94,16 +95,15 @@ la_plot_rate <- function(la, category) {
       ggplot +
       aes(x = as.factor(formatyr(year)), 
           y = as.numeric(perm_excl_rate), 
-          group = school_type, colour = school_type) +
+          group = school_type, colour = as.factor(school_type)) +
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab("Permanent exclusion percentage") +
       scale_y_continuous(limits = c(0, max(as.numeric(d$perm_excl_rate))+0.01)) +
       theme_classic() +
       geom_text(
-        d = d %>% filter(year == min(year)+101),
+        d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = school_type),
-        position = position_nudge(y=0.1),
         size = 5,
         hjust = 0,
         vjust = -1) +
@@ -122,16 +122,15 @@ la_plot_rate <- function(la, category) {
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(fixed_excl_rate), 
-            group = school_type, colour = school_type) +
+            group = school_type, colour = as.factor(school_type)) +
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab("Fixed period exclusion percentage") +
         scale_y_continuous(limits = c(0, max(as.numeric(d$fixed_excl_rate))+1)) +
         theme_classic() +
         geom_text(
-          d = d %>% filter(year == min(year)+101),
+          d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = school_type),
-          position = position_nudge(y=0.1),
           size = 5,
           hjust = 0,
           vjust = -1) +
@@ -150,16 +149,15 @@ la_plot_rate <- function(la, category) {
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(one_or_more_fixed_excl_rate), 
-            group = school_type, colour = school_type) +
+            group = school_type, colour = as.factor(school_type)) +
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab("One or more fixed period exclusion percentage") +
         scale_y_continuous(limits = c(0, max(as.numeric(d$one_or_more_fixed_excl_rate))+1)) +
         theme_classic() +
         geom_text(
-          d = d %>% filter(year == min(year)+101),
+          d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = school_type),
-          position = position_nudge(y=0.1),
           size = 5,
           hjust = 0,
           vjust = -1) +
@@ -185,16 +183,15 @@ la_plot_num <- function(la, category) {
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(perm_excl), 
-            group = school_type, colour = school_type) +
+            group = school_type, colour = as.factor(school_type)) +
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab("Permanent exclusions") +
         scale_y_continuous(limits = c(0, max(as.numeric(d$perm_excl))+0.05)) +
         theme_classic() +
         geom_text(
-          d = d %>% filter(year == min(year)+101),
+          d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = school_type),
-          position = position_nudge(y=0.1),
           size = 5,
           hjust = 0,
           vjust = -1) +
@@ -213,16 +210,15 @@ la_plot_num <- function(la, category) {
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(fixed_excl), 
-            group = school_type, colour = school_type) +
+            group = school_type, colour = as.factor(school_type)) +
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab("Fixed period exclusions") +
         scale_y_continuous(limits = c(0, max(as.numeric(d$fixed_excl))+1)) +
         theme_classic() +
         geom_text(
-          d = d %>% filter(year == min(year)+101),
+          d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = school_type),
-          position = position_nudge(y=0.1),
           size = 5,
           hjust = 0,
           vjust = -1) +
@@ -241,16 +237,15 @@ la_plot_num <- function(la, category) {
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(one_plus_fixed), 
-            group = school_type, colour = school_type) +
+            group = school_type, colour = as.factor(school_type)) +
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab("One or more fixed period exclusions") +
         scale_y_continuous(limits = c(0, max(as.numeric(d$one_plus_fixed))+1)) +
         theme_classic() +
         geom_text(
-          d = d %>% filter(year == min(year)+101),
+          d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = school_type),
-          position = position_nudge(y=0.1),
           size = 5,
           hjust = 0,
           vjust = -1) +
