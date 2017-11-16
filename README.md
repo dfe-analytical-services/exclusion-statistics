@@ -1,4 +1,4 @@
-# Exclusion Statistics
+# Exclusion Statistics [![Build Status](https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master)](https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master)
 
 ## Summary
 
@@ -25,3 +25,6 @@ To run the project on your machine you need to do the following:
 5. Open the UI.R or Server.R file and hit Run App.    
 
 https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master
+
+
+
