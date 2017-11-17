@@ -172,9 +172,10 @@ shinyUI(
                                              width = 4
                                            )
                                          )
-                                       ),
-                              tabPanel("Age and gender", "contents"),
-                              tabPanel("Ethnic group", "contents"))),
+                                       )
+                              # tabPanel("Age and gender", "contents"),
+                              # tabPanel("Ethnic group", "contents")
+                              )),
 
                    # 4. Tab 4 ----
 

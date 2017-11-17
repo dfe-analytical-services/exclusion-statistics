@@ -1,5 +1,4 @@
 
-
 #### 
 # 1. Load packages ----
 
@@ -37,21 +36,18 @@ formatyr <- function(refyear) {
 
 
 ####
-# 4. Load the data required ----
-
+# 3. Load the data required ----
 
 # load main_ud file
 # includes main measures at school, la, region and national level for 2006/07 to 2015/16
 
 main_ud <- read_csv('data/SFR35_2017_national_region_la_school_data.csv', col_types = cols(.default = "c"))
 
-
 #glimpse(main_ud)
-
 
 # load reason_ud file
 # includes la, region and national level for 2006/07 to 2015/16
-# 
+ 
 reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = cols(.default = "c"))
 
 # head(reason_ud)
@@ -61,7 +57,71 @@ reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = co
 char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
 ####
-# 5. LA trends plot 
+# 4. Front page ----
+
+## national plots
+
+# create a national summary table (used for plots):
+
+nat_summary <-
+  dplyr::select(
+    filter(main_ud, level == 'National'),
+    year,
+    school_type,
+    num_schools,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate
+  ) %>%
+  arrange(year)
+
+
+# National bar chart (front page)
+
+national_bars <- function(category) {
+  if (category == 'P') {
+    
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(perm_excl_rate))
+    
+    p_bar_g <- data %>% 
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue4', stat = "identity") +
+      theme_classic() +
+      ylab("Permanent exclusion rate") +
+      xlab("Academic year") +
+      scale_y_continuous(breaks = seq(0, max(data$value + 0.01), 0.02)) +
+      theme(axis.title.x = element_blank())
+    
+    return(ggplotly(p_bar_g))
+  }
+  
+  if (category == 'F') {
+    
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(fixed_excl_rate))
+    
+    f_bar_g <- data %>%
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue3', stat = "identity") +
+      theme_classic() +
+      ylab("Fixed period exclusion rate") +
+      xlab("Academic year") +
+      scale_y_continuous(breaks = seq(0, max(data$value + 0.5), 0.50)) +
+      theme(axis.title.x = element_blank())
+    
+    return(ggplotly(f_bar_g))
+  }
+}
+
+####
+# 4. LA trends ----
 
 la_plot_data <-
   dplyr::select(
@@ -83,23 +143,79 @@ la_plot_data <-
            ifelse(school_type == "special", "Special", 
                   ifelse(school_type == "total", "Total", "NA")))))
 
-la <- 'Darlington'
+
 la_plot_rate <- function(la, category) {
+
+  d <- filter(la_plot_data, la_name == la) 
+              
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusion percentage"
+    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x') 
+  }
   
-  if(category=='P') {
+  if (category == 'F') {
+    ylabtitle <- "Fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'O') {
+    ylabtitle <- "One or more fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = one_or_more_fixed_excl_rate) %>% filter(y_var != 'x') 
+  }
     
-  d <- filter(la_plot_data, la_name == la, perm_excl_rate !='x')
+    return(
+      d %>%
+        ggplot +
+        aes(x = as.factor(formatyr(year)), 
+            y = as.numeric(y_var), 
+            group = school_type, colour = as.factor(school_type)) +
+        geom_path(size = 1) +
+        xlab("Academic year") +
+        ylab(ylabtitle) +
+        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+        theme_classic() +
+        geom_text(
+          d = d %>% filter(year == min(as.numeric(year))+101),
+          aes(label = school_type),
+          size = 5,
+          hjust = 0,
+          vjust = -1) +
+        theme(legend.position = "none") +
+        scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
+        theme(axis.text=element_text(size=12),
+              axis.title=element_text(size=14,face="bold")))
+  }
+  
+
+la_plot_num <- function(la, category) {
+  
+  d <- filter(la_plot_data, la_name == la) 
+  
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusions"
+    d <- d %>% mutate(y_var = perm_excl) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'F') {
+    ylabtitle <- "Fixed period exclusions"
+    d <- d %>% mutate(y_var = fixed_excl) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'O') {
+    ylabtitle <- "Enrolments with one or more fixed period exclusion"
+    d <- d %>% mutate(y_var = one_plus_fixed) %>% filter(y_var != 'x') 
+  }
   
   return(
     d %>%
       ggplot +
       aes(x = as.factor(formatyr(year)), 
-          y = as.numeric(perm_excl_rate), 
+          y = as.numeric(y_var), 
           group = school_type, colour = as.factor(school_type)) +
       geom_path(size = 1) +
       xlab("Academic year") +
-      ylab("Permanent exclusion percentage") +
-      scale_y_continuous(limits = c(0, max(as.numeric(d$perm_excl_rate))+0.01)) +
+      ylab(ylabtitle) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
@@ -111,157 +227,157 @@ la_plot_rate <- function(la, category) {
       scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
       theme(axis.text=element_text(size=12),
             axis.title=element_text(size=14,face="bold")))
-  }
-  
-  if(category=='F') {
-    
-    d <- filter(la_plot_data, la_name == la,fixed_excl_rate !='x')
-    
-    return(
-      d %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(fixed_excl_rate), 
-            group = school_type, colour = as.factor(school_type)) +
-        geom_path(size = 1) +
-        xlab("Academic year") +
-        ylab("Fixed period exclusion percentage") +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$fixed_excl_rate))+1)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101),
-          aes(label = school_type),
-          size = 5,
-          hjust = 0,
-          vjust = -1) +
-        theme(legend.position = "none") +
-        scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
-  }
-  
-  if(category=='O') {
-    
-    d <- filter(la_plot_data, la_name == la,one_or_more_fixed_excl_rate !='x')
-    
-    return(
-      d %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(one_or_more_fixed_excl_rate), 
-            group = school_type, colour = as.factor(school_type)) +
-        geom_path(size = 1) +
-        xlab("Academic year") +
-        ylab("One or more fixed period exclusion percentage") +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$one_or_more_fixed_excl_rate))+1)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101),
-          aes(label = school_type),
-          size = 5,
-          hjust = 0,
-          vjust = -1) +
-        theme(legend.position = "none") +
-        scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
-  }
-  
 }
 
 
 
+### LA time series tables
 
-la_plot_num <- function(la, category) {
+la_table_num <- function(la, category) {
   
-  if(category=='P') {
-    
-    d <- filter(la_plot_data, la_name == la, perm_excl !='x')
-    
-    return(
-      d %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(perm_excl), 
-            group = school_type, colour = as.factor(school_type)) +
-        geom_path(size = 1) +
-        xlab("Academic year") +
-        ylab("Permanent exclusions") +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$perm_excl))+0.05)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101),
-          aes(label = school_type),
-          size = 5,
-          hjust = 0,
-          vjust = -1) +
-        theme(legend.position = "none") +
-        scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
+  d <- filter(la_plot_data, la_name == la)
+  
+  if(category=='P') { 
+    d <- d %>% mutate(t_var = perm_excl)
   }
-  
   if(category=='F') {
+    d <- d %>% mutate(t_var = fixed_excl)
+  }  
+  if(category=='O') {
+    d <- d %>% mutate(t_var = one_plus_fixed)
+  }  
+
+  table <- d %>%
+      mutate(
+        yearf = formatyr(year),
+        value = t_var,
+        Type = school_type
+      ) %>%
+      dplyr::select(yearf, Type, value) %>%
+      spread(key = yearf, value)
     
-    d <- filter(la_plot_data, la_name == la,fixed_excl !='x')
+    row.names(table) <- NULL
     
-    return(
-      d %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(fixed_excl), 
-            group = school_type, colour = as.factor(school_type)) +
-        geom_path(size = 1) +
-        xlab("Academic year") +
-        ylab("Fixed period exclusions") +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$fixed_excl))+1)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101),
-          aes(label = school_type),
-          size = 5,
-          hjust = 0,
-          vjust = -1) +
-        theme(legend.position = "none") +
-        scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
+    return(table)
+    
   }
   
-  if(category=='O') {
-    
-    d <- filter(la_plot_data, la_name == la,one_plus_fixed !='x')
-    
-    return(
-      d %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(one_plus_fixed), 
-            group = school_type, colour = as.factor(school_type)) +
-        geom_path(size = 1) +
-        xlab("Academic year") +
-        ylab("One or more fixed period exclusions") +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$one_plus_fixed))+1)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101),
-          aes(label = school_type),
-          size = 5,
-          hjust = 0,
-          vjust = -1) +
-        theme(legend.position = "none") +
-        scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
+
+la_table_rate <- function(la, category) {
+  
+  d <- filter(la_plot_data, la_name == la)
+  
+  if(category=='P') { 
+    d <- d %>% mutate(t_var = perm_excl_rate)
   }
+  if(category=='F') {
+    d <- d %>% mutate(t_var = fixed_excl_rate)
+  }  
+  if(category=='O') {
+    d <- d %>% mutate(t_var = one_or_more_fixed_excl_rate)
+  }  
+  
+  table <- d %>%
+    mutate(
+      yearf = formatyr(year),
+      value = t_var,
+      Type = school_type
+    ) %>%
+    dplyr::select(yearf, Type, value) %>%
+    spread(key = yearf, value)
+  
+  row.names(table) <- NULL
+  
+  return(table)
   
 }
 
 
+# Numbers for LA summary text
+
+la_perm_num <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(perm_excl))
+  
+}
+
+la_fixed_num <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(fixed_excl))
+  
+}
+
+la_one_plus_num <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(one_plus_fixed))
+  
+}
+
+
+la_perm_rate <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(perm_excl_rate))
+  
+}
+
+la_fixed_rate <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(fixed_excl_rate))
+  
+}
+
+la_one_plus_rate <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(one_or_more_fixed_excl_rate))
+  
+}
+
+####
+# 4. School page ----
+
+#school level info for a specific LA
+
+la_sch_table <- function(la,refyear) {
+  
+  d <- filter(main_ud, level == "School",la_name == la) %>%
+    select(
+      year,
+      la_name,
+      laestab,
+      school_type,
+      headcount,
+      perm_excl,
+      perm_excl_rate,
+      fixed_excl,
+      fixed_excl_rate,
+      one_plus_fixed,
+      one_or_more_fixed_excl_rate
+    )
+  
+  return(d)
+}
 
 
 ####
-# 5. MAP
+# 5. MAP ----
 
 ukLocalAuthoritises <- shapefile("data/England_LA_2016.shp")
 
@@ -364,216 +480,32 @@ excmap <- function(measure) {
   }
 }
 
-### LA time series tables
 
-la_table_num <- function(la, category) {
+####
+# 5. Reason page  ----
+
+perm_reason_table <- function(schtype) {
   
-  if(category=='P') {
-    
-    d <- filter(la_plot_data, la_name == la)
-    
-    table <- d %>%
-      mutate(
-        yearf = formatyr(year),
-        value = perm_excl,
-        Type = school_type
-      ) %>%
-      dplyr::select(yearf, Type, value) %>%
-      spread(key = yearf, value)
-    
-    row.names(table) <- NULL
-    
-    return(table)
-    
-  }
+  data <- filter(reason_ud,
+                 level == 'National',
+                 school_type == schtype,
+                 year >= 201112) %>%
+    select(year, perm_physical_pupils:perm_other)
   
-  if(category=='F') {
-    
-    d <- filter(la_plot_data, la_name == la)
-    
-    table <- d %>%
-      mutate(
-        yearf = formatyr(year),
-        value = fixed_excl,
-        Type = school_type
-      ) %>%
-      dplyr::select(yearf, Type, value) %>%
-      spread(key = yearf, value)
-    
-    row.names(table) <- NULL
-    
-    return(table)
-    
-  }
+  data_long <- data %>% gather(key = reason,
+                               value = exc,
+                               perm_physical_pupils:perm_other)
   
-  if(category=='O') {
-    
-    d <- filter(la_plot_data, la_name == la)
-    
-    table <- d %>%
-      mutate(
-        yearf = formatyr(year),
-        value = one_plus_fixed,
-        Type = school_type
-      ) %>%
-      dplyr::select(yearf, Type, value) %>%
-      spread(key = yearf, value)
-    
-    row.names(table) <- NULL
-    
-    return(table) 
-
-  }
+  return(data_long %>% spread(key = year, value =  exc))
   
-}
-
-
-la_table_rate <- function(la, category) {
-  
-  if(category=='P') {
-    
-    d <- filter(la_plot_data, la_name == la)
-    
-    table <- d %>%
-      mutate(
-        yearf = formatyr(year),
-        value = perm_excl_rate,
-        Type = school_type
-      ) %>%
-      dplyr::select(yearf, Type, value) %>%
-      spread(key = yearf, value)
-    
-    row.names(table) <- NULL
-    
-    return(table)
-    
-  }
-  
-  if(category=='F') {
-    
-    d <- filter(la_plot_data, la_name == la)
-    
-    table <- d %>%
-      mutate(
-        yearf = formatyr(year),
-        value = fixed_excl_rate,
-        Type = school_type
-      ) %>%
-      dplyr::select(yearf, Type, value) %>%
-      spread(key = yearf, value)
-    
-    row.names(table) <- NULL
-    
-    return(table)
-    
-  }
-  
-  if(category=='O') {
-    
-    d <- filter(la_plot_data, la_name == la)
-    
-    table <- d %>%
-      mutate(
-        yearf = formatyr(year),
-        value = one_or_more_fixed_excl_rate,
-        Type = school_type
-      ) %>%
-      dplyr::select(yearf, Type, value) %>%
-      spread(key = yearf, value)
-    
-    row.names(table) <- NULL
-    
-    return(table) 
-    
-  }
-  
-}
-
-## national plots
-
-# create a national summary table (used for plots):
-
-nat_summary <-
-  dplyr::select(
-    filter(main_ud, level == 'National'),
-    year,
-    school_type,
-    num_schools,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate
-  ) %>%
-  arrange(year)
-
-
-# National bar chart (front page)
-
-national_bars <- function(category) {
-  if (category == 'P') {
-
-    data <- filter(nat_summary, school_type == 'total') %>%
-      mutate(year = as.factor(year),
-             value = as.numeric(perm_excl_rate))
-      
-      p_bar_g <- data %>% 
-      ggplot(aes(x = formatyr(year), y = value)) +
-      geom_bar(fill = 'dodgerblue4', stat = "identity") +
-      theme_classic() +
-      ylab("Permanent exclusion rate") +
-      xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(data$value + 0.01), 0.02)) +
-      theme(axis.title.x = element_blank())
-    
-    return(ggplotly(p_bar_g))
-  }
-  
-  if (category == 'F') {
-    
-    data <- filter(nat_summary, school_type == 'total') %>%
-      mutate(year = as.factor(year),
-             value = as.numeric(fixed_excl_rate))
-      
-    f_bar_g <- data %>%
-      ggplot(aes(x = formatyr(year), y = value)) +
-      geom_bar(fill = 'dodgerblue3', stat = "identity") +
-      theme_classic() +
-      ylab("Fixed period exclusion rate") +
-      xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(data$value + 0.5), 0.50)) +
-      theme(axis.title.x = element_blank())
-    
-    return(ggplotly(f_bar_g))
-  }
-}
-
-
-
-perm_reason_table <- function(schtype){
-
-data <-
-  filter(reason_ud,
-         level == 'National',
-         school_type == schtype,
-         year >= 201112) %>%
-  select(year, perm_physical_pupils:perm_other) 
-
-data_long <- data %>% gather(key = reason, value = exc, perm_physical_pupils:perm_other)
-
-return(data_long %>% spread(key = year, value =  exc))
-
 }
 
 fixed_reason_table <- function(schtype){
   
-  data <-
-    filter(reason_ud,
-           level == 'National',
-           school_type == schtype,
-           year >= 201112) %>%
+  data <- filter(reason_ud,
+                 level == 'National',
+                 school_type == schtype,
+                 year >= 201112) %>%
     select(year, fixed_physical_pupils:fixed_other) 
   
   data_long <- data %>% gather(key = reason, value = exc, fixed_physical_pupils:fixed_other)
@@ -584,31 +516,29 @@ fixed_reason_table <- function(schtype){
 
 
 perm_reason_bar <- function(schtype){
-
-    data <-
-      filter(reason_ud,
-             level == 'National',
-             school_type == schtype,
-             year == 201516) %>%
-      select(year, perm_physical_pupils:perm_other) 
-    
-    data_long <- data %>% gather(key = reason, value = exc, perm_physical_pupils:perm_other)
-
-    return(ggplot(data=data_long, aes(x=reason,y=as.numeric(exc))) +
-      geom_bar(fill = 'steelblue4',stat="identity")+
-      theme_classic() +
-      coord_flip() +
-      ylab("Number of permanent exclusions"))
-    
+  
+  data <- filter(reason_ud,
+                 level == 'National',
+                 school_type == schtype,
+                 year == 201516) %>%
+    select(year, perm_physical_pupils:perm_other) 
+  
+  data_long <- data %>% gather(key = reason, value = exc, perm_physical_pupils:perm_other)
+  
+  return(ggplot(data=data_long, aes(x=reason,y=as.numeric(exc))) +
+           geom_bar(fill = 'steelblue4',stat="identity")+
+           theme_classic() +
+           coord_flip() +
+           ylab("Number of permanent exclusions"))
+  
 }
 
 fixed_reason_bar <- function(schtype){
   
-  data <-
-    filter(reason_ud,
-           level == 'National',
-           school_type == schtype,
-           year == 201516) %>%
+  data <- filter(reason_ud,
+                 level == 'National',
+                 school_type == schtype,
+                 year == 201516) %>%
     select(year, fixed_physical_pupils:fixed_other) 
   
   data_long <- data %>% gather(key = reason, value = exc, fixed_physical_pupils:fixed_other)
@@ -621,100 +551,18 @@ fixed_reason_bar <- function(schtype){
   
 }
 
-# Numbers for LA summary text
-
-la_perm_num <- function(la, refyear) {
-  
-  d <- filter(main_ud, year == refyear,la_name == la)
-  
-  return(filter(d, level == 'Local authority', school_type == 'total') %>%
-           dplyr::select(perm_excl))
-  
-}
-
-la_fixed_num <- function(la, refyear) {
-  
-  d <- filter(main_ud, year == refyear,la_name == la)
-  
-  return(filter(d, level == 'Local authority', school_type == 'total') %>%
-           dplyr::select(fixed_excl))
-  
-}
-
-la_one_plus_num <- function(la, refyear) {
-  
-  d <- filter(main_ud, year == refyear,la_name == la)
-  
-  return(filter(d, level == 'Local authority', school_type == 'total') %>%
-           dplyr::select(one_plus_fixed))
-  
-}
 
 
-la_perm_rate <- function(la, refyear) {
-  
-  d <- filter(main_ud, year == refyear,la_name == la)
-  
-  return(filter(d, level == 'Local authority', school_type == 'total') %>%
-           dplyr::select(perm_excl_rate))
-  
-}
-
-la_fixed_rate <- function(la, refyear) {
-  
-  d <- filter(main_ud, year == refyear,la_name == la)
-  
-  return(filter(d, level == 'Local authority', school_type == 'total') %>%
-           dplyr::select(fixed_excl_rate))
-  
-}
-
-la_one_plus_rate <- function(la, refyear) {
-  
-  d <- filter(main_ud, year == refyear,la_name == la)
-  
-  return(filter(d, level == 'Local authority', school_type == 'total') %>%
-           dplyr::select(one_or_more_fixed_excl_rate))
-  
-}
+####
+# 4. Characteristics ----
 
 
-#school level info for a specific LA
-
-la_sch_table <- function(la,refyear) {
-  
-  d <- filter(main_ud, level == "School",la_name == la) %>%
-    select(
-    year,
-    la_name,
-    laestab,
-    school_type,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate
-  )
-  
-  return(d)
-}
-  
-#la_sch_table("Darlington")
-
-
-# x <- c("State-funded primary", "State-funded secondary", "Special", "Total")
-# 
-# DT %>%
-#   mutate(category =  factor(category, levels = x)) %>%
-#   arrange(category)
-
-
+## FSM
 
 #data for download button
 
 fsmchar <- char_ud %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'))
+
 
 #proportion chart
 
@@ -785,43 +633,24 @@ fsm_sch_table_num <- function(sch_type,category){
   data$year <- formatyr(data$year)
   
   if(category=='P') {
+  data <- data %>% mutate(t_var = perm_excl)
+  }
+  if(category=='F') {
+  data <- data %>% mutate(t_var = fixed_excl)
+  }
+  if(category=='O') {   
+  data <- data %>% mutate(t_var = one_plus_fixed)
+  }
+    
+  fsm_sch <- data %>% select(year,characteristic_1,t_var)  
   
-  fsm_sch <- data %>% select(year,characteristic_1,perm_excl)  
-  
-  data_wide <- fsm_sch %>% spread(key = year, value =  perm_excl)
+  data_wide <- fsm_sch %>% spread(key = year, value =  t_var)
   
   colnames(data_wide)[1] <- ""
   
   return(data_wide)
   
-  }
-  
-  if(category=='F') {
-    
-    fsm_sch <- data %>% select(year,characteristic_1,fixed_excl)
-    
-    data_wide <- fsm_sch %>% spread(key = year, value =  fixed_excl)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
-  }
-  
-  if(category=='O') {
-    
-    fsm_sch <- data %>% select(year,characteristic_1,one_plus_fixed)
-    
-    data_wide <- fsm_sch %>% spread(key = year, value =  one_plus_fixed)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
-  }
-  
 }
-
 
 fsm_sch_table_rate <- function(sch_type,category){
   
@@ -837,46 +666,24 @@ fsm_sch_table_rate <- function(sch_type,category){
   data$year <- formatyr(data$year)
   
   if(category=='P') {
-    
-    fsm_sch <- data %>% select(year,characteristic_1,perm_excl_rate)
-    
-    data_wide <- fsm_sch %>% spread(key = year, value =  perm_excl_rate)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
+    data <- data %>% mutate(t_var = perm_excl_rate)
   }
-  
   if(category=='F') {
-    
-    fsm_sch <- data %>% select(year,characteristic_1,fixed_excl_rate)
-    
-    data_wide <- fsm_sch %>% spread(key = year, value =  fixed_excl_rate)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
+    data <- data %>% mutate(t_var = fixed_excl_rate)
+  }
+  if(category=='O') {   
+    data <- data %>% mutate(t_var = one_plus_fixed_rate)
   }
   
-  if(category=='O') {
-    
-    fsm_sch <- data %>% select(year,characteristic_1,one_plus_fixed_rate)
-    
-    data_wide <- fsm_sch %>% spread(key = year, value =  one_plus_fixed_rate)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
-  }
+  fsm_sch <- data %>% select(year,characteristic_1,t_var)  
+  
+  data_wide <- fsm_sch %>% spread(key = year, value =  t_var)
+  
+  colnames(data_wide)[1] <- ""
+  
+  return(data_wide)
   
 }
-
-#fsm_sch_table_num("State-funded secondary","P")
-
-
 
 
 fsm_gap <- function(category) {
@@ -886,138 +693,58 @@ fsm_gap <- function(category) {
     filter(characteristic_1 != 'FSM_Unclassified')
   
   if(category=='P') {
-    
-    fsm_perm <- fsm %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
+    data <- fsm %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
       mutate(diff = as.numeric(FSM_Eligible)-as.numeric(FSM_NotEligible))
-    
-    df_p <- fsm_perm
-    
-    df_p$year <- factor(formatyr(df_p$year))
-    df_p$fsm_not <- as.numeric(df_p$FSM_NotEligible)
-    df_p$fsm_yes <- as.numeric(df_p$FSM_Eligible)
-    
-    pp <- ggplot() + 
-      geom_segment(data=df_p, aes(y=year, yend=year, x=0, xend=max(df_p$fsm_yes)*1.1), color="#b2b2b2", size=0.15) +
-      geom_dumbbell(data=df_p, aes(y=year, x=fsm_yes, xend=fsm_not),
-                    size=2, color="gray", size_x=3, size_xend=3,
-                    colour_x="steelblue4", colour_xend="steelblue2") + 
-      geom_text(data=filter(df_p, year=="2015/16"),
-                aes(x=fsm_yes, y=year, label="FSM eligible"),
-                color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=filter(df_p, year=="2015/16"),
-                aes(x=fsm_not, y=year, label="Non-FSM eligible"),
-                color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=df_p, aes(x=fsm_yes, y=year, label=fsm_yes),
-                color="steelblue4", size=5, vjust=2.5) + 
-      geom_text(data=df_p, color="steelblue2", size=5, vjust=2.5,
-                aes(x=fsm_not, y=year, label=fsm_not)) + 
-      geom_text(data=df_p, aes(label=diff, y=year, x=max(df_p$fsm_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-      geom_text(data=filter(df_p, year=="2015/16"), aes(x=max(df_p$fsm_yes)*1.2, y=year, label="diff"),
-                color="#7a7d7e", size=5, vjust=-2) + 
-      scale_x_continuous(expand=c(0,0), limits=c(0, max(df_p$fsm_yes)*1.3)) + 
-      labs(x=NULL, y=NULL) + 
-      theme_bw() + 
-      theme(panel.border=element_blank()) + 
-      theme(axis.ticks=element_blank()) + 
-      theme(axis.text.x=element_blank()) + 
-      theme(plot.title=element_text(face="bold")) +
-      theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
-      theme(axis.text=element_text(size=12))
-    
-    return(pp)
-    
   }
   
   if(category=='F') {
-    
-    fsm_fixed <- fsm %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
+    data <- fsm %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
       mutate(diff = as.numeric(FSM_Eligible)-as.numeric(FSM_NotEligible))
-    
-    df_f <- fsm_fixed
-    
-    df_f$year <- factor(formatyr(df_f$year))
-    df_f$fsm_not <- as.numeric(df_f$FSM_NotEligible)
-    df_f$fsm_yes <- as.numeric(df_f$FSM_Eligible)
-    
-    
-    ff <- ggplot() + 
-      geom_segment(data=df_f, aes(y=year, yend=year, x=0, xend=max(df_f$fsm_yes)*1.1), color="#b2b2b2", size=0.15) +
-      geom_dumbbell(data=df_f, aes(y=year, x=fsm_yes, xend=fsm_not),
-                    size=2, color="gray", size_x=3, size_xend=3,
-                    colour_x="steelblue4", colour_xend="steelblue2") + 
-      geom_text(data=filter(df_f, year=="2015/16"),
-                aes(x=fsm_yes, y=year, label="FSM eligible"),
-                color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=filter(df_f, year=="2015/16"),
-                aes(x=fsm_not, y=year, label="Non-FSM eligible"),
-                color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=df_f, aes(x=fsm_yes, y=year, label=fsm_yes),
-                color="steelblue4", size=5, vjust=2.5) + 
-      geom_text(data=df_f, color="steelblue2", size=5, vjust=2.5,
-                aes(x=fsm_not, y=year, label=fsm_not)) + 
-      geom_text(data=df_f, aes(label=diff, y=year, x=max(df_f$fsm_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-      geom_text(data=filter(df_f, year=="2015/16"), aes(x=max(df_f$fsm_yes)*1.2, y=year, label="diff"),
-                color="#7a7d7e", size=5, vjust=-2) + 
-      scale_x_continuous(expand=c(0,0), limits=c(0, max(df_f$fsm_yes)*1.3)) + 
-      labs(x=NULL, y=NULL) + 
-      theme_bw() + 
-      theme(panel.border=element_blank()) + 
-      theme(axis.ticks=element_blank()) + 
-      theme(axis.text.x=element_blank()) + 
-      theme(plot.title=element_text(face="bold")) +
-      theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
-      theme(axis.text=element_text(size=12))
-    
-    return(ff)
-    
   }
   
   if(category=='O') {
-    
-    fsm_one_plus <- fsm %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
+    data <- fsm %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
       mutate(diff = as.numeric(FSM_Eligible)-as.numeric(FSM_NotEligible))
-    
-    df_o <- fsm_one_plus
-    
-    df_o$year <- factor(formatyr(df_o$year))
-    df_o$fsm_not <- as.numeric(df_o$FSM_NotEligible)
-    df_o$fsm_yes <- as.numeric(df_o$FSM_Eligible)
-    
-    
-    op <- ggplot() + 
-      geom_segment(data=df_o, aes(y=year, yend=year, x=0, xend=max(df_o$fsm_yes)*1.1), color="#b2b2b2", size=0.15) +
-      geom_dumbbell(data=df_o, aes(y=year, x=fsm_yes, xend=fsm_not),
-                    size=2, color="gray", size_x=3, size_xend=3,
-                    colour_x="steelblue4", colour_xend="steelblue2") + 
-      geom_text(data=filter(df_o, year=="2015/16"),
-                aes(x=fsm_yes, y=year, label="FSM eligible"),
-                color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=filter(df_o, year=="2015/16"),
-                aes(x=fsm_not, y=year, label="Non-FSM eligible"),
-                color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=df_o, aes(x=fsm_yes, y=year, label=fsm_yes),
-                color="steelblue4", size=5, vjust=2.5) + 
-      geom_text(data=df_o, color="steelblue2", size=5, vjust=2.5,
-                aes(x=fsm_not, y=year, label=fsm_not)) + 
-      geom_text(data=df_o, aes(label=diff, y=year, x=max(df_o$fsm_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-      geom_text(data=filter(df_o, year=="2015/16"), aes(x=max(df_o$fsm_yes)*1.2, y=year, label="diff"),
-                color="#7a7d7e", size=5, vjust=-2) + 
-      scale_x_continuous(expand=c(0,0), limits=c(0, max(df_o$fsm_yes)*1.3)) + 
-      labs(x=NULL, y=NULL) + 
-      theme_bw() + 
-      theme(panel.border=element_blank()) + 
-      theme(axis.ticks=element_blank()) + 
-      theme(axis.text.x=element_blank()) + 
-      theme(plot.title=element_text(face="bold")) +
-      theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.3))+
-      theme(axis.text=element_text(size=12))
-    
-    return(op) 
-    
   }
   
+  data$year <- factor(formatyr(data$year))
+  data$fsm_not <- as.numeric(data$FSM_NotEligible)
+  data$fsm_yes <- as.numeric(data$FSM_Eligible)
+  
+  gap_plot <- ggplot() + 
+    geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$fsm_yes)*1.1), color="#b2b2b2", size=0.15) +
+    geom_dumbbell(data=data, aes(y=year, x=fsm_yes, xend=fsm_not),
+                  size=2, color="gray", size_x=3, size_xend=3,
+                  colour_x="steelblue4", colour_xend="steelblue2") + 
+    geom_text(data=filter(data, year=="2015/16"),
+              aes(x=fsm_yes, y=year, label="FSM eligible"),
+              color="steelblue4", size=5, vjust=-2, fontface="bold") + 
+    geom_text(data=filter(data, year=="2015/16"),
+              aes(x=fsm_not, y=year, label="Non-FSM eligible"),
+              color="steelblue2", size=5, vjust=-2, fontface="bold") + 
+    geom_text(data=data, aes(x=fsm_yes, y=year, label=fsm_yes),
+              color="steelblue4", size=5, vjust=2.5) + 
+    geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
+              aes(x=fsm_not, y=year, label=fsm_not)) + 
+    geom_text(data=data, aes(label=diff, y=year, x=max(data$fsm_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
+    geom_text(data=filter(data, year=="2015/16"), aes(x=max(data$fsm_yes)*1.2, y=year, label="diff"),
+              color="#7a7d7e", size=5, vjust=-2) + 
+    scale_x_continuous(expand=c(0,0), limits=c(0, max(data$fsm_yes)*1.3)) + 
+    labs(x=NULL, y=NULL) + 
+    theme_bw() + 
+    theme(panel.border=element_blank()) + 
+    theme(axis.ticks=element_blank()) + 
+    theme(axis.text.x=element_blank()) + 
+    theme(plot.title=element_text(face="bold")) +
+    theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
+    theme(axis.text=element_text(size=12))
+  
+  return(gap_plot)
+  
 }
-
+  
+  
+## SEN
 
 #data for download button
 senchar <- char_ud %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'))
@@ -1033,48 +760,29 @@ sen_sch_table_num <- function(sch_type,category){
       characteristic_1 == "SEN_Provision_No_SEN","No SEN",
       ifelse(characteristic_1 == "SEN_provision_SEN_with_statement_EHC", "SEN with statement or EHC",
              ifelse(characteristic_1 == "SEN_provision_SEN_without_statement", "SEN without a statement or EHC",
-                 ifelse(characteristic_1 == "Total", "Total","NA")))))
+                    ifelse(characteristic_1 == "Total", "Total","NA")))))
   
   data$year <- formatyr(data$year)
   
   if(category=='P') {
-    
-    sen_sch <- data %>% select(year,characteristic_1,perm_excl)  
-    
-    data_wide <- sen_sch %>% spread(key = year, value =  perm_excl)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
+    data <- data %>% mutate(t_var = perm_excl)
   }
-  
   if(category=='F') {
-    
-    sen_sch <- data %>% select(year,characteristic_1,fixed_excl)
-    
-    data_wide <- sen_sch %>% spread(key = year, value =  fixed_excl)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
+    data <- data %>% mutate(t_var = fixed_excl)
+  }
+  if(category=='O') {   
+    data <- data %>% mutate(t_var = one_plus_fixed)
   }
   
-  if(category=='O') {
-    
-    sen_sch <- data %>% select(year,characteristic_1,one_plus_fixed)
-    
-    data_wide <- sen_sch %>% spread(key = year, value =  one_plus_fixed)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
-  }
+  sen_sch <- data %>% select(year,characteristic_1,t_var)  
+  
+  data_wide <- sen_sch %>% spread(key = year, value =  t_var)
+  
+  colnames(data_wide)[1] <- ""
+  
+  return(data_wide)
   
 }
-
 
 sen_sch_table_rate <- function(sch_type,category){
   
@@ -1091,48 +799,24 @@ sen_sch_table_rate <- function(sch_type,category){
   data$year <- formatyr(data$year)
   
   if(category=='P') {
-    
-    sen_sch <- data %>% select(year,characteristic_1,perm_excl_rate)
-    
-    data_wide <- sen_sch %>% spread(key = year, value =  perm_excl_rate)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
+    data <- data %>% mutate(t_var = perm_excl_rate)
   }
-  
   if(category=='F') {
-    
-    sen_sch <- data %>% select(year,characteristic_1,fixed_excl_rate)
-    
-    data_wide <- sen_sch %>% spread(key = year, value =  fixed_excl_rate)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
+    data <- data %>% mutate(t_var = fixed_excl_rate)
+  }
+  if(category=='O') {   
+    data <- data %>% mutate(t_var = one_plus_fixed_rate)
   }
   
-  if(category=='O') {
-    
-    sen_sch <- data %>% select(year,characteristic_1,one_plus_fixed_rate)
-    
-    data_wide <- sen_sch %>% spread(key = year, value =  one_plus_fixed_rate)
-    
-    colnames(data_wide)[1] <- ""
-    
-    return(data_wide)
-    
-  }
+  sen_sch <- data %>% select(year,characteristic_1,t_var)  
+  
+  data_wide <- sen_sch %>% spread(key = year, value =  t_var)
+  
+  colnames(data_wide)[1] <- ""
+  
+  return(data_wide)
   
 }
-
-#sen_sch_table_rate("State-funded secondary","P")
-
-
-
-
 
 
 sen_gap <- function(category) {
@@ -1142,137 +826,55 @@ sen_gap <- function(category) {
     filter(characteristic_1 %in% c('SEN_provision_SEN_with_statement_EHC', 'SEN_Provision_No_SEN'))
   
   if(category=='P') {
-    
-    sen_perm <- sen %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
+    data <- sen %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
       mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC)-as.numeric(SEN_Provision_No_SEN))
-    
-    df_p <- sen_perm
-    
-    df_p$year <- factor(formatyr(df_p$year))
-    df_p$sen_not <- as.numeric(df_p$SEN_Provision_No_SEN)
-    df_p$sen_yes <- as.numeric(df_p$SEN_provision_SEN_with_statement_EHC)
-    
-    pp <- ggplot() + 
-      geom_segment(data=df_p, aes(y=year, yend=year, x=0, xend=max(df_p$sen_yes)*1.1), color="#b2b2b2", size=0.15) +
-      geom_dumbbell(data=df_p, aes(y=year, x=sen_yes, xend=sen_not),
-                    size=2, color="gray", size_x=3, size_xend=3,
-                    colour_x="steelblue4", colour_xend="steelblue2") + 
-      geom_text(data=filter(df_p, year=="2015/16"),
-                aes(x=sen_yes, y=year, label="Statement/EHC"),
-                color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=filter(df_p, year=="2015/16"),
-                aes(x=sen_not, y=year, label="No SEN"),
-                color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=df_p, aes(x=sen_yes, y=year, label=sen_yes),
-                color="steelblue4", size=5, vjust=2.5) + 
-      geom_text(data=df_p, color="steelblue2", size=5, vjust=2.5,
-                aes(x=sen_not, y=year, label=sen_not)) + 
-      geom_text(data=df_p, aes(label=diff, y=year, x=max(df_p$sen_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-      geom_text(data=filter(df_p, year=="2015/16"), aes(x=max(df_p$sen_yes)*1.2, y=year, label="diff"),
-                color="#7a7d7e", size=5, vjust=-2) + 
-      scale_x_continuous(expand=c(0,0), limits=c(0, max(df_p$sen_yes)*1.3)) + 
-      labs(x=NULL, y=NULL) + 
-      theme_bw() + 
-      theme(panel.border=element_blank()) + 
-      theme(axis.ticks=element_blank()) + 
-      theme(axis.text.x=element_blank()) + 
-      theme(plot.title=element_text(face="bold")) +
-      theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
-      theme(axis.text=element_text(size=12))
-    
-    return(pp)
-    
   }
   
   if(category=='F') {
-    
-    sen_fixed <- sen %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
+    data <- sen %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
       mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC)-as.numeric(SEN_Provision_No_SEN))
-    
-    df_f <- sen_fixed
-    
-    df_f$year <- factor(formatyr(df_f$year))
-    df_f$sen_not <- as.numeric(df_f$SEN_Provision_No_SEN)
-    df_f$sen_yes <- as.numeric(df_f$SEN_provision_SEN_with_statement_EHC)
-    
-    
-    ff <- ggplot() + 
-      geom_segment(data=df_f, aes(y=year, yend=year, x=0, xend=max(df_f$sen_yes)*1.1), color="#b2b2b2", size=0.15) +
-      geom_dumbbell(data=df_f, aes(y=year, x=sen_yes, xend=sen_not),
-                    size=2, color="gray", size_x=3, size_xend=3,
-                    colour_x="steelblue4", colour_xend="steelblue2") + 
-      geom_text(data=filter(df_f, year=="2015/16"),
-                aes(x=sen_yes, y=year, label="Statement/EHC"),
-                color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=filter(df_f, year=="2015/16"),
-                aes(x=sen_not, y=year, label="No SEN"),
-                color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=df_f, aes(x=sen_yes, y=year, label=sen_yes),
-                color="steelblue4", size=5, vjust=2.5) + 
-      geom_text(data=df_f, color="steelblue2", size=5, vjust=2.5,
-                aes(x=sen_not, y=year, label=sen_not)) + 
-      geom_text(data=df_f, aes(label=diff, y=year, x=max(df_f$sen_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-      geom_text(data=filter(df_f, year=="2015/16"), aes(x=max(df_f$sen_yes)*1.2, y=year, label="diff"),
-                color="#7a7d7e", size=5, vjust=-2) + 
-      scale_x_continuous(expand=c(0,0), limits=c(0, max(df_f$sen_yes)*1.3)) + 
-      labs(x=NULL, y=NULL) + 
-      theme_bw() + 
-      theme(panel.border=element_blank()) + 
-      theme(axis.ticks=element_blank()) + 
-      theme(axis.text.x=element_blank()) + 
-      theme(plot.title=element_text(face="bold")) +
-      theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
-      theme(axis.text=element_text(size=12))
-    
-    return(ff)
-    
   }
   
   if(category=='O') {
-    
-    sen_one_plus <- sen %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
+    data <- sen %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
       mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC)-as.numeric(SEN_Provision_No_SEN))
-    
-    df_o <- sen_one_plus
-    
-    df_o$year <- factor(formatyr(df_o$year))
-    df_o$sen_not <- as.numeric(df_o$SEN_Provision_No_SEN)
-    df_o$sen_yes <- as.numeric(df_o$SEN_provision_SEN_with_statement_EHC)
-    
-    
-    op <- ggplot() + 
-      geom_segment(data=df_o, aes(y=year, yend=year, x=0, xend=max(df_o$sen_yes)*1.1), color="#b2b2b2", size=0.15) +
-      geom_dumbbell(data=df_o, aes(y=year, x=sen_yes, xend=sen_not),
-                    size=2, color="gray", size_x=3, size_xend=3,
-                    colour_x="steelblue4", colour_xend="steelblue2") + 
-      geom_text(data=filter(df_o, year=="2015/16"),
-                aes(x=sen_yes, y=year, label="Statement/EHC"),
-                color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=filter(df_o, year=="2015/16"),
-                aes(x=sen_not, y=year, label="No SEN"),
-                color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-      geom_text(data=df_o, aes(x=sen_yes, y=year, label=sen_yes),
-                color="steelblue4", size=5, vjust=2.5) + 
-      geom_text(data=df_o, color="steelblue2", size=5, vjust=2.5,
-                aes(x=sen_not, y=year, label=sen_not)) + 
-      geom_text(data=df_o, aes(label=diff, y=year, x=max(df_o$sen_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-      geom_text(data=filter(df_o, year=="2015/16"), aes(x=max(df_o$sen_yes)*1.2, y=year, label="diff"),
-                color="#7a7d7e", size=5, vjust=-2) + 
-      scale_x_continuous(expand=c(0,0), limits=c(0, max(df_o$sen_yes)*1.3)) + 
-      labs(x=NULL, y=NULL) + 
-      theme_bw() + 
-      theme(panel.border=element_blank()) + 
-      theme(axis.ticks=element_blank()) + 
-      theme(axis.text.x=element_blank()) + 
-      theme(plot.title=element_text(face="bold")) +
-      theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.3))+
-      theme(axis.text=element_text(size=12))
-    
-    return(op) 
-    
   }
+  
+  data$year <- factor(formatyr(data$year))
+  data$sen_not <- as.numeric(data$SEN_Provision_No_SEN)
+  data$sen_yes <- as.numeric(data$SEN_provision_SEN_with_statement_EHC)
+  
+  gap_plot <- ggplot() + 
+    geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$sen_yes)*1.1), color="#b2b2b2", size=0.15) +
+    geom_dumbbell(data=data, aes(y=year, x=sen_yes, xend=sen_not),
+                  size=2, color="gray", size_x=3, size_xend=3,
+                  colour_x="steelblue4", colour_xend="steelblue2") + 
+    geom_text(data=filter(data, year=="2015/16"),
+              aes(x=sen_yes, y=year, label="Statement/EHC"),
+              color="steelblue4", size=5, vjust=-2, fontface="bold") + 
+    geom_text(data=filter(data, year=="2015/16"),
+              aes(x=sen_not, y=year, label="No SEN"),
+              color="steelblue2", size=5, vjust=-2, fontface="bold") + 
+    geom_text(data=data, aes(x=sen_yes, y=year, label=sen_yes),
+              color="steelblue4", size=5, vjust=2.5) + 
+    geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
+              aes(x=sen_not, y=year, label=sen_not)) + 
+    geom_text(data=data, aes(label=diff, y=year, x=max(data$sen_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
+    geom_text(data=filter(data, year=="2015/16"), aes(x=max(data$sen_yes)*1.2, y=year, label="diff"),
+              color="#7a7d7e", size=5, vjust=-2) + 
+    scale_x_continuous(expand=c(0,0), limits=c(0, max(data$sen_yes)*1.3)) + 
+    labs(x=NULL, y=NULL) + 
+    theme_bw() + 
+    theme(panel.border=element_blank()) + 
+    theme(axis.ticks=element_blank()) + 
+    theme(axis.text.x=element_blank()) + 
+    theme(plot.title=element_text(face="bold")) +
+    theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
+    theme(axis.text=element_text(size=12))
+  
+  return(gap_plot)
+  
 }
-
 
 sen_prop <- function(category){
   
@@ -1327,131 +929,3 @@ sen_prop <- function(category){
 }
 
 
-# gender <- char_ud %>% filter(school_type=='Total', characteristic_desc =='Gender', characteristic_1 !='Total') %>% 
-#   select(year,characteristic_1,perm_excl_rate,fixed_excl_rate,one_plus_fixed_rate)
-# 
-# gender_perm <- gender %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
-#   mutate(diff = as.numeric(Gender_male)-as.numeric(Gender_female))
-# 
-# 
-# gender_fixed <- gender %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
-#   mutate(diff = as.numeric(Gender_male)-as.numeric(Gender_female))
-# 
-# 
-# gender_one_plus <- gender %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
-#   mutate(diff = as.numeric(Gender_male)-as.numeric(Gender_female))
-# 
-# 
-# 
-# df_p <- gender_perm
-# 
-# df_p$year <- factor(formatyr(df_p$year))
-# df_p$Gender_female <- as.numeric(df_p$Gender_female)
-# df_p$Gender_male <- as.numeric(df_p$Gender_male)
-# 
-# pp <- ggplot() + 
-#   geom_segment(data=df_p, aes(y=year, yend=year, x=0, xend=max(df_p$Gender_male)*1.1), color="#b2b2b2", size=0.15) +
-#   geom_dumbbell(data=df_p, aes(y=year, x=Gender_male, xend=Gender_female),
-#                          size=2, color="gray", size_x=3, size_xend=3,
-#                          colour_x="steelblue4", colour_xend="steelblue2") + 
-#   geom_text(data=filter(df_p, year=="2015/16"),
-#                      aes(x=Gender_male, y=year, label="boys"),
-#                      color="steelblue4", size=4, vjust=-2, fontface="bold") + 
-#   geom_text(data=filter(df_p, year=="2015/16"),
-#                      aes(x=Gender_female, y=year, label="girls"),
-#                      color="steelblue2", size=4, vjust=-2, fontface="bold") + 
-#   geom_text(data=df_p, aes(x=Gender_male, y=year, label=Gender_male),
-#                      color="steelblue4", size=4, vjust=2.5) + 
-#   geom_text(data=df_p, color="steelblue2", size=4, vjust=2.5,
-#                      aes(x=Gender_female, y=year, label=Gender_female)) + 
-#   geom_text(data=df_p, aes(label=diff, y=year, x=max(df_p$Gender_male)*1.2), color="#7a7d7e", size=4, vjust =2.5) +
-#   geom_text(data=filter(df_p, year=="2015/16"), aes(x=max(df_p$Gender_male)*1.2, y=year, label="diff"),
-#                      color="#7a7d7e", size=4, vjust=-2) + 
-#   scale_x_continuous(expand=c(0,0), limits=c(0, max(df_p$Gender_male)*1.3)) + 
-#   labs(x=NULL, y=NULL, title="Fixed period exclusion rate by gender") + 
-#   theme_bw() + 
-#   theme(panel.border=element_blank()) + 
-#   theme(axis.ticks=element_blank()) + 
-#   theme(axis.text.x=element_blank()) + 
-#   theme(plot.title=element_text(face="bold"))
-# 
-# 
-# 
-# df_f <- gender_fixed
-# 
-# df_f$year <- factor(formatyr(df_f$year))
-# df_f$Gender_female <- as.numeric(df_f$Gender_female)
-# df_f$Gender_male <- as.numeric(df_f$Gender_male)
-# 
-# 
-# ff <- ggplot() + 
-#   geom_segment(data=df_f, aes(y=year, yend=year, x=0, xend=max(df_f$Gender_male)*1.1), color="#b2b2b2", size=0.15) +
-#   geom_dumbbell(data=df_f, aes(y=year, x=Gender_male, xend=Gender_female),
-#                 size=2, color="gray", size_x=3, size_xend=3,
-#                 colour_x="steelblue4", colour_xend="steelblue2") + 
-#   geom_text(data=filter(df_f, year=="2015/16"),
-#             aes(x=Gender_male, y=year, label="boys"),
-#             color="steelblue4", size=4, vjust=-2, fontface="bold") + 
-#   geom_text(data=filter(df_f, year=="2015/16"),
-#             aes(x=Gender_female, y=year, label="girls"),
-#             color="steelblue2", size=4, vjust=-2, fontface="bold") + 
-#   geom_text(data=df_f, aes(x=Gender_male, y=year, label=Gender_male),
-#             color="steelblue4", size=4, vjust=2.5) + 
-#   geom_text(data=df_f, color="steelblue2", size=4, vjust=2.5,
-#             aes(x=Gender_female, y=year, label=Gender_female)) + 
-#   geom_text(data=df_f, aes(label=diff, y=year, x=max(df_f$Gender_male)*1.2), color="#7a7d7e", size=4, vjust =2.5) +
-#   geom_text(data=filter(df_f, year=="2015/16"), aes(x=max(df_f$Gender_male)*1.2, y=year, label="diff"),
-#             color="#7a7d7e", size=4, vjust=-2) + 
-#   scale_x_continuous(expand=c(0,0), limits=c(0, max(df_f$Gender_male)*1.3)) + 
-#   labs(x=NULL, y=NULL, title="Fixed period exclusion rate by gender") + 
-#   theme_bw() + 
-#   theme(panel.border=element_blank()) + 
-#   theme(axis.ticks=element_blank()) + 
-#   theme(axis.text.x=element_blank()) + 
-#   theme(plot.title=element_text(face="bold"))
-# 
-# 
-# df_o <- gender_one_plus
-# 
-# df_o$year <- factor(formatyr(df_o$year))
-# df_o$Gender_female <- as.numeric(df_o$Gender_female)
-# df_o$Gender_male <- as.numeric(df_o$Gender_male)
-# 
-# 
-# op <- ggplot() + 
-#   geom_segment(data=df_o, aes(y=year, yend=year, x=0, xend=max(df_o$Gender_male)*1.1), color="#b2b2b2", size=0.15) +
-#   geom_dumbbell(data=df_o, aes(y=year, x=Gender_male, xend=Gender_female),
-#                 size=2, color="gray", size_x=3, size_xend=3,
-#                 colour_x="steelblue4", colour_xend="steelblue2") + 
-#   geom_text(data=filter(df_o, year=="2015/16"),
-#             aes(x=Gender_male, y=year, label="boys"),
-#             color="steelblue4", size=4, vjust=-2, fontface="bold") + 
-#   geom_text(data=filter(df_o, year=="2015/16"),
-#             aes(x=Gender_female, y=year, label="girls"),
-#             color="steelblue2", size=4, vjust=-2, fontface="bold") + 
-#   geom_text(data=df_o, aes(x=Gender_male, y=year, label=Gender_male),
-#             color="steelblue4", size=4, vjust=2.5) + 
-#   geom_text(data=df_o, color="steelblue2", size=4, vjust=2.5,
-#             aes(x=Gender_female, y=year, label=Gender_female)) + 
-#   geom_text(data=df_o, aes(label=diff, y=year, x=max(df_o$Gender_male)*1.2), color="#7a7d7e", size=4, vjust =2.5) +
-#   geom_text(data=filter(df_o, year=="2015/16"), aes(x=max(df_o$Gender_male)*1.2, y=year, label="diff"),
-#             color="#7a7d7e", size=4, vjust=-2) + 
-#   scale_x_continuous(expand=c(0,0), limits=c(0, max(df_o$Gender_male)*1.3)) + 
-#   labs(x=NULL, y=NULL, title="One or mre fixed period exclusion rate by gender") + 
-#   theme_bw() + 
-#   theme(panel.border=element_blank()) + 
-#   theme(axis.ticks=element_blank()) + 
-#   theme(axis.text.x=element_blank()) + 
-#   theme(plot.title=element_text(face="bold"))
-# 
-# 
-# pp
-# ff
-# op
-# 
-# 
-# 
-# 
-# 
-# 
-# 
