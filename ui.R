@@ -222,8 +222,7 @@ shinyUI(
                           in 2015/16, up from 154,060 pupil enrolments (1.98 per cent) in 2014/15, which is equivalent
                           to 211 pupils per 10,000."
                         ),
-                      mainPanel(tabsetPanel(
-                        tabPanel("Plot",
+                      mainPanel(
                           br(),
                           fluidRow(column(9,
                                           br(),
@@ -234,15 +233,7 @@ shinyUI(
                           br(),
                           tableOutput("t1_table"),
                           br()
-                        ),
-                        tabPanel(
-                          "Data download",
-                          br(),
-                          downloadButton("downloadData", "Download"),
-                          br(),
-                          DT::dataTableOutput("sch_la_data")
-                        )
-                      )))),
+                        ))),
 
                   # 3. Tab 3 ----
 
@@ -317,7 +308,22 @@ shinyUI(
                                          tableOutput("fixed_reason_t")))),
                
                
+                   # 6. Tab 6 ----
 
+                    tabPanel("School summary",
+                        sidebarLayout(
+                          sidebarPanel(
+                            h4(strong("LA/estab number")),
+                            br(),
+                            h4(strong("School name")),
+                            br(),
+                            h4(strong("Exclusions by reason")),
+                            br(),
+                            width=12),
+                          mainPanel(
+                            DT::dataTableOutput("sch_la_data"),
+                            width=12
+                          ))),
                    # 5. Tab 5 ----
                    
                   tabPanel("Data and methods",
