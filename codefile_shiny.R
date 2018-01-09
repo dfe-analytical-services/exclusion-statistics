@@ -377,7 +377,7 @@ la_sch_table <- function(la,refyear) {
 
 
 ####
-# 5. MAP ----
+# 5. MAP exclusion rates ----
 
 ukLocalAuthoritises <- shapefile("data/England_LA_2016.shp")
 
@@ -441,11 +441,11 @@ excmap <- function(measure) {
                       style = list("font-weight" = "normal", padding = "3px 8px"),
                       textsize = "15px",
                       direction = "auto")) %>%
-        addLegend(pal = perm_excl_rate_Pal, 
-                  values = englishLocalAuthorityData$perm_excl_rate, 
+        addLegend(colors = c("#FFFFB2", "#FECC5C", "#FD8D3C", "#F03B20", "#BD0026", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
-                  position = "topright")
+                  position = "topright",
+                  labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data"))
     )
   }
   
@@ -471,11 +471,11 @@ excmap <- function(measure) {
                       style = list("font-weight" = "normal", padding = "3px 8px"),
                       textsize = "15px",
                       direction = "auto")) %>%
-        addLegend(pal = fixed_excl_rate_Pal, 
-                  values = englishLocalAuthorityData$fixed_excl_rate, 
+        addLegend(colors = c("#FFFFB2", "#FECC5C", "#FD8D3C", "#F03B20", "#BD0026", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
-                  position = "topright")
+                  position = "topright",
+                  labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data"))
     )
   }
 }
