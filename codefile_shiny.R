@@ -377,7 +377,7 @@ la_sch_table <- function(la,refyear) {
 
 
 ####
-# 5. MAP ----
+# 5. MAP exclusion rates ----
 
 ukLocalAuthoritises <- shapefile("data/England_LA_2016.shp")
 
