@@ -267,6 +267,13 @@ server <- function(session, input, output) {
     choices = e$laestab[e$la_name == "City of London"],
     server = TRUE)
   
+  observe({
+    updateSelectizeInput(
+      session = session, 
+      inputId = 'laestab_rob',
+      choices = e$laestab[e$la_name == input$la_name_rob],
+      server = TRUE)
+  })
   
   
   
