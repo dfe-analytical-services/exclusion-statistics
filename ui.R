@@ -310,18 +310,36 @@ shinyUI(
                
                    # 6. Tab 6 ----
 
-                    tabPanel("School summary",
+               # tabPanel("School summary",
+               #          sidebarLayout(
+               #            sidebarPanel(
+               #              h4(strong("LA/estab number")),
+               #              selectInput("la_name", "Local Authority", choices = unique(d$la_name)),
+               #              br(),
+               #              h4(strong("School name")),
+               #              selectInput("laestab", "School", choices = unique(d$laestab)),
+               #              br(),
+               #              h4(strong("Exclusions by reason")),
+               #              br(),
+               #              width=12),
+               #            mainPanel(
+               #              tableOutput("school_branch"),
+               #              width=12
+               #            ))),
+               
+               tabPanel("TEST",
                         sidebarLayout(
                           sidebarPanel(
                             h4(strong("LA/estab number")),
+                            selectInput("la_name_rob", label = "la_name" ,choices = unique(e$la_name)),
+                            selectizeInput("laestab_rob", label = "laestab", choices = NULL),
                             br(),
-                            h4(strong("School name")),
                             br(),
                             h4(strong("Exclusions by reason")),
                             br(),
                             width=12),
                           mainPanel(
-                            DT::dataTableOutput("sch_la_data"),
+                            dataTableOutput("table_adam_rob"),
                             width=12
                           ))),
                    # 5. Tab 5 ----

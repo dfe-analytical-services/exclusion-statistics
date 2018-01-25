@@ -3,7 +3,7 @@
 source("codefile_shiny.R")
 
 
-server <- function(input, output) {
+server <- function(session, input, output) {
   
   # 1. Front page ----
   
@@ -153,12 +153,26 @@ server <- function(input, output) {
                                           " (",la_one_plus_rate(input$select2,201516), " per cent) in 2015/16, 
                                           which is equivalent to ", as.numeric(la_one_plus_rate(input$select2,201516))*100, " pupils per 10,000.")})
   
-  output$sch_la_data <- DT::renderDataTable({la_sch_table(input$select2)},extensions = 'FixedColumns', options = list(paging = FALSE,
-                                                                                                                      scrollX = TRUE,
-                                                                                                                      fixedColumns = list(leftColumns = 5),
-                                                                                                                      deferRender = TRUE,
-                                                                                                                      scrollY = 700,
-                                                                                                                      scroller = TRUE))
+  # output$sch_la_data <- DT::renderDataTable({la_sch_table(input$select2)},extensions = 'FixedColumns', options = list(paging = FALSE,
+  #                                                                                                                     scrollX = TRUE,
+  #                                                                                                                     fixedColumns = list(leftColumns = 5),
+  #                                                                                                                     deferRender = TRUE,
+  #                                                                                                                     scrollY = 700,
+  #                                                                                                                     scroller = TRUE))
+  # output$d <- DT::renderDataTable({d})
+  # 
+  # output$school_branch <- renderTable({
+  #   
+  #   school_filter <- with(d, d[la_name == input$la_name & laestab == input$laestab,])
+  #   
+  # })
+  # 
+  #   output$results <- DT::renderDataTable(
+  #     DT::datatable( d,
+  #                    rownames = FALSE, options = list(searchable = FALSE))
+  #   )
+  # 
+  
   # 4. Map ----
   
   output$map <- renderLeaflet({excmap(input$select_map)})
@@ -201,8 +215,64 @@ server <- function(input, output) {
     }
   ) 
   
+  
 
+  
+#  data_2 <- reactive({
+#    local_authority_select <- input$la_name
+#    school_name_select <- input$laestab
+#    dataSet <- data.frame(main_ud)
+#    dataSet
+#  })
+#  
+#  output$t1_data_table <-  renderTable({
+#    data_2()
+#  })
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  output$table_adam_rob <- renderDataTable({
+    
+    # Filter
+    
+    e %>%
+      filter(
+        la_name == input$la_name_rob,
+        laestab == input$laestab_rob
+      )
+    
+  } )
+  
+  la_schools <- reactive({e %>% filter(la_name == la_name_rob)})
+  
+  updateSelectizeInput(
+    session = session, 
+    inputId = 'laestab_rob',
+    choices = e$laestab[e$la_name == "City of London"],
+    server = TRUE)
+  
+  
+  
+  
+  
+  
+  session$onSessionEnded(function() { stopApp() })
+  
 }
-
-
 

@@ -15,8 +15,10 @@ library(tidyverse)
 library(shinycssloaders)
 library(plotly)
 
+library(shiny)
 library(DT)
 library(ggalt)
+library(magrittr)
 
 ####
 # 2. General functions, formatting years and rounding ----
@@ -357,7 +359,7 @@ la_one_plus_rate <- function(la, refyear) {
 
 la_sch_table <- function(la,refyear) {
   
-  d <- filter(main_ud, level == "School",la_name == la) %>%
+  d <- filter(main_ud, level == "School") %>%
     select(
       year,
       la_name,
@@ -375,6 +377,76 @@ la_sch_table <- function(la,refyear) {
   return(d)
 }
 
+
+d <- filter(main_ud, level == "School") %>%
+  select(
+    year,
+    la_name,
+    laestab,
+    school_type,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate
+  )
+
+
+
+
+  e <- filter(main_ud, level == "School") %>%
+    select(
+      year,
+      la_name,
+      laestab,
+      school_type,
+      headcount,
+      perm_excl,
+      perm_excl_rate,
+      fixed_excl,
+      fixed_excl_rate,
+      one_plus_fixed,
+      one_or_more_fixed_excl_rate
+    )
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  dataset <- reactive({
+    data <- d
+    if (length(input$la_name)){
+      data$c1 <- grepl(paste(input$la_name, collapse = "|"), data$la_name)
+    } 
+    else {
+      data$c1 <- TRUE
+    }
+    
+    if (length(input$laestab)){
+      data$c2 <- grepl(paste(input$laestab, collapse = "|"), data$laestab)
+    }
+    else {
+      data$c2 <- TRUE
+    }
+    
+    data[data$c1 & data$c2, c("year", "la_name", "laestab", "school_type")]
+    
+  })
+  
 
 ####
 # 5. MAP ----
