@@ -59,7 +59,7 @@ reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = co
 char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
 ####
-# 4. Front page ----
+# Front page ----
 
 ## national plots
 
@@ -123,7 +123,7 @@ national_bars <- function(category) {
 }
 
 ####
-# 4. LA trends ----
+# LA trends ----
 
 la_plot_data <-
   dplyr::select(
@@ -353,103 +353,7 @@ la_one_plus_rate <- function(la, refyear) {
 }
 
 ####
-# 4. School page ----
-
-#school level info for a specific LA
-
-la_sch_table <- function(la,refyear) {
-  
-  d <- filter(main_ud, level == "School") %>%
-    select(
-      year,
-      la_name,
-      laestab,
-      school_type,
-      headcount,
-      perm_excl,
-      perm_excl_rate,
-      fixed_excl,
-      fixed_excl_rate,
-      one_plus_fixed,
-      one_or_more_fixed_excl_rate
-    )
-  
-  return(d)
-}
-
-
-d <- filter(main_ud, level == "School") %>%
-  select(
-    year,
-    la_name,
-    laestab,
-    school_type,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate
-  )
-
-
-
-
-  e <- filter(main_ud, level == "School") %>%
-    select(
-      year,
-      la_name,
-      laestab,
-      school_type,
-      headcount,
-      perm_excl,
-      perm_excl_rate,
-      fixed_excl,
-      fixed_excl_rate,
-      one_plus_fixed,
-      one_or_more_fixed_excl_rate
-    )
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  dataset <- reactive({
-    data <- d
-    if (length(input$la_name)){
-      data$c1 <- grepl(paste(input$la_name, collapse = "|"), data$la_name)
-    } 
-    else {
-      data$c1 <- TRUE
-    }
-    
-    if (length(input$laestab)){
-      data$c2 <- grepl(paste(input$laestab, collapse = "|"), data$laestab)
-    }
-    else {
-      data$c2 <- TRUE
-    }
-    
-    data[data$c1 & data$c2, c("year", "la_name", "laestab", "school_type")]
-    
-  })
-  
-
-####
-# 5. MAP ----
+# Map ----
 
 ukLocalAuthoritises <- shapefile("data/England_LA_2016.shp")
 
@@ -554,7 +458,7 @@ excmap <- function(measure) {
 
 
 ####
-# 5. Reason page  ----
+# Reason page  ----
 
 perm_reason_table <- function(schtype) {
   
@@ -626,7 +530,7 @@ fixed_reason_bar <- function(schtype){
 
 
 ####
-# 4. Characteristics ----
+# Characteristics ----
 
 
 ## FSM
@@ -997,7 +901,22 @@ sen_prop <- function(category){
                     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
   }
-  
 }
 
+# School summary ----
+
+school_summary_table <- filter(main_ud, level == "School") %>%
+  select(
+    year,
+    la_name,
+    laestab,
+    school_type,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate
+  )
 
