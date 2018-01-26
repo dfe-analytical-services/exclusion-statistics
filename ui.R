@@ -7,7 +7,7 @@ shinyUI(
                    
                    # 1. Front page ----
                    
-                   tabPanel("Front page",
+                   tabPanel("National",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
                                 h3("Permanent and fixed period exclusions in England"),
@@ -37,8 +37,11 @@ shinyUI(
                                 column(verticalLayout(
                                   strong("Permanent exclusion rate, 2006/07 to 2015/16"),
                                   em("State-funded primary, secondary and special schools"),
-                                  plotlyOutput("p_bar", height =
-                                                 "8cm")
+                                  
+                                  radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
+                                  plotOutput("p_bar", height ="8cm")
+                                  
+                                  
                                 ), width = 8),
                                 column(verticalLayout(
                                   br(),
@@ -62,7 +65,10 @@ shinyUI(
                                   column(verticalLayout(
                                     strong("Fixed period exclusion rate, 2006/07 to 2015/16"),
                                     em("State-funded primary, secondary and special schools"),
-                                    plotlyOutput("f_bar", height = "8cm")
+                                    
+                                    radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
+                                    plotOutput("f_bar", height ="8cm")
+                                    
                                   ), width = 8),
                                   br()
                                   ))),
