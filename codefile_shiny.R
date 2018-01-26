@@ -15,8 +15,10 @@ library(tidyverse)
 library(shinycssloaders)
 library(plotly)
 
+library(shiny)
 library(DT)
 library(ggalt)
+library(magrittr)
 
 ####
 # 2. General functions, formatting years and rounding ----
@@ -57,7 +59,7 @@ reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = co
 char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
 ####
-# 4. Front page ----
+# Front page ----
 
 ## national plots
 
@@ -121,7 +123,7 @@ national_bars <- function(category) {
 }
 
 ####
-# 4. LA trends ----
+# LA trends ----
 
 la_plot_data <-
   dplyr::select(
@@ -351,6 +353,8 @@ la_one_plus_rate <- function(la, refyear) {
 }
 
 ####
+
+# Map ----
 # 4. School page ----
 
 #school level info for a specific LA
@@ -482,7 +486,7 @@ excmap <- function(measure) {
 
 
 ####
-# 5. Reason page  ----
+# Reason page  ----
 
 perm_reason_table <- function(schtype) {
   
@@ -554,7 +558,7 @@ fixed_reason_bar <- function(schtype){
 
 
 ####
-# 4. Characteristics ----
+# Characteristics ----
 
 
 ## FSM
@@ -925,7 +929,22 @@ sen_prop <- function(category){
                     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
   }
-  
 }
 
+# School summary ----
+
+school_summary_table <- filter(main_ud, level == "School") %>%
+  select(
+    year,
+    la_name,
+    laestab,
+    school_type,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate
+  )
 

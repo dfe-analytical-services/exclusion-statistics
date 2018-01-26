@@ -5,7 +5,7 @@ source("codefile_shiny.R")
 shinyUI(
     navbarPage("Exclusion statistics", id = "nav", 
                    
-                   # 1. Tab 1 ----
+                   # 1. Front page ----
                    
                    tabPanel("Front page",
                             sidebarLayout(
@@ -77,7 +77,7 @@ shinyUI(
                    ),
                  
 
-                   # 2. Tab 2 ----
+                   # 2. Pupil Characteristics ----
 
                    tabPanel("Pupil characteristics",
                             tabsetPanel(
@@ -177,7 +177,7 @@ shinyUI(
                               # tabPanel("Ethnic group", "contents")
                               )),
 
-                   # 4. Tab 4 ----
+                   # 3. LA Trends ----
 
                   tabPanel("LA trends",
                     sidebarLayout(
@@ -222,8 +222,7 @@ shinyUI(
                           in 2015/16, up from 154,060 pupil enrolments (1.98 per cent) in 2014/15, which is equivalent
                           to 211 pupils per 10,000."
                         ),
-                      mainPanel(tabsetPanel(
-                        tabPanel("Plot",
+                      mainPanel(
                           br(),
                           fluidRow(column(9,
                                           br(),
@@ -234,17 +233,9 @@ shinyUI(
                           br(),
                           tableOutput("t1_table"),
                           br()
-                        ),
-                        tabPanel(
-                          "Data download",
-                          br(),
-                          downloadButton("downloadData", "Download"),
-                          br(),
-                          DT::dataTableOutput("sch_la_data")
-                        )
-                      )))),
+                        ))),
 
-                  # 3. Tab 3 ----
+                  # 4. Map ----
 
                   tabPanel("Map",
                     sidebarLayout(
@@ -273,7 +264,7 @@ shinyUI(
                     )
                   ),
 
-               #  # 2. Tab 2 ----
+               #  # 5. Reason for exclusions ----
                #  
                tabPanel("Reason for exclusion",
                         sidebarLayout(
@@ -316,10 +307,24 @@ shinyUI(
                                          br(),
                                          tableOutput("fixed_reason_t")))),
                
+               # 6. Schools Summary 
+               tabPanel("School summary",
+                        sidebarLayout(
+                          sidebarPanel(
+                            h4(strong("Select local authority and then school number")),
+                            selectInput("la_name_rob", label = "1. Local Authority" ,choices = unique(school_summary_table$la_name)),
+                            selectizeInput("laestab_rob", label = "2. School Number", choices = NULL),
+                            br(),
+                            br(),
+                            h4(strong("Exclusions by reason")),
+                            br(),
+                            width=12),
+                          mainPanel(
+                            dataTableOutput("table_school_summary"),
+                            width=12
+                          ))),
                
-
-                   # 5. Tab 5 ----
-                   
+                   # 7. Data and methods ----
                   tabPanel("Data and methods",
                     h4(strong("Data sources")),
                     "This tool uses open data published alongside the 'Permanent and fixed-period exclusions in
