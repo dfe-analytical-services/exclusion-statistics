@@ -10,25 +10,29 @@ shinyUI(
                    tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
+                                strong("insert cool title for tool here"),
+                                br(),
                                 h3("Permanent and fixed period exclusions in England"),
-                                h4(strong("Purpose")),
-                                "The pupose of this tool is...",
+                                br(),
+                                strong("Background"),
+                                "The purpose of this tool/dashboard is to provide insight to lower level breakdowns included within our 
+                                National Statistics release.",
+                                "It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
+                                and special schools as reported in the School Census.",
                                 hr(),
-                                h4(strong("Background")),
-                                "This National Statistics release reports on permanent and fixed period exclusions from state-funded primary, state-funded
-                                  secondary and special schools during the 2015/16 academic year as reported in the School Census.",
-                                "This release national level figures on permanent and fixed period exclusions from pupil referral units. All figures in this
-                                  release are based on unrounded data; therefore, constituent parts may not add up due to rounding.",
-                                hr(),
-                                h4(strong("Latest National Statistics")),
-                                "Further information is available in the 'Permanent and fixed-period exclusions in England' National Statistics release.", 
+                                strong("Latest National Statistics"),
+                                "Further information is available in the ", 
                                 a("Permanent and fixed-period exclusions in England:2015 to 2016", 
                                     href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
                                     target="_blank"),
+                                "National Statistics release",
                                 hr(),
-                                h4(strong("Guidance and methodology")),
-                                "An exclusions statistics guide, which provides historical information on exclusion statistics, technical background information
-                                  to the figures and data collection, and definitions of key terms should be referenced alongside this release.",
+                                strong("Guidance and methodology"),
+                                "The data and methods tab includes information on the data used in this tool as well as definitions for 
+                                terms used throughout.",
+                                "An exclusions statistics guide, which provides historical information on exclusion statistics, technical 
+                                background information to the figures and data collection, and definitions of key terms should be referenced 
+                                alongside this release.",
                                 a("Exclusions statistics guide",
                                     href = "https://www.gov.uk/government/collections/statistics-school-workforce",
                                     target = "_blank")

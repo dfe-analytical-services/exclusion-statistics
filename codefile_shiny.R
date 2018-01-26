@@ -143,7 +143,7 @@ national_bars_num <- function(category) {
     plot <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
       geom_bar(fill = 'dodgerblue3', stat = "identity") +
-      ylab("Fixed period exclusions")
+      ylab("Fixed period exclusions") 
   }
   
   plot <- plot + 
@@ -154,7 +154,8 @@ national_bars_num <- function(category) {
       data = data,
       aes(label = prettyNum(value, big.mark = ",")),
       colour="white",
-      vjust = 2)
+      vjust = 2) +
+    scale_y_continuous(labels = scales::comma)
   
   return(plot)
 }
