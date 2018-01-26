@@ -82,7 +82,7 @@ nat_summary <-
   arrange(year)
 
 
-# National bar chart (front page)
+# National bar charts (front page)
 
 national_bars_rate <- function(category) {
   if (category == 'P') {
