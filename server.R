@@ -227,11 +227,7 @@ server <- function(session, input, output) {
       server = TRUE)
   })
   
-  
-  
-  
-  
-  session$onSessionEnded(function() { stopApp() })
+  # session$onSessionEnded(function() { stopApp() })
   
 }
 

@@ -901,26 +901,22 @@ sen_prop <- function(category){
                     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
   }
-  
-  
-# School summary ----
-  
-  school_summary_table <- filter(main_ud, level == "School") %>%
-    select(
-      year,
-      la_name,
-      laestab,
-      school_type,
-      headcount,
-      perm_excl,
-      perm_excl_rate,
-      fixed_excl,
-      fixed_excl_rate,
-      one_plus_fixed,
-      one_or_more_fixed_excl_rate
-    )
-  
-  
 }
 
+# School summary ----
+
+school_summary_table <- filter(main_ud, level == "School") %>%
+  select(
+    year,
+    la_name,
+    laestab,
+    school_type,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate
+  )
 
