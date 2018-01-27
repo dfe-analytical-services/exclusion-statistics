@@ -62,6 +62,66 @@ shinyUI(
                    # 2. Pupil Characteristics ----
 
                    tabPanel("Pupil characteristics",
+                            
+                            sidebarLayout(sidebarPanel(
+                              h4(strong("Exclusions by pupil characteristic")),
+                              selectInput("char_char",
+                                          label = "select characteristic",
+                                          choices = list(
+                                            "SEN provision" = 'sen',
+                                            "FSM eligibility" = 'fsm',
+                                            "Gender" = 'gender'),
+                                          selected = 'gender'),
+                              selectInput("char_sch",
+                                          label = "select school type",
+                                          choices = list(
+                                            "State-funded primary" = 'Primary',
+                                            "State-funded secondary" = 'Secondary',
+                                            "Special" = 'Special',
+                                            "Total" = 'Total'),
+                                          selected = 'Total'),
+                              selectInput("char_cat",
+                                          label = "select measure",
+                                          choices = list(
+                                            "Fixed period" = 'F',
+                                            "Permanent" = 'P',
+                                            "One or more fixed" = 'O'),
+                                          selected = 'P'),
+                              tableOutput("char_ts_table"), width = 5
+                             ),
+                            mainPanel(
+                              strong("chart title"),
+                                     br(),
+                                     "footnotes",
+                                     br(),
+                                     plotOutput("char_ts"), width = 7
+                            )
+                            ),
+                            
+                            
+                            fluidRow(
+                              column(
+                                verticalLayout(
+                                  h4(strong("Proportion of exclusions by characteristic - 2015/16")),
+                                  em("State-funded primary, secondary and special schools"),
+                                  plotlyOutput("char_prop")
+                                ),
+                                width = 5
+                              ),
+                              column(
+                                verticalLayout(
+                                  h4(strong("How is difference in exclusion rate changing over time?")),
+                                  em("State-funded primary, secondary and special schools")
+                                  
+                                ),
+                                width = 5
+                              )
+                            ),
+                              
+                              
+                            
+                            
+                            
                             tabsetPanel(
                               tabPanel("Free school meal eligibility",
                                        sidebarLayout(
@@ -81,33 +141,17 @@ shinyUI(
                                             mainPanel()), 
                                         fluidRow(
                                            column(
-                                             verticalLayout(
-                                               h4(strong("How do exclusions vary across school type?")),
-                                               radioButtons("fsm_table",label = NULL,c("rate", "number"),inline = TRUE),
-                                               h4("Across all schools"),
-                                               tableOutput("fsm_tot_table"),
-                                               h4("In state-funded primary schools"),
-                                               tableOutput("fsm_pri_table"),
-                                               h4("In state-funded secondary schools"),
-                                               tableOutput("fsm_sec_table"),
-                                               h4("In special schools"),
-                                               tableOutput("fsm_spec_table")
-                                             ),
-                                             width = 5
-                                           ),
-                                           column(
-                                             verticalLayout(
                                                h4(strong("How is difference in exclusion rate changing over time?")),
                                                em("State-funded primary, secondary and special schools"),
-                                               plotOutput("fsm_gap"),
+                                               plotOutput("fsm_gap"), width =5),
+                                           column(
                                                h4(strong("Proportion of exclusions by FSM eligibility - 2015/16")),
                                                em("State-funded primary, secondary and special schools"),
-                                               plotlyOutput("fsm_prop_plot")
-                                             ),
-                                             width = 4
+                                               plotlyOutput("fsm_prop_plot"), width =5
+                                             ))
                                            )
-                                         )
-                                       ),
+                                         
+                                       ,
                               tabPanel("SEN provision",
                                        sidebarLayout(
                                          sidebarPanel(

@@ -898,8 +898,7 @@ sen_prop <- function(category){
     year == 201516,
     characteristic_desc %in% c('SEN_provision'),
     characteristic_1 != "SEN_Unclassified") %>%
-    mutate(characteristic_1 = ifelse(
-    characteristic_1 == "SEN_Provision_No_SEN","No SEN",
+    mutate(characteristic_1 = ifelse(characteristic_1 == "SEN_Provision_No_SEN","No SEN",
     ifelse(characteristic_1 == "SEN_provision_SEN_with_statement_EHC", "SEN with statement or EHC",
            ifelse(characteristic_1 == "SEN_provision_SEN_without_statement", "SEN without a statement or EHC",
                   ifelse(characteristic_1 == "Total", "Total","NA")))))
@@ -941,6 +940,176 @@ sen_prop <- function(category){
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
   }
 }
+
+
+#### GENDER
+
+
+head(char_ud)
+
+
+# cleaning data for characteristics tab  
+nat_char_prep <- filter(char_ud, ! characteristic_1 %in% c("SEN_provision_Unclassified","FSM_Unclassified")) %>%
+  mutate(characteristic_1 = ifelse(
+    characteristic_1 == "Gender_male","Boys",
+    ifelse(characteristic_1 == "Gender_female", "Girls",
+    ifelse(characteristic_1 == "Total", "Total",
+    ifelse(characteristic_1 == "SEN_Provision_No_SEN","No SEN",
+    ifelse(characteristic_1 == "SEN_provision_SEN_with_statement_EHC", "SEN with statement or EHC",
+    ifelse(characteristic_1 == "SEN_provision_SEN_without_statement", "SEN without a statement or EHC",
+    ifelse(characteristic_1 == "FSM_Eligible","FSM eligible",
+    ifelse(characteristic_1 == "FSM_NotEligible", "FSM not eligible","NA"))))))))) %>%
+  mutate(school_type = ifelse(
+    school_type == "State-funded primary","Primary",
+    ifelse(school_type == "State-funded secondary","Secondary",
+           ifelse(school_type == "Special", "Special", 
+                  ifelse(school_type == "Total", "Total", "NA"))))) 
+  
+
+
+
+
+
+char_series <- function(char, sch_type, category) {
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  }
+
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusion percentage"
+    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x')
+  } else if (category == 'F') {
+    ylabtitle <- "Fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x')
+  } else if (category == 'O') {
+    ylabtitle <- "One or more fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
+  }
+  
+  return(
+    d %>%
+      ggplot +
+      aes(x = as.factor(formatyr(year)), 
+          y = as.numeric(y_var), 
+          group = characteristic_1, colour = as.factor(characteristic_1)) +
+      geom_path(size = 1) +
+      xlab("Academic year") +
+      ylab(ylabtitle) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      theme_classic() +
+      geom_text(
+        d = d %>% filter(year == min(as.numeric(year))+101),
+        aes(label = characteristic_1),
+        size = 5,
+        hjust = 0,
+        vjust = -1) +
+      theme(legend.position = "none") +
+      scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
+      theme(axis.text=element_text(size=12),
+            axis.title=element_text(size=14,face="bold")))
+}
+
+
+char_series_table <- function(char, sch_type, category) {
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  }
+  
+  if (category == 'P') {
+    data <- d %>% mutate(t_var = perm_excl_rate)
+  } else if (category == 'F') {
+    data <- d %>% mutate(t_var = fixed_excl_rate)
+  } else if (category == 'O') {
+    data <- d %>% mutate(t_var = one_plus_fixed_rate)
+  }
+  
+  data$year <- formatyr(data$year)
+  
+  char_sch <- data %>% select(year,characteristic_1,t_var)  
+  
+  data_wide <- char_sch %>% spread(key = year, value =  t_var)
+  
+  colnames(data_wide)[1] <- ""
+  
+  return(data_wide)
+  
+}
+
+
+
+
+
+
+### proportion chart 
+
+
+
+sen_prop <- function(char, sch_type, category){
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == 201516)
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == 201516) 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == 201516) 
+  }
+  
+  if (category == 'P') {
+    data <- d %>% select(characteristic_1,perm_excl) %>% mutate(var = perm_excl)
+  } else if (category == 'F') {
+    data <- d %>% select(characteristic_1,fixed_excl) %>% mutate(var = fixed_excl)
+  } else if (category == 'O') {
+    data <- d %>% select(characteristic_1,one_plus_fixed) %>% mutate(var = one_plus_fixed)
+  }
+  
+
+
+  return(data %>%
+             plot_ly(labels = ~characteristic_1, values = ~var, textinfo="percent+value") %>%
+             add_pie(hole = 0.5) %>%
+             layout(showlegend = T,legend = list(x = 0.5, y = -0.4),
+                    xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                    yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
+                    , margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
+
+  
+}
+
+
+# data$year <- formatyr(data$year)
+# 
+# if(category=='P') {
+#   data <- data %>% mutate(t_var = perm_excl_rate)
+# }
+# if(category=='F') {
+#   data <- data %>% mutate(t_var = fixed_excl_rate)
+# }
+# if(category=='O') {   
+#   data <- data %>% mutate(t_var = one_plus_fixed_rate)
+# }
+# 
+# sen_sch <- data %>% select(year,characteristic_1,t_var)  
+# 
+# data_wide <- sen_sch %>% spread(key = year, value =  t_var)
+# 
+# colnames(data_wide)[1] <- ""
+# 
+# return(data_wide)
+
+################################
+
+
+# school tab 
 
 #school level info for a specific LA
 

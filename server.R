@@ -42,6 +42,12 @@ server <- function(session, input, output) {
 
   # 2. Characteristics ----
   
+  output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
+  output$char_ts_table <- renderTable({char_series_table(input$char_char, input$char_sch, input$char_cat)},  bordered = TRUE, spacing = 'm')
+  
+  output$char_prop <- renderPlotly({sen_prop(input$char_char, input$char_sch, input$char_cat)})
+  
+  
   ## 2.1 FSM ----
   
   output$fsm_pri_table <- renderTable({
