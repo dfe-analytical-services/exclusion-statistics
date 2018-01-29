@@ -567,386 +567,8 @@ fixed_reason_bar <- function(schtype){
 }
 
 
-
 ####
 # Characteristics ----
-
-
-## FSM
-
-#data for download button
-
-fsmchar <- char_ud %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'))
-
-
-#proportion chart
-
-fsm_prop <- function(category){
-
-data <- char_ud %>% filter(
-    school_type == "Total",
-    year == 201516,
-    characteristic_desc %in% c('FSM_Eligible'),
-    characteristic_1 != "FSM_Unclassified") %>%
-  mutate(characteristic_1 = ifelse(
-    characteristic_1 == "FSM_Eligible","FSM eligible",
-    ifelse(characteristic_1 == "FSM_NotEligible", "FSM not eligible",
-           ifelse(characteristic_1 == "Total", "Total","NA"))))
-
-
-if(category=='P') {
-  
-fsm_prop <- data %>% select(characteristic_1,perm_excl) 
-
-return(fsm_prop %>%
-  plot_ly(labels = ~characteristic_1, values = ~perm_excl) %>%
-  add_pie(hole = 0.5) %>%
-  layout(showlegend = T,legend = list(x = 0.3, y = -0.3),
-         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-         , margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
-}
-
-if(category=='F') {
-  
-  fsm_prop <- data %>% select(characteristic_1,fixed_excl) 
-  
-  return(fsm_prop %>%
-           plot_ly(labels = ~characteristic_1, values = ~fixed_excl) %>%
-           add_pie(hole = 0.5) %>%
-           layout(showlegend = T, legend = list(x = 0.3, y = -0.3),
-                  xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                  yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
-}
-
-if(category=='O') {
-  
-  fsm_prop <- data %>% select(characteristic_1,one_plus_fixed) 
-  
-  return(fsm_prop %>%
-           plot_ly(labels = ~characteristic_1, values = ~one_plus_fixed) %>%
-           add_pie(hole = 0.5) %>%
-           layout(showlegend = T, legend = list(x = 0.3, y = -0.3),
-                  xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                  yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
-}
-
-}
-
-
-fsm_sch_table_num <- function(sch_type,category){
-  
-  data <- char_ud %>% filter(
-      school_type == sch_type,
-      characteristic_desc %in% c('FSM_Eligible', 'Total'),
-      characteristic_1 != "FSM_Unclassified") %>%
-    mutate(characteristic_1 = ifelse(
-      characteristic_1 == "FSM_Eligible","FSM eligible",
-      ifelse(characteristic_1 == "FSM_NotEligible", "FSM not eligible",
-             ifelse(characteristic_1 == "Total", "Total","NA"))))
-  
-  data$year <- formatyr(data$year)
-  
-  if(category=='P') {
-  data <- data %>% mutate(t_var = perm_excl)
-  }
-  if(category=='F') {
-  data <- data %>% mutate(t_var = fixed_excl)
-  }
-  if(category=='O') {   
-  data <- data %>% mutate(t_var = one_plus_fixed)
-  }
-    
-  fsm_sch <- data %>% select(year,characteristic_1,t_var)  
-  
-  data_wide <- fsm_sch %>% spread(key = year, value =  t_var)
-  
-  colnames(data_wide)[1] <- ""
-  
-  return(data_wide)
-  
-}
-
-fsm_sch_table_rate <- function(sch_type,category){
-  
-  data <- char_ud %>% filter(
-    school_type == sch_type,
-    characteristic_desc %in% c('FSM_Eligible', 'Total'),
-    characteristic_1 != "FSM_Unclassified") %>%
-    mutate(characteristic_1 = ifelse(
-      characteristic_1 == "FSM_Eligible","FSM eligible",
-      ifelse(characteristic_1 == "FSM_NotEligible", "FSM not eligible",
-             ifelse(characteristic_1 == "Total", "Total","NA"))))
-  
-  data$year <- formatyr(data$year)
-  
-  if(category=='P') {
-    data <- data %>% mutate(t_var = perm_excl_rate)
-  }
-  if(category=='F') {
-    data <- data %>% mutate(t_var = fixed_excl_rate)
-  }
-  if(category=='O') {   
-    data <- data %>% mutate(t_var = one_plus_fixed_rate)
-  }
-  
-  fsm_sch <- data %>% select(year,characteristic_1,t_var)  
-  
-  data_wide <- fsm_sch %>% spread(key = year, value =  t_var)
-  
-  colnames(data_wide)[1] <- ""
-  
-  return(data_wide)
-  
-}
-
-
-fsm_gap <- function(category) {
-  
-  fsm <- char_ud %>% filter(school_type=='Total', characteristic_desc =='FSM_Eligible', characteristic_1 !='Total') %>% 
-    select(year,characteristic_1,perm_excl_rate,fixed_excl_rate,one_plus_fixed_rate) %>%
-    filter(characteristic_1 != 'FSM_Unclassified')
-  
-  if(category=='P') {
-    data <- fsm %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
-      mutate(diff = as.numeric(FSM_Eligible)-as.numeric(FSM_NotEligible))
-  }
-  
-  if(category=='F') {
-    data <- fsm %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
-      mutate(diff = as.numeric(FSM_Eligible)-as.numeric(FSM_NotEligible))
-  }
-  
-  if(category=='O') {
-    data <- fsm %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
-      mutate(diff = as.numeric(FSM_Eligible)-as.numeric(FSM_NotEligible))
-  }
-  
-  data$year <- factor(formatyr(data$year))
-  data$fsm_not <- as.numeric(data$FSM_NotEligible)
-  data$fsm_yes <- as.numeric(data$FSM_Eligible)
-  
-  gap_plot <- ggplot() + 
-    geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$fsm_yes)*1.1), color="#b2b2b2", size=0.15) +
-    geom_dumbbell(data=data, aes(y=year, x=fsm_yes, xend=fsm_not),
-                  size=2, color="gray", size_x=3, size_xend=3,
-                  colour_x="steelblue4", colour_xend="steelblue2") + 
-    geom_text(data=filter(data, year=="2015/16"),
-              aes(x=fsm_yes, y=year, label="FSM eligible"),
-              color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-    geom_text(data=filter(data, year=="2015/16"),
-              aes(x=fsm_not, y=year, label="Non-FSM eligible"),
-              color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-    geom_text(data=data, aes(x=fsm_yes, y=year, label=fsm_yes),
-              color="steelblue4", size=5, vjust=2.5) + 
-    geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
-              aes(x=fsm_not, y=year, label=fsm_not)) + 
-    geom_text(data=data, aes(label=diff, y=year, x=max(data$fsm_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-    geom_text(data=filter(data, year=="2015/16"), aes(x=max(data$fsm_yes)*1.2, y=year, label="diff"),
-              color="#7a7d7e", size=5, vjust=-2) + 
-    scale_x_continuous(expand=c(0,0), limits=c(0, max(data$fsm_yes)*1.3)) + 
-    labs(x=NULL, y=NULL) + 
-    theme_bw() + 
-    theme(panel.border=element_blank()) + 
-    theme(axis.ticks=element_blank()) + 
-    theme(axis.text.x=element_blank()) + 
-    theme(plot.title=element_text(face="bold")) +
-    theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
-    theme(axis.text=element_text(size=12))
-  
-  return(gap_plot)
-  
-}
-  
-  
-## SEN
-
-#data for download button
-senchar <- char_ud %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'))
-
-
-sen_sch_table_num <- function(sch_type,category){
-  
-  data <- char_ud %>% filter(
-    school_type == sch_type,
-    characteristic_desc %in% c('SEN_provision', 'Total'),
-    characteristic_1 != "SEN_provision_Unclassified") %>%
-    mutate(characteristic_1 = ifelse(
-      characteristic_1 == "SEN_Provision_No_SEN","No SEN",
-      ifelse(characteristic_1 == "SEN_provision_SEN_with_statement_EHC", "SEN with statement or EHC",
-             ifelse(characteristic_1 == "SEN_provision_SEN_without_statement", "SEN without a statement or EHC",
-                    ifelse(characteristic_1 == "Total", "Total","NA")))))
-  
-  data$year <- formatyr(data$year)
-  
-  if(category=='P') {
-    data <- data %>% mutate(t_var = perm_excl)
-  }
-  if(category=='F') {
-    data <- data %>% mutate(t_var = fixed_excl)
-  }
-  if(category=='O') {   
-    data <- data %>% mutate(t_var = one_plus_fixed)
-  }
-  
-  sen_sch <- data %>% select(year,characteristic_1,t_var)  
-  
-  data_wide <- sen_sch %>% spread(key = year, value =  t_var)
-  
-  colnames(data_wide)[1] <- ""
-  
-  return(data_wide)
-  
-}
-
-sen_sch_table_rate <- function(sch_type,category){
-  
-  data <- char_ud %>% filter(
-    school_type == sch_type,
-    characteristic_desc %in% c('SEN_provision', 'Total'),
-    characteristic_1 != "SEN_provision_Unclassified") %>%
-    mutate(characteristic_1 = ifelse(
-      characteristic_1 == "SEN_Provision_No_SEN","No SEN",
-      ifelse(characteristic_1 == "SEN_provision_SEN_with_statement_EHC", "SEN with statement or EHC",
-             ifelse(characteristic_1 == "SEN_provision_SEN_without_statement", "SEN without a statement or EHC",
-                    ifelse(characteristic_1 == "Total", "Total","NA")))))
-  
-  data$year <- formatyr(data$year)
-  
-  if(category=='P') {
-    data <- data %>% mutate(t_var = perm_excl_rate)
-  }
-  if(category=='F') {
-    data <- data %>% mutate(t_var = fixed_excl_rate)
-  }
-  if(category=='O') {   
-    data <- data %>% mutate(t_var = one_plus_fixed_rate)
-  }
-  
-  sen_sch <- data %>% select(year,characteristic_1,t_var)  
-  
-  data_wide <- sen_sch %>% spread(key = year, value =  t_var)
-  
-  colnames(data_wide)[1] <- ""
-  
-  return(data_wide)
-  
-}
-
-
-sen_gap <- function(category) {
-  
-  sen <- char_ud %>% filter(school_type=='Total', characteristic_desc =='SEN_provision', characteristic_1 !='Total') %>% 
-    select(year,characteristic_1,perm_excl_rate,fixed_excl_rate,one_plus_fixed_rate) %>%
-    filter(characteristic_1 %in% c('SEN_provision_SEN_with_statement_EHC', 'SEN_Provision_No_SEN'))
-  
-  if(category=='P') {
-    data <- sen %>% select(year,characteristic_1,perm_excl_rate) %>% spread(key = characteristic_1, value = perm_excl_rate) %>%
-      mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC)-as.numeric(SEN_Provision_No_SEN))
-  }
-  
-  if(category=='F') {
-    data <- sen %>% select(year,characteristic_1,fixed_excl_rate) %>% spread(key = characteristic_1, value = fixed_excl_rate) %>%
-      mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC)-as.numeric(SEN_Provision_No_SEN))
-  }
-  
-  if(category=='O') {
-    data <- sen %>% select(year,characteristic_1,one_plus_fixed_rate) %>% spread(key = characteristic_1, value = one_plus_fixed_rate) %>%
-      mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC)-as.numeric(SEN_Provision_No_SEN))
-  }
-  
-  data$year <- factor(formatyr(data$year))
-  data$sen_not <- as.numeric(data$SEN_Provision_No_SEN)
-  data$sen_yes <- as.numeric(data$SEN_provision_SEN_with_statement_EHC)
-  
-  gap_plot <- ggplot() + 
-    geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$sen_yes)*1.1), color="#b2b2b2", size=0.15) +
-    geom_dumbbell(data=data, aes(y=year, x=sen_yes, xend=sen_not),
-                  size=2, color="gray", size_x=3, size_xend=3,
-                  colour_x="steelblue4", colour_xend="steelblue2") + 
-    geom_text(data=filter(data, year=="2015/16"),
-              aes(x=sen_yes, y=year, label="Statement/EHC"),
-              color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-    geom_text(data=filter(data, year=="2015/16"),
-              aes(x=sen_not, y=year, label="No SEN"),
-              color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-    geom_text(data=data, aes(x=sen_yes, y=year, label=sen_yes),
-              color="steelblue4", size=5, vjust=2.5) + 
-    geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
-              aes(x=sen_not, y=year, label=sen_not)) + 
-    geom_text(data=data, aes(label=diff, y=year, x=max(data$sen_yes)*1.2), color="#7a7d7e", size=5, vjust =2.5) +
-    geom_text(data=filter(data, year=="2015/16"), aes(x=max(data$sen_yes)*1.2, y=year, label="diff"),
-              color="#7a7d7e", size=5, vjust=-2) + 
-    scale_x_continuous(expand=c(0,0), limits=c(0, max(data$sen_yes)*1.3)) + 
-    labs(x=NULL, y=NULL) + 
-    theme_bw() + 
-    theme(panel.border=element_blank()) + 
-    theme(axis.ticks=element_blank()) + 
-    theme(axis.text.x=element_blank()) + 
-    theme(plot.title=element_text(face="bold")) +
-    theme(plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2))+
-    theme(axis.text=element_text(size=12))
-  
-  return(gap_plot)
-  
-}
-
-sen_prop <- function(category){
-  
-  data <- char_ud %>% filter(
-    school_type == "Total",
-    year == 201516,
-    characteristic_desc %in% c('SEN_provision'),
-    characteristic_1 != "SEN_Unclassified") %>%
-    mutate(characteristic_1 = ifelse(characteristic_1 == "SEN_Provision_No_SEN","No SEN",
-    ifelse(characteristic_1 == "SEN_provision_SEN_with_statement_EHC", "SEN with statement or EHC",
-           ifelse(characteristic_1 == "SEN_provision_SEN_without_statement", "SEN without a statement or EHC",
-                  ifelse(characteristic_1 == "Total", "Total","NA")))))
-  
-  if(category=='P') {
-    
-    sen_prop <- data %>% select(characteristic_1,perm_excl) 
-    
-    return(sen_prop %>%
-             plot_ly(labels = ~characteristic_1, values = ~perm_excl) %>%
-             add_pie(hole = 0.5) %>%
-             layout(showlegend = T,legend = list(x = 0.3, y = -0.4),
-                    xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-                    , margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
-  }
-  
-  if(category=='F') {
-    
-    sen_prop <- data %>% select(characteristic_1,fixed_excl) 
-    
-    return(sen_prop %>%
-             plot_ly(labels = ~characteristic_1, values = ~fixed_excl) %>%
-             add_pie(hole = 0.5) %>%
-             layout(showlegend = T, legend = list(x = 0.3, y = -0.4),
-                    xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
-  }
-  
-  if(category=='O') {
-    
-    sen_prop <- data %>% select(characteristic_1,one_plus_fixed) 
-    
-    return(sen_prop %>%
-             plot_ly(labels = ~characteristic_1, values = ~one_plus_fixed) %>%
-             add_pie(hole = 0.5) %>%
-             layout(showlegend = T, legend = list(x = 0.3, y = -0.4),
-                    xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                    yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
-  }
-}
-
-
-#### GENDER
-
-
-head(char_ud)
-
 
 # cleaning data for characteristics tab  
 nat_char_prep <- filter(char_ud, ! characteristic_1 %in% c("SEN_provision_Unclassified","FSM_Unclassified")) %>%
@@ -965,10 +587,6 @@ nat_char_prep <- filter(char_ud, ! characteristic_1 %in% c("SEN_provision_Unclas
            ifelse(school_type == "Special", "Special", 
                   ifelse(school_type == "Total", "Total", "NA"))))) 
   
-
-
-
-
 
 char_series <- function(char, sch_type, category) {
   
@@ -1046,15 +664,9 @@ char_series_table <- function(char, sch_type, category) {
 }
 
 
-
-
-
-
 ### proportion chart 
 
-
-
-sen_prop <- function(char, sch_type, category){
+char_prop <- function(char, sch_type, category){
   
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == 201516)
@@ -1072,8 +684,6 @@ sen_prop <- function(char, sch_type, category){
     data <- d %>% select(characteristic_1,one_plus_fixed) %>% mutate(var = one_plus_fixed)
   }
   
-
-
   return(data %>%
              plot_ly(labels = ~characteristic_1, values = ~var, textinfo="percent+value") %>%
              add_pie(hole = 0.5) %>%
@@ -1086,27 +696,88 @@ sen_prop <- function(char, sch_type, category){
 }
 
 
-# data$year <- formatyr(data$year)
-# 
-# if(category=='P') {
-#   data <- data %>% mutate(t_var = perm_excl_rate)
-# }
-# if(category=='F') {
-#   data <- data %>% mutate(t_var = fixed_excl_rate)
-# }
-# if(category=='O') {   
-#   data <- data %>% mutate(t_var = one_plus_fixed_rate)
-# }
-# 
-# sen_sch <- data %>% select(year,characteristic_1,t_var)  
-# 
-# data_wide <- sen_sch %>% spread(key = year, value =  t_var)
-# 
-# colnames(data_wide)[1] <- ""
-# 
-# return(data_wide)
+## dumbell plot
 
-################################
+char_gaps <- function(char, sch_type, category){
+  
+char_ud <- char_ud %>%
+  mutate(school_type = ifelse(
+    school_type == "State-funded primary","Primary",
+    ifelse(school_type == "State-funded secondary","Secondary",
+           ifelse(school_type == "Special", "Special", 
+                  ifelse(school_type == "Total", "Total", "NA"))))) 
+  
+  if(category=='P') {
+    measure <- 'perm_excl_rate'
+  } else if (category=='F') {
+    measure <- 'fixed_excl_rate'
+  } else if (category=='O') {
+    measure <- 'one_plus_fixed_rate'
+  }
+  
+  
+  if (char == 'gender') {
+    d <- char_ud %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type,characteristic_1 %in% c('Gender_male', 'Gender_female'))
+    data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
+      mutate(diff = as.numeric(Gender_male) - as.numeric(Gender_female))
+    data$char_no <- as.numeric(data$Gender_female)
+    data$char_yes <-as.numeric(data$Gender_male)
+    yes_label <- "Boys"
+    no_label <- "Girls"
+  } else if (char == 'sen') {
+    d <- char_ud %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type,characteristic_1 %in% c('SEN_provision_SEN_with_statement_EHC', 'SEN_Provision_No_SEN'))
+    data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
+      mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC) - as.numeric(SEN_Provision_No_SEN))
+    data$char_no <- as.numeric(data$SEN_Provision_No_SEN)
+    data$char_yes <-as.numeric(data$SEN_provision_SEN_with_statement_EHC)
+    yes_label <- "Statement/EHC"
+    no_label <- "No SEN"
+  } else if (char == 'fsm') {
+    d <- char_ud %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type,characteristic_1 %in% c('FSM_Eligible', 'FSM_NotEligible'))
+    data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
+      mutate(diff = as.numeric(FSM_Eligible) - as.numeric(FSM_NotEligible))
+    data$char_no <- as.numeric(data$FSM_NotEligible)
+    data$char_yes <-as.numeric(data$FSM_Eligible)
+    yes_label <- "FSM"
+    no_label <- "Not FSM"
+  }
+  
+
+  max_year <- formatyr(max(data$year))
+  data$year <- factor(formatyr(data$year))
+
+  return(ggplot() + 
+    geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$char_yes)*1.1), color="#b2b2b2", size=0.15) +
+    geom_dumbbell(data=data, aes(y=year, x=char_yes, xend=char_no),
+                  size=2, color="gray", size_x=3, size_xend=3,
+                  colour_x="steelblue4", colour_xend="steelblue2") + 
+    geom_text(data=filter(data, year==max_year),
+              aes(x=char_yes, y=year, label=yes_label),
+              color="steelblue4", size=5, vjust=-2, fontface="bold") + 
+    geom_text(data=filter(data, year==max_year),
+              aes(x=char_no, y=year, label=no_label),
+              color="steelblue2", size=5, vjust=-2, fontface="bold") + 
+    geom_text(data=data, aes(x=char_yes, y=year, label=char_yes),
+              color="steelblue4", size=5, vjust=2.5) + 
+    geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
+              aes(x=char_no, y=year, label=char_no)) + 
+    geom_text(data=data, aes(label=diff, y=year, x=max(c(data$char_no,data$char_yes))*1.1), color="#7a7d7e", size=5, vjust =2.5) +
+    geom_text(data=filter(data, year==max_year), aes(x=max(c(data$char_no,data$char_yes))*1.1, y=year, label="diff"),
+              color="#7a7d7e", size=5, vjust=-2) + 
+    scale_x_continuous(expand=c(0,0), limits=c(min(c(data$char_no,data$char_yes))*0.6, max(c(data$char_no,data$char_yes))*1.2)) + 
+    labs(x=NULL, y=NULL) + 
+    theme_bw() + 
+    theme(panel.border=element_blank(),
+          axis.ticks=element_blank(),
+          axis.text.x=element_blank(),
+          plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2,face="bold"),
+          axis.text=element_text(size=12))
+    )
+  
+}
+
+
+
 
 
 # school tab 

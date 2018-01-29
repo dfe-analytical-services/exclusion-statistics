@@ -111,97 +111,98 @@ shinyUI(
                               column(
                                 verticalLayout(
                                   h4(strong("How is difference in exclusion rate changing over time?")),
-                                  em("State-funded primary, secondary and special schools")
+                                  em("State-funded primary, secondary and special schools"),
+                                  plotOutput("char_gaps")
                                   
                                 ),
                                 width = 5
                               )
-                            ),
+                            )
                               
                               
                             
                             
                             
-                            tabsetPanel(
-                              tabPanel("Free school meal eligibility",
-                                       sidebarLayout(
-                                          sidebarPanel(
-                                            h4(strong("Exclusions by Free School Meal eligibility (FSM)")),
-                                            "Pupils are identified as eligible for free school meals if they were reported as known to be eligible for and claiming free school meals by their school when completing their school census return.",
-                                            h5(strong("Pick a measure")),
-                                            selectInput("select_cat_char",
-                                                        label = NULL,
-                                                        choices = list(
-                                                           "Fixed period" = 'F',
-                                                           "Permanent" = 'P',
-                                                           "One or more fixed" = 'O'),
-                                                        selected = 'F', width='30%'),
-                                            downloadButton("downloadfsmchar", "Download the data for this page"),
-                                            width=12),
-                                            mainPanel()), 
-                                        fluidRow(
-                                           column(
-                                               h4(strong("How is difference in exclusion rate changing over time?")),
-                                               em("State-funded primary, secondary and special schools"),
-                                               plotOutput("fsm_gap"), width =5),
-                                           column(
-                                               h4(strong("Proportion of exclusions by FSM eligibility - 2015/16")),
-                                               em("State-funded primary, secondary and special schools"),
-                                               plotlyOutput("fsm_prop_plot"), width =5
-                                             ))
-                                           )
-                                         
-                                       ,
-                              tabPanel("SEN provision",
-                                       sidebarLayout(
-                                         sidebarPanel(
-                                           h4(strong("Exclusions by Special Education Needs (SEN)")),
-                                           "A pupil's SEN provision is reported by their school via the school census.",
-                                           "SEN provision is recorded at the time of each exclusion, for enrolments with one
-                                           or more fixed period exclusion the SEN status at the time of the most recent exclusion is used.",
-                                           h5(strong("Pick a measure")),
-                                           selectInput("select_cat_sen",
-                                             label = NULL,
-                                             choices = list(
-                                               "Fixed period" = 'F',
-                                               "Permanent" = 'P',
-                                               "One or more fixed" = 'O'),
-                                             selected = 'F', width='30%'),
-                                           downloadButton("downloadsenchar", "Download the data for this page"),
-                                           width=12),
-                                         mainPanel()),
-                                         fluidRow(
-                                           column(
-                                             verticalLayout(
-                                               h4(strong("How do exclusions vary across school type?")),
-                                               radioButtons("sen_table",label = NULL,c("rate", "number"),inline = TRUE),
-                                               h4("Across all schools"),
-                                               tableOutput("sen_tot_table"),
-                                               h4("In state-funded primary schools"),
-                                               tableOutput("sen_pri_table"),
-                                               h4("In state-funded secondary schools"),
-                                               tableOutput("sen_sec_table"),
-                                               h4("In special schools"),
-                                               tableOutput("sen_spec_table")
-                                             ),
-                                             width = 6
-                                           ),
-                                           column(
-                                             verticalLayout(
-                                               h4(strong("How is difference in exclusion rate changing over time?")),
-                                               em("State-funded primary, secondary and special schools"),
-                                               plotOutput("sen_gap"),
-                                               h4(strong("Proportion of exclusions by SEN provision - 2015/16")),
-                                               em("State-funded primary, secondary and special schools"),
-                                               plotlyOutput("sen_prop_plot")
-                                             ),
-                                             width = 4
-                                           )
-                                         )
-                                       )
+                            # tabsetPanel(
+                            #   tabPanel("Free school meal eligibility",
+                            #            sidebarLayout(
+                            #               sidebarPanel(
+                            #                 h4(strong("Exclusions by Free School Meal eligibility (FSM)")),
+                            #                 "Pupils are identified as eligible for free school meals if they were reported as known to be eligible for and claiming free school meals by their school when completing their school census return.",
+                            #                 h5(strong("Pick a measure")),
+                            #                 selectInput("select_cat_char",
+                            #                             label = NULL,
+                            #                             choices = list(
+                            #                                "Fixed period" = 'F',
+                            #                                "Permanent" = 'P',
+                            #                                "One or more fixed" = 'O'),
+                            #                             selected = 'F', width='30%'),
+                            #                 downloadButton("downloadfsmchar", "Download the data for this page"),
+                            #                 width=12),
+                            #                 mainPanel()), 
+                            #             fluidRow(
+                            #                column(
+                            #                    h4(strong("How is difference in exclusion rate changing over time?")),
+                            #                    em("State-funded primary, secondary and special schools"),
+                            #                    plotOutput("fsm_gap"), width =5),
+                            #                column(
+                            #                    h4(strong("Proportion of exclusions by FSM eligibility - 2015/16")),
+                            #                    em("State-funded primary, secondary and special schools"),
+                            #                    plotlyOutput("fsm_prop_plot"), width =5
+                            #                  ))
+                            #                )
+                            #              
+                            #            ,
+                            #   tabPanel("SEN provision",
+                            #            sidebarLayout(
+                            #              sidebarPanel(
+                            #                h4(strong("Exclusions by Special Education Needs (SEN)")),
+                            #                "A pupil's SEN provision is reported by their school via the school census.",
+                            #                "SEN provision is recorded at the time of each exclusion, for enrolments with one
+                            #                or more fixed period exclusion the SEN status at the time of the most recent exclusion is used.",
+                            #                h5(strong("Pick a measure")),
+                            #                selectInput("select_cat_sen",
+                            #                  label = NULL,
+                            #                  choices = list(
+                            #                    "Fixed period" = 'F',
+                            #                    "Permanent" = 'P',
+                            #                    "One or more fixed" = 'O'),
+                            #                  selected = 'F', width='30%'),
+                            #                downloadButton("downloadsenchar", "Download the data for this page"),
+                            #                width=12),
+                            #              mainPanel()),
+                            #              fluidRow(
+                            #                column(
+                            #                  verticalLayout(
+                            #                    h4(strong("How do exclusions vary across school type?")),
+                            #                    radioButtons("sen_table",label = NULL,c("rate", "number"),inline = TRUE),
+                            #                    h4("Across all schools"),
+                            #                    tableOutput("sen_tot_table"),
+                            #                    h4("In state-funded primary schools"),
+                            #                    tableOutput("sen_pri_table"),
+                            #                    h4("In state-funded secondary schools"),
+                            #                    tableOutput("sen_sec_table"),
+                            #                    h4("In special schools"),
+                            #                    tableOutput("sen_spec_table")
+                            #                  ),
+                            #                  width = 6
+                            #                ),
+                            #                column(
+                            #                  verticalLayout(
+                            #                    h4(strong("How is difference in exclusion rate changing over time?")),
+                            #                    em("State-funded primary, secondary and special schools"),
+                            #                    plotOutput("sen_gap"),
+                            #                    h4(strong("Proportion of exclusions by SEN provision - 2015/16")),
+                            #                    em("State-funded primary, secondary and special schools"),
+                            #                    plotlyOutput("sen_prop_plot")
+                            #                  ),
+                            #                  width = 4
+                            #                )
+                            #              )
+                            #           )
                               # tabPanel("Age and gender", "contents"),
                               # tabPanel("Ethnic group", "contents")
-                              )),
+                              ),
 
                    # 3. LA Trends ----
 

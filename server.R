@@ -23,14 +23,6 @@ server <- function(session, input, output) {
     }
   })
   
-  # output$p_bar <- renderPlot({national_bars_num('P')})
-  # 
-  # output$f_bar <- renderPlot({national_bars_num('F')})
-  # 
-  # output$p_bar <- renderPlot({national_bars_rate('P')})
-  # 
-  # output$f_bar <- renderPlot({national_bars_rate('F')})
-  # 
   # 2. Reason ----
   
   output$perm_reason <- renderPlot({perm_reason_bar(input$reasonschtype)})
@@ -45,102 +37,105 @@ server <- function(session, input, output) {
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
   output$char_ts_table <- renderTable({char_series_table(input$char_char, input$char_sch, input$char_cat)},  bordered = TRUE, spacing = 'm')
   
-  output$char_prop <- renderPlotly({sen_prop(input$char_char, input$char_sch, input$char_cat)})
+  output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
+  
+  output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
   
   
-  ## 2.1 FSM ----
-  
-  output$fsm_pri_table <- renderTable({
-    if (input$fsm_table == "number") {
-      fsm_sch_table_num("State-funded primary", input$select_cat_char)
-    } else if (input$fsm_table == "rate") {
-      fsm_sch_table_rate("State-funded primary", input$select_cat_char)
-    }
-  },  bordered = TRUE, spacing = 'm')
-  
-  output$fsm_sec_table <- renderTable({
-    if (input$fsm_table == "number") {
-      fsm_sch_table_num("State-funded secondary", input$select_cat_char)
-    } else if (input$fsm_table == "rate") {
-      fsm_sch_table_rate("State-funded secondary", input$select_cat_char)
-    }
-  },  bordered = TRUE, spacing = 'm')
-  
-  output$fsm_spec_table <- renderTable({
-    if (input$fsm_table == "number") {
-      fsm_sch_table_num("Special", input$select_cat_char)
-    } else if (input$fsm_table == "rate") {
-      fsm_sch_table_rate("Special", input$select_cat_char)
-    }
-  },  bordered = TRUE, spacing = 'm')
-  
-  output$fsm_tot_table <- renderTable({
-    if (input$fsm_table == "number") {
-      fsm_sch_table_num("Total", input$select_cat_char)
-    } else if (input$fsm_table == "rate") {
-      fsm_sch_table_rate("Total", input$select_cat_char)
-    }
-  },  bordered = TRUE, spacing = 'm')
-  
-  output$fsm_gap <- renderPlot({fsm_gap(input$select_cat_char)})
-  
-  output$fsm_prop_plot <- renderPlotly({fsm_prop(input$select_cat_char)})
-  
-  output$downloadfsmchar <- downloadHandler(
-    filename = function() {
-      paste("fsm_exclusions", ".csv", sep = "")
-    },
-    content = function(file) {
-      write.csv(fsmchar, file, row.names = FALSE)
-    }
-  ) 
-  
-  ## 2.2 SEN ----
-  
-  output$sen_pri_table <- renderTable({
-    if (input$sen_table == "number") {
-      sen_sch_table_num("State-funded primary",input$select_cat_sen)
-    } else if (input$sen_table == "rate") {
-      sen_sch_table_rate("State-funded primary",input$select_cat_sen)
-    }
-  },  bordered = TRUE,spacing = 'm')
-  
-  output$sen_sec_table <- renderTable({
-    if (input$sen_table == "number") {
-      sen_sch_table_num("State-funded secondary",input$select_cat_sen)
-    } else if (input$sen_table == "rate") {
-      sen_sch_table_rate("State-funded secondary",input$select_cat_sen)
-    }
-  },  bordered = TRUE,spacing = 'm')
-  
-  output$sen_spec_table <- renderTable({
-    if (input$sen_table == "number") {
-      sen_sch_table_num("Special",input$select_cat_sen)
-    } else if (input$sen_table == "rate") {
-      sen_sch_table_rate("Special",input$select_cat_sen)
-    }
-  },  bordered = TRUE,spacing = 'm')
-  
-  output$sen_tot_table <- renderTable({
-    if (input$sen_table == "number") {
-      sen_sch_table_num("Total",input$select_cat_sen)
-    } else if (input$sen_table == "rate") {
-      sen_sch_table_rate("Total",input$select_cat_sen)
-    }
-  },  bordered = TRUE, spacing = 'm')
-  
-  output$sen_gap <- renderPlot({sen_gap(input$select_cat_sen)})
-  
-  output$sen_prop_plot <- renderPlotly({sen_prop(input$select_cat_sen)})
-  
-  output$downloadsenchar <- downloadHandler(
-    filename = function() {
-      paste("sen_exclusions", ".csv", sep = "")
-    },
-    content = function(file) {
-      write.csv(senchar, file, row.names = FALSE)
-    }
-  ) 
+  # 
+  # ## 2.1 FSM ----
+  # 
+  # output$fsm_pri_table <- renderTable({
+  #   if (input$fsm_table == "number") {
+  #     fsm_sch_table_num("State-funded primary", input$select_cat_char)
+  #   } else if (input$fsm_table == "rate") {
+  #     fsm_sch_table_rate("State-funded primary", input$select_cat_char)
+  #   }
+  # },  bordered = TRUE, spacing = 'm')
+  # 
+  # output$fsm_sec_table <- renderTable({
+  #   if (input$fsm_table == "number") {
+  #     fsm_sch_table_num("State-funded secondary", input$select_cat_char)
+  #   } else if (input$fsm_table == "rate") {
+  #     fsm_sch_table_rate("State-funded secondary", input$select_cat_char)
+  #   }
+  # },  bordered = TRUE, spacing = 'm')
+  # 
+  # output$fsm_spec_table <- renderTable({
+  #   if (input$fsm_table == "number") {
+  #     fsm_sch_table_num("Special", input$select_cat_char)
+  #   } else if (input$fsm_table == "rate") {
+  #     fsm_sch_table_rate("Special", input$select_cat_char)
+  #   }
+  # },  bordered = TRUE, spacing = 'm')
+  # 
+  # output$fsm_tot_table <- renderTable({
+  #   if (input$fsm_table == "number") {
+  #     fsm_sch_table_num("Total", input$select_cat_char)
+  #   } else if (input$fsm_table == "rate") {
+  #     fsm_sch_table_rate("Total", input$select_cat_char)
+  #   }
+  # },  bordered = TRUE, spacing = 'm')
+  # 
+  # output$fsm_gap <- renderPlot({fsm_gap(input$select_cat_char)})
+  # 
+  # output$fsm_prop_plot <- renderPlotly({fsm_prop(input$select_cat_char)})
+  # 
+  # output$downloadfsmchar <- downloadHandler(
+  #   filename = function() {
+  #     paste("fsm_exclusions", ".csv", sep = "")
+  #   },
+  #   content = function(file) {
+  #     write.csv(fsmchar, file, row.names = FALSE)
+  #   }
+  # ) 
+  # 
+  # ## 2.2 SEN ----
+  # 
+  # output$sen_pri_table <- renderTable({
+  #   if (input$sen_table == "number") {
+  #     sen_sch_table_num("State-funded primary",input$select_cat_sen)
+  #   } else if (input$sen_table == "rate") {
+  #     sen_sch_table_rate("State-funded primary",input$select_cat_sen)
+  #   }
+  # },  bordered = TRUE,spacing = 'm')
+  # 
+  # output$sen_sec_table <- renderTable({
+  #   if (input$sen_table == "number") {
+  #     sen_sch_table_num("State-funded secondary",input$select_cat_sen)
+  #   } else if (input$sen_table == "rate") {
+  #     sen_sch_table_rate("State-funded secondary",input$select_cat_sen)
+  #   }
+  # },  bordered = TRUE,spacing = 'm')
+  # 
+  # output$sen_spec_table <- renderTable({
+  #   if (input$sen_table == "number") {
+  #     sen_sch_table_num("Special",input$select_cat_sen)
+  #   } else if (input$sen_table == "rate") {
+  #     sen_sch_table_rate("Special",input$select_cat_sen)
+  #   }
+  # },  bordered = TRUE,spacing = 'm')
+  # 
+  # output$sen_tot_table <- renderTable({
+  #   if (input$sen_table == "number") {
+  #     sen_sch_table_num("Total",input$select_cat_sen)
+  #   } else if (input$sen_table == "rate") {
+  #     sen_sch_table_rate("Total",input$select_cat_sen)
+  #   }
+  # },  bordered = TRUE, spacing = 'm')
+  # 
+  # output$sen_gap <- renderPlot({sen_gap(input$select_cat_sen)})
+  # 
+  # output$sen_prop_plot <- renderPlotly({sen_prop(input$select_cat_sen)})
+  # 
+  # output$downloadsenchar <- downloadHandler(
+  #   filename = function() {
+  #     paste("sen_exclusions", ".csv", sep = "")
+  #   },
+  #   content = function(file) {
+  #     write.csv(senchar, file, row.names = FALSE)
+  #   }
+  # ) 
   
   # 3. LA trends ----
   
