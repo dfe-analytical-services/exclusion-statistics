@@ -82,44 +82,82 @@ nat_summary <-
   arrange(year)
 
 
-# National bar chart (front page)
+# National bar charts (front page)
 
-national_bars <- function(category) {
+national_bars_rate <- function(category) {
   if (category == 'P') {
-    
     data <- filter(nat_summary, school_type == 'total') %>%
       mutate(year = as.factor(year),
              value = as.numeric(perm_excl_rate))
     
-    p_bar_g <- data %>% 
+    plot <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
       geom_bar(fill = 'dodgerblue4', stat = "identity") +
-      theme_classic() +
-      ylab("Permanent exclusion rate") +
-      xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(data$value + 0.01), 0.02)) +
-      theme(axis.title.x = element_blank())
-    
-    return(ggplotly(p_bar_g))
+      ylab("Permanent exclusion rate")
   }
   
   if (category == 'F') {
-    
     data <- filter(nat_summary, school_type == 'total') %>%
       mutate(year = as.factor(year),
              value = as.numeric(fixed_excl_rate))
     
-    f_bar_g <- data %>%
+    plot <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
       geom_bar(fill = 'dodgerblue3', stat = "identity") +
-      theme_classic() +
-      ylab("Fixed period exclusion rate") +
-      xlab("Academic year") +
-      scale_y_continuous(breaks = seq(0, max(data$value + 0.5), 0.50)) +
-      theme(axis.title.x = element_blank())
-    
-    return(ggplotly(f_bar_g))
+      ylab("Fixed period exclusion rate")
   }
+  
+  plot <- plot +
+    scale_y_continuous(breaks = seq(0, max(data$value + 0.5), 0.50)) +
+    theme_classic() +
+    theme(axis.title.x = element_blank(),
+          text = element_text(size = 14)) +
+    geom_text(
+      data = data,
+      aes(label = sprintf("%.2f", value)),
+      colour = "white",
+      vjust = 2
+    )
+  
+  return(plot)
+}
+
+
+national_bars_num <- function(category) {
+  if (category == 'P') {
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(perm_excl))
+    
+    plot <- data %>% 
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue4', stat = "identity") +
+      ylab("Permanent exclusions")
+  }
+  
+  if (category == 'F') {
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(fixed_excl))
+    
+    plot <- data %>%
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue3', stat = "identity") +
+      ylab("Fixed period exclusions") 
+  }
+  
+  plot <- plot + 
+    theme_classic() +
+    theme(axis.title.x = element_blank(),
+          text=element_text(size=14)) +
+    geom_text(
+      data = data,
+      aes(label = prettyNum(value, big.mark = ",")),
+      colour="white",
+      vjust = 2) +
+    scale_y_continuous(labels = scales::comma)
+  
+  return(plot)
 }
 
 ####
@@ -350,33 +388,6 @@ la_one_plus_rate <- function(la, refyear) {
   return(filter(d, level == 'Local authority', school_type == 'total') %>%
            dplyr::select(one_or_more_fixed_excl_rate))
   
-}
-
-####
-
-# Map ----
-# 4. School page ----
-
-#school level info for a specific LA
-
-la_sch_table <- function(la,refyear) {
-  
-  d <- filter(main_ud, level == "School",la_name == la) %>%
-    select(
-      year,
-      la_name,
-      laestab,
-      school_type,
-      headcount,
-      perm_excl,
-      perm_excl_rate,
-      fixed_excl,
-      fixed_excl_rate,
-      one_plus_fixed,
-      one_or_more_fixed_excl_rate
-    )
-  
-  return(d)
 }
 
 
@@ -929,6 +940,28 @@ sen_prop <- function(category){
                     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
   }
+}
+
+#school level info for a specific LA
+
+la_sch_table <- function(la,refyear) {
+  
+  d <- filter(main_ud, level == "School",la_name == la) %>%
+    select(
+      year,
+      la_name,
+      laestab,
+      school_type,
+      headcount,
+      perm_excl,
+      perm_excl_rate,
+      fixed_excl,
+      fixed_excl_rate,
+      one_plus_fixed,
+      one_or_more_fixed_excl_rate
+    )
+  
+  return(d)
 }
 
 # School summary ----

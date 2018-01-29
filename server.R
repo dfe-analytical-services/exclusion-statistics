@@ -7,10 +7,30 @@ server <- function(session, input, output) {
   
   # 1. Front page ----
   
-  output$p_bar <- renderPlotly({national_bars('P')})
+  output$p_bar <- renderPlot({
+    if (input$bars_type == "number") {
+      national_bars_num('P')
+    } else if (input$bars_type == "rate") {
+      national_bars_rate('P')
+    }
+  })
   
-  output$f_bar <- renderPlotly({national_bars('F')})
+  output$f_bar <- renderPlot({
+    if (input$bars_type2 == "number") {
+      national_bars_num('F')
+    } else if (input$bars_type2 == "rate") {
+      national_bars_rate('F')
+    }
+  })
   
+  # output$p_bar <- renderPlot({national_bars_num('P')})
+  # 
+  # output$f_bar <- renderPlot({national_bars_num('F')})
+  # 
+  # output$p_bar <- renderPlot({national_bars_rate('P')})
+  # 
+  # output$f_bar <- renderPlot({national_bars_rate('F')})
+  # 
   # 2. Reason ----
   
   output$perm_reason <- renderPlot({perm_reason_bar(input$reasonschtype)})

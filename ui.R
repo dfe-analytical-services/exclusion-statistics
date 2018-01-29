@@ -7,65 +7,47 @@ shinyUI(
                    
                    # 1. Front page ----
                    
-                   tabPanel("Front page",
+                   tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
+                                strong("insert cool title for tool here"),
+                                br(),
                                 h3("Permanent and fixed period exclusions in England"),
-                                h4(strong("Purpose")),
-                                "The pupose of this tool is...",
+                                br(),
+                                strong("Background"),
+                                "The purpose of this tool/dashboard is to provide insight to lower level breakdowns included within our 
+                                National Statistics release.",
+                                "It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
+                                and special schools as reported in the School Census.",
                                 hr(),
-                                h4(strong("Background")),
-                                "This National Statistics release reports on permanent and fixed period exclusions from state-funded primary, state-funded
-                                  secondary and special schools during the 2015/16 academic year as reported in the School Census.",
-                                "This release national level figures on permanent and fixed period exclusions from pupil referral units. All figures in this
-                                  release are based on unrounded data; therefore, constituent parts may not add up due to rounding.",
-                                hr(),
-                                h4(strong("Latest National Statistics")),
-                                "Further information is available in the 'Permanent and fixed-period exclusions in England' National Statistics release.", 
+                                strong("Latest National Statistics"),
+                                "Further information is available in the ", 
                                 a("Permanent and fixed-period exclusions in England:2015 to 2016", 
                                     href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
                                     target="_blank"),
+                                "National Statistics release",
                                 hr(),
-                                h4(strong("Guidance and methodology")),
-                                "An exclusions statistics guide, which provides historical information on exclusion statistics, technical background information
-                                  to the figures and data collection, and definitions of key terms should be referenced alongside this release.",
+                                strong("Guidance and methodology"),
+                                "The data and methods tab includes information on the data used in this tool as well as definitions for 
+                                terms used throughout.",
+                                "An exclusions statistics guide, which provides historical information on exclusion statistics, technical 
+                                background information to the figures and data collection, and definitions of key terms should be referenced 
+                                alongside this release.",
                                 a("Exclusions statistics guide",
                                     href = "https://www.gov.uk/government/collections/statistics-school-workforce",
                                     target = "_blank")
-                              )),
-                              mainPanel(fluidRow(
-                                column(verticalLayout(
-                                  strong("Permanent exclusion rate, 2006/07 to 2015/16"),
-                                  em("State-funded primary, secondary and special schools"),
-                                  plotlyOutput("p_bar", height =
-                                                 "8cm")
-                                ), width = 8),
-                                column(verticalLayout(
-                                  br(),
-                                  br(),
-                                  "The permanent exclusion rate across all state-funded primary, secondary and special schools has followed a generally downward trend since 2006/07 when the rate was 0.12 per cent.",
-                                  "The rate of permanent exclusions increased slightly from 0.07 per cent in 2014/15 to 0.08 per cent of pupil enrolments in
-                                    2015/16, which is equivalent to 8 pupils per 10,000."
-                                  ), width = 3)
-                                ),
-                                br(),
-                                fluidRow(
-                                  column(verticalLayout(
-                                    br(),
-                                    br(),
-                                    "The fixed period exclusion rate across all state-funded primary, secondary and special schools has been
-                                      increasing over recent years, after following a downward trend since 2006/07 when the rate was 5.65 per cent.",
-                                    "The rate of fixed period exclusions across all state-funded primary, secondary and special schools has also
-                                      increased from 3.88 per cent to 4.29 per cent of pupil enrolments, which is equivalent to 429 pupils per
-                                      10,000."
-                                    ), width = 3),
-                                  column(verticalLayout(
-                                    strong("Fixed period exclusion rate, 2006/07 to 2015/16"),
-                                    em("State-funded primary, secondary and special schools"),
-                                    plotlyOutput("f_bar", height = "8cm")
-                                  ), width = 8),
-                                  br()
-                                  ))),
+                              ), width = 5),
+                              mainPanel(
+                                strong("Permanent exclusions, 2006/07 to 2015/16"), br(),
+                                em("State-funded primary, secondary and special schools"),
+                                radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
+                                plotOutput("p_bar", height ="8cm"),
+                                hr(),
+                                strong("Fixed period exclusions, 2006/07 to 2015/16"), br(),
+                                em("State-funded primary, secondary and special schools"),
+                                radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
+                                plotOutput("f_bar", height ="8cm"),
+                                width = 7)),
                             #dfE logo
                             verticalLayout(
                               img(src = "DfE_logo.png",
