@@ -3,57 +3,57 @@
 source("codefile_shiny.R")
 
 shinyUI(
-  navbarPage("Exclusion statistics", id = "nav", 
-             
-             # 1. Front page ----
-             
-             tabPanel("Overview",
-                      sidebarLayout(
-                        sidebarPanel(verticalLayout(
-                          strong("insert cool title for tool here"),
-                          br(),
-                          h3("Permanent and fixed period exclusions in England"),
-                          br(),
-                          strong("Background"),
-                          "The purpose of this tool/dashboard is to provide insight to lower level breakdowns included within our 
+    navbarPage("Exclusion statistics", id = "nav", 
+                   
+                   # 1. Front page ----
+                   
+                   tabPanel("Overview",
+                            sidebarLayout(
+                              sidebarPanel(verticalLayout(
+                                strong("insert cool title for tool here"),
+                                br(),
+                                h3("Permanent and fixed period exclusions in England"),
+                                br(),
+                                strong("Background"),
+                                "The purpose of this tool/dashboard is to provide insight to lower level breakdowns included within our 
                                 National Statistics release.",
-                          "It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
+                                "It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
                                 and special schools as reported in the School Census.",
-                          hr(),
-                          strong("Latest National Statistics"),
-                          "Further information is available in the ", 
-                          a("Permanent and fixed-period exclusions in England:2015 to 2016", 
-                            href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
-                            target="_blank"),
-                          "National Statistics release",
-                          hr(),
-                          strong("Guidance and methodology"),
-                          "The data and methods tab includes information on the data used in this tool as well as definitions for 
+                                hr(),
+                                strong("Latest National Statistics"),
+                                "Further information is available in the ", 
+                                a("Permanent and fixed-period exclusions in England:2015 to 2016", 
+                                    href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
+                                    target="_blank"),
+                                "National Statistics release",
+                                hr(),
+                                strong("Guidance and methodology"),
+                                "The data and methods tab includes information on the data used in this tool as well as definitions for 
                                 terms used throughout.",
-                          "An exclusions statistics guide, which provides historical information on exclusion statistics, technical 
+                                "An exclusions statistics guide, which provides historical information on exclusion statistics, technical 
                                 background information to the figures and data collection, and definitions of key terms should be referenced 
                                 alongside this release.",
-                          a("Exclusions statistics guide",
-                            href = "https://www.gov.uk/government/collections/statistics-school-workforce",
-                            target = "_blank")
-                        ), width = 5),
-                        mainPanel(
-                          strong("Permanent exclusions, 2006/07 to 2015/16"), br(),
-                          em("State-funded primary, secondary and special schools"),
-                          radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
-                          plotOutput("p_bar", height ="8cm"),
-                          hr(),
-                          strong("Fixed period exclusions, 2006/07 to 2015/16"), br(),
-                          em("State-funded primary, secondary and special schools"),
-                          radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
-                          plotOutput("f_bar", height ="8cm"),
-                          width = 7)),
-                      #dfE logo
-                      verticalLayout(
-                        img(src = "DfE_logo.png",
-                            height = 145,
-                            width = 350
-                        ),
+                                a("Exclusions statistics guide",
+                                    href = "https://www.gov.uk/government/collections/statistics-school-workforce",
+                                    target = "_blank")
+                              ), width = 5),
+                              mainPanel(
+                                strong("Permanent exclusions, 2006/07 to 2015/16"), br(),
+                                em("State-funded primary, secondary and special schools"),
+                                radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
+                                plotOutput("p_bar", height ="8cm"),
+                                hr(),
+                                strong("Fixed period exclusions, 2006/07 to 2015/16"), br(),
+                                em("State-funded primary, secondary and special schools"),
+                                radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
+                                plotOutput("f_bar", height ="8cm"),
+                                width = 7)),
+                            #dfE logo
+                            verticalLayout(
+                              img(src = "DfE_logo.png",
+                                height = 145,
+                                width = 350
+                            ),
                         "If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk"),
                       br()
              ),
