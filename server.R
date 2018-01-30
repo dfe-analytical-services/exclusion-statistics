@@ -135,27 +135,27 @@ server <- function(session, input, output) {
     
     # Filter
     
-    school_summary_table %>%
+    all_schools_data %>%
       filter(
         la_name == input$la_name_rob,
-        laestab == input$laestab_rob
+        EstablishmentName == input$EstablishmentName_rob
       )
     
   } )
   
-  la_schools <- reactive({school_summary_table %>% filter(la_name == la_name_rob)})
+  la_schools <- reactive({all_schools_data %>% filter(la_name == la_name_rob)})
   
   updateSelectizeInput(
     session = session, 
-    inputId = 'laestab_rob',
-    choices = school_summary_table$laestab[school_summary_table$la_name == "Barking and Dagenham"],
+    inputId = 'EstablishmentName_rob',
+    choices = all_schools_data$EstablishmentName[all_schools_data$la_name == "Barking and Dagenham"],
     server = TRUE)
   
   observe({
     updateSelectizeInput(
       session = session, 
-      inputId = 'laestab_rob',
-      choices = school_summary_table$laestab[school_summary_table$la_name == input$la_name_rob],
+      inputId = 'EstablishmentName_rob',
+      choices = all_schools_data$EstablishmentName[all_schools_data$la_name == input$la_name_rob],
       server = TRUE)
   })
   
