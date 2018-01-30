@@ -1,0 +1,79 @@
+# Overview tab
+
+# National bar charts (front page)
+
+national_bars_rate <- function(category) {
+  if (category == 'P') {
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(perm_excl_rate))
+    
+    plot <- data %>%
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue4', stat = "identity") +
+      ylab("Permanent exclusion rate")
+  }
+  
+  if (category == 'F') {
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(fixed_excl_rate))
+    
+    plot <- data %>%
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue3', stat = "identity") +
+      ylab("Fixed period exclusion rate")
+  }
+  
+  plot <- plot +
+    scale_y_continuous(breaks = seq(0, max(data$value + 0.5), 0.50)) +
+    theme_classic() +
+    theme(axis.title.x = element_blank(),
+          text = element_text(size = 14)) +
+    geom_text(
+      data = data,
+      aes(label = sprintf("%.2f", value)),
+      colour = "white",
+      vjust = 2
+    )
+  
+  return(plot)
+}
+
+
+national_bars_num <- function(category) {
+  if (category == 'P') {
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(perm_excl))
+    
+    plot <- data %>% 
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue4', stat = "identity") +
+      ylab("Permanent exclusions")
+  }
+  
+  if (category == 'F') {
+    data <- filter(nat_summary, school_type == 'total') %>%
+      mutate(year = as.factor(year),
+             value = as.numeric(fixed_excl))
+    
+    plot <- data %>%
+      ggplot(aes(x = formatyr(year), y = value)) +
+      geom_bar(fill = 'dodgerblue3', stat = "identity") +
+      ylab("Fixed period exclusions") 
+  }
+  
+  plot <- plot + 
+    theme_classic() +
+    theme(axis.title.x = element_blank(),
+          text=element_text(size=14)) +
+    geom_text(
+      data = data,
+      aes(label = prettyNum(value, big.mark = ",")),
+      colour="white",
+      vjust = 2) +
+    scale_y_continuous(labels = scales::comma)
+  
+  return(plot)
+}

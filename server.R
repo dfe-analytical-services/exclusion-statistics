@@ -1,7 +1,13 @@
 
+sourceDir <- function(path, trace = TRUE, ...) {
+  for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
+    if(trace) cat(nm,":")           
+    source(file.path(path, nm), ...)
+    if(trace) cat("\n")
+  }
+}
 
-source("codefile_shiny.R")
-
+sourceDir("R/")
 
 server <- function(session, input, output) {
   
@@ -23,14 +29,7 @@ server <- function(session, input, output) {
     }
   })
   
-  # output$p_bar <- renderPlot({national_bars_num('P')})
-  # 
-  # output$f_bar <- renderPlot({national_bars_num('F')})
-  # 
-  # output$p_bar <- renderPlot({national_bars_rate('P')})
-  # 
-  # output$f_bar <- renderPlot({national_bars_rate('F')})
-  # 
+
   # 2. Reason ----
   
   output$perm_reason <- renderPlot({perm_reason_bar(input$reasonschtype)})
