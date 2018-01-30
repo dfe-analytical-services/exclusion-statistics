@@ -804,6 +804,7 @@ la_sch_table <- function(la,refyear) {
   return(d)
 }
 
+
 #school level info for a specific LA
 
 la_sch_table <- function(la,refyear) {
@@ -826,9 +827,10 @@ la_sch_table <- function(la,refyear) {
   return(d)
 }
 
+
 # School summary ----
 
-school_summary_table <- filter(main_ud, level == "School") %>%
+school_summary_table <- filter(main_ud, level == "School", la_name != ".") %>% arrange(as.numeric(laestab)) %>%
   select(
     year,
     la_name,

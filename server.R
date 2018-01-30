@@ -149,7 +149,7 @@ server <- function(session, input, output) {
   updateSelectizeInput(
     session = session, 
     inputId = 'laestab_rob',
-    choices = school_summary_table$laestab[school_summary_table$la_name == "City of London"],
+    choices = school_summary_table$laestab[school_summary_table$la_name == "Barking and Dagenham"],
     server = TRUE)
   
   observe({
