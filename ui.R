@@ -8,8 +8,6 @@ sourceDir <- function(path, trace = TRUE, ...) {
 
 sourceDir("R/")
 
-#source("codefile_shiny.R")
-
 shinyUI(
     navbarPage("Exclusion statistics", id = "nav", 
                    
