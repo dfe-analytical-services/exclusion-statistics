@@ -1,6 +1,15 @@
 
+sourceDir <- function(path, trace = TRUE, ...) {
+  for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
+    if(trace) cat(nm,":")           
+    source(file.path(path, nm), ...)
+    if(trace) cat("\n")
+  }
+}
 
-source("codefile_shiny.R")
+sourceDir("R/")
+
+#source("codefile_shiny.R")
 
 
 server <- function(session, input, output) {

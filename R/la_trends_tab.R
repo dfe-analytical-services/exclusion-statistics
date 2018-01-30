@@ -1,0 +1,207 @@
+# LA trends tab
+
+la_plot_rate <- function(la, category) {
+  
+  d <- filter(la_plot_data, la_name == la) 
+  
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusion percentage"
+    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'F') {
+    ylabtitle <- "Fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'O') {
+    ylabtitle <- "One or more fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = one_or_more_fixed_excl_rate) %>% filter(y_var != 'x') 
+  }
+  
+  return(
+    d %>%
+      ggplot +
+      aes(x = as.factor(formatyr(year)), 
+          y = as.numeric(y_var), 
+          group = school_type, colour = as.factor(school_type)) +
+      geom_path(size = 1) +
+      xlab("Academic year") +
+      ylab(ylabtitle) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      theme_classic() +
+      geom_text(
+        d = d %>% filter(year == min(as.numeric(year))+101),
+        aes(label = school_type),
+        size = 5,
+        hjust = 0,
+        vjust = -1) +
+      theme(legend.position = "none") +
+      scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
+      theme(axis.text=element_text(size=12),
+            axis.title=element_text(size=14,face="bold")))
+}
+
+
+la_plot_num <- function(la, category) {
+  
+  d <- filter(la_plot_data, la_name == la) 
+  
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusions"
+    d <- d %>% mutate(y_var = perm_excl) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'F') {
+    ylabtitle <- "Fixed period exclusions"
+    d <- d %>% mutate(y_var = fixed_excl) %>% filter(y_var != 'x') 
+  }
+  
+  if (category == 'O') {
+    ylabtitle <- "Enrolments with one or more fixed period exclusion"
+    d <- d %>% mutate(y_var = one_plus_fixed) %>% filter(y_var != 'x') 
+  }
+  
+  return(
+    d %>%
+      ggplot +
+      aes(x = as.factor(formatyr(year)), 
+          y = as.numeric(y_var), 
+          group = school_type, colour = as.factor(school_type)) +
+      geom_path(size = 1) +
+      xlab("Academic year") +
+      ylab(ylabtitle) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      theme_classic() +
+      geom_text(
+        d = d %>% filter(year == min(as.numeric(year))+101),
+        aes(label = school_type),
+        size = 5,
+        hjust = 0,
+        vjust = -1) +
+      theme(legend.position = "none") +
+      scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
+      theme(axis.text=element_text(size=12),
+            axis.title=element_text(size=14,face="bold")))
+}
+
+
+
+### LA time series tables
+
+la_table_num <- function(la, category) {
+  
+  d <- filter(la_plot_data, la_name == la)
+  
+  if(category=='P') { 
+    d <- d %>% mutate(t_var = perm_excl)
+  }
+  if(category=='F') {
+    d <- d %>% mutate(t_var = fixed_excl)
+  }  
+  if(category=='O') {
+    d <- d %>% mutate(t_var = one_plus_fixed)
+  }  
+  
+  table <- d %>%
+    mutate(
+      yearf = formatyr(year),
+      value = t_var,
+      Type = school_type
+    ) %>%
+    dplyr::select(yearf, Type, value) %>%
+    spread(key = yearf, value)
+  
+  row.names(table) <- NULL
+  
+  return(table)
+  
+}
+
+
+la_table_rate <- function(la, category) {
+  
+  d <- filter(la_plot_data, la_name == la)
+  
+  if(category=='P') { 
+    d <- d %>% mutate(t_var = perm_excl_rate)
+  }
+  if(category=='F') {
+    d <- d %>% mutate(t_var = fixed_excl_rate)
+  }  
+  if(category=='O') {
+    d <- d %>% mutate(t_var = one_or_more_fixed_excl_rate)
+  }  
+  
+  table <- d %>%
+    mutate(
+      yearf = formatyr(year),
+      value = t_var,
+      Type = school_type
+    ) %>%
+    dplyr::select(yearf, Type, value) %>%
+    spread(key = yearf, value)
+  
+  row.names(table) <- NULL
+  
+  return(table)
+  
+}
+
+
+# Numbers for LA summary text
+
+la_perm_num <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(perm_excl))
+  
+}
+
+la_fixed_num <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(fixed_excl))
+  
+}
+
+la_one_plus_num <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(one_plus_fixed))
+  
+}
+
+
+la_perm_rate <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(perm_excl_rate))
+  
+}
+
+la_fixed_rate <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(fixed_excl_rate))
+  
+}
+
+la_one_plus_rate <- function(la, refyear) {
+  
+  d <- filter(main_ud, year == refyear,la_name == la)
+  
+  return(filter(d, level == 'Local authority', school_type == 'total') %>%
+           dplyr::select(one_or_more_fixed_excl_rate))
+  
+}
