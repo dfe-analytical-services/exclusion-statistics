@@ -202,8 +202,7 @@ shinyUI(
                             )
                         )
                       )
-                    )
-                  ),
+                    ),
 
             
              #  # 5. Reason for exclusions ----
@@ -254,7 +253,7 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Select local authority and then school number")),
-                          selectInput("la_name_rob", label = "1. Local Authority" ,choices = unique(school_summary_table$la_name)),
+                          selectInput("la_name_rob", label = "1. Local Authority" ,choices = sort(unique(school_summary_table$la_name))),
                           selectizeInput("laestab_rob", label = "2. School Number", choices = NULL),
                           br(),
                           br(),
