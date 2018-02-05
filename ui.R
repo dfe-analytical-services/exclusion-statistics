@@ -196,13 +196,19 @@ shinyUI(
                                            "Fixed period" = 'fixed'),
                             selected = 'fixed'
                           ),
-                          width = 3
+                          width = 3,
+                          hr(),
+                          h5(strong("Tool information")),
+                          "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
+                          br(),
+                          br(),
+                          "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate."
                         ),
                         mainPanel(
                           leafletOutput("map", width = '25cm', height = '25cm') %>%
                             #spinner to appear while chart is loading
                             withSpinner(
-                              color = "grey",
+                              color = "blue",
                               type = 5,
                               size = getOption("spinner.size", default = 0.4)
                             )
