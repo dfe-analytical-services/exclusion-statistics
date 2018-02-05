@@ -8,6 +8,8 @@ char_series <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
   }
   
   if (category == 'P') {
@@ -39,9 +41,9 @@ char_series <- function(char, sch_type, category) {
         hjust = 0,
         vjust = -1) +
       theme(legend.position = "none") +
-      scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
+      #scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
       theme(axis.text=element_text(size=12),
-            axis.title=element_text(size=14,face="bold")))
+            axis.title=element_text(size=14,face="bold"))) 
 }
 
 
@@ -53,6 +55,8 @@ char_series_table <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
   }
   
   if (category == 'P') {
@@ -86,6 +90,8 @@ char_prop <- function(char, sch_type, category){
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == 201516) 
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == 201516) 
+  } else if (char =='age') {
+    return(NULL)
   }
   
   if (category == 'P') {
@@ -101,8 +107,8 @@ char_prop <- function(char, sch_type, category){
            add_pie(hole = 0.5) %>%
            layout(showlegend = T,legend = list(x = 0.5, y = -0.4),
                   xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                  yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-                  , margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
+                  yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), 
+                  margin = list(l = 20, r = 20, b = 20 ,t = 20,pad = 4)))
   
   
 }
@@ -152,6 +158,8 @@ char_gaps <- function(char, sch_type, category){
     data$char_yes <-as.numeric(data$FSM_Eligible)
     yes_label <- "FSM"
     no_label <- "Not FSM"
+  }else if (char =='age') {
+    return(NULL)
   }
   
   
@@ -183,7 +191,7 @@ char_gaps <- function(char, sch_type, category){
                  axis.ticks=element_blank(),
                  axis.text.x=element_blank(),
                  plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2,face="bold"),
-                 axis.text=element_text(size=12))
+                 axis.text=element_text(size=12)) 
   )
   
 }

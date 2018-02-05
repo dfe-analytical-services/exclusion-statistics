@@ -9,7 +9,7 @@ sourceDir <- function(path, trace = TRUE, ...) {
 
 sourceDir("R/")
 
-server <- function(session, input, output) {
+shinyServer(function(session, input, output) {
   
   # 1. Front page ----
   
@@ -47,6 +47,8 @@ server <- function(session, input, output) {
   output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
   
   output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
+  
+
   
   # 3. LA trends ----
   
@@ -127,8 +129,6 @@ server <- function(session, input, output) {
     }
   ) 
   
-  
-
    # 6. School summary tab ----
   
   output$table_school_summary <- renderDataTable({
@@ -159,7 +159,8 @@ server <- function(session, input, output) {
       server = TRUE)
   })
   
-  # session$onSessionEnded(function() { stopApp() })
+  #stop app running when closed in browser
+  session$onSessionEnded(function() { stopApp() })
   
-}
+})
 

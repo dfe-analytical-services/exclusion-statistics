@@ -6,11 +6,13 @@ sourceDir <- function(path, trace = TRUE, ...) {
   }
 }
 
+library(shinyjs)
+
 sourceDir("R/")
 
 shinyUI(
-    navbarPage("Exclusion statistics", id = "nav", 
-                   
+    navbarPage("Exclusion statistics",
+               
                    # 1. Front page ----
                    
                    tabPanel("Overview",
@@ -68,60 +70,72 @@ shinyUI(
              # 2. Pupil Characteristics ----
              
              tabPanel("Pupil characteristics",
-                      
+                      useShinyjs(),
+                      h4(strong("Exclusions by pupil characteristic")),
                       sidebarLayout(sidebarPanel(
-                        h4(strong("Exclusions by pupil characteristic")),
-                        selectInput("char_char",
-                                    label = "select characteristic",
-                                    choices = list(
-                                      "SEN provision" = 'sen',
-                                      "FSM eligibility" = 'fsm',
-                                      "Gender" = 'gender'),
-                                    selected = 'gender'),
-                        selectInput("char_sch",
-                                    label = "select school type",
-                                    choices = list(
-                                      "State-funded primary" = 'Primary',
-                                      "State-funded secondary" = 'Secondary',
-                                      "Special" = 'Special',
-                                      "Total" = 'Total'),
-                                    selected = 'Total'),
-                        selectInput("char_cat",
-                                    label = "select measure",
-                                    choices = list(
-                                      "Fixed period" = 'F',
-                                      "Permanent" = 'P',
-                                      "One or more fixed" = 'O'),
-                                    selected = 'P'),
-                        tableOutput("char_ts_table"), width = 5
-                      ),
-                      mainPanel(
-                        strong("chart title"),
-                        br(),
-                        "footnotes",
-                        br(),
-                        plotOutput("char_ts"), width = 7
-                      )
-                      ),
-                      fluidRow(
-                        column(
-                          verticalLayout(
-                            h4(strong("Proportion of exclusions by characteristic - 2015/16")),
-                            em("State-funded primary, secondary and special schools"),
-                            plotlyOutput("char_prop")
+                        fluidRow(
+                          column(4,
+                                 selectInput("char_cat",
+                                             label = "select measure",
+                                             choices = list(
+                                               "Fixed period" = 'F',
+                                               "Permanent" = 'P',
+                                               "One or more fixed" = 'O'),
+                                             selected = 'P'),
+                                 
+                                 selectInput("char_sch",
+                                             label = "select school type",
+                                             choices = list(
+                                               "State-funded primary" = 'Primary',
+                                               "State-funded secondary" = 'Secondary',
+                                               "Special" = 'Special',
+                                               "Total" = 'Total'),
+                                             selected = 'Total')
                           ),
-                          width = 5
-                        ),
-                        column(
-                          verticalLayout(
-                            h4(strong("How is difference in exclusion rate changing over time?")),
-                            em("State-funded primary, secondary and special schools"),
-                            plotOutput("char_gaps")
-                          ),
-                          width = 5
+                          column(4,offset = 1,
+                                 selectInput("char_char",
+                                             label = "select characteristic",
+                                             choices = list(
+                                               "SEN provision" = 'sen',
+                                               "FSM eligibility" = 'fsm',
+                                               "Gender" = 'gender',
+                                               "Age" = 'age'),
+                                             selected = 'gender'),
+                                 "INSERT A DOWNLOAD BUTTON"
+                          )
+                        ), width = 12),
+                        mainPanel()),
+                      
+                      tabsetPanel(
+                        tabPanel('Table',
+                                 br(),
+                                 br(),
+                                 tableOutput("char_ts_table")),
+                        tabPanel('Charts',
+                                 value = "charts",
+                                 br(),
+                                 br(),
+                                 strong("chart title"),
+                                 br(),
+                                 br(),
+                                 plotOutput("char_ts", width="70%"),
+                                 br(),
+                                 br(),
+                                 fluidRow(
+                                   column(verticalLayout(
+                                     h4(strong( "Proportion of exclusions by characteristic - 2015/16")),
+                                     br(),
+                                     plotlyOutput("char_prop")),
+                                     width = 5),
+                                   column(verticalLayout(
+                                     h4(strong("How is difference in exclusion rate changing over time?")),
+                                     br(),
+                                     plotOutput("char_gaps")),
+                                     width = 5)
+                                 )
                         )
                       )
-             ),
+             ), 
              
              # 3. LA Trends ----
              
@@ -328,9 +342,6 @@ shinyUI(
                     those with repeated fixed period exclusions.", width = 9)),
                       hr()
              )
-             
-  )
-  
 )
-
+)
 
