@@ -6,8 +6,6 @@ sourceDir <- function(path, trace = TRUE, ...) {
   }
 }
 
-library(shinyjs)
-
 sourceDir("R/")
 
 shinyUI(
