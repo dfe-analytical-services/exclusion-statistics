@@ -6,8 +6,6 @@ sourceDir <- function(path, trace = TRUE, ...) {
   }
 }
 
-library(shinyjs)
-
 sourceDir("R/")
 
 shinyUI(
@@ -70,7 +68,6 @@ shinyUI(
              # 2. Pupil Characteristics ----
              
              tabPanel("Pupil characteristics",
-                      useShinyjs(),
                       h4(strong("Exclusions by pupil characteristic")),
                       sidebarLayout(sidebarPanel(
                         fluidRow(
