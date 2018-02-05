@@ -16,35 +16,35 @@ shinyUI(
                    tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
-                                strong("insert cool title for tool here"),
-                                br(),
-                                h3("Permanent and fixed period exclusions in England"),
-                                br(),
+                                h3(strong("Understanding Exclusions Statistics")),
+                                hr(),
                                 strong("Background"),
                                 "The purpose of this tool/dashboard is to provide insight to lower level breakdowns included within our 
-                                National Statistics release.",
-                                "It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
+                                National Statistics release. It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
                                 and special schools as reported in the School Census.",
                                 hr(),
                                 strong("Latest National Statistics"),
-                                "Further information is available in the ", 
-                                a("Permanent and fixed-period exclusions in England:2015 to 2016", 
+                                br("Further information is available in the permanent and fixed-period exclusions in England: 2015 to 2016 statistical first release, ",
+                                  a("available here.", 
                                     href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
-                                    target="_blank"),
-                                "National Statistics release",
+                                    target="_blank")),
                                 hr(),
                                 strong("Guidance and methodology"),
                                 "The data and methods tab includes information on the data used in this tool as well as definitions for 
                                 terms used throughout.",
-                                "An exclusions statistics guide, which provides historical information on exclusion statistics, technical 
+                                br(a("An exclusions statistics guide",
+                                     href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
+                                     target = "_blank"),"which provides historical information on exclusion statistics, technical 
                                 background information to the figures and data collection, and definitions of key terms should be referenced 
-                                alongside this release.",
-                                a("Exclusions statistics guide",
-                                    href = "https://www.gov.uk/government/collections/statistics-school-workforce",
-                                    target = "_blank")
+                                alongside this release."),
+                                hr(),
+                                strong("Definitons"),
+                                "Defintions relating to statistics used in this application can be found in the data and methods tab."
+                                
                               ), width = 5),
                               mainPanel(
-                                strong("Permanent exclusions, 2006/07 to 2015/16"), br(),
+                                strong("Permanent exclusions, 2006/07 to 2015/16"), 
+                                br(),
                                 em("State-funded primary, secondary and special schools"),
                                 radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
                                 plotOutput("p_bar", height ="8cm"),
