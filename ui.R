@@ -188,7 +188,9 @@ shinyUI(
                         sidebarPanel(
                           h4(strong("Mapping exclusion rates")),
                           em("State-funded primary, secondary and special schools, 2015/16"),
-                          h5(strong("Pick a measure")),
+                          br(),
+                          br(),
+                          h5(strong("Pick exclusion category")),
                           selectInput(
                             "select_map",
                             label = NULL,
@@ -198,7 +200,7 @@ shinyUI(
                           ),
                           width = 3,
                           hr(),
-                          h5(strong("Tool information")),
+                          h5(strong("Instructions")),
                           "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
                           br(),
                           br(),

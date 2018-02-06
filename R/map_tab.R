@@ -50,7 +50,7 @@ excmap <- function(measure) {
         addProviderTiles(providers$CartoDB.Positron,
                          options = providerTileOptions(minZoom = 7, maxZoom = 10)) %>%
         addPolygons(fillColor = ~perm_excl_rate_Pal(englishLocalAuthorityData$perm_excl_rate),
-                    weight = 2,
+                    weight = 1,
                     opacity = 0.7,
                     color = "black",
                     dashArray = "0",
@@ -83,7 +83,7 @@ excmap <- function(measure) {
         addProviderTiles(providers$CartoDB.Positron,
                          options = providerTileOptions(minZoom = 7, maxZoom = 10)) %>%
         addPolygons(fillColor = ~fixed_excl_rate_Pal(englishLocalAuthorityData$fixed_excl_rate),
-                    weight = 2,
+                    weight = 1,
                     opacity = 0.7,
                     color = "black",
                     dashArray = "0",
