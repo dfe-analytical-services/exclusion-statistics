@@ -16,27 +16,26 @@ shinyUI(
                    tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
-                                h3(strong("Understanding Exclusions Statistics")),
+                                h3(strong("Understanding school exclusions statistics")),
                                 hr(),
                                 strong("Background"),
-                                "The purpose of this tool/dashboard is to provide insight to lower level breakdowns included within our 
+                                "The purpose of this dashboard is to provide insight to lower level breakdowns included within our 
                                 National Statistics release. It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
-                                and special schools as reported in the School Census.",
+                                and special schools as reported in the School Census. This is a pilot release from the department, published as an example of what future statistics dissemination may look like; helping users to understand exclusions data.",
                                 hr(),
                                 strong("Latest National Statistics"),
-                                br("Further information is available in the permanent and fixed-period exclusions in England: 2015 to 2016 statistical first release, ",
-                                  a("available here.", 
+                                br(" All of the data used within this dashboard, including additional breakdowns, has been published in the releases underlying data section and is also available for download in data and methods tab. This can be found in our",
+                                  a("Permanent and fixed-period exclusions in England: 2015 to 2016 report.", 
                                     href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
                                     target="_blank")),
                                 hr(),
                                 strong("Guidance and methodology"),
-                                "The data and methods tab includes information on the data used in this tool as well as definitions for 
-                                terms used throughout.",
+                                "This dashboard shows various breakdowns for the number and rate of permanent and fixed period exclusions as well as enrolments receiving one or more fixed period exclusion. Rates are calculated using the number of sole and dual registered pupils on roll as of Spring Census day. Further info, including definitions, is available in the data and methods tab.",
                                 br(a("An exclusions statistics guide",
                                      href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
                                      target = "_blank"),"which provides historical information on exclusion statistics, technical 
                                 background information to the figures and data collection, and definitions of key terms should be referenced 
-                                alongside this release."),
+                                alongside this release."), 
                                 hr(),
                                 strong("Definitons"),
                                 "Defintions relating to statistics used in this application can be found in the data and methods tab."
