@@ -188,7 +188,9 @@ shinyUI(
                         sidebarPanel(
                           h4(strong("Mapping exclusion rates")),
                           em("State-funded primary, secondary and special schools, 2015/16"),
-                          h5(strong("Pick a measure")),
+                          br(),
+                          br(),
+                          h5(strong("Pick exclusion category")),
                           selectInput(
                             "select_map",
                             label = NULL,
@@ -196,13 +198,19 @@ shinyUI(
                                            "Fixed period" = 'fixed'),
                             selected = 'fixed'
                           ),
-                          width = 3
+                          width = 3,
+                          hr(),
+                          h5(strong("Instructions")),
+                          "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
+                          br(),
+                          br(),
+                          "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate."
                         ),
                         mainPanel(
                           leafletOutput("map", width = '25cm', height = '25cm') %>%
                             #spinner to appear while chart is loading
                             withSpinner(
-                              color = "grey",
+                              color = "blue",
                               type = 5,
                               size = getOption("spinner.size", default = 0.4)
                             )
