@@ -3,10 +3,13 @@
 ukLocalAuthoritises <- shapefile("data/England_LA_2016.shp")
 
 exc_data <- filter(main_ud, level == 'Local authority', school_type == 'total', year ==201516) %>%
-  select(old_la_code,perm_excl_rate, fixed_excl_rate)
+  select(old_la_code,perm_excl_rate, fixed_excl_rate, headcount, perm_excl, fixed_excl)
 
 exc_data$perm_excl_rate <- as.numeric(exc_data$perm_excl_rate)
 exc_data$fixed_excl_rate <- as.numeric(exc_data$fixed_excl_rate)
+exc_data$headcount <- as.numeric(exc_data$headcount)
+exc_data$perm_excl <- as.numeric(exc_data$perm_excl)
+exc_data$fixed_excl <- as.numeric(exc_data$fixed_excl)
 
 ukLocalAuthoritises <- spTransform(ukLocalAuthoritises, CRS("+proj=longlat +ellps=GRS80"))
 englishLocalAuthorities = subset(ukLocalAuthoritises, LA15CD %like% "E") # Code begins with E
@@ -23,8 +26,8 @@ englishLocalAuthorityData <- merge(englishLocalAuthorities,
 perm_excl_rate_Pal = colorQuantile('YlOrRd', englishLocalAuthorityData$perm_excl_rate, n = 5)
 
 # Add a label for tooltip (bit of html)
-perm_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Permanent exclusion rate <strong>%g</strong> <sup></sup>",
-                                 englishLocalAuthorityData$LA15NM, englishLocalAuthorityData$perm_excl_rate) %>%
+perm_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Headcount <strong>%s</strong><br/>Permanent exclusions <strong>%s</strong><br/>Permanent exclusion rate <strong>%s</strong>",
+                                 englishLocalAuthorityData$LA15NM, format(englishLocalAuthorityData$headcount,big.mark=",", trim=TRUE), format(englishLocalAuthorityData$perm_excl,big.mark=",", trim=TRUE), paste(as.character(englishLocalAuthorityData$perm_excl_rate), "%")) %>%
   lapply(htmltools::HTML)
 
 #fixed exc
@@ -33,8 +36,8 @@ perm_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Permanent exclusion ra
 fixed_excl_rate_Pal = colorQuantile('YlOrRd', englishLocalAuthorityData$fixed_excl_rate, n = 5)
 
 # Add a label for tooltip (more html...)
-fixed_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Fixed period exclusion rate <strong>%g</strong> <sup></sup>",
-                                  englishLocalAuthorityData$LA15NM, englishLocalAuthorityData$fixed_excl_rate) %>%
+fixed_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Headcount <strong>%s</strong><br/>Fixed period exclusions <strong>%s</strong><br/>Fixed period exclusion rate <strong>%s</strong>",
+                                  englishLocalAuthorityData$LA15NM, format(englishLocalAuthorityData$headcount,big.mark=",", trim=TRUE), format(englishLocalAuthorityData$fixed_excl,big.mark=",", trim=TRUE), paste(as.character(englishLocalAuthorityData$fixed_excl_rate), "%")) %>%
   lapply(htmltools::HTML)
 
 
@@ -44,12 +47,13 @@ excmap <- function(measure) {
     
     return(
       leaflet(englishLocalAuthorityData) %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
+        addProviderTiles(providers$CartoDB.Positron,
+                         options = providerTileOptions(minZoom = 7, maxZoom = 10)) %>%
         addPolygons(fillColor = ~perm_excl_rate_Pal(englishLocalAuthorityData$perm_excl_rate),
-                    weight = 2,
-                    opacity = 1,
-                    color = "white",
-                    dashArray = "3",
+                    weight = 1,
+                    opacity = 0.7,
+                    color = "black",
+                    dashArray = "0",
                     fillOpacity = 0.7,
                     highlight = highlightOptions(
                       weight = 5,
@@ -61,12 +65,14 @@ excmap <- function(measure) {
                     labelOptions = labelOptions(
                       style = list("font-weight" = "normal", padding = "3px 8px"),
                       textsize = "15px",
-                      direction = "auto")) %>%
+                      direction = "auto",
+                      opacity = 1)) %>%
         addLegend(colors = c("#FFFFB2", "#FECC5C", "#FD8D3C", "#F03B20", "#BD0026", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
                   position = "topright",
-                  labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data"))
+                  labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data")) %>%
+        setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
     )
   }
   
@@ -74,12 +80,13 @@ excmap <- function(measure) {
     
     return(
       leaflet(englishLocalAuthorityData) %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
+        addProviderTiles(providers$CartoDB.Positron,
+                         options = providerTileOptions(minZoom = 7, maxZoom = 10)) %>%
         addPolygons(fillColor = ~fixed_excl_rate_Pal(englishLocalAuthorityData$fixed_excl_rate),
-                    weight = 2,
-                    opacity = 1,
-                    color = "white",
-                    dashArray = "3",
+                    weight = 1,
+                    opacity = 0.7,
+                    color = "black",
+                    dashArray = "0",
                     fillOpacity = 0.7,
                     highlight = highlightOptions(
                       weight = 5,
@@ -96,7 +103,8 @@ excmap <- function(measure) {
                   opacity = 0.7, 
                   title = NULL,
                   position = "topright",
-                  labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data"))
+                  labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data")) %>%
+        setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
     )
   }
 }
