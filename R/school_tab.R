@@ -139,7 +139,7 @@ rbind(distinct_school_names,
 (unique(unique_school_data$laestab))
 
 unique_school_data %>%
-  select(laestab, EstablishmentName) -> unique_school_names
+  select(laestab, EstablishmentName, `LA (code)`) -> unique_school_names
 
 # Join the data together to use as a table (add establishment name to the data by the laestab number)
 school_summary_table$laestab <- as.numeric(school_summary_table$laestab)
@@ -149,4 +149,22 @@ all_schools_data <- left_join(school_summary_table, unique_school_names, by = "l
 all_schools_data %>%
   arrange(la_name, EstablishmentName) -> all_schools_data
 
+all_schools_data %>%
+  mutate(la_code_full = ifelse(!is.na(`LA (code)`), `LA (code)`,
+                        ifelse(is.na(`LA (code)`), substr(laestab, 1, 3), NA))) -> all_schools_data
 
+
+all_schools_data %>%
+  mutate(la_no_and_name = paste(la_code_full, la_name, sep = " - "),
+         laestab_school_name = paste(laestab, EstablishmentName, sep = " - ")) -> all_schools_data
+
+all_schools_data %>%
+  rename(`Academic year` = year,
+         `School phase` = school_type,
+         `Headcount` = headcount,
+         `Permanent exclusions` = perm_excl,
+         `Permanent exclusion rate` = perm_excl_rate,
+         `Fixed period exclusions` = fixed_excl,
+         `Fixed period exclusion rate` = fixed_excl_rate,
+         `One or more fixed period exclusions` = one_plus_fixed,
+         `One or more fixed period exclusion rate` = one_or_more_fixed_excl_rate) -> all_schools_data

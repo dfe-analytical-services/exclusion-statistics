@@ -265,13 +265,14 @@ shinyUI(
              tabPanel("School summary",
                       sidebarLayout(
                         sidebarPanel(
-                          h4(strong("Select local authority and then school number")),
-                          selectInput("la_name_rob", label = "1. Local Authority" ,choices = sort(unique(all_schools_data$la_name))),
-                          selectizeInput("EstablishmentName_rob", label = "2. School Number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000)),
+                          h4(strong("Select a Local Authority and then an individual school")),
+                          "The below table shows information about exclusions data for individual schools. Select the Local Authority name or number in the first tab above and then the school LAESTAB number or school name in the second tab. You are able to download this data as a .csv file, excel file or simple copy the data to your clipboard with the buttons below.",
                           br(),
                           br(),
-                          h4(strong("Exclusions by reason")),
-                          br(),
+                          selectInput("la_name_rob", label = "1. Select Local Authority code or name" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),
+                          selectizeInput("EstablishmentName_rob", label = "2. Select School Name or LAESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
+                          h5(strong("Note on suppresion")),
+                          "Values of 'x' in the table below represent numbers that are below 3 exclusions and are supressed for data protection purposes, with the corresponding rate also supressed for the same reason.",
                           width=12),
                         mainPanel(
                           dataTableOutput("table_school_summary"),
