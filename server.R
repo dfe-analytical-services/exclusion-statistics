@@ -139,12 +139,16 @@ server <- function(session, input, output) {
       filter(
         la_no_and_name == input$la_name_rob,
         laestab_school_name == input$EstablishmentName_rob
-      ) 
-    
-    , extensions = c('Buttons'), 
-      options=list(dom = 'Bfrtip',
-                   buttons = c('copy', 'csv', 'excel'),
-                   columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15,16)))))
+      ), 
+    extensions = c('Buttons'), 
+    options=list(dom = 'Bfrtip',
+                 buttons = c('csv','copy'),
+                 columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
+  
+  
+  
+  
+  
   
   la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   

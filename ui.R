@@ -262,7 +262,7 @@ shinyUI(
                                        tableOutput("fixed_reason_t")))),
              
              # 6. Schools Summary 
-             tabPanel("School summary",
+             tabPanel("School level exclusions",
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Select a Local Authority and then an individual school")),

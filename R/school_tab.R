@@ -63,100 +63,41 @@ school_summary_table <- filter(main_ud, level == "School", la_name != ".") %>% a
     one_or_more_fixed_excl_rate
   )
 
+#SELECT
+#* --everything
+#INTO #finalt
+#FROM 
+#(SELECT AcademicYear, LA, [LAEstab],[SchoolName] ,[URN] ,
+#  ROW_NUMBER() OVER (PARTITION BY 
+#                     [LAESTAB] ORDER BY [AcademicYear] DESC) as ROW_NUM
+#  FROM [PDR].[Tier1].[CensusSchools_MasterView]) AS Q
+#WHERE
+#ROW_NUM= 1
 
+school_data_sql <- read_csv('data/school_data_sql.csv')
 
+school_data_sql %>%
+  select(LA, LAEstab, SchoolName) %>%
+  rename(laestab = LAEstab) -> school_data_sql
 
-####
-# School naming ----
+school_data_sql$laestab <- as.character(school_data_sql$laestab)
 
-# We have 3 problems to address here.
-# 1. We want to have one name per school for our app
-# 1. Some schools have multiple names on the same laestab number
-# 2. Of those schools, some are currently open
-# 3. Of those schools, some are shut
+all_schools_data <- left_join(school_summary_table, school_data_sql, by = "laestab")
 
-# This sequence below takes data from the get schools information website and determines the name of the school to be attached
-# to the laestab number. 
-# i. We start by taking those laestab numbers that are disctinct and keep those schools names 
-# ii. Then we take those where there are schools with the same laestab number that are open and keep the name at  the time they were last open (NA)
-# iii. Then we take those where there are schools with the same laestab number that are closed and then keep the school name at the latest closing date
-# iv. Join all the data together 
+all_schools_data$SchoolName <- tolower(all_schools_data$SchoolName)
 
-school_names_raw$`LA (code)` <- as.character(school_names_raw$`LA (code)`)
-school_names_raw$EstablishmentNumber <- as.character(school_names_raw$EstablishmentNumber)
-school_names_raw$CloseDate <- as.Date(school_names_raw$CloseDate, "%d-%m-%Y")
+# all_schools_data$SchoolName <- tools::toTitleCase(all_schools_data$SchoolName)
 
-# Create laestab value 
-school_names_raw$laestab <- as.numeric(paste(school_names_raw$`LA (code)`, school_names_raw$EstablishmentNumber, sep = ""))
-
-# Get distinct columns 
-school_names_raw %>%
-  filter(!is.na(`LA (code)`) & !is.na(EstablishmentNumber) & `LA (code)` != 0) %>%
-  distinct(`LA (code)`, EstablishmentNumber, laestab, EstablishmentName, CloseDate)  %>% 
-  arrange(laestab) -> arranged_schools_data
-
-# i. Find laestabs that are distinct ----
-arranged_schools_data %>%
-  group_by(laestab) %>%
-  filter(n()<2) -> distinct_school_names
-
-# Check this with a count
-arranged_schools_data %>%
-  group_by(laestab) %>%
-  filter(n()<2) %>%
-  summarize(count=n()) -> no_of_distinct_schools_check
-
-# Find laestabs that are not distinct ----
-arranged_schools_data %>%
-  group_by(laestab) %>%
-  filter(n()>1) -> non_distinct_school_names
-
-# Check this with a count
-arranged_schools_data %>%
-  group_by(laestab) %>%
-  filter(n()>1) %>%
-  summarize(count=n())-> no_of_non_distinct_schools_check
-
-# ii. Take those schools that are not distinct but are still open, take those names ----
-arranged_schools_data %>%
-  group_by(laestab) %>%
-  filter(n()>1) %>%
-  filter(is.na(CloseDate)) %>%
-  arrange(laestab)-> open_schools_non_distinct
-
-# iii. Take those schools where they have a close date and take their name at the latest year (using slice) of being open remove those schools that are open using the anti_join ----
-arranged_schools_data %>%
-  group_by(laestab) %>%
-  filter(n()>1) %>%
-  anti_join(open_schools_non_distinct, by = "laestab") %>%
-  slice(which.max(CloseDate)) -> closed_schools_non_distinct
-
-# iv. Join data together ----
-rbind(distinct_school_names,
-      open_schools_non_distinct,
-      closed_schools_non_distinct) -> unique_school_data
-
-(unique(unique_school_data$laestab))
-
-unique_school_data %>%
-  select(laestab, EstablishmentName, `LA (code)`) -> unique_school_names
-
-# Join the data together to use as a table (add establishment name to the data by the laestab number)
-school_summary_table$laestab <- as.numeric(school_summary_table$laestab)
-all_schools_data <- left_join(school_summary_table, unique_school_names, by = "laestab")
-
-# Arrange the data alphabetically by la_name THEN EstablishmentName
-all_schools_data %>%
-  arrange(la_name, EstablishmentName) -> all_schools_data
+all_schools_data$SchoolName <- gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", all_schools_data$SchoolName, perl=TRUE)
 
 all_schools_data %>%
-  mutate(la_code_full = ifelse(!is.na(`LA (code)`), `LA (code)`,
-                        ifelse(is.na(`LA (code)`), substr(laestab, 1, 3), NA))) -> all_schools_data
+  mutate(la_no_and_name = paste(LA, la_name, sep = " - "),
+         laestab_school_name = paste(laestab, SchoolName, sep = " - ")) -> all_schools_data
 
 
 all_schools_data %>%
-  mutate(la_no_and_name = paste(la_code_full, la_name, sep = " - "),
-         laestab_school_name = paste(laestab, EstablishmentName, sep = " - ")) -> all_schools_data
+  mutate(la_no_and_name = paste(LA, la_name, sep = " - "),
+         laestab_school_name = paste(laestab, SchoolName, sep = " - ")) -> all_schools_data
 
 all_schools_data %>%
   rename(`Academic year` = year,
@@ -168,3 +109,4 @@ all_schools_data %>%
          `Fixed period exclusion rate` = fixed_excl_rate,
          `One or more fixed period exclusions` = one_plus_fixed,
          `One or more fixed period exclusion rate` = one_or_more_fixed_excl_rate) -> all_schools_data
+
