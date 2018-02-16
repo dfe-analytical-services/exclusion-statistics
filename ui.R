@@ -262,10 +262,10 @@ shinyUI(
                                        tableOutput("fixed_reason_t")))),
              
              # 6. Schools Summary 
-             tabPanel("School level exclusions",
+             tabPanel("School level",
                       sidebarLayout(
                         sidebarPanel(
-                          h4(strong("Select a Local Authority and then an individual school")),
+                          h4(strong("School level exclusions")),
                           "The below table shows information about exclusions data for individual schools. Select the Local Authority name or number in the first tab above and then the school LAESTAB number or school name in the second tab. You are able to download this data as a .csv file, excel file or simple copy the data to your clipboard with the buttons below.",
                           br(),
                           br(),
