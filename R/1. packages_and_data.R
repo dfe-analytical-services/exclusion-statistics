@@ -20,6 +20,7 @@ library(shiny)
 library(DT)
 library(ggalt)
 library(magrittr)
+library(shinythemes)
 
 ####
 # 2. Load the data required ----
