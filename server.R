@@ -147,9 +147,6 @@ server <- function(session, input, output) {
   
   
   
-  
-  
-  
   la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   
   updateSelectizeInput(
