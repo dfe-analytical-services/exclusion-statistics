@@ -48,19 +48,18 @@ shinyUI(
                                 radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
                                 plotOutput("p_bar", height ="8cm"),
                                 hr(),
-                                strong("Fixed period exclusions, 2006/07 to 2015/16"), br(),
+                                strong("Fixed period exclusions, 2006/07 to 2015/16"), 
+                                br(),
                                 em("State-funded primary, secondary and special schools"),
                                 radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
                                 plotOutput("f_bar", height ="8cm"),
                                 width = 7)),
-                            #dfE logo
-                            verticalLayout(
-                              img(src = "DfE_logo.png",
-                                height = 145,
-                                width = 350
-                            ),
-                        "If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk"),
-                      br()
+                            hr(),
+                            HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>')
              ),
              
              
@@ -120,7 +119,13 @@ shinyUI(
                           width = 5
                         )
                       )
-             ),
+             ,                            
+             hr(),
+             HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                  <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                  <br>
+                  </br>')),
              
              # 3. LA Trends ----
              
@@ -178,7 +183,13 @@ shinyUI(
                           br(),
                           tableOutput("t1_table"),
                           br()
-                        ))),
+                        )),
+                      hr(),
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                           <br>
+                           </br>')),
              
              # 4. Map ----
              
@@ -214,7 +225,13 @@ shinyUI(
                               size = getOption("spinner.size", default = 0.4)
                             )
                         )
-                      )
+                      ),
+                      hr(),
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                           <br>
+                           </br>')
                     ),
 
             
@@ -259,7 +276,13 @@ shinyUI(
                                        strong("Fixed period exclusions broken down by reason"),
                                        em("2011/12 to 2015/16 academic year"),
                                        br(),
-                                       tableOutput("fixed_reason_t")))),
+                                       tableOutput("fixed_reason_t"))),
+                      hr(),
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>')),
              
              # 6. Schools Summary 
              tabPanel("School level",
@@ -279,7 +302,13 @@ shinyUI(
                           strong("Download"), "or", strong("copy"), "this table using buttons below.",
                           dataTableOutput("table_school_summary", width = "95%"),
                           width=12
-                        ))),
+                        )),
+                      hr(),
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>')),
              
              # 7. Data and methods ----
              tabPanel("Data and methods",
@@ -336,8 +365,12 @@ shinyUI(
                           "Pupils with one or more fixed period exclusion refers to pupil enrolments who
                     have at least one fixed period exclusion across the full academic year. It includes
                     those with repeated fixed period exclusions.", width = 9)),
-                      hr()
-             )
+                      hr(),
+               HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>'))
              
   )
   
