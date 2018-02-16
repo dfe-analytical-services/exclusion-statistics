@@ -35,10 +35,16 @@ shinyUI(
                                      href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
                                      target = "_blank"),"which provides historical information on exclusion statistics, technical 
                                 background information to the figures and data collection, and definitions of key terms should be referenced 
-                                alongside this release."), 
+                                alongside this release. This guide also includes methodological information about exclusion statistics calculation,
+                                   requirements of schools to provide exclusions data and data collection information."), 
                                 hr(),
                                 strong("Definitons"),
-                                "Defintions relating to statistics used in this application can be found in the data and methods tab."
+                                br("Key defintions relating to statistics used in this application can be found in the data and methods tab. For a full list of definitions relating to
+                                pupil exclusions, please refer to our",
+                                a("exclusions statistics guide",
+                                     href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
+                                     target = "_blank"),
+                                ".")
                                 
                               ), width = 5),
                               mainPanel(
