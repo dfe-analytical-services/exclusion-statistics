@@ -89,6 +89,38 @@ la_plot_data <-
            ifelse(school_type == "special", "Special", 
                   ifelse(school_type == "total", "Total", "NA")))))
 
+la_plot_data_nat_compare <-
+  dplyr::select(
+    filter(main_ud, level == 'National', school_type != 'dummy'),
+    year,
+    la_name,
+    school_type,
+    num_schools,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate) %>%
+  mutate(school_type = ifelse(
+    school_type == "state-funded primary","Primary",
+    ifelse(school_type == "state-funded secondary","Secondary",
+           ifelse(school_type == "special", "Special", 
+                  ifelse(school_type == "total", "Total", "NA")))))
+
+la_plot_data_nat_compare$la_name <- ifelse(is.na(la_plot_data_nat_compare$la_name) , "England", "")
+
+local_authority_tab <- rbind(la_plot_data_nat_compare, la_plot_data)
+
+local_authority_tab %>%
+  filter(la_name != ".") -> local_authority_tab
+
+local_authority_tab$perm_excl <- as.numeric(local_authority_tab$perm_excl)
+local_authority_tab$perm_excl_rate <- as.numeric(local_authority_tab$perm_excl_rate)
+local_authority_tab$fixed_excl <- as.numeric(local_authority_tab$fixed_excl)
+local_authority_tab$fixed_excl_rate <- as.numeric(local_authority_tab$perm_excl)
+
 # cleaning data for characteristics tab  
 nat_char_prep <- filter(char_ud, ! characteristic_1 %in% c("SEN_provision_Unclassified","FSM_Unclassified")) %>%
   mutate(characteristic_1 = ifelse(

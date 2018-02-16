@@ -131,19 +131,20 @@ shinyUI(
              
              # 3. LA Trends ----
              
-             tabPanel("LA trends",
+             tabPanel("Local Authority",
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Local Authority (LA) level exclusions")),
                           br(),
-                          h5(strong("Pick a local authority")),
+                          h5(strong("Pick an area")),
                           selectInput(
                             "select2",
                             label = NULL,
-                            choices = sort(unique(la_plot_data$la_name)),
-                            selected = 'Darlington'
+                            list("England" = "England",
+                                 "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
+                            selected = "England"
                           ),
-                          h5(strong("Pick a measure")),
+                          h5(strong("Pick an exclusion category")),
                           selectInput(
                             "select_cat",
                             label = NULL,
@@ -269,7 +270,7 @@ shinyUI(
                                        tableOutput("fixed_reason_t")))),
              
              # 6. Schools Summary 
-             tabPanel("School summary",
+             tabPanel("School level",
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Select local authority and then school number")),
