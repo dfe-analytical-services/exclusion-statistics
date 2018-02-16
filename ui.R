@@ -55,16 +55,13 @@ shinyUI(
                                 plotOutput("f_bar", height ="8cm"),
                                 width = 7)),
                             hr(),
-                      HTML('<div>
-                             <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                             <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                           </div>
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                            <br>
                            </br>
+                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>
-                           <br>
-                           </br>
+
                            ')
              ),
              
@@ -127,14 +124,10 @@ shinyUI(
                       )
              ,                            
              hr(),
-             HTML('<div>
-                             <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                             <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                           </div>
+             HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                            <br>
                            </br>
-                           <br>
-                           </br>
+                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')),
              
@@ -196,12 +189,10 @@ shinyUI(
                           br()
                         )),
                       hr(),
-                      HTML('<div>
-                           <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                           <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                           </div>
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                            <br>
                            </br>
+                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')),
              
@@ -241,14 +232,10 @@ shinyUI(
                         )
                       ),
                       hr(),
-                      HTML('<div>
-                           <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                           <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                           </div>
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                            <br>
                            </br>
-                           <br>
-                           </br>
+                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')
                     ),
@@ -297,14 +284,10 @@ shinyUI(
                                        br(),
                                        tableOutput("fixed_reason_t"))),
                       hr(),
-                      HTML('<div>
-                           <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                           <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                           </div>
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                            <br>
                            </br>
-                           <br>
-                           </br>
+                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')),
              
@@ -326,14 +309,10 @@ shinyUI(
                           width=12
                         )),
                       hr(),
-                      HTML('<div>
-                           <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                           <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                           </div>
+                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                            <br>
                            </br>
-                           <br>
-                           </br>
+                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')),
              
@@ -393,17 +372,12 @@ shinyUI(
                     have at least one fixed period exclusion across the full academic year. It includes
                     those with repeated fixed period exclusions.", width = 9)),
                       hr(),
-                      br(),
-                      br(),
-                      br(),
-                      hr()
-                      
-             , HTML('<div>
-                  <span style="float:left">If you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</span>
-                  <img src="Department_for_Education.png" alt="Logo" style="float:right", width="120", height = "71">
-                  </div>
-                  <br>
-                  </br>'))
+               HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                           <br>
+                    </br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>'))
              
   )
   
