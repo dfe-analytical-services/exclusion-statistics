@@ -16,7 +16,8 @@ shinyUI(
                    tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
-                                h3(strong("Understanding school exclusions statistics")),
+                                h3(strong("Understanding school exclusions statistics (Pilot)")),
+                                "This pilot tool is aimed at enabling users to further understand exclusions data and is currently under development.", 
                                 hr(),
                                 strong("Background"),
                                 "The purpose of this dashboard is to provide insight to lower level breakdowns included within our 
