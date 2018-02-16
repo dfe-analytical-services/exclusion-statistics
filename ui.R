@@ -277,7 +277,7 @@ shinyUI(
                           width=12),
                         mainPanel(
                           strong("Download"), "or", strong("copy"), "this table using buttons below.",
-                          dataTableOutput("table_school_summary", width = "90%"),
+                          dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         ))),
              
