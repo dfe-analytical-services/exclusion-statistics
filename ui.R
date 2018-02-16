@@ -55,14 +55,11 @@ shinyUI(
                                 plotOutput("f_bar", height ="8cm"),
                                 width = 7)),
                             hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                           </br>
-                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>
-
-                           ')
+                            HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>')
              ),
              
              
@@ -125,11 +122,10 @@ shinyUI(
              ,                            
              hr(),
              HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                           </br>
-                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')),
+                    <br>
+                  <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                  <br>
+                  </br>')),
              
              # 3. LA Trends ----
              
@@ -190,9 +186,8 @@ shinyUI(
                         )),
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                           </br>
-                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')),
              
@@ -233,8 +228,7 @@ shinyUI(
                       ),
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                           </br>
+                    <br>
                            <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')
@@ -285,11 +279,10 @@ shinyUI(
                                        tableOutput("fixed_reason_t"))),
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                           </br>
-                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')),
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>')),
              
              # 6. Schools Summary 
              tabPanel("School level exclusions",
@@ -310,11 +303,10 @@ shinyUI(
                         )),
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                           </br>
-                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')),
+                    <br>
+                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <br>
+                    </br>')),
              
              # 7. Data and methods ----
              tabPanel("Data and methods",
@@ -373,8 +365,7 @@ shinyUI(
                     those with repeated fixed period exclusions.", width = 9)),
                       hr(),
                HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                           <br>
-                    </br>
+                    <br>
                     <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>'))
