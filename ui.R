@@ -16,39 +16,31 @@ shinyUI(
                    tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
-                                h3(strong("Understanding school exclusions statistics (Pilot)")),
-                                "This pilot tool is aimed at enabling users to further understand exclusions data and is currently under development.", 
+                                h3(strong("Understanding school exclusion statistics (Pilot)")),
+                                br("This tool is aimed at enabling users to further understand exclusions data and is currently under development."), 
                                 hr(),
                                 strong("Background"),
-                                "The purpose of this dashboard is to provide insight to lower level breakdowns included within our 
-                                National Statistics release. It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary 
-                                and special schools as reported in the School Census. This is a pilot release from the department, published as an example of what future statistics dissemination may look like; helping users to understand exclusions data.",
-                                hr(),
-                                strong("Latest National Statistics"),
-                                br(" All of the data used within this dashboard, including additional breakdowns, has been published in the releases underlying data section and is also available for download in data and methods tab. This can be found in our",
-                                  a("Permanent and fixed-period exclusions in England: 2015 to 2016 report.", 
+                                br("The purpose of this dashboard is to provide insight to lower level breakdowns included within our National Statistics release. 
+                                It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary and special schools as 
+                                reported via the School Census."),
+                                br(strong("Latest National Statistics")),
+                                br("All of the data used within this dashboard, including additional breakdowns, has been published in the",
+                                  a("Permanent and fixed-period exclusions in England: 2015 to 2016", 
                                     href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
-                                    target="_blank")),
-                                hr(),
-                                strong("Guidance and methodology"),
-                                "This dashboard shows various breakdowns for the number and rate of permanent and fixed period exclusions as well as enrolments receiving one or more fixed period exclusion. Rates are calculated using the number of sole and dual registered pupils on roll as of Spring Census day. Further info, including definitions, is available in the data and methods tab.",
-                                br(a("An exclusions statistics guide",
+                                    target="_blank"), "National Statistics release's underlying data section and is also available for download via the data and methods tab."),
+                                br(strong("Guidance and methodology")),
+                                br("This dashboard shows breakdowns for the number and rate of permanent and fixed period exclusions as well as enrolments 
+                                   receiving one or more fixed period exclusion. Rates are calculated using the number of sole and dual registered pupils on roll as of 
+                                   Spring Census day. Further info, including definitions, is available in the data and methods tab."),
+                                br(a("An exclusion statistics guide",
                                      href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
-                                     target = "_blank"),"which provides historical information on exclusion statistics, technical 
-                                background information to the figures and data collection, and definitions of key terms should be referenced 
-                                alongside this release. This guide also includes methodological information about exclusion statistics calculation,
-                                   requirements of schools to provide exclusions data and data collection information."), 
-                                hr(),
-                                strong("Definitons"),
-                                br("Key defintions relating to statistics used in this application can be found in the data and methods tab. For a full list of definitions relating to
-                                pupil exclusions, please refer to our",
-                                a("exclusions statistics guide",
-                                     href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
-                                     target = "_blank"),
-                                ".")
-                                
+                                     target = "_blank"),"which provides historical information on exclusion statistics, technical background information to the figures 
+                                and data collection, and definitions of key terms should be referenced alongside this dashboard."), 
+                                br(strong("Definitons")),
+                                br("Key defintions relating to statistics used in this application can be found in the data and methods tab.")
                               ), width = 5),
                               mainPanel(
+                                br(),
                                 strong("Permanent exclusions, 2006/07 to 2015/16"), 
                                 br(),
                                 em("State-funded primary, secondary and special schools"),
