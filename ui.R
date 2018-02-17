@@ -136,68 +136,74 @@ shinyUI(
              
              # 3. LA Trends ----
              
-             tabPanel("Local Authority",
-                      sidebarLayout(
-                        sidebarPanel(
-                          h4(strong("Local Authority (LA) level exclusions")),
-                          br(),
-                          h5(strong("Pick an area")),
-                          selectInput(
-                            "select2",
-                            label = NULL,
-                            list("England" = "England",
-                                 "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
-                            selected = "England"
-                          ),
-                          h5(strong("Pick an exclusion category")),
-                          selectInput(
-                            "select_cat",
-                            label = NULL,
-                            choices = list(
-                              "Fixed" = 'F',
-                              "Permanent" = 'P',
-                              "One plus" = 'O'
-                            ),
-                            selected = 'F'
-                          ),
-                          h5(strong(textOutput("la_title"))),
-                          textOutput("la_perm"),
-                          br(),
-                          textOutput("la_fixed"),
-                          br(),
-                          textOutput("la_one_plus"),
-                          hr(),
-                          h5(strong("National reference")),
-                          "The number of permanent exclusions increased from 5,795 (0.07 per cent) in 2014/15 to
-                          6,685 (0.08 per cent) in 2015/16, which is equivalent to 8 pupils per 10,000.",
-                          br(),
-                          br(),
-                          "The number of fixed period exclusions increased from 302,975 (3.88 per cent) in 2014/15
-                          to 339,360 (4.29 per cent) in 2015/16, which is equivalent to 429 pupils per 10,000.",
-                          br(),
-                          br(),
-                          "There were 167,125 pupil enrolments (2.11 per cent) with at least one fixed term exclusion
-                          in 2015/16, up from 154,060 pupil enrolments (1.98 per cent) in 2014/15, which is equivalent
-                          to 211 pupils per 10,000."
-                        ),
-                        mainPanel(
-                          br(),
-                          fluidRow(column(9,
-                                          br(),
-                                          column(3,
-                                                 radioButtons("plot_type", "Which measure?", c("rate", "number"), inline = TRUE)
-                                          ))),
-                          plotOutput("t1_chart", width = '23cm'),
-                          br(),
-                          tableOutput("t1_table"),
-                          br()
-                        )),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')),
+             tabPanel(
+               "Local Authority",
+               sidebarLayout(
+                 sidebarPanel(
+                   h4(strong("Local Authority (LA) level exclusions")),
+                   hr(),
+                   h5(strong("Pick an area")),
+                   selectInput("select2",
+                     label = NULL,
+                     list("England" = "England",
+                          "Local Authority" = sort(unique((
+                            main_ud$la_name[!is.na(main_ud$la_name) &
+                                              main_ud$la_name != "."])))),
+                     selected = "England"
+                   ),
+                   h5(strong("Pick an exclusion category")),
+                   selectInput("select_cat",
+                     label = NULL,
+                     choices = list("Fixed" = 'F',
+                                    "Permanent" = 'P',
+                                    "One plus" = 'O'),
+                     selected = 'F'
+                   ),
+                   hr(),
+                   h5(strong(textOutput("la_title"))),
+                   textOutput("la_perm"),
+                   br(),
+                   textOutput("la_fixed"),
+                   br(),
+                   textOutput("la_one_plus"),
+                   hr(),
+                   h5(strong("Notes")),
+                   br(),
+                   br(),
+                   br(),
+                   br()
+                 ),
+                 mainPanel(tabsetPanel(
+                   tabPanel(
+                     'Trend',
+                     fluidRow(column(9,br(),
+                                     column(3,
+                                       radioButtons("plot_type", "Which measure?", c("rate", "number"), inline = TRUE)
+                                     ))),
+                     plotOutput("t1_chart", width = '23cm'),
+                     br(),
+                     tableOutput("t1_table"),
+                     br()),
+                   tabPanel(
+                     'Comparison to region and national',
+                     br(),
+                     strong("State-funded primary, secondary and special schools"),
+                     br(),
+                     br(),
+                     plotOutput("la_comparison_chart", width = '23cm'),
+                     br(),
+                     tableOutput("la_comparison_table"),
+                     br())))
+               ),
+               hr(),
+               HTML(
+                 '<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+                 <br>
+                 <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                 <br>
+                 </br>'
+               )
+             ), 
              
              # 4. Map ----
              
