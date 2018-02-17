@@ -285,20 +285,22 @@ shinyUI(
                     </br>')),
              
              # 6. Schools Summary 
-             tabPanel("School level exclusions",
+             tabPanel("School level",
                       sidebarLayout(
                         sidebarPanel(
-                          h4(strong("Select a Local Authority and then an individual school")),
-                          "The below table shows information about exclusions data for individual schools. Select the Local Authority name or number in the first tab above and then the school LAESTAB number or school name in the second tab. You are able to download this data as a .csv file, excel file or simple copy the data to your clipboard with the buttons below.",
+                          h4(strong("School level exclusions")),
+                          "The below table shows time series exclusion information for individual schools.",
+                          "First, select the Local Authority the school sits in and then select the school of interest.",
                           br(),
                           br(),
-                          selectInput("la_name_rob", label = "1. Select Local Authority code or name" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),
-                          selectizeInput("EstablishmentName_rob", label = "2. Select School Name or LAESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
+                          selectInput("la_name_rob", label = "1. Select or type Local Authority name or 3 digit number" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),
+                          selectizeInput("EstablishmentName_rob", label = "2. Select or type school name or LA/ESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
                           h5(strong("Note on suppresion")),
-                          "Values of 'x' in the table below represent numbers that are below 3 exclusions and are supressed for data protection purposes, with the corresponding rate also supressed for the same reason.",
+                          "Values of 'x' represent a value of less than three or a rate based upon a value lower than three, these figures are supressed for data protection purposes.",
                           width=12),
                         mainPanel(
-                          dataTableOutput("table_school_summary"),
+                          strong("Download"), "or", strong("copy"), "this table using buttons below.",
+                          dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
                       hr(),

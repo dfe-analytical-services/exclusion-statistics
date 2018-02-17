@@ -141,12 +141,9 @@ server <- function(session, input, output) {
         laestab_school_name == input$EstablishmentName_rob
       ), 
     extensions = c('Buttons'), 
-    options=list(dom = 'Bfrtip',
+    options=list(dom = 'Brtip',
                  buttons = c('csv','copy'),
                  columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
-  
-  
-  
   
   
   
