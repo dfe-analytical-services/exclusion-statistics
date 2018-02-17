@@ -131,35 +131,41 @@ server <- function(session, input, output) {
 
    # 6. School summary tab ----
   
-  output$table_school_summary <- renderDataTable({
+  output$table_school_summary <- renderDataTable(
     
     # Filter
     
     all_schools_data %>%
       filter(
-        la_name == input$la_name_rob,
-        EstablishmentName == input$EstablishmentName_rob
-      )
-    
-  } )
+        la_no_and_name == input$la_name_rob,
+        laestab_school_name == input$EstablishmentName_rob
+      ), 
+    extensions = c('Buttons'), 
+    options=list(dom = 'Brtip',
+                 buttons = c('csv','copy'),
+                 columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
   
-  la_schools <- reactive({all_schools_data %>% filter(la_name == la_name_rob)})
+  
+  
+  la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   
   updateSelectizeInput(
     session = session, 
     inputId = 'EstablishmentName_rob',
-    choices = all_schools_data$EstablishmentName[all_schools_data$la_name == "Barking and Dagenham"],
+    choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == "301 - Barking and Dagenham"],
     server = TRUE)
   
   observe({
     updateSelectizeInput(
       session = session, 
       inputId = 'EstablishmentName_rob',
-      choices = all_schools_data$EstablishmentName[all_schools_data$la_name == input$la_name_rob],
+      choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
       server = TRUE)
   })
   
   # session$onSessionEnded(function() { stopApp() })
+  
+  
   
 }
 
