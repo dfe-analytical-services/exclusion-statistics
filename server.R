@@ -85,6 +85,11 @@ server <- function(session, input, output) {
                                           " (",la_one_plus_rate(input$select2,201516), " per cent) in 2015/16, 
                                           which is equivalent to ", as.numeric(la_one_plus_rate(input$select2,201516))*100, " pupils per 10,000.")})
   
+  output$la_comparison_chart <- renderPlot({la_compare_plot(input$select2, input$select_cat)})
+  
+  output$la_comparison_table <- renderTable({la_compare_table(input$select2, input$select_cat)},
+                                            bordered = TRUE,spacing = 'm',align = 'c')
+  
   # 4. Map ----
   
   output$map <- renderLeaflet({excmap(input$select_map)})
