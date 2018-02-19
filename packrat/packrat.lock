@@ -23,7 +23,6 @@ Requires: htmltools, htmlwidgets, magrittr
 Package: PKI
 Source: CRAN
 Version: 0.1-5.1
-Hash: 8c194fb34ebaab38a13e43ce84feedee
 Requires: base64enc
 
 Package: R6
@@ -38,20 +37,17 @@ Hash: c0d56cd15034f395874c870141870c25
 
 Package: RCurl
 Source: CRAN
-Version: 1.95-4.8
-Hash: 79c7d5a8684e44e0e3426d3093aa7d90
+Version: 1.95-4.10
 Requires: bitops
 
 Package: RJSONIO
 Source: CRAN
 Version: 1.3-0
-Hash: fb672e20eb6f3010a3639f855d8ef6de
 
 Package: RSelenium
 Source: CRAN
 Version: 1.7.1
-Hash: df30e4b7228823c97f5c2fc6da269575
-Requires: XML, openssl, caTools, httr, binman, wdman
+Requires: XML, binman, caTools, httr, openssl, wdman
 
 Package: Rcpp
 Source: CRAN
@@ -71,8 +67,7 @@ Requires: Rcpp, curl, jsonlite
 
 Package: XML
 Source: CRAN
-Version: 3.98-1.9
-Hash: 02079c4025bbfa0f63400cc0bb414952
+Version: 3.98-1.10
 
 Package: ash
 Source: CRAN
@@ -108,8 +103,7 @@ Requires: Rcpp, bindr, plogr
 Package: binman
 Source: CRAN
 Version: 0.1.0
-Hash: 5da2c054e60e56a67eea59a2b697a6f6
-Requires: assertthat, jsonlite, rappdirs, yaml, xml2, semver, httr
+Requires: assertthat, httr, jsonlite, rappdirs, semver, xml2, yaml
 
 Package: bitops
 Source: CRAN
@@ -225,14 +219,13 @@ Requires: magrittr, tibble
 Package: geojson
 Source: CRAN
 Version: 0.2.0
-Hash: a1aa785fa64296f9f0d8b40c55a1538d
 Requires: jqr, jsonlite, lazyeval, magrittr, protolite, sp
 
 Package: geojsonio
 Source: CRAN
-Version: 0.5.0
-Hash: 11ab10b9f42edb7cebd2d3bd83be0a9e
-Requires: V8, geojson, httr, jqr, jsonlite, magrittr, maptools, readr,
+Version: 0.4.2
+Hash: 3a941694502d8ab0e8222ab736ff14f7
+Requires: V8, geojson, httr, jsonlite, magrittr, maptools, readr,
     rgdal, rgeos, sp
 
 Package: ggalt
@@ -469,12 +462,11 @@ Requires: magrittr, rlang, tibble
 Package: rappdirs
 Source: CRAN
 Version: 0.3.1
-Hash: 7340cfebc77ad7b107a549a8635e64dd
 
 Package: raster
 Source: CRAN
-Version: 2.6-7
-Hash: 72e54c5419f4859aa87697a436361350
+Version: 2.5-8
+Hash: ec0eb75f56383ab0901b84a8acc8e459
 Requires: Rcpp, sp
 
 Package: readr
@@ -525,8 +517,8 @@ Hash: fef2abdadbb8db061b9d37e7ca5cb0b4
 
 Package: rmarkdown
 Source: CRAN
-Version: 1.7
-Hash: e1ab8bf66146723cc2a6a67e169b5bbf
+Version: 1.6
+Hash: 40f4034a7b8e28edc2b384bdb0c4d537
 Requires: base64enc, caTools, evaluate, htmltools, jsonlite, knitr,
     rprojroot, stringr, yaml
 
@@ -539,8 +531,7 @@ Requires: backports
 Package: rsconnect
 Source: CRAN
 Version: 0.8.5
-Hash: eeb742b99cb0b2b98545b0582d43a4b2
-Requires: RJSONIO, digest, packrat, rstudioapi, yaml, PKI, RCurl
+Requires: PKI, RCurl, RJSONIO, digest, packrat, rstudioapi, yaml
 
 Package: rstudioapi
 Source: CRAN
@@ -569,7 +560,6 @@ Requires: stringr
 Package: semver
 Source: CRAN
 Version: 0.2.0
-Hash: f959e306a4052223448f3a04cf258e91
 Requires: Rcpp, assertthat
 
 Package: shiny
@@ -598,7 +588,6 @@ Hash: 355c8b47792e18a08da8708132f994e0
 Package: sparkline
 Source: CRAN
 Version: 2.0
-Hash: 180ff3414d20b647d826a5af8466f483
 Requires: htmltools, htmlwidgets
 
 Package: stringi
@@ -615,7 +604,6 @@ Requires: magrittr, stringi
 Package: subprocess
 Source: CRAN
 Version: 0.8.2
-Hash: 469fb57fc3f9942867863b93493bf6cd
 
 Package: testthat
 Source: CRAN
@@ -665,8 +653,7 @@ Hash: 10f0c25af3dc84eaae10f5854f47efdb
 Package: wdman
 Source: CRAN
 Version: 0.2.2
-Hash: d6e969002ac36f5c6b7072c121b87caa
-Requires: assertthat, subprocess, yaml, semver, binman
+Requires: assertthat, binman, semver, subprocess, yaml
 
 Package: whisker
 Source: CRAN
