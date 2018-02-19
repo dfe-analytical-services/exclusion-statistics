@@ -100,14 +100,9 @@ exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) 
     mutate(Trendline = as.factor(paste(`200607`,`200708`,`200809`,`200910`,`201011`, `201112`, `201213`, `201314`, `201415`, `201516`, sep=",")))
   
   # Spaklines can't handle 'X' so force replace with 0.
-  x$Trendline <- str_replace(x$Trendline, "x", "0")
+  x$Trendline <- str_replace_all(x$Trendline, "x", "0")
   
   return(x %>% arrange(reason))
   
 }
 
-
-
-
-
-#View(exclusion_reason_table('Sunderland','Total', 'Fixed'))
