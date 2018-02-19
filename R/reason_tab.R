@@ -1,6 +1,5 @@
 # Reason tab
 
-
 clean_la_exclusions_data <- function(x) {
   
   dplyr::select(
@@ -38,22 +37,77 @@ clean_la_exclusions_data <- function(x) {
   
 }
 
+# set order for outputting reason info
+reason_order <- c('Physical assault against a pupil',
+                  'Physical assault against an adult',
+                  'Verbal abuse / threatening behaviour against a pupil',
+                  'Verbal abuse / threatening behaviour against an adult',
+                  'Bullying',
+                  'Racist abuse',
+                  'Sexual misconduct',
+                  'Drug and alcohol related',
+                  'Damage',
+                  'Theft',
+                  'Persistent disruptive behaviour',
+                  'Other')
 
-
-exclusion_reason_table <- function(la_name_exclusion_select, schtype, reason_for_exclusion) {
+exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) {
   
-  data_long <- clean_la_exclusions_data(reason_ud) %>% 
-    gather(key = reason, value = exc, perm_physical_pupils:fixed_other) %>%
-    mutate(exclusion_type = ifelse(startsWith(reason, "perm"), "Permanent", 
-                                   ifelse(startsWith(reason, "fixed"), "Fixed",NA))) %>%
-          filter(year >= 200607,
-                 !is.na(la_name),
-                 la_name == la_name_exclusion_select,
-                 school_type == schtype,
-                 exclusion_type == reason_for_exclusion) %>%
-    select(year, la_name, exclusion_type,school_type, reason, exc)
+  data_long <- clean_la_exclusions_data(reason_ud) %>%
+    gather(key = reason,
+           value = exc,
+           perm_physical_pupils:fixed_other) %>%
+    mutate(exclusion_type = ifelse(startsWith(reason, "perm"),"Permanent",
+                                   ifelse(startsWith(reason, "fixed"), "Fixed", NA)))  %>%
+    filter(la_name == la_name_exclusion_select,
+           school_type == schtype,
+           exclusion_type == category) %>%
+    select(year, la_name, exclusion_type, school_type, reason, exc)
   
+  # re-code the reason labels
+  data_long$reason <- recode(data_long$reason,
+           fixed_bullying="Bullying",
+           fixed_damage= "Damage",
+           fixed_drug_alcohol="Drug and alcohol related",
+           fixed_other= "Other",
+           fixed_persistent_disruptive="Persistent disruptive behaviour",
+           fixed_physical_adult="Physical assault against an adult",
+           fixed_physical_pupils="Physical assault against a pupil",
+           fixed_racist_abuse = "Racist abuse",                                              
+           fixed_sexual_misconduct = "Sexual misconduct",                                                         
+           fixed_theft = "Theft",                                                         
+           fixed_verbal_adult = "Verbal abuse / threatening behaviour against an adult",                                                           
+           fixed_verbal_pupil = "Verbal abuse / threatening behaviour against a pupil",                                                           
+           perm_bullying="Bullying",
+           perm_damage= "Damage",
+           perm_drug_alcohol="Drug and alcohol related",
+           perm_other= "Other",
+           perm_persistent_disruptive="Persistent disruptive behaviour",
+           perm_physical_adult="Physical assault against an adult",
+           perm_physical_pupils="Physical assault against a pupil",
+           perm_racist_abuse = "Racist abuse",                                              
+           perm_sexual_misconduct = "Sexual misconduct",                                                         
+           perm_theft = "Theft",                                                         
+           perm_verbal_adult = "Verbal abuse / threatening behaviour against an adult",                                                           
+           perm_verbal_pupil = "Verbal abuse / threatening behaviour against a pupil")
   
-  return(data_long %>% spread(key = year, value =  exc) %>% mutate(Trendline = as.factor(paste(`200607`,`200708`,`200809`,`200910`,`201011`, `201112`, `201213`, `201314`, `201415`, `201516`, sep=","))))
+  # force order of reason presentation
+  data_long$reason <- factor(data_long$reason, levels = reason_order)
+  
+  # widen dataframe
+  x <- data_long %>% 
+    spread(key = year, value =  exc) %>% 
+    mutate(Trendline = as.factor(paste(`200607`,`200708`,`200809`,`200910`,`201011`, `201112`, `201213`, `201314`, `201415`, `201516`, sep=",")))
+  
+  # Spaklines can't handle 'X' so force replace with 0.
+  x$Trendline <- str_replace(x$Trendline, "x", "0")
+  
+  return(x %>% arrange(reason))
   
 }
+
+
+
+
+
+#View(exclusion_reason_table('Sunderland','Total', 'Fixed'))

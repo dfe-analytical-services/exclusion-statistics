@@ -34,14 +34,14 @@ server <- function(session, input, output) {
   
   line_string <- "type: 'line', width: '220px', height: '40px', chartRangeMin: 0"
   
-  cd <- list(list(targets = 14, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
+  cd <- list(list(targets = 11, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
   
   cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
                  line_string, " });\n}"), collapse = "")
 
   
   output$tbl <- DT::renderDataTable({
-    dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)),
+    dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)[,4:15]),
                         rownames = FALSE, 
                         extensions = c('Buttons'),
                         options = list(columnDefs = cd,
