@@ -32,12 +32,27 @@ server <- function(session, input, output) {
 
   # 2. Reason ----
   
-  output$perm_reason <- renderPlot({perm_reason_bar(input$reasonschtype)})
-  output$fixed_reason <- renderPlot({fixed_reason_bar(input$reasonschtype)})
+  line_string <- "type: 'line', width: '220px', height: '40px', chartRangeMin: 0"
   
-  output$perm_reason_t <- renderTable({perm_reason_table(input$reasonschtype)},  bordered = TRUE, spacing = 'm')
-  output$fixed_reason_t <- renderTable({fixed_reason_table(input$reasonschtype)},  bordered = TRUE, spacing = 'm')
+  cd <- list(list(targets = 14, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
   
+  cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
+                 line_string, " });\n}"), collapse = "")
+
+  
+  output$tbl <- DT::renderDataTable({
+    dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)),
+                        rownames = FALSE, 
+                        extensions = c('Buttons'),
+                        options = list(columnDefs = cd,
+                                       fnDrawCallback = cb, 
+                                       pageLength = 12,
+                                       dom = 'Brtip',
+                                       buttons = c('csv','copy')))
+    dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
+    dt})
+  
+
 
   # 2. Characteristics ----
   
