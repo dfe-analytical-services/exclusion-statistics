@@ -22,6 +22,12 @@ library(ggalt)
 library(magrittr)
 
 
+if(!is_installed('rlang'))
+{
+  install.packages('rlang')
+}
+library(rlang)
+
 if(!is_installed('sparkline'))
 {
   install.packages('sparkline')
