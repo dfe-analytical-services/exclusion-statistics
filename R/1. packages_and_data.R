@@ -20,6 +20,12 @@ library(shiny)
 library(DT)
 library(ggalt)
 library(magrittr)
+
+
+if(!is_installed(sparkline))
+{
+  install.packages('sparkline')
+}
 library(sparkline)
 
 ####
