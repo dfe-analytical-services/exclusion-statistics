@@ -242,47 +242,48 @@ shinyUI(
 
             
              #  # 5. Reason for exclusions ----
-             #  
+              
              tabPanel("Reason for exclusion",
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Exclusions by reason")),
                           "Schools report exclusions broken down by reason",
-                          h5(strong("Pick a school type")),
-                          selectInput("reasonschtype",
-                                      label = NULL,
-                                      choices = list(
-                                        "Primary" = 'State-funded primary',
-                                        "Secondary" = 'State-funded secondary',
-                                        "Special" = 'Special school',
-                                        "All schools" = 'Total'),
-                                      selected = 'Total', width='30%'),
-                          "INSERT A DOWNLOAD BUTTON",
-                          width=12),
-                        mainPanel()),
-                      splitLayout(
-                        verticalLayout(h3("Permanent"),
-                                       strong("Permanent exclusions broken down by reason"),
-                                       em("2015/16 academic year"),
-                                       br(),
-                                       plotOutput("perm_reason"),
-                                       br(),
-                                       br(),
-                                       strong("Permanent exclusions broken down by reason"),
-                                       em("2011/12 to 2015/16 academic year"),
-                                       br(),
-                                       tableOutput("perm_reason_t")),
-                        verticalLayout(h3("Fixed period"), 
-                                       strong("Fixed period exclusions broken down by reason"),
-                                       em("2015/16 academic year"),
-                                       br(),
-                                       plotOutput("fixed_reason"),
-                                       br(),
-                                       br(),
-                                       strong("Fixed period exclusions broken down by reason"),
-                                       em("2011/12 to 2015/16 academic year"),
-                                       br(),
-                                       tableOutput("fixed_reason_t"))),
+                          fluidRow(
+                            column(4,
+                                   h5(strong("1. Pick an area")),
+                                   selectInput("la_name_exclusion_select",
+                                               label = NULL,
+                                               list("England" = "England",
+                                                    "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
+                                               selected = "England",
+                                               width='80%'),
+                                   h5(strong("3. Pick an exclusion category")),
+                                   selectInput("exclusion_type",
+                                               label = NULL,
+                                               choices = list(
+                                                 "Fixed" = 'Fixed',
+                                                 "Permanent" = 'Permanent'),
+                                               selected = 'Fixed', width='80%')),
+                            column(4,offset = 1,
+                                   h5(strong("2. Pick a school type")),
+                                   selectInput("schtype",
+                                               label = NULL,
+                                               choices = list(
+                                                 "Primary" = 'State-funded primary',
+                                                 "Secondary" = 'State-funded secondary',
+                                                 "Special" = 'Special school',
+                                                 "All schools" = 'Total'),
+                                               selected = 'Total', width='80%'),
+                                   
+                                   strong("Download"), "this table using the button below.",
+                                   br("INSERT A DOWNLOAD BUTTON")
+                            )), width=12),
+                        mainPanel(
+                          strong("Download"), "or", strong("copy"), "this table using buttons below.",
+                          sparklineOutput("test_spark"),
+                          dataTableOutput("tbl", width = "95%"),
+                          width=12
+                        )),
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>

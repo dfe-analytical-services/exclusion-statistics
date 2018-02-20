@@ -1,6 +1,6 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
-RVersion: 3.4.0
+RVersion: 3.4.2
 Repos: CRAN=https://cran.rstudio.com/,
     CRANextra=http://www.stats.ox.ac.uk/pub/RWin
 
@@ -38,8 +38,8 @@ Hash: c0d56cd15034f395874c870141870c25
 
 Package: RCurl
 Source: CRAN
-Version: 1.95-4.8
-Hash: 79c7d5a8684e44e0e3426d3093aa7d90
+Version: 1.95-4.10
+Hash: 06af5153f969a90c6cd6c87ee57baa44
 Requires: bitops
 
 Package: RJSONIO
@@ -71,8 +71,7 @@ Requires: Rcpp, curl, jsonlite
 
 Package: XML
 Source: CRAN
-Version: 3.98-1.9
-Hash: 02079c4025bbfa0f63400cc0bb414952
+Version: 3.98-1.10
 
 Package: ash
 Source: CRAN
@@ -595,6 +594,12 @@ Source: CRAN
 Version: 1.2-5
 Hash: 355c8b47792e18a08da8708132f994e0
 
+Package: sparkline
+Source: CRAN
+Version: 2.0
+Hash: 180ff3414d20b647d826a5af8466f483
+Requires: htmltools, htmlwidgets
+
 Package: stringi
 Source: CRAN
 Version: 1.1.5
@@ -638,11 +643,12 @@ Requires: Rcpp, glue, purrr, rlang
 
 Package: tidyverse
 Source: CRAN
-Version: 1.1.1
-Hash: 72d5fada870c90b835bbdfc281283c99
-Requires: broom, dplyr, forcats, ggplot2, haven, hms, httr, jsonlite,
-    lubridate, magrittr, modelr, purrr, readr, readxl, rvest, stringr,
-    tibble, tidyr, xml2
+Version: 1.2.1
+Hash: 1b090209cb20b6fc6eba75de8b7f0b53
+Requires: broom, cli, crayon, dbplyr, dplyr, forcats, ggplot2, haven,
+    hms, httr, jsonlite, lubridate, magrittr, modelr, purrr, readr,
+    readxl, reprex, rlang, rstudioapi, rvest, stringr, tibble, tidyr,
+    xml2
 
 Package: viridis
 Source: CRAN
