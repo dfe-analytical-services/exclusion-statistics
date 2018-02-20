@@ -22,17 +22,12 @@ library(ggalt)
 library(magrittr)
 
 
-
 if(!('sparkline' %in% rownames(installed.packages()))) {
   install.packages('sparkline')  
 } 
 library(sparkline)
 
-# if(!is_installed('sparkline'))
-# {
-#   install.packages('sparkline')
-# }
-# library(sparkline)
+
 
 ####
 # 2. Load the data required ----
