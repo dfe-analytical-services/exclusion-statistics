@@ -22,7 +22,7 @@ library(ggalt)
 library(magrittr)
 
 
-if(!is_installed(sparkline))
+if(!is_installed('sparkline'))
 {
   install.packages('sparkline')
 }
