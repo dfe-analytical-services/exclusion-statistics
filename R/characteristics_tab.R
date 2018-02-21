@@ -1,5 +1,125 @@
 # Characteristics tab
 
+reason_order_bar <- c('<=4',
+                      '5',
+                      '6',
+                      '7',
+                      '8',
+                      '9',
+                      '10',
+                      '11',
+                      '12',
+                      '13',
+                      '14',
+                      '15',
+                      '16',
+                      '17',
+                      '18',
+                      '>=19')
+
+bar_chart_percentages <- function(char, sch_type, category) {
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == "201516")
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == "201516") 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == "201516") 
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
+  }
+  
+  if (category == 'P') {
+    ylabtitle <- "Distribution of permanent exclusions, 2015/16"
+    d <- d %>% group_by (year) %>% filter(perm_excl != 'x') %>% mutate(y_var = as.numeric(perm_excl) / sum(as.numeric(perm_excl))) %>% filter(y_var != 'x')
+  } else if (category == 'F') {
+    ylabtitle <- "Distribution of fixed period exclusion, 2015/16"
+    d <- d %>% group_by (year) %>% filter(fixed_excl != 'x') %>% mutate(y_var = as.numeric(fixed_excl) / sum(as.numeric(fixed_excl))) %>% filter(y_var != 'x')
+  } else if (category == 'O') {
+    ylabtitle <- "Distribution of pupils with one or more fixed period exclusion, 2015/16"
+    d <- d %>% group_by (year) %>% filter(one_plus_fixed != 'x') %>% mutate(y_var = as.numeric(one_plus_fixed) / sum(as.numeric(one_plus_fixed))) %>% filter(y_var != 'x')
+  }
+  
+  if (char =='gender' | char =='sen' | char =='fsm') {
+  return(
+    d %>%
+      ggplot +
+      aes(x = as.factor(characteristic_desc), 
+          y = as.numeric(y_var), 
+          fill = as.factor(characteristic_1)) +
+      geom_bar(stat='identity', size = 1) +
+      scale_fill_brewer(guide = guide_legend(reverse=TRUE, nrow = 1)) +
+      scale_y_continuous(limits = c(0,1)) + 
+      coord_flip() +
+      geom_text(aes(label=ifelse(as.numeric(y_var) >= 0.02, 
+                                 paste0(sprintf("%.0f", 
+                                 as.numeric(y_var)*100),"%"),"")),
+                position=position_stack(vjust=0.5), 
+                colour="black",
+                size = 6) +
+      theme(line = element_blank(), 
+            rect = element_blank(), 
+            axis.text = element_blank(), 
+            axis.title = element_blank(), 
+            legend.text = element_text(size = rel(1.2)), 
+            strip.text = element_text(size = rel(0.8)), 
+            plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE,
+            title = element_text(ylabtitle),
+            legend.position = "bottom",
+            legend.title=element_blank(),
+            plot.title = element_text(size = 14, face = "bold", hjust = 0)) + 
+            ggtitle(ylabtitle)) } 
+
+  else if (char =='age') {
+    return (
+      
+      d %>%
+        mutate(characteristic_1 = dplyr::recode(characteristic_1,
+               `Age 4 and under`="<=4",
+               `Age 5`= "5",
+               `Age 6`="6",
+               `Age 7`= "7",
+               `Age 8`="8",
+               `Age 9`="9",
+               `Age 10`="10",
+               `Age 11` = "11",                                              
+               `Age 12` = "12",                                                         
+               `Age 13` = "13",                                                         
+               `Age 14` = "14",                                                           
+               `Age 15` = "15",                                                           
+               `Age 16` = "16",
+               `Age 17` = "17",
+               `Age 18` = "18",
+               `Age 19 and over`= ">=19")) %>% 
+        mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_bar)) %>%
+        ggplot +
+        aes(x = as.factor(characteristic_1), 
+            y = as.numeric(y_var)) +
+        geom_bar(stat = "identity", fill = "blue") +
+        scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
+        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
+        theme(line = element_blank(), 
+              rect = element_blank(), 
+              legend.text = element_blank(), 
+              strip.text = element_text(size = rel(0.8)), 
+              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE,
+              title = element_text(ylabtitle),
+              legend.position = "bottom",
+              legend.title=element_blank(),
+              plot.title = element_text(size = 14, face = "bold", hjust = 0)) + 
+        labs(x = "Age", y = "") +
+        ggtitle(ylabtitle)) 
+    
+   
+  }
+  
+  
+  }
+
+
+
+
+
 char_series <- function(char, sch_type, category) {
   
   if (char =='gender') {
@@ -41,7 +161,6 @@ char_series <- function(char, sch_type, category) {
         hjust = 0,
         vjust = -1) +
       theme(legend.position = "none") +
-      #scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
       theme(axis.text=element_text(size=12),
             axis.title=element_text(size=14,face="bold"))) 
 }
@@ -73,7 +192,7 @@ char_series_table <- function(char, sch_type, category) {
   
   data_wide <- char_sch %>% spread(key = year, value =  t_var)
   
-  colnames(data_wide)[1] <- ""
+  colnames(data_wide)[1] <- "Characteristic"
   
   return(data_wide)
   

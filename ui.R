@@ -106,8 +106,10 @@ shinyUI(
                       tabsetPanel(
                         tabPanel('Table',
                                  br(),
+                                 plotOutput("bar_chart", width = "100%", height = '140px'),
                                  br(),
-                                 tableOutput("char_ts_table")),
+                                 br(),
+                                 dataTableOutput("char_ts_table", width = "40%")),
                         tabPanel('Charts',
                                  value = "charts",
                                  br(),

@@ -42,13 +42,21 @@ shinyServer(function(session, input, output) {
   # 2. Characteristics ----
   
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
-  output$char_ts_table <- renderTable({char_series_table(input$char_char, input$char_sch, input$char_cat)},  bordered = TRUE, spacing = 'm')
+  output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat)}, 
+                                          extensions = c('Buttons'), 
+                                          options=list(dom = 'Brtip',
+                                                       buttons = c('csv','copy')))
   
   output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
   
   output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
   
-
+  
+  
+  
+  output$bar_chart <- renderPlot({bar_chart_percentages(input$char_char, input$char_sch, input$char_cat)})
+  
+  
   
   # 3. LA trends ----
   
