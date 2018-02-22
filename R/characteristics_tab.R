@@ -242,26 +242,25 @@ char_series_age <- function(char, sch_type, category, input) {
   
   else if (char =='age') {
     return(
-
       
       d %>% 
-        filter(characteristic_1 == input) %>%
+        filter(characteristic_1 %in% input) %>%
         select(year, characteristic_1, y_var) %>%
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(y_var), 
-            group = characteristic_1, colour = as.factor(characteristic_1)) +
+            group = characteristic_1, colour = characteristic_1) +
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
         geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101),
-          aes(label = characteristic_1),
+          d = d %>% filter(year == min(as.numeric(year))+101 & characteristic_1 %in% input),
+          aes(label = characteristic_1,
           size = 5,
           hjust = 0,
-          vjust = -1) +
+          vjust = -1)) +
         theme(legend.position = "none") +
         theme(axis.text=element_text(size=12),
               axis.title=element_text(size=14,face="bold")))}

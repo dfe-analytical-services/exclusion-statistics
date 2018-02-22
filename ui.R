@@ -101,60 +101,31 @@ shinyUI(
                                  "INSERT A DOWNLOAD BUTTON"
                           )
                         ), width = 12),
-                        mainPanel()),
-                      tabsetPanel(
-                        tabPanel('Table',
-                                 br(),
-                                 dataTableOutput("char_ts_table", width = "100%"),
-                                 br(),
-                                 br(),
-                                 br(),
-                                 
-                                 br(),
-                                 br(),
-                                 plotOutput("bar_chart", width = "100%", height = '140px'),
-                                 br(),
-                                 br()),
-                        tabPanel('Charts',
-                                 value = "charts",
-                                 br(),
-                                 br(),
-                                 strong("chart title"),
-                                 br(),
-                                 br(),
-                                 br(),
-                                 fluidRow(
-                                   column(verticalLayout(
-                                     h4(strong( "Proportion of exclusions by characteristic - 2015/16")),
-                                     br(),
-                                     plotlyOutput("char_prop")),
-                                     width = 5),
-                                   column(verticalLayout(
-                                     h4(strong("How is difference in exclusion rate changing over time?")),
-                                     br(),
-                                     plotOutput("char_gaps")),
-                                     width = 5)
-                                 )
-                        )
-                      ),
-                      
-                      conditionalPanel(
-                        condition="input.char_char!='age'",
-                        plotOutput("char_ts", width="100%")
-                        
-                      ),
-                      conditionalPanel(
-                        condition="input.char_char=='age'",
-                        fluidRow (
-                          column(2, 
-                               checkboxGroupInput(inputId = "line",                                                                               
-                                           label = h4("What would you like to plot?"),                                                                       
-                                           choices = reason_order_plot,
-                                           selected = "Age 14")),
-                          column(8,
-                        plotOutput("char_ts_age")))
-                      
-             )), 
+                        mainPanel(br(),
+                                  dataTableOutput("char_ts_table", width = "100%"),
+                                  br(),
+                                  br(),
+                                  hr(),
+                                  conditionalPanel(
+                                    condition="input.char_char!='age'",
+                                    plotOutput("char_ts", width="100%")
+                                    
+                                  ),
+                                  conditionalPanel(
+                                    condition="input.char_char=='age'",
+                                    fluidRow (
+                                      column(2, 
+                                             checkboxGroupInput(inputId = "line",                                                                               
+                                                                label = h4("What would you like to plot?"),                                                                       
+                                                                choices = factor(reason_order_plot),
+                                                                selected = c("Age 10","Age 14", "Total"))),
+                                      column(8,
+                                             plotOutput("char_ts_age")))),
+                                  br(),
+                                  hr(),
+                                  plotOutput("bar_chart", width = "100%", height = '220px'),
+                                  br(),
+                                  width =12))), 
              
              # 3. LA Trends ----
              
