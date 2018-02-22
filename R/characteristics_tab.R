@@ -192,7 +192,9 @@ char_series <- function(char, sch_type, category) {
 }
 
 
-char_series_age <- function(char, sch_type, category) {
+
+
+char_series_age <- function(char, sch_type, category, input) {
   
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
@@ -240,8 +242,11 @@ char_series_age <- function(char, sch_type, category) {
   
   else if (char =='age') {
     return(
+
       
-      d %>%
+      d %>% 
+        filter(characteristic_1 == input) %>%
+        select(year, characteristic_1, y_var) %>%
         ggplot +
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(y_var), 
@@ -264,7 +269,24 @@ char_series_age <- function(char, sch_type, category) {
 }
 
 
-
+reason_order_plot <- c(
+  'Age 4 and under',
+  'Age 5',
+  'Age 6',
+  'Age 7',
+  'Age 8',
+  'Age 9',
+  'Age 10',
+  'Age 11',                                              
+  'Age 12',                                                         
+  'Age 13',                                                         
+  'Age 14',                                                           
+  'Age 15',                                                           
+  'Age 16',
+  'Age 17',
+  'Age 18',
+  'Age 19 and over',
+  'Total')
 
 
 

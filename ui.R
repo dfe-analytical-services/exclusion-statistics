@@ -149,7 +149,8 @@ shinyUI(
                           column(2, 
                                checkboxGroupInput(inputId = "line",                                                                               
                                            label = h4("What would you like to plot?"),                                                                       
-                                           choices = names(mtcars))),
+                                           choices = reason_order_plot,
+                                           selected = "Age 14")),
                           column(8,
                         plotOutput("char_ts_age")))
                       
