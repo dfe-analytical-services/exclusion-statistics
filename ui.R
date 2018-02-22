@@ -73,7 +73,7 @@ shinyUI(
                         fluidRow(
                           column(4,
                                  selectInput("char_cat",
-                                             label = "select measure",
+                                             label = "Select exclusion measure",
                                              choices = list(
                                                "Fixed period" = 'F',
                                                "Permanent" = 'P',
@@ -81,7 +81,7 @@ shinyUI(
                                              selected = 'P'),
                                  
                                  selectInput("char_sch",
-                                             label = "select school type",
+                                             label = "Select a school type",
                                              choices = list(
                                                "State-funded primary" = 'Primary',
                                                "State-funded secondary" = 'Secondary',
@@ -91,7 +91,7 @@ shinyUI(
                           ),
                           column(4,offset = 1,
                                  selectInput("char_char",
-                                             label = "select characteristic",
+                                             label = "Select pupil characteristic",
                                              choices = list(
                                                "SEN provision" = 'sen',
                                                "FSM eligibility" = 'fsm',
@@ -102,22 +102,25 @@ shinyUI(
                           )
                         ), width = 12),
                         mainPanel()),
-                      
                       tabsetPanel(
                         tabPanel('Table',
                                  br(),
+                                 dataTableOutput("char_ts_table", width = "100%"),
+                                 br(),
+                                 br(),
+                                 br(),
+                                 
+                                 br(),
+                                 br(),
                                  plotOutput("bar_chart", width = "100%", height = '140px'),
                                  br(),
-                                 br(),
-                                 dataTableOutput("char_ts_table", width = "40%")),
+                                 br()),
                         tabPanel('Charts',
                                  value = "charts",
                                  br(),
                                  br(),
                                  strong("chart title"),
                                  br(),
-                                 br(),
-                                 plotOutput("char_ts", width="70%"),
                                  br(),
                                  br(),
                                  fluidRow(
@@ -133,8 +136,24 @@ shinyUI(
                                      width = 5)
                                  )
                         )
-                      )
-             ), 
+                      ),
+                      
+                      conditionalPanel(
+                        condition="input.char_char!='age'",
+                        plotOutput("char_ts", width="100%")
+                        
+                      ),
+                      conditionalPanel(
+                        condition="input.char_char=='age'",
+                        fluidRow (
+                          column(2, 
+                               checkboxGroupInput(inputId = "line",                                                                               
+                                           label = h4("What would you like to plot?"),                                                                       
+                                           choices = names(mtcars))),
+                          column(8,
+                        plotOutput("char_ts_age")))
+                      
+             )), 
              
              # 3. LA Trends ----
              

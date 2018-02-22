@@ -42,10 +42,13 @@ shinyServer(function(session, input, output) {
   # 2. Characteristics ----
   
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
+  output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat)})
   output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat)}, 
-                                          extensions = c('Buttons'), 
-                                          options=list(dom = 'Brtip',
-                                                       buttons = c('csv','copy')))
+                                          rownames = FALSE, 
+                                          extensions = c('Buttons'),
+                                          options = list(pageLength = 18,
+                                                         dom = 'Brtip',
+                                                         buttons = c('csv','copy')))
   
   output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
   

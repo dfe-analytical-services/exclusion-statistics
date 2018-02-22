@@ -30,13 +30,13 @@ bar_chart_percentages <- function(char, sch_type, category) {
   }
   
   if (category == 'P') {
-    ylabtitle <- "Distribution of permanent exclusions, 2015/16"
+    ylabtitle <- "Distribution of permanent exclusions, 2015/16 \n"
     d <- d %>% group_by (year) %>% filter(perm_excl != 'x') %>% mutate(y_var = as.numeric(perm_excl) / sum(as.numeric(perm_excl))) %>% filter(y_var != 'x')
   } else if (category == 'F') {
-    ylabtitle <- "Distribution of fixed period exclusion, 2015/16"
+    ylabtitle <- "Distribution of fixed period exclusion, 2015/16 \n"
     d <- d %>% group_by (year) %>% filter(fixed_excl != 'x') %>% mutate(y_var = as.numeric(fixed_excl) / sum(as.numeric(fixed_excl))) %>% filter(y_var != 'x')
   } else if (category == 'O') {
-    ylabtitle <- "Distribution of pupils with one or more fixed period exclusion, 2015/16"
+    ylabtitle <- "Distribution of pupils with one or more fixed period exclusion, 2015/16 \n"
     d <- d %>% group_by (year) %>% filter(one_plus_fixed != 'x') %>% mutate(y_var = as.numeric(one_plus_fixed) / sum(as.numeric(one_plus_fixed))) %>% filter(y_var != 'x')
   }
   
@@ -143,6 +143,7 @@ char_series <- function(char, sch_type, category) {
     d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
   }
   
+  if (char =='gender' | char =='sen' | char =='fsm') {
   return(
     d %>%
       ggplot +
@@ -162,8 +163,128 @@ char_series <- function(char, sch_type, category) {
         vjust = -1) +
       theme(legend.position = "none") +
       theme(axis.text=element_text(size=12),
-            axis.title=element_text(size=14,face="bold"))) 
+            axis.title=element_text(size=14,face="bold")))}
+  
+  
+  else if (char =='age') {
+    return(
+      
+      d %>%
+        ggplot +
+        aes(x = as.factor(formatyr(year)), 
+            y = as.numeric(y_var), 
+            group = characteristic_1, colour = as.factor(characteristic_1)) +
+        geom_path(size = 1) +
+        xlab("Academic year") +
+        ylab(ylabtitle) +
+        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+        theme_classic() +
+        geom_text(
+          d = d %>% filter(year == min(as.numeric(year))+101),
+          aes(label = characteristic_1),
+          size = 5,
+          hjust = 0,
+          vjust = -1) +
+        theme(legend.position = "none") +
+        theme(axis.text=element_text(size=12),
+              axis.title=element_text(size=14,face="bold")))}
+  
 }
+
+
+char_series_age <- function(char, sch_type, category) {
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
+  }
+  
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusion percentage"
+    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x')
+  } else if (category == 'F') {
+    ylabtitle <- "Fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x')
+  } else if (category == 'O') {
+    ylabtitle <- "One or more fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
+  }
+  
+  if (char =='gender' | char =='sen' | char =='fsm') {
+    return(
+      d %>%
+        ggplot +
+        aes(x = as.factor(formatyr(year)), 
+            y = as.numeric(y_var), 
+            group = characteristic_1, colour = as.factor(characteristic_1)) +
+        geom_path(size = 1) +
+        xlab("Academic year") +
+        ylab(ylabtitle) +
+        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+        theme_classic() +
+        geom_text(
+          d = d %>% filter(year == min(as.numeric(year))+101),
+          aes(label = characteristic_1),
+          size = 5,
+          hjust = 0,
+          vjust = -1) +
+        theme(legend.position = "none") +
+        theme(axis.text=element_text(size=12),
+              axis.title=element_text(size=14,face="bold")))}
+  
+  
+  else if (char =='age') {
+    return(
+      
+      d %>%
+        ggplot +
+        aes(x = as.factor(formatyr(year)), 
+            y = as.numeric(y_var), 
+            group = characteristic_1, colour = as.factor(characteristic_1)) +
+        geom_path(size = 1) +
+        xlab("Academic year") +
+        ylab(ylabtitle) +
+        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+        theme_classic() +
+        geom_text(
+          d = d %>% filter(year == min(as.numeric(year))+101),
+          aes(label = characteristic_1),
+          size = 5,
+          hjust = 0,
+          vjust = -1) +
+        theme(legend.position = "none") +
+        theme(axis.text=element_text(size=12),
+              axis.title=element_text(size=14,face="bold")))}
+  
+}
+
+
+
+
+
+
+reason_order_table <- c('<=4',
+                      '5',
+                      '6',
+                      '7',
+                      '8',
+                      '9',
+                      '10',
+                      '11',
+                      '12',
+                      '13',
+                      '14',
+                      '15',
+                      '16',
+                      '17',
+                      '18',
+                      '>=19',
+                      'Total')
 
 
 char_series_table <- function(char, sch_type, category) {
@@ -175,7 +296,27 @@ char_series_table <- function(char, sch_type, category) {
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) %>%
+      mutate(characteristic_1 = dplyr::recode(characteristic_1,
+                                              `Age 4 and under`="<=4",
+                                              `Age 5`= "5",
+                                              `Age 6`="6",
+                                              `Age 7`= "7",
+                                              `Age 8`="8",
+                                              `Age 9`="9",
+                                              `Age 10`="10",
+                                              `Age 11` = "11",                                              
+                                              `Age 12` = "12",                                                         
+                                              `Age 13` = "13",                                                         
+                                              `Age 14` = "14",                                                           
+                                              `Age 15` = "15",                                                           
+                                              `Age 16` = "16",
+                                              `Age 17` = "17",
+                                              `Age 18` = "18",
+                                              `Age 19 and over`= ">=19",
+                                              `Total` = "Total")) 
+    
+    d$characteristic_1 <- factor(d$characteristic_1, levels = reason_order_table[1:17]) 
   }
   
   if (category == 'P') {
@@ -197,6 +338,8 @@ char_series_table <- function(char, sch_type, category) {
   return(data_wide)
   
 }
+
+
 
 
 ### proportion chart 
