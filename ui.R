@@ -99,7 +99,7 @@ shinyUI(
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
                                              selected = 'gender'),
-                                 "INSERT A DOWNLOAD BUTTON"
+                                 ""
                           )
                         ), width = 12),
                         mainPanel(br(),
@@ -128,8 +128,8 @@ shinyUI(
                                       column(2, 
                                              checkboxGroupInput(inputId = "ethn_line",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = factor(reason_order_ethn_plot),
-                                                                selected = c("Total", "Ethnicity_Major_White_Total"))),
+                                                                choices = factor(reason_order_ethn_plot_2),
+                                                                selected = c("Total", "Mixed Total"))),
                                       column(8,
                                              plotOutput("char_ts_ethn")))),
                                   br(),
