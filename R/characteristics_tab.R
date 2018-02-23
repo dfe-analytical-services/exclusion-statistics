@@ -17,6 +17,34 @@ reason_order_bar <- c('<=4',
                       '18',
                       '>=19')
 
+reason_order_ethn_plot <- c(
+  
+  "Ethnicity_Major_White_Total"   ,             
+  "Ethnicity_Minor_White_British"         ,      
+  "Ethnicity_Minor_Irish"                ,      
+  "Ethnicity_Minor_Traveller_of_Irish_heritage" ,
+  "Ethnicity_Minor_Gypsy_Roma"                , 
+  "Ethnicity_Minor_Any_other_white_background" , 
+  "Ethnicity_Major_Mixed_Total"              ,  
+  "Ethnicity_Minor_White_and_Black_Caribbean"   ,
+  "Ethnicity_Minor_White_and_Black_African"   , 
+  "Ethnicity_Minor_White_and_Asian"          ,   
+  "Ethnicity_Minor_Any_other_Mixed_background" ,
+  "Ethnicity_Major_Asian_Total"           ,      
+  "Ethnicity_Minor_Indian"            ,         
+  "Ethnicity_Minor_Pakistani"         ,          
+  "Ethnicity_Minor_Bangladeshi"       ,         
+  "Ethnicity_Minor_Any_other_Asian_background" , 
+  "Ethnicity_Major_Black_Total"        ,        
+  "Ethnicity_Minor_Black_Caribbean"        ,     
+  "Ethnicity_Minor_Black_African"        ,      
+  "Ethnicity_Minor_Any_other_black_background"  ,
+  "Ethnicity_Minor_Chinese"             ,       
+  "Ethnicity_Minor_Any_Other_Ethnic_Group"  ,    
+  "Ethnicity_Minority_ethnic_pupil"      ,      
+  "Ethnicity_Unclassified" ,
+  "Total")
+
 bar_chart_percentages <- function(char, sch_type, category) {
   
   if (char =='gender') {
@@ -118,8 +146,6 @@ bar_chart_percentages <- function(char, sch_type, category) {
 
 
 
-
-
 char_series <- function(char, sch_type, category) {
   
   if (char =='gender') {
@@ -128,6 +154,8 @@ char_series <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  } else if (char =='ethn') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) 
   } else if (char =='age') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
   }
@@ -268,6 +296,91 @@ char_series_age <- function(char, sch_type, category, input) {
 }
 
 
+
+
+char_series_ethn <- function(char, sch_type, category, input) {
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
+  } else if (char =='ethn') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) 
+  } 
+  
+  if (category == 'P') {
+    ylabtitle <- "Permanent exclusion percentage"
+    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x')
+  } else if (category == 'F') {
+    ylabtitle <- "Fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x')
+  } else if (category == 'O') {
+    ylabtitle <- "One or more fixed period exclusion percentage"
+    d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
+  }
+  
+  if (char =='gender' | char =='sen' | char =='fsm') {
+    return(
+      d %>%
+        ggplot +
+        aes(x = as.factor(formatyr(year)), 
+            y = as.numeric(y_var), 
+            group = characteristic_1, colour = as.factor(characteristic_1)) +
+        geom_path(size = 1) +
+        xlab("Academic year") +
+        ylab(ylabtitle) +
+        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+        theme_classic() +
+        geom_text(
+          d = d %>% filter(year == min(as.numeric(year))+101),
+          aes(label = characteristic_1),
+          size = 5,
+          hjust = 0,
+          vjust = -1) +
+        theme(legend.position = "none") +
+        theme(axis.text=element_text(size=12),
+              axis.title=element_text(size=14,face="bold")))}
+  
+  
+  
+  
+  else if (char =='ethn') {
+    return(
+      
+      
+          
+      d %>% 
+        filter(characteristic_1 %in% input) %>%
+        select(year, characteristic_1, y_var) %>%
+        ggplot +
+        aes(x = as.factor(formatyr(year)), 
+            y = as.numeric(y_var), 
+            group = characteristic_1, colour = characteristic_1) +
+        geom_path(size = 1) +
+        xlab("Academic year") +
+        ylab(ylabtitle) +
+        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+        theme_classic() +
+        geom_text(
+          d = d %>% filter(year == min(as.numeric(year))+101 & characteristic_1 %in% input),
+          aes(label = characteristic_1,
+              size = 5,
+              hjust = 0,
+              vjust = -1)) +
+        theme(legend.position = "none") +
+        theme(axis.text=element_text(size=12),
+              axis.title=element_text(size=14,face="bold")))}
+  
+}
+
+
+
+
+
 reason_order_plot <- c(
   'Age 4 and under',
   'Age 5',
@@ -308,6 +421,9 @@ reason_order_table <- c('<=4',
                       'Total')
 
 
+# reason_order_ethn_plot <- c()
+
+
 char_series_table <- function(char, sch_type, category) {
   
   if (char =='gender') {
@@ -316,6 +432,8 @@ char_series_table <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+  } else if (char =='ethn') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) 
   } else if (char =='age') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) %>%
       mutate(characteristic_1 = dplyr::recode(characteristic_1,

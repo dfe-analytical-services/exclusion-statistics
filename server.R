@@ -46,7 +46,7 @@ shinyServer(function(session, input, output) {
   
   output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
   
-  
+  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$ethn_line)})
   
   output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat)}, 
                                           rownames = FALSE, 

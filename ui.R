@@ -96,7 +96,8 @@ shinyUI(
                                                "SEN provision" = 'sen',
                                                "FSM eligibility" = 'fsm',
                                                "Gender" = 'gender',
-                                               "Age" = 'age'),
+                                               "Age" = 'age',
+                                               "Ethnicity" = 'ethn'),
                                              selected = 'gender'),
                                  "INSERT A DOWNLOAD BUTTON"
                           )
@@ -107,7 +108,7 @@ shinyUI(
                                   br(),
                                   hr(),
                                   conditionalPanel(
-                                    condition="input.char_char!='age'",
+                                    condition="input.char_char=='sen' | input.char_char=='fsm' | input.char_char=='gender'",
                                     plotOutput("char_ts", width="100%")
                                     
                                   ),
@@ -121,6 +122,16 @@ shinyUI(
                                                                 selected = c("Age 10","Age 14", "Total"))),
                                       column(8,
                                              plotOutput("char_ts_age")))),
+                                  conditionalPanel(
+                                    condition="input.char_char=='ethn'",
+                                    fluidRow (
+                                      column(2, 
+                                             checkboxGroupInput(inputId = "ethn_line",                                                                               
+                                                                label = h4("What would you like to plot?"),                                                                       
+                                                                choices = factor(reason_order_ethn_plot),
+                                                                selected = c("Total", "Ethnicity_Major_White_Total"))),
+                                      column(8,
+                                             plotOutput("char_ts_ethn")))),
                                   br(),
                                   hr(),
                                   plotOutput("bar_chart", width = "100%", height = '220px'),
