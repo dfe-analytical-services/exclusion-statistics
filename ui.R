@@ -102,7 +102,12 @@ shinyUI(
                                  ""
                           )
                         ), width = 12),
-                        mainPanel(br(),
+                        mainPanel(
+                                  br(),
+                                  conditionalPanel(
+                                    condition="input.char_char=='ethn'",
+                                    radioButtons("table_ethn_measure", "Which measure of ethnicity?", c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
+                                  ),
                                   dataTableOutput("char_ts_table", width = "100%"),
                                   br(),
                                   br(),
@@ -122,6 +127,8 @@ shinyUI(
                                                                 selected = c("Age 10","Age 14", "Total"))),
                                       column(8,
                                              plotOutput("char_ts_age")))),
+                                  
+                                  
                                   conditionalPanel(
                                     condition="input.char_char=='ethn'",
                                     fluidRow (

@@ -48,12 +48,16 @@ shinyServer(function(session, input, output) {
   
   output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$ethn_line)})
   
-  output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat)}, 
+  output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
                                           rownames = FALSE, 
                                           extensions = c('Buttons'),
-                                          options = list(pageLength = 18,
-                                                         dom = 'Brtip',
-                                                         buttons = c('csv','copy')))
+                                          options = list(pageLength = 30,
+                                                         dom = 't',
+                                                         buttons = c('csv','copy'),
+                                                         initComplete = JS(
+                                                           "function(settings, json) {",
+                                                           "$(this.api().table().header()).css({'background-color': '#ffffff', 'color': '#000'});",
+                                                           "}")))
   
   output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
   
