@@ -443,7 +443,7 @@ char_series_age <- function(char, sch_type, category, input) {
 Radio_Button_Ethnicity <- c("Major Ethnic Grouping", "Minor Ethnic Grouping")
 List_Of_Ethnicities <- c()
 
-char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity) {
+char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, List_Of_Ethnicities) {
   
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
@@ -528,6 +528,8 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity) {
       
       
       d %>%
+        mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
+        filter(ethnic_level %in% Radio_Button_Ethnicity & characteristic_1 %in% List_Of_Ethnicities) %>%
         select(year, characteristic_1, y_var) %>%
         ggplot +
         aes(x = as.factor(formatyr(year)), 
@@ -566,7 +568,7 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity) {
                                                             Ethnicity_Unclassified = 'Unclassified' ,
                                                             Total = 'Total')) %>% filter(year == min(as.numeric(year))+101) %>% 
           mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
-          filter(ethnic_level %in% Radio_Button_Ethnicity),
+          filter(ethnic_level %in% Radio_Button_Ethnicity & characteristic_1 %in% List_Of_Ethnicities),
           aes(label = characteristic_1 ,
               size = 5,
               hjust = 0,

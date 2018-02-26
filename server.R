@@ -46,7 +46,7 @@ shinyServer(function(session, input, output) {
   
   output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
   
-  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$Radio_Button_Ethn_Fac_1)})
+  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$Radio_Button_Ethn_Fac_1, input$Check_Button_Ethn_Fac_2)})
   
   output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
                                           rownames = FALSE, 
@@ -86,10 +86,11 @@ shinyServer(function(session, input, output) {
     
     updateCheckboxGroupInput(session, "Check_Button_Ethn_Fac_2",
                              choices = myFactor2_list,
-                             selected = levels(mydata$characteristic_1)[values$cb])
+                             selected = c("Total", "Black Total", "White British", "Indian", "Black Caribbean"))
     
     mydata2<-mydata[mydata$ethnic_level==factor1Choice,]
     
+  #  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$myFactor2_list)})
     
   })
   
