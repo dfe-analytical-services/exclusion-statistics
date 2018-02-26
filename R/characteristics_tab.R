@@ -617,9 +617,21 @@ ethnicity_data <- function(x){
   
 }
 
-# Select button for input
 
-
+characteristics_data_download <- function(char) {
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'))
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total')) 
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total')) 
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total')) 
+  } else if (char =='ethn') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'))
+  
+  }
+}
 
 
 

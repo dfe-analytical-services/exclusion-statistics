@@ -106,3 +106,12 @@ exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) 
   
 }
 
+exclusion_reason_table_download <- function(la_name_exclusion_select) {
+  
+  data_long <- clean_la_exclusions_data(reason_ud) %>%
+    filter(la_name == la_name_exclusion_select) %>%
+    select(year, la_name, school_type, perm_physical_pupils:fixed_other)
+  
+  
+}
+

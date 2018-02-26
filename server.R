@@ -47,7 +47,7 @@ shinyServer(function(session, input, output) {
                         options = list(columnDefs = cd,
                                        fnDrawCallback = cb, 
                                        pageLength = 12,
-                                       dom = 'Brtip',
+                                       dom = 't',
                                        buttons = c('csv','copy')))
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
     dt})
@@ -110,7 +110,14 @@ shinyServer(function(session, input, output) {
   })
   
   
-  
+  output$download_characteristics_data <- downloadHandler(
+    filename = function() {
+      paste(input$char_char, "_characteristics_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(characteristics_data_download(input$char_char), file, row.names = FALSE)
+    }
+  )
   
   
   # 3. LA trends ----
@@ -159,7 +166,17 @@ shinyServer(function(session, input, output) {
   
   output$map <- renderLeaflet({excmap(input$select_map)})
   
-  # 5. Methods ----
+  # 5. Reason for exclusion ----
+  
+  output$download_reason_for_exclusion <-  downloadHandler(
+    filename = function() {
+      paste(input$la_name_exclusion_select, "_exclusion_data", ".csv", sep = "") 
+      },
+    content = function(file) {
+      write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
+    }
+  )
+  # 6. Methods ----
 
   output$downloadData <- downloadHandler(
     filename = function() {
@@ -209,7 +226,7 @@ shinyServer(function(session, input, output) {
         laestab_school_name == input$EstablishmentName_rob
       ), 
     extensions = c('Buttons'), 
-    options=list(dom = 'Brtip',
+    options=list(dom = 't',
                  buttons = c('csv','copy'),
                  columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
   

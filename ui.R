@@ -96,7 +96,7 @@ shinyUI(
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
                                              selected = 'gender'),
-                                 ""
+                                 downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
                         ), width = 12),
                         mainPanel(
@@ -279,7 +279,7 @@ shinyUI(
 
             
              #  # 5. Reason for exclusions ----
-              
+            
              tabPanel("Reason for exclusion",
                       sidebarLayout(
                         sidebarPanel(
@@ -311,12 +311,10 @@ shinyUI(
                                                  "Special" = 'Special school',
                                                  "All schools" = 'Total'),
                                                selected = 'Total', width='80%'),
-                                   
-                                   strong("Download"), "this table using the button below.",
-                                   br("INSERT A DOWNLOAD BUTTON")
+                                   br(),
+                                   downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
                             )), width=12),
                         mainPanel(
-                          strong("Download"), "or", strong("copy"), "this table using buttons below.",
                           sparklineOutput("test_spark"),
                           dataTableOutput("tbl", width = "95%"),
                           width=12
@@ -343,7 +341,6 @@ shinyUI(
                           "Values of 'x' represent a value of less than three or a rate based upon a value lower than three, these figures are supressed for data protection purposes.",
                           width=12),
                         mainPanel(
-                          strong("Download"), "or", strong("copy"), "this table using buttons below.",
                           dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
