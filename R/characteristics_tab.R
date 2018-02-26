@@ -1,6 +1,6 @@
 # Characteristics tab
 
-reason_order_bar <- c('<=4',
+reason_order_bar <- c('4 and under',
                       '5',
                       '6',
                       '7',
@@ -15,7 +15,7 @@ reason_order_bar <- c('<=4',
                       '16',
                       '17',
                       '18',
-                      '>=19')
+                      '19 and over')
 
 reason_order_ethn_plot <- c(
   
@@ -247,7 +247,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
       
       d %>%
         mutate(characteristic_1 = dplyr::recode(characteristic_1,
-               `Age 4 and under`="<=4",
+               `Age 4 and under`="4 and under",
                `Age 5`= "5",
                `Age 6`="6",
                `Age 7`= "7",
@@ -262,7 +262,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
                `Age 16` = "16",
                `Age 17` = "17",
                `Age 18` = "18",
-               `Age 19 and over`= ">=19")) %>% 
+               `Age 19 and over`= "19 and over")) %>% 
         mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_bar)) %>%
         ggplot +
         aes(x = as.factor(characteristic_1), 
@@ -644,7 +644,7 @@ reason_order_plot <- c(
 
 
 
-reason_order_table <- c('<=4',
+reason_order_table <- c('4 and under',
                       '5',
                       '6',
                       '7',
@@ -659,7 +659,7 @@ reason_order_table <- c('<=4',
                       '16',
                       '17',
                       '18',
-                      '>=19',
+                      '19 and over',
                       'Total')
 
 
@@ -709,7 +709,7 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
   } else if (char =='age') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) %>%
       mutate(characteristic_1 = dplyr::recode(characteristic_1,
-                                              `Age 4 and under`="<=4",
+                                              `Age 4 and under`="4 and under",
                                               `Age 5`= "5",
                                               `Age 6`="6",
                                               `Age 7`= "7",
@@ -724,7 +724,7 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
                                               `Age 16` = "16",
                                               `Age 17` = "17",
                                               `Age 18` = "18",
-                                              `Age 19 and over`= ">=19",
+                                              `Age 19 and over`= "19 and over",
                                               `Total` = "Total")) 
     
     d$characteristic_1 <- factor(d$characteristic_1, levels = reason_order_table[1:17]) 
