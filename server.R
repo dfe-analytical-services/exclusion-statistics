@@ -46,7 +46,7 @@ shinyServer(function(session, input, output) {
   
   output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
   
-  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$Radio_Button_Ethn_Fac_1, input$Check_Button_Ethn_Fac_2)})
+  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure, input$Check_Button_Ethn_Fac_2)})
   
   output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
                                           rownames = FALSE, 
@@ -73,14 +73,14 @@ shinyServer(function(session, input, output) {
   values <- reactiveValues(cb = with(mydata, setNames(rep(FALSE, nlevels(characteristic_1)), levels(characteristic_1))))
   
   observeEvent(input$Check_Button_Ethn_Fac_2, {
-    myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==input$Radio_Button_Ethn_Fac_1]
+    myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==input$table_ethn_measure]
     values$cb[myFactor2_list] <- myFactor2_list %in% input$Check_Button_Ethn_Fac_2
   })
   
   
   
   observe({
-    factor1Choice<-input$Radio_Button_Ethn_Fac_1
+    factor1Choice<-input$table_ethn_measure
     
     myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==factor1Choice]
     

@@ -110,7 +110,9 @@ shinyUI(
                                   br(),
                                   conditionalPanel(
                                     condition="input.char_char=='ethn'",
-                                    radioButtons("table_ethn_measure", "Which measure of ethnicity?", c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
+                                    radioButtons("table_ethn_measure", 
+                                                 "Which measure of ethnicity?", 
+                                                 c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
                                   ),
                                   dataTableOutput("char_ts_table", width = "100%"),
                                   br(),
@@ -138,9 +140,6 @@ shinyUI(
                                     
                                     fluidRow(
                                       column(3, 
-                                             radioButtons("Radio_Button_Ethn_Fac_1", 
-                                                          "Which measure of ethnicity?", 
-                                                          Radio_Button_Ethnicity, inline = TRUE),
                                              
                                              checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
