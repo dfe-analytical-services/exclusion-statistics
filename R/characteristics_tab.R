@@ -440,9 +440,10 @@ char_series_age <- function(char, sch_type, category, input) {
 }
 
 
+Radio_Button_Ethnicity <- c("Major Ethnic Grouping", "Minor Ethnic Grouping")
+List_Of_Ethnicities <- c()
 
-
-char_series_ethn <- function(char, sch_type, category, input) {
+char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity) {
   
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
@@ -481,7 +482,8 @@ char_series_ethn <- function(char, sch_type, category, input) {
                                               Ethnicity_Unclassified = 'Unclassified' ,
                                               Total = 'Total')) %>%
       mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_ethn_plot_2 )) %>%
-      mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping"))
+      mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>% 
+      filter(ethnic_level %in% Radio_Button_Ethnicity)
   } 
   
   if (category == 'P') {
@@ -523,8 +525,9 @@ char_series_ethn <- function(char, sch_type, category, input) {
   else if (char =='ethn') {
     return(
       
+      
+      
       d %>%
-        filter(characteristic_1 %in% input) %>%
         select(year, characteristic_1, y_var) %>%
         ggplot +
         aes(x = as.factor(formatyr(year)), 
@@ -561,8 +564,10 @@ char_series_ethn <- function(char, sch_type, category, input) {
                                                             Ethnicity_Minor_Any_Other_Ethnic_Group = 'Any other Ethnic group'    ,  
                                                             Ethnicity_Minority_ethnic_pupil = 'Minority Ethnic pupil'           ,
                                                             Ethnicity_Unclassified = 'Unclassified' ,
-                                                            Total = 'Total')) %>% filter(year == min(as.numeric(year))+101 & characteristic_1 %in% input),
-          aes(label = characteristic_1,
+                                                            Total = 'Total')) %>% filter(year == min(as.numeric(year))+101) %>% 
+          mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
+          filter(ethnic_level %in% Radio_Button_Ethnicity),
+          aes(label = characteristic_1 ,
               size = 5,
               hjust = 0,
               vjust = -1)) +
@@ -573,6 +578,42 @@ char_series_ethn <- function(char, sch_type, category, input) {
 }
 
 
+
+ethnicity_data <- function(x){
+  
+  x %>% filter(characteristic_desc %in% c('Ethnicity', 'Total')) %>%
+    mutate(characteristic_1 = dplyr::recode(characteristic_1,
+                                            Ethnicity_Major_White_Total = 'White Total',               
+                                            Ethnicity_Minor_White_British  = 'White British' ,            
+                                            Ethnicity_Minor_Irish = 'White Irish'     ,                
+                                            Ethnicity_Minor_Traveller_of_Irish_heritage = 'Traveller of Irish Heritage' ,
+                                            Ethnicity_Minor_Gypsy_Roma = 'Gypsy Roma' ,                
+                                            Ethnicity_Minor_Any_other_white_background = 'Any other White background',  
+                                            Ethnicity_Major_Mixed_Total = 'Mixed Total'         ,      
+                                            Ethnicity_Minor_White_and_Black_Caribbean = 'White and Black Carribbean'  ,
+                                            Ethnicity_Minor_White_and_Black_African = 'White and Black African' ,  
+                                            Ethnicity_Minor_White_and_Asian = 'White and Asian'     ,       
+                                            Ethnicity_Minor_Any_other_Mixed_background = 'Any other Mixed background',
+                                            Ethnicity_Major_Asian_Total = 'Asian Total'                ,
+                                            Ethnicity_Minor_Indian  = 'Indian'               ,    
+                                            Ethnicity_Minor_Pakistani = 'Pakistani'         ,         
+                                            Ethnicity_Minor_Bangladeshi = 'Bangladeshi'      ,         
+                                            Ethnicity_Minor_Any_other_Asian_background = 'Any other Asian background',  
+                                            Ethnicity_Major_Black_Total = 'Black Total'            ,   
+                                            Ethnicity_Minor_Black_Caribbean = 'Black Caribbean'     ,       
+                                            Ethnicity_Minor_Black_African = 'Black African'          ,   
+                                            Ethnicity_Minor_Any_other_black_background = 'Any other Black background' ,  
+                                            Ethnicity_Minor_Chinese = 'Chinese'                   ,
+                                            Ethnicity_Minor_Any_Other_Ethnic_Group = 'Any other Ethnic group'    ,  
+                                            Ethnicity_Minority_ethnic_pupil = 'Minority Ethnic pupil'           ,
+                                            Ethnicity_Unclassified = 'Unclassified' ,
+                                            Total = 'Total')) %>%
+    mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_ethn_plot_2)) %>%
+    mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
+    distinct(ethnic_level, characteristic_1)
+  
+  
+}
 
 # Select button for input
 

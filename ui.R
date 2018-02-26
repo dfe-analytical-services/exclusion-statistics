@@ -131,13 +131,18 @@ shinyUI(
                                   
                                   conditionalPanel(
                                     condition="input.char_char=='ethn'",
-                                    fluidRow (
-                                      column(2, 
-                                             checkboxGroupInput(inputId = "ethn_line",                                                                               
+                                    
+                                    fluidRow(
+                                      column(3, 
+                                             radioButtons("Radio_Button_Ethn_Fac_1", 
+                                                          "Which measure of ethnicity?", 
+                                                          Radio_Button_Ethnicity, inline = TRUE),
+                                             
+                                             checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = factor(reason_order_ethn_plot_2),
+                                                                choices = List_Of_Ethnicities,
                                                                 selected = c("Total", "Mixed Total"))),
-                                      column(8,
+                                      column(9,
                                              plotOutput("char_ts_ethn")))),
                                   br(),
                                   hr(),
