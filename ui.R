@@ -9,8 +9,8 @@ sourceDir <- function(path, trace = TRUE, ...) {
 sourceDir("R/")
 
 shinyUI(
-    navbarPage("Exclusion statistics", id = "nav", 
-                   
+    navbarPage("Exclusion statistics",
+               
                    # 1. Front page ----
                    
                    tabPanel("Overview",
@@ -65,66 +65,103 @@ shinyUI(
              # 2. Pupil Characteristics ----
              
              tabPanel("Pupil characteristics",
-                      
+                      h4(strong("Exclusions by pupil characteristic")),
                       sidebarLayout(sidebarPanel(
-                        h4(strong("Exclusions by pupil characteristic")),
-                        selectInput("char_char",
-                                    label = "select characteristic",
-                                    choices = list(
-                                      "SEN provision" = 'sen',
-                                      "FSM eligibility" = 'fsm',
-                                      "Gender" = 'gender'),
-                                    selected = 'gender'),
-                        selectInput("char_sch",
-                                    label = "select school type",
-                                    choices = list(
-                                      "State-funded primary" = 'Primary',
-                                      "State-funded secondary" = 'Secondary',
-                                      "Special" = 'Special',
-                                      "Total" = 'Total'),
-                                    selected = 'Total'),
-                        selectInput("char_cat",
-                                    label = "select measure",
-                                    choices = list(
-                                      "Fixed period" = 'F',
-                                      "Permanent" = 'P',
-                                      "One or more fixed" = 'O'),
-                                    selected = 'P'),
-                        tableOutput("char_ts_table"), width = 5
-                      ),
-                      mainPanel(
-                        strong("chart title"),
-                        br(),
-                        "footnotes",
-                        br(),
-                        plotOutput("char_ts"), width = 7
-                      )
-                      ),
-                      fluidRow(
-                        column(
-                          verticalLayout(
-                            h4(strong("Proportion of exclusions by characteristic - 2015/16")),
-                            em("State-funded primary, secondary and special schools"),
-                            plotlyOutput("char_prop")
+                        fluidRow(
+                          column(4,
+                                 selectInput("char_cat",
+                                             label = "Select exclusion measure",
+                                             choices = list(
+                                               "Fixed period" = 'F',
+                                               "Permanent" = 'P',
+                                               "One or more fixed" = 'O'),
+                                             selected = 'P'),
+                                 
+                                 selectInput("char_sch",
+                                             label = "Select a school type",
+                                             choices = list(
+                                               "State-funded primary" = 'Primary',
+                                               "State-funded secondary" = 'Secondary',
+                                               "Special" = 'Special',
+                                               "Total" = 'Total'),
+                                             selected = 'Total')
                           ),
-                          width = 5
+                          column(4,offset = 1,
+                                 selectInput("char_char",
+                                             label = "Select pupil characteristic",
+                                             choices = list(
+                                               "SEN provision" = 'sen',
+                                               "FSM eligibility" = 'fsm',
+                                               "Gender" = 'gender',
+                                               "Age" = 'age',
+                                               "Ethnicity" = 'ethn'),
+                                             selected = 'gender'),
+                                 ""
+                          )
+                        ), width = 12),
+                        mainPanel(
+                          tags$style(type="text/css",
+                                             ".shiny-output-error { visibility: hidden; }",
+                                             ".shiny-output-error:before { visibility: hidden; }"
                         ),
-                        column(
-                          verticalLayout(
-                            h4(strong("How is difference in exclusion rate changing over time?")),
-                            em("State-funded primary, secondary and special schools"),
-                            plotOutput("char_gaps")
-                          ),
-                          width = 5
-                        )
-                      )
-             ,                            
+                                  conditionalPanel(
+                                    condition="input.char_char=='ethn'",
+                                    radioButtons("table_ethn_measure", 
+                                                 "Which measure of ethnicity?", 
+                                                 c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
+                                  ),
+                                  dataTableOutput("char_ts_table", width = "95%"),
+                                  br(),
+                                  br(),
+                                  hr(),
+                                  conditionalPanel(
+                                    condition="input.char_char=='sen' | input.char_char=='fsm' | input.char_char=='gender'",
+                                    plotOutput("char_ts", width="80%")
+                                    
+                                  ),
+                                  conditionalPanel(
+                                    condition="input.char_char=='age'",
+                                    fluidRow (
+                                      column(2, 
+                                             checkboxGroupInput(inputId = "line",                                                                               
+                                                                label = h4("What would you like to plot?"),                                                                       
+                                                                choices = factor(reason_order_plot),
+                                                                selected = c("Age 10","Age 14", "Total"))),
+                                      column(8,
+                                             br(),
+                                             br(),
+                                             br(),
+                                             plotOutput("char_ts_age")))),
+                                  
+                                  
+                                  conditionalPanel(
+                                    condition="input.char_char=='ethn'",
+                                    
+                                    fluidRow(
+                                      column(3, 
+                                             
+                                             checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
+                                                                label = h4("What would you like to plot?"),                                                                       
+                                                                choices = List_Of_Ethnicities,
+                                                                selected = c("Total", "Mixed Total"))),
+                                      column(9,
+                                             br(),
+                                             br(),
+                                             br(),
+                                             plotOutput("char_ts_ethn")))),
+                                  br(),
+                                  hr(),
+                                  plotOutput("bar_chart", width = "95%", height = '220px'),
+                                  br(),
+                                  width =12)), 
+                       
              hr(),
              HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
                   <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                   <br>
                   </br>')),
+
              
              # 3. LA Trends ----
              

@@ -9,7 +9,7 @@ sourceDir <- function(path, trace = TRUE, ...) {
 
 sourceDir("R/")
 
-server <- function(session, input, output) {
+shinyServer(function(session, input, output) {
   
   # 1. Front page ----
   
@@ -57,11 +57,61 @@ server <- function(session, input, output) {
   # 2. Characteristics ----
   
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
-  output$char_ts_table <- renderTable({char_series_table(input$char_char, input$char_sch, input$char_cat)},  bordered = TRUE, spacing = 'm')
+  
+  
+  output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
+  
+  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure, input$Check_Button_Ethn_Fac_2)})
+  
+  output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
+                                          rownames = FALSE, 
+                                          extensions = c('Buttons'),
+                                          options = list(pageLength = 30,
+                                                         dom = 't',
+                                                         buttons = c('csv','copy'),
+                                                         initComplete = JS(
+                                                           "function(settings, json) {",
+                                                           "$(this.api().table().header()).css({'background-color': '#ffffff', 'color': '#000'});",
+                                                           "}")))
   
   output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
   
   output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
+  
+  
+  
+  
+  output$bar_chart <- renderPlot({bar_chart_percentages(input$char_char, input$char_sch, input$char_cat)})
+  
+  mydata <- ethnicity_data(nat_char_prep)
+  
+  values <- reactiveValues(cb = with(mydata, setNames(rep(FALSE, nlevels(characteristic_1)), levels(characteristic_1))))
+  
+  observeEvent(input$Check_Button_Ethn_Fac_2, {
+    myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==input$table_ethn_measure]
+    values$cb[myFactor2_list] <- myFactor2_list %in% input$Check_Button_Ethn_Fac_2
+  })
+  
+  
+  
+  observe({
+    factor1Choice<-input$table_ethn_measure
+    
+    myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==factor1Choice]
+    
+    updateCheckboxGroupInput(session, "Check_Button_Ethn_Fac_2",
+                             choices = myFactor2_list,
+                             selected = c("Total", "Black Total", "White British", "Indian", "Black Caribbean"))
+    
+    mydata2<-mydata[mydata$ethnic_level==factor1Choice,]
+    
+  #  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$myFactor2_list)})
+    
+  })
+  
+  
+  
+  
   
   # 3. LA trends ----
   
@@ -147,8 +197,6 @@ server <- function(session, input, output) {
     }
   ) 
   
-  
-
    # 6. School summary tab ----
   
   output$table_school_summary <- renderDataTable(
@@ -183,9 +231,10 @@ server <- function(session, input, output) {
       server = TRUE)
   })
   
-  # session$onSessionEnded(function() { stopApp() })
+  #stop app running when closed in browser
+  session$onSessionEnded(function() { stopApp() })
   
-  
-  
-}
+
+})
+
 
