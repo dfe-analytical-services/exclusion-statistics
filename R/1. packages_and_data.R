@@ -22,6 +22,14 @@ library(ggalt)
 library(magrittr)
 library(scales)
 
+
+if(!('sparkline' %in% rownames(installed.packages()))) {
+  install.packages('sparkline')  
+} 
+library(sparkline)
+
+
+
 ####
 # 2. Load the data required ----
 
@@ -68,27 +76,6 @@ nat_summary <-
   ) %>%
   arrange(year)
 
-# Create LA plot data 
-
-la_plot_data <-
-  dplyr::select(
-    filter(main_ud, level == 'Local authority', school_type != 'dummy'),
-    year,
-    la_name,
-    school_type,
-    num_schools,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate) %>%
-  mutate(school_type = ifelse(
-    school_type == "state-funded primary","Primary",
-    ifelse(school_type == "state-funded secondary","Secondary",
-           ifelse(school_type == "special", "Special", 
-                  ifelse(school_type == "total", "Total", "NA")))))
 
 # cleaning data for characteristics tab  
 nat_char_prep <- filter(char_ud, ! characteristic_1 %in% c("SEN_provision_Unclassified","FSM_Unclassified","Age_unclassified")) %>%

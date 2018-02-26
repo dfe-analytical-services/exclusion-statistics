@@ -32,12 +32,27 @@ shinyServer(function(session, input, output) {
 
   # 2. Reason ----
   
-  output$perm_reason <- renderPlot({perm_reason_bar(input$reasonschtype)})
-  output$fixed_reason <- renderPlot({fixed_reason_bar(input$reasonschtype)})
+  line_string <- "type: 'line', width: '220px', height: '40px', chartRangeMin: 0"
   
-  output$perm_reason_t <- renderTable({perm_reason_table(input$reasonschtype)},  bordered = TRUE, spacing = 'm')
-  output$fixed_reason_t <- renderTable({fixed_reason_table(input$reasonschtype)},  bordered = TRUE, spacing = 'm')
+  cd <- list(list(targets = 11, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
   
+  cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
+                 line_string, " });\n}"), collapse = "")
+
+  
+  output$tbl <- DT::renderDataTable({
+    dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)[,4:15]),
+                        rownames = FALSE, 
+                        extensions = c('Buttons'),
+                        options = list(columnDefs = cd,
+                                       fnDrawCallback = cb, 
+                                       pageLength = 12,
+                                       dom = 'Brtip',
+                                       buttons = c('csv','copy')))
+    dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
+    dt})
+  
+
 
   # 2. Characteristics ----
   
@@ -135,6 +150,11 @@ shinyServer(function(session, input, output) {
                                           " (",la_one_plus_rate(input$select2,201516), " per cent) in 2015/16, 
                                           which is equivalent to ", as.numeric(la_one_plus_rate(input$select2,201516))*100, " pupils per 10,000.")})
   
+  output$la_comparison_chart <- renderPlot({la_compare_plot(input$select2, input$select_cat)})
+  
+  output$la_comparison_table <- renderTable({la_compare_table(input$select2, input$select_cat)},
+                                            bordered = TRUE,spacing = 'm',align = 'c')
+  
   # 4. Map ----
   
   output$map <- renderLeaflet({excmap(input$select_map)})
@@ -179,36 +199,42 @@ shinyServer(function(session, input, output) {
   
    # 6. School summary tab ----
   
-  output$table_school_summary <- renderDataTable({
+  output$table_school_summary <- renderDataTable(
     
     # Filter
     
     all_schools_data %>%
       filter(
-        la_name == input$la_name_rob,
-        EstablishmentName == input$EstablishmentName_rob
-      )
-    
-  } )
+        la_no_and_name == input$la_name_rob,
+        laestab_school_name == input$EstablishmentName_rob
+      ), 
+    extensions = c('Buttons'), 
+    options=list(dom = 'Brtip',
+                 buttons = c('csv','copy'),
+                 columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
   
-  la_schools <- reactive({all_schools_data %>% filter(la_name == la_name_rob)})
+  
+  
+  la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   
   updateSelectizeInput(
     session = session, 
     inputId = 'EstablishmentName_rob',
-    choices = all_schools_data$EstablishmentName[all_schools_data$la_name == "Barking and Dagenham"],
+    choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == "301 - Barking and Dagenham"],
     server = TRUE)
   
   observe({
     updateSelectizeInput(
       session = session, 
       inputId = 'EstablishmentName_rob',
-      choices = all_schools_data$EstablishmentName[all_schools_data$la_name == input$la_name_rob],
+      choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
       server = TRUE)
   })
   
   #stop app running when closed in browser
   session$onSessionEnded(function() { stopApp() })
   
+
 })
+
 
