@@ -107,20 +107,19 @@ shinyUI(
                                              ".shiny-output-error { visibility: hidden; }",
                                              ".shiny-output-error:before { visibility: hidden; }"
                         ),
-                                  br(),
                                   conditionalPanel(
                                     condition="input.char_char=='ethn'",
                                     radioButtons("table_ethn_measure", 
                                                  "Which measure of ethnicity?", 
                                                  c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
                                   ),
-                                  dataTableOutput("char_ts_table", width = "100%"),
+                                  dataTableOutput("char_ts_table", width = "95%"),
                                   br(),
                                   br(),
                                   hr(),
                                   conditionalPanel(
                                     condition="input.char_char=='sen' | input.char_char=='fsm' | input.char_char=='gender'",
-                                    plotOutput("char_ts", width="100%")
+                                    plotOutput("char_ts", width="80%")
                                     
                                   ),
                                   conditionalPanel(
@@ -132,6 +131,9 @@ shinyUI(
                                                                 choices = factor(reason_order_plot),
                                                                 selected = c("Age 10","Age 14", "Total"))),
                                       column(8,
+                                             br(),
+                                             br(),
+                                             br(),
                                              plotOutput("char_ts_age")))),
                                   
                                   
@@ -146,10 +148,13 @@ shinyUI(
                                                                 choices = List_Of_Ethnicities,
                                                                 selected = c("Total", "Mixed Total"))),
                                       column(9,
+                                             br(),
+                                             br(),
+                                             br(),
                                              plotOutput("char_ts_ethn")))),
                                   br(),
                                   hr(),
-                                  plotOutput("bar_chart", width = "100%", height = '220px'),
+                                  plotOutput("bar_chart", width = "95%", height = '220px'),
                                   br(),
                                   width =12))), 
              
