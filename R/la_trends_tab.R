@@ -29,6 +29,29 @@ clean_la_data <- function(x) {
   
 }
 
+clean_la_data_download_tab_1 <- function(x, select2) {
+  
+  dplyr::select(
+    filter(x, level == 'National' | level == 'Local authority' & school_type != 'dummy'),
+    year,
+    level,
+    la_name,
+    school_type,
+    num_schools,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate) %>%
+    mutate(la_name = ifelse(is.na(la_name), "England",
+                            ifelse(!is.na(la_name), la_name, NA))) %>%
+    filter(!is.na(school_type)) %>%
+    filter(la_name == select2)
+  
+}
+
 # La trend plot based on rate
 
 la_plot_rate <- function(la, category) {
@@ -257,6 +280,24 @@ comparison_la_data <- function(x) {
   
 }
 
+# Preparing data for LA, region, national comparison downladd with all school types
+
+comparison_la_data_download_prepare <- function(x) {
+  
+  dplyr::select(
+    filter(x, (level == 'National' | level == 'Region' | level == 'Local authority')),
+    year,
+    school_type,
+    level,
+    region_name,
+    la_name,
+    perm_excl_rate,
+    fixed_excl_rate,
+    one_or_more_fixed_excl_rate) %>%
+    mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
+                         ifelse(is.na(la_name), region_name,la_name ))) 
+  
+}
 # LA, region, national comparison plot
 
 la_compare_plot <- function(la, category) {
@@ -303,6 +344,18 @@ la_compare_plot <- function(la, category) {
             axis.title=element_text(size=14,face="bold")))
 }
 
+# Download function for the la data comparison
+
+comparison_la_data_download_tab_2 <- function(x, la) {
+  
+  
+  reg <- (filter(comparison_la_data_download_prepare(x), la_name == la) %>% select(region_name))[1,]
+  
+  d <- filter(comparison_la_data_download_prepare(x), area %in% c(la, reg, 'England')) 
+  
+  download <- d %>% select(year, level, region_name, la_name, school_type, perm_excl_rate, fixed_excl_rate, one_or_more_fixed_excl_rate)
+  
+}
 
 
 # LA, region, national comparison table

@@ -212,6 +212,8 @@ shinyUI(
                      plotOutput("t1_chart", width = '23cm'),
                      br(),
                      tableOutput("t1_table"),
+                     br(),
+                     downloadButton("la_data_download", "Download"),
                      br()),
                    tabPanel(
                      'Comparison to region and national',
@@ -222,6 +224,8 @@ shinyUI(
                      plotOutput("la_comparison_chart", width = '23cm'),
                      br(),
                      tableOutput("la_comparison_table"),
+                     br(),
+                     downloadButton("la_data_download_tab_2", "Download"),
                      br())))
                ),
                hr(),
@@ -339,6 +343,8 @@ shinyUI(
                           selectizeInput("EstablishmentName_rob", label = "2. Select or type school name or LA/ESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
                           h5(strong("Note on suppresion")),
                           "Values of 'x' represent a value of less than three or a rate based upon a value lower than three, these figures are supressed for data protection purposes.",
+                          br(),
+                          br(downloadButton("school_data_download", "Download the underlying data for the table below")),
                           width=12),
                         mainPanel(
                           dataTableOutput("table_school_summary", width = "95%"),

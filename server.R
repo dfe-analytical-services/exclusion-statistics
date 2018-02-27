@@ -162,6 +162,25 @@ shinyServer(function(session, input, output) {
   output$la_comparison_table <- renderTable({la_compare_table(input$select2, input$select_cat)},
                                             bordered = TRUE,spacing = 'm',align = 'c')
   
+  
+  output$la_data_download_tab_1 <-  downloadHandler(
+    filename = function() {
+      paste(input$select2, "_exclusion_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(clean_la_data_download_tab_1(main_ud, input$select2) , file, row.names = FALSE)
+    }
+  )
+  
+  output$la_data_download_tab_2 <-  downloadHandler(
+    filename = function() {
+      paste(input$select2, "_exclusion_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(comparison_la_data_download_tab_2(main_ud, input$select2) , file, row.names = FALSE)
+    }
+  )
+  
   # 4. Map ----
   
   output$map <- renderLeaflet({excmap(input$select_map)})
@@ -247,6 +266,15 @@ shinyServer(function(session, input, output) {
       choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
       server = TRUE)
   })
+  
+  output$school_data_download <-  downloadHandler(
+    filename = function() {
+      paste(substr(input$EstablishmentName_rob, 1, 7), "_exclusion_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(school_summary_table %>% filter (laestab == substr(input$EstablishmentName_rob, 1, 7)) , file, row.names = FALSE)
+    }
+  )
   
   #stop app running when closed in browser
   session$onSessionEnded(function() { stopApp() })
