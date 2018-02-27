@@ -1,0 +1,30 @@
+
+.navbar-static-top {
+  position: static;
+  margin-bottom: 0px;
+  background-color: #003366 !important;
+}
+
+.navbar-default
+.navbar-brand {
+  color: #ffffff;
+  
+}
+
+.navbar-default
+.navbar-text{color:#ffffff !important;}
+
+.navbar-nav a{
+  color:#ffffff !important;
+}
+
+* {
+  font-family: Arial !important;
+}
+
+.download_this{
+    height:40px;
+    width:57px;
+    color:blue;
+    padding-top: 3px !important;
+}

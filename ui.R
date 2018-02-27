@@ -9,7 +9,7 @@ sourceDir <- function(path, trace = TRUE, ...) {
 sourceDir("R/")
 
 shinyUI(
-    navbarPage("Exclusion statistics",
+    navbarPage("Exclusion statistics", theme = "shiny.css",
                
                    # 1. Front page ----
                    
