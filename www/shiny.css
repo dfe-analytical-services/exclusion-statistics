@@ -384,7 +384,7 @@ pre.shiny-text-output.noplaceholder:empty {
 
 .navbar-static-top {
   position: static;
-  background-color: #003366 !important;
+  background-color: #005EA5 !important;
 }
 
 .navbar-default,
@@ -402,3 +402,11 @@ pre.shiny-text-output.noplaceholder:empty {
 .navbar-nav a{
   color:#ffffff !important;
 }
+
+.leaflet .legend i{
+            border-radius: 50%;
+            width:12px;
+            height: 12px;
+            margin-top: 4px;
+            fillColor: #ffffff;
+         }

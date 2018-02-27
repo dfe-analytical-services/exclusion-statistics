@@ -187,7 +187,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
           y = as.numeric(y_var), 
           fill = as.factor(characteristic_1)) +
       geom_bar(stat='identity', size = 1) +
-      scale_fill_brewer(guide = guide_legend(reverse=TRUE, nrow = 1)) +
+      scale_fill_manual("", guide = guide_legend(reverse=TRUE, nrow = 1), values = gov_cols_2[c(1,3,10,11)]) +
       scale_y_continuous(limits = c(0,1)) + 
       coord_flip() +
       geom_text(aes(label=ifelse(as.numeric(y_var) >= 0.02, 
@@ -195,7 +195,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
                                  as.numeric(y_var)*100),"%"),"")),
                 position=position_stack(vjust=0.5), 
                 colour="black",
-                size = 6) +
+                size = 8) +
       theme(line = element_blank(), 
             rect = element_blank(), 
             axis.text = element_blank(), 
@@ -225,7 +225,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
         ggplot +
         aes(x = as.factor(characteristic_1), 
             y = as.numeric(y_var)) +
-        geom_bar(stat = "identity", fill = "blue") +
+        geom_bar(stat = "identity", fill = "#2B8CC4") +
         scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
         geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
         theme(line = element_blank(), 
@@ -267,7 +267,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
         ggplot +
         aes(x = as.factor(characteristic_1), 
             y = as.numeric(y_var)) +
-        geom_bar(stat = "identity", fill = "blue") +
+        geom_bar(stat = "identity", fill = "#2B8CC4") +
         scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
         geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
         theme(line = element_blank(), 
@@ -323,10 +323,11 @@ char_series <- function(char, sch_type, category) {
           y = as.numeric(y_var), 
           group = characteristic_1, colour = as.factor(characteristic_1)) +
       geom_path(size = 1) +
+      scale_colour_manual(values = gov_cols_2) +
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
-      theme_classic() +
+      theme_gov() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = characteristic_1),
@@ -349,6 +350,7 @@ char_series <- function(char, sch_type, category) {
         geom_path(size = 1) +
         xlab("Academic year") +
         ylab(ylabtitle) +
+        scale_colour_manual(values = gov_cols_2) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
         geom_text(
@@ -397,6 +399,7 @@ char_series_age <- function(char, sch_type, category, input) {
             y = as.numeric(y_var), 
             group = characteristic_1, colour = as.factor(characteristic_1)) +
         geom_path(size = 1) +
+        scale_colour_manual(values = gov_cols_2) +
         xlab("Academic year") +
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
@@ -423,6 +426,7 @@ char_series_age <- function(char, sch_type, category, input) {
             y = as.numeric(y_var), 
             group = characteristic_1, colour = characteristic_1) +
         geom_path(size = 1) +
+        scale_colour_manual(values = gov_cols_2) +
         xlab("Academic year") +
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
@@ -505,6 +509,7 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
             y = as.numeric(y_var), 
             group = characteristic_1, colour = as.factor(characteristic_1)) +
         geom_path(size = 1) +
+        scale_colour_manual(values = gov_cols_2) +
         xlab("Academic year") +
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
@@ -536,6 +541,7 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
             y = as.numeric(y_var), 
             group = characteristic_1, colour = characteristic_1) +
         geom_path(size = 1) +
+        scale_colour_manual(values = gov_cols_2) +
         xlab("Academic year") +
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +

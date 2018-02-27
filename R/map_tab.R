@@ -23,7 +23,7 @@ englishLocalAuthorityData <- merge(englishLocalAuthorities,
 #permanent exc
 
 # Create bins for colour plotting
-perm_excl_rate_Pal = colorQuantile('YlOrRd', englishLocalAuthorityData$perm_excl_rate, n = 5)
+perm_excl_rate_Pal = colorQuantile(map_gov_colours, englishLocalAuthorityData$perm_excl_rate, n = 5)
 
 # Add a label for tooltip (bit of html)
 perm_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Headcount <strong>%s</strong><br/>Permanent exclusions <strong>%s</strong><br/>Permanent exclusion rate <strong>%s</strong>",
@@ -33,7 +33,7 @@ perm_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Headcount <strong>%s</
 #fixed exc
 
 # Create bins for colour plotting
-fixed_excl_rate_Pal = colorQuantile('YlOrRd', englishLocalAuthorityData$fixed_excl_rate, n = 5)
+fixed_excl_rate_Pal = colorQuantile(map_gov_colours, englishLocalAuthorityData$fixed_excl_rate, n = 5)
 
 # Add a label for tooltip (more html...)
 fixed_excl_rate_Labels <- sprintf("<strong>%s</strong><br/>Headcount <strong>%s</strong><br/>Fixed period exclusions <strong>%s</strong><br/>Fixed period exclusion rate <strong>%s</strong>",
@@ -67,7 +67,7 @@ excmap <- function(measure) {
                       textsize = "15px",
                       direction = "auto",
                       opacity = 1)) %>%
-        addLegend(colors = c("#FFFFB2", "#FECC5C", "#FD8D3C", "#F03B20", "#BD0026", "#808080"), 
+        addLegend(colors = c("#2B8CC4", "#4574B5", "#5E5CA6", "#784397", "#912B88", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
                   position = "topright",
@@ -99,7 +99,7 @@ excmap <- function(measure) {
                       style = list("font-weight" = "normal", padding = "3px 8px"),
                       textsize = "15px",
                       direction = "auto")) %>%
-        addLegend(colors = c("#FFFFB2", "#FECC5C", "#FD8D3C", "#F03B20", "#BD0026", "#808080"), 
+        addLegend(colors = c("#2B8CC4", "#4574B5", "#5E5CA6", "#784397", "#912B88", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
                   position = "topright",
