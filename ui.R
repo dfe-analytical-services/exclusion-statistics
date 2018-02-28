@@ -319,6 +319,7 @@ shinyUI(
                                    downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
                             )), width=12),
                         mainPanel(
+                          htmlwidgets::getDependency('sparkline'),
                           sparklineOutput("test_spark"),
                           dataTableOutput("tbl", width = "95%"),
                           width=12
