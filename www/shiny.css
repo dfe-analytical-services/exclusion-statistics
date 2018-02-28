@@ -403,10 +403,21 @@ pre.shiny-text-output.noplaceholder:empty {
   color:#ffffff !important;
 }
 
+.legend {
+    color: #000033;
+    background: #fff;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
+    border-top:1px solid #666666;
+    border-bottom:1px solid #666666
+}
+
 .leaflet .legend i{
             border-radius: 50%;
             width:12px;
             height: 12px;
             margin-top: 4px;
-            fillColor: #ffffff;
+            display: block;
+            border: 0px solid #999;
+            background-color: #ffffff;
          }
