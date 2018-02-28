@@ -402,3 +402,12 @@ pre.shiny-text-output.noplaceholder:empty {
 .navbar-nav a{
   color:#ffffff !important;
 }
+
+
+.navbar-nav li a:hover, .navbar-nav > .active > a {
+  color: #fff !important;
+
+  background-color:#2b8cc4 !important;
+  background-image: none !important;
+} 
+
