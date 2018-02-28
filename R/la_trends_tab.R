@@ -291,8 +291,12 @@ comparison_la_data_download_prepare <- function(x) {
     level,
     region_name,
     la_name,
+    headcount,
+    perm_excl,
     perm_excl_rate,
+    fixed_excl,
     fixed_excl_rate,
+    one_plus_fixed,
     one_or_more_fixed_excl_rate) %>%
     mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
                          ifelse(is.na(la_name), region_name,la_name ))) 
@@ -353,7 +357,19 @@ comparison_la_data_download_tab_2 <- function(x, la) {
   
   d <- filter(comparison_la_data_download_prepare(x), area %in% c(la, reg, 'England')) 
   
-  download <- d %>% select(year, level, region_name, la_name, school_type, perm_excl_rate, fixed_excl_rate, one_or_more_fixed_excl_rate)
+
+  download <- d %>% select(year, 
+                           level, 
+                           region_name, 
+                           la_name, 
+                           school_type,
+                           headcount,
+                           perm_excl,
+                           perm_excl_rate,
+                           fixed_excl,
+                           fixed_excl_rate,
+                           one_plus_fixed,
+                           one_or_more_fixed_excl_rate)
   
 }
 

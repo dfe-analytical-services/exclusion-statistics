@@ -56,7 +56,7 @@ shinyUI(
                             hr(),
                             HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>')
              ),
@@ -158,7 +158,7 @@ shinyUI(
              hr(),
              HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                  <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                  <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                   <br>
                   </br>')),
 
@@ -213,7 +213,7 @@ shinyUI(
                      br(),
                      tableOutput("t1_table"),
                      br(),
-                     downloadButton("la_data_download", "Download"),
+                     downloadButton("la_data_download_tab_1", "Download"),
                      br()),
                    tabPanel(
                      'Comparison to region and national',
@@ -232,7 +232,7 @@ shinyUI(
                HTML(
                  '<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                  <br>
-                 <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                 <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                  <br>
                  </br>'
                )
@@ -276,7 +276,7 @@ shinyUI(
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                           <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')
                     ),
@@ -326,7 +326,7 @@ shinyUI(
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>')),
              
@@ -353,7 +353,7 @@ shinyUI(
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>')),
              
@@ -415,7 +415,7 @@ shinyUI(
                       hr(),
                HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>'))
              
