@@ -47,7 +47,7 @@ shinyServer(function(session, input, output) {
                         options = list(columnDefs = cd,
                                        fnDrawCallback = cb, 
                                        pageLength = 12,
-                                       dom = 'Brtip',
+                                       dom = 't',
                                        buttons = c('csv','copy')))
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
     dt})
@@ -110,7 +110,14 @@ shinyServer(function(session, input, output) {
   })
   
   
-  
+  output$download_characteristics_data <- downloadHandler(
+    filename = function() {
+      paste(input$char_char, "_characteristics_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(characteristics_data_download(input$char_char), file, row.names = FALSE)
+    }
+  )
   
   
   # 3. LA trends ----
@@ -155,11 +162,40 @@ shinyServer(function(session, input, output) {
   output$la_comparison_table <- renderTable({la_compare_table(input$select2, input$select_cat)},
                                             bordered = TRUE,spacing = 'm',align = 'c')
   
+  
+  output$la_data_download_tab_1 <-  downloadHandler(
+    filename = function() {
+      paste(input$select2, "_exclusion_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(clean_la_data_download_tab_1(main_ud, input$select2) , file, row.names = FALSE)
+    }
+  )
+  
+  output$la_data_download_tab_2 <-  downloadHandler(
+    filename = function() {
+      paste(input$select2, "_exclusion_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(comparison_la_data_download_tab_2(main_ud, input$select2) , file, row.names = FALSE)
+    }
+  )
+  
   # 4. Map ----
   
   output$map <- renderLeaflet({excmap(input$select_map)})
   
-  # 5. Methods ----
+  # 5. Reason for exclusion ----
+  
+  output$download_reason_for_exclusion <-  downloadHandler(
+    filename = function() {
+      paste("area_exclusion_reason_data", ".csv", sep = "") 
+      },
+    content = function(file) {
+      write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
+    }
+  )
+  # 6. Methods ----
 
   output$downloadData <- downloadHandler(
     filename = function() {
@@ -209,7 +245,7 @@ shinyServer(function(session, input, output) {
         laestab_school_name == input$EstablishmentName_rob
       ), 
     extensions = c('Buttons'), 
-    options=list(dom = 'Brtip',
+    options=list(dom = 't',
                  buttons = c('csv','copy'),
                  columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
   
@@ -230,6 +266,15 @@ shinyServer(function(session, input, output) {
       choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
       server = TRUE)
   })
+  
+  output$school_data_download <-  downloadHandler(
+    filename = function() {
+      paste(substr(input$EstablishmentName_rob, 1, 7), "_exclusion_data", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(school_summary_table %>% filter (laestab == substr(input$EstablishmentName_rob, 1, 7)) , file, row.names = FALSE)
+    }
+  )
   
   #stop app running when closed in browser
   session$onSessionEnded(function() { stopApp() })

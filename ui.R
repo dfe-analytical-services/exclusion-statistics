@@ -56,7 +56,7 @@ shinyUI(
                             hr(),
                             HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>')
              ),
@@ -96,7 +96,7 @@ shinyUI(
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
                                              selected = 'gender'),
-                                 ""
+                                 downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
                         ), width = 12),
                         mainPanel(
@@ -158,7 +158,7 @@ shinyUI(
              hr(),
              HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                  <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                  <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                   <br>
                   </br>')),
 
@@ -212,6 +212,8 @@ shinyUI(
                      plotOutput("t1_chart", width = '23cm'),
                      br(),
                      tableOutput("t1_table"),
+                     br(),
+                     downloadButton("la_data_download_tab_1", "Download"),
                      br()),
                    tabPanel(
                      'Comparison to region and national',
@@ -222,13 +224,15 @@ shinyUI(
                      plotOutput("la_comparison_chart", width = '23cm'),
                      br(),
                      tableOutput("la_comparison_table"),
+                     br(),
+                     downloadButton("la_data_download_tab_2", "Download"),
                      br())))
                ),
                hr(),
                HTML(
                  '<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                  <br>
-                 <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                 <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                  <br>
                  </br>'
                )
@@ -272,14 +276,14 @@ shinyUI(
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                           <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                           <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')
                     ),
 
             
              #  # 5. Reason for exclusions ----
-              
+            
              tabPanel("Reason for exclusion",
                       sidebarLayout(
                         sidebarPanel(
@@ -311,12 +315,10 @@ shinyUI(
                                                  "Special" = 'Special school',
                                                  "All schools" = 'Total'),
                                                selected = 'Total', width='80%'),
-                                   
-                                   strong("Download"), "this table using the button below.",
-                                   br("INSERT A DOWNLOAD BUTTON")
+                                   br(),
+                                   downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
                             )), width=12),
                         mainPanel(
-                          strong("Download"), "or", strong("copy"), "this table using buttons below.",
                           sparklineOutput("test_spark"),
                           dataTableOutput("tbl", width = "95%"),
                           width=12
@@ -324,7 +326,7 @@ shinyUI(
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>')),
              
@@ -341,16 +343,17 @@ shinyUI(
                           selectizeInput("EstablishmentName_rob", label = "2. Select or type school name or LA/ESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
                           h5(strong("Note on suppresion")),
                           "Values of 'x' represent a value of less than three or a rate based upon a value lower than three, these figures are supressed for data protection purposes.",
+                          br(),
+                          br(downloadButton("school_data_download", "Download the underlying data for the table below")),
                           width=12),
                         mainPanel(
-                          strong("Download"), "or", strong("copy"), "this table using buttons below.",
                           dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
                       hr(),
                       HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>')),
              
@@ -412,7 +415,7 @@ shinyUI(
                       hr(),
                HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
                     <br>
-                    <div><b>This is a new serice - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
                     <br>
                     </br>'))
              
