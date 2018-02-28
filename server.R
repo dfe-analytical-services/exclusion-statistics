@@ -189,7 +189,7 @@ shinyServer(function(session, input, output) {
   
   output$download_reason_for_exclusion <-  downloadHandler(
     filename = function() {
-      paste(input$la_name_exclusion_select, "_exclusion_data", ".csv", sep = "") 
+      paste("area_exclusion_reason_data", ".csv", sep = "") 
       },
     content = function(file) {
       write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
