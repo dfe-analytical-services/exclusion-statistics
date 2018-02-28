@@ -10,7 +10,7 @@ national_bars_rate <- function(category) {
     
     plot <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
-      geom_bar(fill = 'dodgerblue4', stat = "identity") +
+      geom_bar(fill = "#2B8CC4", stat = "identity") +
       ylab("Permanent exclusion rate")
   }
   
@@ -21,7 +21,7 @@ national_bars_rate <- function(category) {
     
     plot <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
-      geom_bar(fill = 'dodgerblue3', stat = "identity") +
+      geom_bar(fill = "#2E358B", stat = "identity") +
       ylab("Fixed period exclusion rate")
   }
   
@@ -49,7 +49,7 @@ national_bars_num <- function(category) {
     
     plot <- data %>% 
       ggplot(aes(x = formatyr(year), y = value)) +
-      geom_bar(fill = 'dodgerblue4', stat = "identity") +
+      geom_bar(fill = "#2B8CC4", stat = "identity") +
       ylab("Permanent exclusions")
   }
   
@@ -60,7 +60,7 @@ national_bars_num <- function(category) {
     
     plot <- data %>%
       ggplot(aes(x = formatyr(year), y = value)) +
-      geom_bar(fill = 'dodgerblue3', stat = "identity") +
+      geom_bar(fill = "#2E358B", stat = "identity") +
       ylab("Fixed period exclusions") 
   }
   
