@@ -83,7 +83,7 @@ la_plot_rate <- function(la, category) {
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
-      scale_colour_manual(values = gov_cols_2) +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) + 
       theme_classic() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
@@ -126,7 +126,7 @@ la_plot_num <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
-      scale_colour_manual(values = gov_cols_2) +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
       geom_text(
@@ -334,7 +334,7 @@ la_compare_plot <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
-      scale_colour_manual(values = gov_cols_2) +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
       geom_text(

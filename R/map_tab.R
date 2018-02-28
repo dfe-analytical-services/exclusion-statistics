@@ -67,7 +67,7 @@ excmap <- function(measure) {
                       textsize = "15px",
                       direction = "auto",
                       opacity = 1)) %>%
-        addLegend(colors = c("#2B8CC4", "#4574B5", "#5E5CA6", "#784397", "#912B88", "#808080"), 
+        addLegend(colors = c("#FFBF47", "#EC933D", "#D86733", "#C53A28", "#B10E1E", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
                   position = "topright",
@@ -99,7 +99,7 @@ excmap <- function(measure) {
                       style = list("font-weight" = "normal", padding = "3px 8px"),
                       textsize = "15px",
                       direction = "auto")) %>%
-        addLegend(colors = c("#2B8CC4", "#4574B5", "#5E5CA6", "#784397", "#912B88", "#808080"), 
+        addLegend(colors = c("#FFBF47", "#EC933D", "#D86733", "#C53A28", "#B10E1E", "#808080"), 
                   opacity = 0.7, 
                   title = NULL,
                   position = "topright",

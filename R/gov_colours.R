@@ -38,14 +38,14 @@ gov_cols_2 <- c(
   "#005EA5"
 )
 
-# https://meyerweb.com/eric/tools/color-blend/#2E358B:2B8CC4:3:hex light blue to purple used
+# https://meyerweb.com/eric/tools/color-blend/#FFBF47:B10E1E:3:hex gov red to yellow 
  
 map_gov_colours <- c(
-  "#2B8CC4",
-  "#4574B5",
-  "#5E5CA6",
-  "#784397",
-  "#912B88"
+  "#FFBF47",
+  "#EC933D",
+  "#D86733",
+  "#C53A28",
+  "#B10E1E"
   
 )
 

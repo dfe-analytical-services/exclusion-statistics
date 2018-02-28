@@ -187,7 +187,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
           y = as.numeric(y_var), 
           fill = as.factor(characteristic_1)) +
       geom_bar(stat='identity', size = 1) +
-      scale_fill_manual("", guide = guide_legend(reverse=TRUE, nrow = 1), values = gov_cols_2[c(1,3,10,11)]) +
+      scale_fill_manual("", guide = guide_legend(reverse=TRUE, nrow = 1), values = gov_cols_2[c(5,6,8,10)]) +
       scale_y_continuous(limits = c(0,1)) + 
       coord_flip() +
       geom_text(aes(label=ifelse(as.numeric(y_var) >= 0.02, 
@@ -323,7 +323,7 @@ char_series <- function(char, sch_type, category) {
           y = as.numeric(y_var), 
           group = characteristic_1, colour = as.factor(characteristic_1)) +
       geom_path(size = 1) +
-      scale_colour_manual(values = gov_cols_2) +
+      scale_colour_manual(values = gov_cols_2[c(5,6,8,10)]) +
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
