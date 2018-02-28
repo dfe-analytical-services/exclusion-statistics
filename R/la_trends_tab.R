@@ -83,6 +83,7 @@ la_plot_rate <- function(la, category) {
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) + 
       theme_classic() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
@@ -91,7 +92,6 @@ la_plot_rate <- function(la, category) {
         hjust = 0,
         vjust = -1) +
       theme(legend.position = "none") +
-      scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
       theme(axis.text=element_text(size=12),
             axis.title=element_text(size=14,face="bold")))
 }
@@ -126,6 +126,7 @@ la_plot_num <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
       geom_text(
@@ -135,7 +136,6 @@ la_plot_num <- function(la, category) {
         hjust = 0,
         vjust = -1) +
       theme(legend.position = "none") +
-      scale_color_manual(values = c("goldenrod2", "burlywood1", "chocolate2", "darkred"))+
       theme(axis.text=element_text(size=12),
             axis.title=element_text(size=14,face="bold")))
 }
@@ -334,6 +334,7 @@ la_compare_plot <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
       geom_text(
@@ -342,7 +343,6 @@ la_compare_plot <- function(la, category) {
         size = 5,
         hjust = 0,
         vjust = -1) +
-      scale_color_manual(values = c("burlywood1", "chocolate2", "darkred"))+
       theme(legend.position = "none",
             axis.text=element_text(size=12),
             axis.title=element_text(size=14,face="bold")))
