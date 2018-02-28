@@ -23,9 +23,9 @@ library(magrittr)
 library(scales)
 
 
-if(!('sparkline' %in% rownames(installed.packages()))) {
-  install.packages('sparkline')  
-} 
+# if(!('sparkline' %in% rownames(installed.packages()))) {
+#   install.packages('sparkline')  
+# } 
 library(sparkline)
 
 
