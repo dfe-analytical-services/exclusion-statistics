@@ -357,6 +357,7 @@ comparison_la_data_download_tab_2 <- function(x, la) {
   
   d <- filter(comparison_la_data_download_prepare(x), area %in% c(la, reg, 'England')) 
   
+
   download <- d %>% select(year, 
                            level, 
                            region_name, 

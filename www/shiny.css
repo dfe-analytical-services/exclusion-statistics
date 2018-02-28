@@ -384,7 +384,7 @@ pre.shiny-text-output.noplaceholder:empty {
 
 .navbar-static-top {
   position: static;
-  background-color: #005EA5 !important;
+  background-color: #003366 !important;
 }
 
 .navbar-default,
@@ -402,6 +402,15 @@ pre.shiny-text-output.noplaceholder:empty {
 .navbar-nav a{
   color:#ffffff !important;
 }
+
+
+.navbar-nav li a:hover, .navbar-nav > .active > a {
+  color: #fff !important;
+
+  background-color:#2b8cc4 !important;
+  background-image: none !important;
+} 
+
 
 .legend {
     color: #000033;
@@ -421,3 +430,4 @@ pre.shiny-text-output.noplaceholder:empty {
             border: 0px solid #999;
             background-color: #ffffff;
          }
+
