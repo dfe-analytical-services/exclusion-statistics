@@ -320,7 +320,7 @@ shinyUI(
                             )), width=12),
                         mainPanel(
                           htmlwidgets::getDependency('sparkline'),
-                          sparklineOutput("test_spark"),
+                          #sparklineOutput("test_spark"),
                           DT::dataTableOutput("tbl", width = "95%"),
                           width=12
                         )),
