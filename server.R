@@ -32,16 +32,19 @@ shinyServer(function(session, input, output) {
 
   # 2. Reason ----
   
-  line_string <- "type: 'line', width: '220px', height: '40px', chartRangeMin: 0"
-  
-  cd <- list(list(targets = 11, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
-  
-  cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
-                 line_string, " });\n}"), collapse = "")
 
-  staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
   
   output$tbl <- DT::renderDataTable({
+    
+    line_string <- "type: 'line', width: '220px', height: '40px', chartRangeMin: 0"
+    
+    cd <- list(list(targets = 11, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
+    
+    cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
+                   line_string, " });\n}"), collapse = "")
+    
+    staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
+    
     dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)[,4:15]),
                         rownames = FALSE,
                         options = list(columnDefs = cd,
