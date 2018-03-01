@@ -33,6 +33,7 @@ shinyServer(function(session, input, output) {
   # 2. Reason ----
   
 
+  staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
   
   output$tbl <- DT::renderDataTable({
     
