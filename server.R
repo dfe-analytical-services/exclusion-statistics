@@ -43,12 +43,13 @@ shinyServer(function(session, input, output) {
   
   output$tbl <- DT::renderDataTable({
     dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)[,4:15]),
-                        rownames = FALSE,
+                        rownames = FALSE, 
                         options = list(columnDefs = cd,
                                        fnDrawCallback = cb,
                                        drawCallback = staticRender_cb,
                                        pageLength = 12,
-                                       dom = 't'))
+                                       dom = 't'
+                                       ))
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
     dt              
   })
