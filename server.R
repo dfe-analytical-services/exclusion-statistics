@@ -39,17 +39,20 @@ shinyServer(function(session, input, output) {
   cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
                  line_string, " });\n}"), collapse = "")
 
+  staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
   
   output$tbl <- DT::renderDataTable({
     dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)[,4:15]),
                         rownames = FALSE, 
                         options = list(columnDefs = cd,
-                                       fnDrawCallback = cb, 
+                                       fnDrawCallback = cb,
+                                       drawCallback = staticRender_cb,
                                        pageLength = 12,
                                        dom = 't'
                                        ))
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
-    dt})
+    dt              
+  })
   
 
 
