@@ -16,7 +16,8 @@ shinyUI(
                    tabPanel("Overview",
                             sidebarLayout(
                               sidebarPanel(verticalLayout(
-                                h3(strong("Understanding school exclusion statistics (Pilot)")),
+                                h3(strong("Exploring school exclusion statistics")),
+                                h4(strong("(Proof of concept)")),
                                 br("This tool is aimed at enabling users to further understand exclusions data and is currently under development."), 
                                 hr(),
                                 strong("Background"),
