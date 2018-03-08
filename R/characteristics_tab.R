@@ -190,7 +190,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
       scale_fill_manual("", guide = guide_legend(reverse=TRUE, nrow = 1), values = gov_cols_2[c(5,6,8,10)]) +
       scale_y_continuous(limits = c(0,1)) + 
       coord_flip() +
-      geom_text(aes(label=ifelse(as.numeric(y_var) >= 0.02, 
+      geom_text_repel(aes(label=ifelse(as.numeric(y_var) >= 0.02, 
                                  paste0(sprintf("%.0f", 
                                  as.numeric(y_var)*100),"%"),"")),
                 position=position_stack(vjust=0.5), 
@@ -227,7 +227,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
             y = as.numeric(y_var)) +
         geom_bar(stat = "identity", fill = "#2B8CC4") +
         scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
-        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
+        geom_text_repel(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
         theme(line = element_blank(), 
               rect = element_blank(), 
               legend.text = element_blank(), 
@@ -269,7 +269,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
             y = as.numeric(y_var)) +
         geom_bar(stat = "identity", fill = "#2B8CC4") +
         scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
-        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
+        geom_text_repel(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
         theme(line = element_blank(), 
               rect = element_blank(), 
               legend.text = element_blank(), 
@@ -328,7 +328,7 @@ char_series <- function(char, sch_type, category) {
       ylab(ylabtitle) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_gov() +
-      geom_text(
+      geom_text_repel(
         d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = characteristic_1),
         size = 5,
@@ -353,7 +353,7 @@ char_series <- function(char, sch_type, category) {
         scale_colour_manual(values = gov_cols_2) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
-        geom_text(
+        geom_text_repel(
           d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = characteristic_1),
           size = 5,
@@ -404,7 +404,7 @@ char_series_age <- function(char, sch_type, category, input) {
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
-        geom_text(
+        geom_text_repel(
           d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = characteristic_1),
           size = 5,
@@ -431,7 +431,7 @@ char_series_age <- function(char, sch_type, category, input) {
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
-        geom_text(
+        geom_text_repel(
           d = d %>% filter(year == min(as.numeric(year))+101 & characteristic_1 %in% input),
           aes(label = characteristic_1,
           size = 5,
@@ -514,7 +514,7 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
-        geom_text(
+        geom_text_repel(
           d = d %>% filter(year == min(as.numeric(year))+101),
           aes(label = characteristic_1),
           size = 5,
@@ -546,7 +546,7 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
         theme_classic() +
-        geom_text(
+        geom_text_repel(
           d = d %>% mutate(characteristic_1 = dplyr::recode(characteristic_1,
                                                             Ethnicity_Major_White_Total = 'White Total',               
                                                             Ethnicity_Minor_White_British  = 'White British' ,            
@@ -862,18 +862,18 @@ char_gaps <- function(char, sch_type, category){
            geom_dumbbell(data=data, aes(y=year, x=char_yes, xend=char_no),
                          size=2, color="gray", size_x=3, size_xend=3,
                          colour_x="steelblue4", colour_xend="steelblue2") + 
-           geom_text(data=filter(data, year==max_year),
+           geom_text_repel(data=filter(data, year==max_year),
                      aes(x=char_yes, y=year, label=yes_label),
                      color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-           geom_text(data=filter(data, year==max_year),
+           geom_text_repel(data=filter(data, year==max_year),
                      aes(x=char_no, y=year, label=no_label),
                      color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-           geom_text(data=data, aes(x=char_yes, y=year, label=char_yes),
+           geom_text_repel(data=data, aes(x=char_yes, y=year, label=char_yes),
                      color="steelblue4", size=5, vjust=2.5) + 
-           geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
+           geom_text_repel(data=data, color="steelblue2", size=5, vjust=2.5,
                      aes(x=char_no, y=year, label=char_no)) + 
-           geom_text(data=data, aes(label=diff, y=year, x=max(c(data$char_no,data$char_yes))*1.1), color="#7a7d7e", size=5, vjust =2.5) +
-           geom_text(data=filter(data, year==max_year), aes(x=max(c(data$char_no,data$char_yes))*1.1, y=year, label="diff"),
+           geom_text_repel(data=data, aes(label=diff, y=year, x=max(c(data$char_no,data$char_yes))*1.1), color="#7a7d7e", size=5, vjust =2.5) +
+           geom_text_repel(data=filter(data, year==max_year), aes(x=max(c(data$char_no,data$char_yes))*1.1, y=year, label="diff"),
                      color="#7a7d7e", size=5, vjust=-2) + 
            scale_x_continuous(expand=c(0,0), limits=c(min(c(data$char_no,data$char_yes))*0.6, max(c(data$char_no,data$char_yes))*1.2)) + 
            labs(x=NULL, y=NULL) + 
