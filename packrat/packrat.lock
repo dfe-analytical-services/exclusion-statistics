@@ -248,6 +248,12 @@ Version: 2.2.1
 Hash: 46e5cb78836848aa44655e577433f54b
 Requires: digest, gtable, lazyeval, plyr, reshape2, scales, tibble
 
+Package: ggrepel
+Source: CRAN
+Version: 0.7.0
+Hash: baad43de63c8fd3ea4512f897c79657a
+Requires: Rcpp, ggplot2, scales
+
 Package: glue
 Source: CRAN
 Version: 1.2.0
