@@ -154,18 +154,18 @@ reason_order_ethn_plot_2 <- c(
   'Total'
 )
 
-bar_chart_percentages <- function(char, sch_type, category) {
+bar_chart_percentages <- function(area, char, sch_type, category) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == "201516")
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == "201516", la_name == area)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == "201516") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == "201516", la_name == area) 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == "201516") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == "201516", la_name == area) 
   } else if (char =='ethn') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == "201516") %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == "201516", la_name == area) %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516", la_name == area)
   }
   
   if (category == 'P') {
@@ -290,18 +290,18 @@ bar_chart_percentages <- function(char, sch_type, category) {
 
 
 
-char_series <- function(char, sch_type, category) {
+char_series <- function(area, char, sch_type, category) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type, la_name == area)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='ethn') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type, la_name == area) 
   }
   
   if (category == 'P') {
@@ -368,16 +368,16 @@ char_series <- function(char, sch_type, category) {
 
 
 
-char_series_age <- function(char, sch_type, category, input) {
+char_series_age <- function(area, char, sch_type, category, input) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type, la_name == area)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type, la_name == area) 
   }
   
   if (category == 'P') {
@@ -447,18 +447,18 @@ char_series_age <- function(char, sch_type, category, input) {
 Radio_Button_Ethnicity <- c("Major Ethnic Grouping", "Minor Ethnic Grouping")
 List_Of_Ethnicities <- c()
 
-char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, List_Of_Ethnicities) {
+char_series_ethn <- function(area, char, sch_type, category, Radio_Button_Ethnicity, List_Of_Ethnicities) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type, la_name == area)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='ethn') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) %>%
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, la_name == area) %>%
       mutate(characteristic_1 = dplyr::recode(characteristic_1,
                                               Ethnicity_Major_White_Total = 'White Total',               
                                               Ethnicity_Minor_White_British  = 'White British' ,            
@@ -684,16 +684,16 @@ reason_order_table <- c('4 and under',
 # reason_order_ethn_plot <- c()
 
 
-char_series_table <- function(char, sch_type, category, table_ethn_measure) {
+char_series_table <- function(area, char, sch_type, category, table_ethn_measure) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type, la_name == area)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type, la_name == area) 
   } else if (char =='ethn') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) %>%
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, la_name == area) %>%
       mutate(characteristic_1 = dplyr::recode(characteristic_1,
                                               Ethnicity_Major_White_Total = 'White Total',               
                                               Ethnicity_Minor_White_British  = 'White British' ,            
@@ -725,7 +725,7 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
       filter(ethnic_level %in% table_ethn_measure)
                                    
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type) %>%
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total'), school_type == sch_type, la_name == area) %>%
       mutate(characteristic_1 = dplyr::recode(characteristic_1,
                                               `Age 4 and under`="4 and under",
                                               `Age 5`= "5",

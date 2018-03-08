@@ -69,26 +69,8 @@ shinyUI(
                       sidebarLayout(sidebarPanel(
                         fluidRow(
                           column(4,
-                                 selectInput("char_cat",
-                                             label = "Select exclusion measure",
-                                             choices = list(
-                                               "Fixed period" = 'F',
-                                               "Permanent" = 'P',
-                                               "One or more fixed" = 'O'),
-                                             selected = 'P'),
-                                 
-                                 selectInput("char_sch",
-                                             label = "Select a school type",
-                                             choices = list(
-                                               "State-funded primary" = 'Primary',
-                                               "State-funded secondary" = 'Secondary',
-                                               "Special" = 'Special',
-                                               "Total" = 'Total'),
-                                             selected = 'Total')
-                          ),
-                          column(4,offset = 1,
                                  selectInput("char_char",
-                                             label = "Select pupil characteristic",
+                                             label = "1. Pick a pupil characteristic",
                                              choices = list(
                                                "SEN provision" = 'sen',
                                                "FSM eligibility" = 'fsm',
@@ -96,6 +78,32 @@ shinyUI(
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
                                              selected = 'gender'),
+                                 selectInput("char_area",
+                                             label = "3. Pick an area",
+                                             list("England" = "England",
+                                                  "Local Authority" = sort(unique((
+                                                    main_ud$la_name[!is.na(main_ud$la_name) &
+                                                                      main_ud$la_name != "."])))),
+                                             selected = "England")
+                
+                                 
+                          ),
+                          column(4,offset = 1,
+                                 selectInput("char_cat",
+                                             label = "2. Pick an exclusion measure",
+                                             choices = list(
+                                               "Fixed period" = 'F',
+                                               "Permanent" = 'P',
+                                               "One or more fixed" = 'O'),
+                                             selected = 'P'),
+                                 selectInput("char_sch",
+                                             label = "4. Pick a school type",
+                                             choices = list(
+                                               "State-funded primary" = 'Primary',
+                                               "State-funded secondary" = 'Secondary',
+                                               "Special" = 'Special',
+                                               "Total" = 'Total'),
+                                             selected = 'Total'),
                                  downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
                         ), width = 12),

@@ -47,9 +47,13 @@ reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = co
 
 # head(reason_ud)
 
-# characteristics UD
+# characteristics UD for national data
 
 char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
+
+# characteristics UD for LA data
+
+char_la_ud <- read_csv('data/SFR35_2017_LA_characteristics.csv', col_types = cols(.default = "c"))
 
 # school names data from get schools information full data
 
@@ -72,8 +76,7 @@ nat_summary <-
     fixed_excl,
     fixed_excl_rate,
     one_plus_fixed,
-    one_or_more_fixed_excl_rate
-  ) %>%
+    one_or_more_fixed_excl_rate) %>%
   arrange(year)
 
 
@@ -84,6 +87,24 @@ nat_char_prep <- filter(char_ud, ! characteristic_1 %in% c("SEN_provision_Unclas
     ifelse(school_type == "State-funded secondary","Secondary",
            ifelse(school_type == "Special", "Special", 
                   ifelse(school_type == "Total", "Total", "NA"))))) 
+
+nat_char_prep %>%
+  mutate(la_name =  "England")  -> nat_char_prep
+
+la_char_prep <- filter(char_la_ud, ! characteristic %in% c("SEN_provision_Unclassified","FSM_Unclassified","Age_unclassified")) %>%
+  mutate(school_type = ifelse(
+    school_type == "State-funded primary","Primary",
+    ifelse(school_type == "State-funded secondary","Secondary",
+           ifelse(school_type == "Special", "Special", 
+                  ifelse(school_type == "Total", "Total", "NA")))))
+
+la_char_prep %>%
+  select(-gor_name,
+         -gor_code,
+         -new_la_code,
+         -old_la_code) %>%
+  rename(country = country_name) -> la_char_prep 
+
 
 nat_char_prep$characteristic_1 <- recode(nat_char_prep$characteristic_1,
        Gender_male="Boys",
@@ -108,6 +129,57 @@ nat_char_prep$characteristic_1 <- recode(nat_char_prep$characteristic_1,
        Age_16 = "Age 16",                                                         
        Age_17 = "Age 17",                                                         
        Age_18 = "Age 18",                                                         
-       Age_19_and_over = "Age 19 and over"                                                 
+       Age_19_and_over = "Age 19 and over") 
 
+la_char_prep$characteristic_1 <- recode(la_char_prep$characteristic,
+                                      Gender_male="Boys",
+                                      Gender_female= "Girls",
+                                      SEN_Provision_No_SEN="No SEN",
+                                      SEN_provision_SEN_with_statement_EHC= "SEN with statement or EHC",
+                                      SEN_provision_SEN_without_statement="SEN without a statement or EHC",
+                                      FSM_Eligible="FSM eligible",
+                                      FSM_NotEligible="FSM not eligible",
+                                      Age_4_and_under = "Age 4 and under",                                              
+                                      Age_5 = "Age 5",                                                         
+                                      Age_6 = "Age 6",                                                         
+                                      Age_7 = "Age 7",                                                           
+                                      Age_8 = "Age 8",                                                           
+                                      Age_9 = "Age 9",   
+                                      Age_10 = "Age 10",                                                          
+                                      Age_11 = "Age 11",                                                           
+                                      Age_12 = "Age 12",                                                         
+                                      Age_13 = "Age 13",                                                         
+                                      Age_14 = "Age 14",                                                         
+                                      Age_15 = "Age 15",                                                         
+                                      Age_16 = "Age 16",                                                         
+                                      Age_17 = "Age 17",                                                         
+                                      Age_18 = "Age 18",                                                         
+                                      Age_19_and_over = "Age 19 and over"                                                 
+                                      
 )
+
+la_char_prep$characteristic <- NULL
+nat_char_prep$characteristic_2 <- NULL
+
+la_char_prep %>%
+  select(year, 
+         level, 
+         country_code, 
+         country, 
+         la_name, 
+         school_type, 
+         characteristic_desc, 
+         characteristic_1, 
+         headcount,           
+         perm_excl,           
+         perm_excl_rate,     
+         fixed_excl,          
+         fixed_excl_rate,     
+         one_plus_fixed,      
+         one_plus_fixed_rate,
+         la_name) -> la_char_prep
+
+nat_char_prep <- rbind(la_char_prep, nat_char_prep)
+
+
+
