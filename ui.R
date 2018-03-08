@@ -100,10 +100,10 @@ shinyUI(
                           )
                         ), width = 12),
                         mainPanel(
-                          tags$style(type="text/css",
-                                             ".shiny-output-error { visibility: hidden; }",
-                                             ".shiny-output-error:before { visibility: hidden; }"
-                        ),
+                        #   tags$style(type="text/css",
+                        #                      ".shiny-output-error { visibility: hidden; }",
+                        #                      ".shiny-output-error:before { visibility: hidden; }"
+                        # ),
                                   conditionalPanel(
                                     condition="input.char_char=='ethn'",
                                     radioButtons("table_ethn_measure", 
