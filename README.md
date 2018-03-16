@@ -1,4 +1,4 @@
-# Exclusion Statistics [![Build Status](https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master)](https://travis-ci.org/DFEAGILEDEVOPS/exclusion-statistics.svg?branch=master)
+# Exclusion Statistics [![Build Status](https://travis-ci.org/dfe-analytical-services/exclusion-statistics.svg?branch=master)](https://travis-ci.org/dfe-analytical-services/exclusion-statistics)
 
 ## Summary
 
@@ -12,7 +12,7 @@ To run the project on your machine you need to do the following:
 
 1. Clone the repo.
 
-`git clone https://github.com/DFEAGILEDEVOPS/exclusion-statistics.git`
+`git clone https://github.com/dfe-analytical-services/exclusion-statistics.git`
 
 2. Ensure that you have [Rtools](https://cran.r-project.org/bin/windows/Rtools/) installed. This is so that packrat can install dependencies correctly.
 
