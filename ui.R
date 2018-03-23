@@ -9,7 +9,9 @@ sourceDir <- function(path, trace = TRUE, ...) {
 sourceDir("R/")
 
 shinyUI(
-    navbarPage("Exclusion statistics", theme = "shiny.css",
+    navbarPage("Exclusion statistics", 
+               theme = "shiny.css", 
+               header=singleton(tags$head(includeScript('www/google-analytics.js'))),
                
                    # 1. Front page ----
                    
