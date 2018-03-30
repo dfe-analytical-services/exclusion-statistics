@@ -68,7 +68,7 @@ national_bars_num <- function(category) {
     theme_classic() +
     theme(axis.title.x = element_blank(),
           text=element_text(size=14)) +
-    geom_text(
+    geom_text_repel(
       data = data,
       aes(label = prettyNum(value, big.mark = ",")),
       colour="white",

@@ -85,7 +85,7 @@ la_plot_rate <- function(la, category) {
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) + 
       theme_classic() +
-      geom_text(
+      geom_text_repel(
         d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = school_type),
         size = 5,
@@ -129,7 +129,7 @@ la_plot_num <- function(la, category) {
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
-      geom_text(
+      geom_text_repel(
         d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = school_type),
         size = 5,
@@ -337,7 +337,7 @@ la_compare_plot <- function(la, category) {
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       theme_classic() +
-      geom_text(
+      geom_text_repel(
         d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = area),
         size = 5,

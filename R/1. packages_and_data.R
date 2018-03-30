@@ -21,6 +21,7 @@ library(DT)
 library(ggalt)
 library(magrittr)
 library(scales)
+library(ggrepel)
 
 
 # if(!('sparkline' %in% rownames(installed.packages()))) {
