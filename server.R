@@ -62,14 +62,14 @@ shinyServer(function(session, input, output) {
 
   # 2. Characteristics ----
   
-  output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
+  output$char_ts <- renderPlot({char_series(input$char_area, input$char_char, input$char_sch, input$char_cat)})
   
   
-  output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
+  output$char_ts_age <- renderPlot({char_series_age(input$char_area, input$char_char, input$char_sch, input$char_cat, input$line)})
   
-  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure, input$Check_Button_Ethn_Fac_2)})
+  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_area, input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure, input$Check_Button_Ethn_Fac_2)})
   
-  output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
+  output$char_ts_table <- renderDataTable({char_series_table(input$char_area, input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
                                           rownames = FALSE, 
                                           extensions = c('Buttons'),
                                           options = list(pageLength = 30,
@@ -87,7 +87,7 @@ shinyServer(function(session, input, output) {
   
   
   
-  output$bar_chart <- renderPlot({bar_chart_percentages(input$char_char, input$char_sch, input$char_cat)})
+  output$bar_chart <- renderPlot({bar_chart_percentages(input$char_area, input$char_char, input$char_sch, input$char_cat)})
   
   mydata <- ethnicity_data(nat_char_prep)
   
