@@ -8,6 +8,15 @@
 # 
 # sourceDir("R/")
 
+
+#Clear the environment
+rm(list = ls())
+
+#load libraries
+source("R/1. packages_and_data.R")
+source("R/code_needed_in_ui.R")
+source("R/school_tab.R")
+
 shinyUI(
     navbarPage("Exclusion statistics", 
                theme = "shiny.css", 
