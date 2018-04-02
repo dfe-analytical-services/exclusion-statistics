@@ -63,11 +63,19 @@ shinyServer(function(session, input, output) {
     dt              
   })
   
+  output$download_reason_for_exclusion <-  downloadHandler(
+    filename = function() {
+      paste(input$la_name_exclusion_select,"_exclusion_reason", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
+    }
+  )
+  
 #------------------------------------------------------------------- 
 #Characteristics
   
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
-  
   
   output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
   
@@ -183,17 +191,7 @@ shinyServer(function(session, input, output) {
   
   output$map <- renderLeaflet({excmap(input$select_map)})
   
-#-------------------------------------------------------------------     
-#Reason for exclusion
-  
-  output$download_reason_for_exclusion <-  downloadHandler(
-    filename = function() {
-      paste("area_exclusion_reason_data", ".csv", sep = "") 
-    },
-    content = function(file) {
-      write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
-    }
-  )
+
   
 #------------------------------------------------------------------- 
 #Methods

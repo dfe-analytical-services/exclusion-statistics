@@ -102,10 +102,10 @@ shinyUI(
                           )
                         ), width = 12),
                         mainPanel(
-                          #   tags$style(type="text/css",
-                          #                      ".shiny-output-error { visibility: hidden; }",
-                          #                      ".shiny-output-error:before { visibility: hidden; }"
-                          # ),
+                            tags$style(type="text/css",
+                                               ".shiny-output-error { visibility: hidden; }",
+                                               ".shiny-output-error:before { visibility: hidden; }"
+                          ),
                           conditionalPanel(
                             condition="input.char_char=='ethn'",
                             radioButtons("table_ethn_measure", 
@@ -151,11 +151,8 @@ shinyUI(
                                      br(),
                                      br(),
                                      plotOutput("char_ts_age")))),
-                          
-                          
                           conditionalPanel(
                             condition="input.char_char=='ethn'",
-                            
                             fluidRow(
                               column(3, 
                                      
@@ -173,7 +170,6 @@ shinyUI(
                           plotOutput("bar_chart", width = "95%", height = '220px'),
                           br(),
                           width =12)), 
-                      
                       hr()),
              
 #---------------------------------------------------------------------               
