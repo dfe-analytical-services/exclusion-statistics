@@ -165,7 +165,7 @@ shinyServer(function(session, input, output) {
       paste(input$select2, "_exclusion_data", ".csv", sep = "") 
     },
     content = function(file) {
-      write.csv(clean_la_data_download_tab_1(main_ud, input$select2) , file, row.names = FALSE)
+      write.csv(clean_la_data_download_tab_1(input$select2) , file, row.names = FALSE)
     }
   )
   
