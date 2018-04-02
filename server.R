@@ -5,7 +5,6 @@
 
 source("R/2. overview_tab.R")
 source("R/characteristics_tab.R")
-source("R/general.R")
 source("R/gov_colours.R")
 source("R/la_trends_tab.R")
 source("R/map_tab.R")
