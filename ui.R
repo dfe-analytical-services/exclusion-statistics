@@ -318,8 +318,6 @@ shinyUI(
                             )), width=12),
                         mainPanel(
                           htmlwidgets::getDependency('sparkline'),
-                          #sparklineOutput("test_spark"),
-                          
                           DT::dataTableOutput("tbl", width = "95%"),
                           width=12
                         )),
@@ -413,8 +411,6 @@ footer = HTML('<div><img src="Department_for_Education.png" alt="Logo", width="1
      <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
      <br>
      </br>')
-
-)
-  
+  )
 )
 

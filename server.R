@@ -16,7 +16,7 @@ source("R/school_tab.R")
 #Server
 
 shinyServer(function(session, input, output) {
-
+  
 #-------------------------------------------------------------------    
 #Front page
   
@@ -59,7 +59,7 @@ shinyServer(function(session, input, output) {
                                        drawCallback = staticRender_cb,
                                        pageLength = 12,
                                        dom = 't'
-                                       ))
+                        ))
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
     dt              
   })
@@ -161,7 +161,6 @@ shinyServer(function(session, input, output) {
   output$la_comparison_table <- renderTable({la_compare_table(input$select2, input$select_cat)},
                                             bordered = TRUE,spacing = 'm',align = 'c')
   
-  
   output$la_data_download_tab_1 <-  downloadHandler(
     filename = function() {
       paste(input$select2, "_exclusion_data", ".csv", sep = "") 
@@ -184,14 +183,14 @@ shinyServer(function(session, input, output) {
 #Map
   
   output$map <- renderLeaflet({excmap(input$select_map)})
-
+  
 #-------------------------------------------------------------------     
 #Reason for exclusion
   
   output$download_reason_for_exclusion <-  downloadHandler(
     filename = function() {
       paste("area_exclusion_reason_data", ".csv", sep = "") 
-      },
+    },
     content = function(file) {
       write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
     }
@@ -199,7 +198,7 @@ shinyServer(function(session, input, output) {
   
 #------------------------------------------------------------------- 
 #Methods
-
+  
   output$downloadData <- downloadHandler(
     filename = function() {
       paste(input$select2, ".csv", sep = "")
@@ -253,8 +252,6 @@ shinyServer(function(session, input, output) {
                  buttons = c('csv','copy'),
                  columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
   
-  
-  
   la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   
   updateSelectizeInput(
@@ -285,7 +282,6 @@ shinyServer(function(session, input, output) {
   
   session$onSessionEnded(function() { stopApp() })
   
-
 })
 
 
