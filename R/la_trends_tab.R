@@ -1,33 +1,37 @@
 # LA trends tab
 
+clean_la_data <- read_csv('data/clean_la_data.csv', col_types = cols(.default = "c"))
+
+comparison_la_data <- read_csv('data/comparison_la_data.csv', col_types = cols(.default = "c"))
+
 # Function to clean main_ud file ready for tab
 
-clean_la_data <- function(x) {
-  
-  dplyr::select(
-    filter(x, level == 'National' | level == 'Local authority' & school_type != 'dummy' & la_name != "."),
-    year,
-    level,
-    la_name,
-    school_type,
-    num_schools,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate) %>%
-    mutate(school_type = ifelse(
-      school_type == "state-funded primary","Primary",
-      ifelse(school_type == "state-funded secondary","Secondary",
-             ifelse(school_type == "special", "Special", 
-                    ifelse(school_type == "total", "Total", NA))))) %>%
-    mutate(la_name = ifelse(is.na(la_name), "England",
-                            ifelse(!is.na(la_name), la_name, NA))) %>%
-    filter(!is.na(school_type))
-  
-}
+# clean_la_data <- function(x) {
+#   
+#   dplyr::select(
+#     filter(x, level == 'National' | level == 'Local authority' & school_type != 'dummy' & la_name != "."),
+#     year,
+#     level,
+#     la_name,
+#     school_type,
+#     num_schools,
+#     headcount,
+#     perm_excl,
+#     perm_excl_rate,
+#     fixed_excl,
+#     fixed_excl_rate,
+#     one_plus_fixed,
+#     one_or_more_fixed_excl_rate) %>%
+#     mutate(school_type = ifelse(
+#       school_type == "state-funded primary","Primary",
+#       ifelse(school_type == "state-funded secondary","Secondary",
+#              ifelse(school_type == "special", "Special", 
+#                     ifelse(school_type == "total", "Total", NA))))) %>%
+#     mutate(la_name = ifelse(is.na(la_name), "England",
+#                             ifelse(!is.na(la_name), la_name, NA))) %>%
+#     filter(!is.na(school_type))
+#   
+# }
 
 clean_la_data_download_tab_1 <- function(x, select2) {
   
@@ -56,7 +60,7 @@ clean_la_data_download_tab_1 <- function(x, select2) {
 
 la_plot_rate <- function(la, category) {
   
-  d <- filter(clean_la_data(main_ud), la_name == la) 
+  d <- filter(clean_la_data, la_name == la) 
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
@@ -100,7 +104,7 @@ la_plot_rate <- function(la, category) {
 
 la_plot_num <- function(la, category) {
   
-  d <- filter(clean_la_data(main_ud), la_name == la) 
+  d <- filter(clean_la_data, la_name == la) 
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusions"
@@ -144,7 +148,7 @@ la_plot_num <- function(la, category) {
 
 la_table_num <- function(la, category) {
   
-  d <-  filter(clean_la_data(main_ud), la_name == la)
+  d <-  filter(clean_la_data, la_name == la)
   
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl)
@@ -175,7 +179,7 @@ la_table_num <- function(la, category) {
 
 la_table_rate <- function(la, category) {
   
-  d <- filter(clean_la_data(main_ud), la_name == la)
+  d <- filter(clean_la_data, la_name == la)
   
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl_rate)
@@ -207,7 +211,7 @@ la_table_rate <- function(la, category) {
 
 la_perm_num <- function(la, refyear) {
   
-  d <- filter(clean_la_data(main_ud),la_name == la, year == refyear)
+  d <- filter(clean_la_data,la_name == la, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl))
@@ -216,7 +220,7 @@ la_perm_num <- function(la, refyear) {
 
 la_fixed_num <- function(la, refyear) {
   
-  d <- filter(clean_la_data(main_ud), year == refyear,la_name == la)
+  d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl))
@@ -225,7 +229,7 @@ la_fixed_num <- function(la, refyear) {
 
 la_one_plus_num <- function(la, refyear) {
   
-  d <- filter(clean_la_data(main_ud), year == refyear,la_name == la)
+  d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_plus_fixed))
@@ -235,7 +239,7 @@ la_one_plus_num <- function(la, refyear) {
 
 la_perm_rate <- function(la, refyear) {
   
-  d <- filter(clean_la_data(main_ud), year == refyear,la_name == la)
+  d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl_rate))
@@ -244,7 +248,7 @@ la_perm_rate <- function(la, refyear) {
 
 la_fixed_rate <- function(la, refyear) {
   
-  d <- filter(clean_la_data(main_ud), year == refyear,la_name == la)
+  d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl_rate))
@@ -253,7 +257,7 @@ la_fixed_rate <- function(la, refyear) {
 
 la_one_plus_rate <- function(la, refyear) {
   
-  d <- filter(clean_la_data(main_ud), year == refyear,la_name == la)
+  d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_or_more_fixed_excl_rate))
@@ -263,22 +267,22 @@ la_one_plus_rate <- function(la, refyear) {
 
 # Preparing data for LA, region, national comparison
 
-comparison_la_data <- function(x) {
-  
-  dplyr::select(
-    filter(x, (level == 'National' | level == 'Region' | level == 'Local authority') & school_type == 'total'),
-    year,
-    school_type,
-    level,
-    region_name,
-    la_name,
-    perm_excl_rate,
-    fixed_excl_rate,
-    one_or_more_fixed_excl_rate) %>%
-  mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
-                          ifelse(is.na(la_name), region_name,la_name ))) 
-  
-}
+# comparison_la_data <- function(x) {
+#   
+#   dplyr::select(
+#     filter(x, (level == 'National' | level == 'Region' | level == 'Local authority') & school_type == 'total'),
+#     year,
+#     school_type,
+#     level,
+#     region_name,
+#     la_name,
+#     perm_excl_rate,
+#     fixed_excl_rate,
+#     one_or_more_fixed_excl_rate) %>%
+#   mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
+#                           ifelse(is.na(la_name), region_name,la_name ))) 
+#   
+# }
 
 # Preparing data for LA, region, national comparison downladd with all school types
 
@@ -306,9 +310,9 @@ comparison_la_data_download_prepare <- function(x) {
 
 la_compare_plot <- function(la, category) {
   
-  reg <- (filter(comparison_la_data(main_ud), la_name == la) %>% select(region_name))[1,]
+  reg <- (filter(comparison_la_data, la_name == la) %>% select(region_name))[1,]
   
-  d <- filter(comparison_la_data(main_ud), area %in% c(la, reg, 'England')) 
+  d <- filter(comparison_la_data, area %in% c(la, reg, 'England')) 
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
@@ -378,9 +382,9 @@ comparison_la_data_download_tab_2 <- function(x, la) {
 
 la_compare_table <- function(la, category) {
   
-  reg <- (filter(comparison_la_data(main_ud), la_name == la) %>% select(region_name))[1,]
+  reg <- (filter(comparison_la_data, la_name == la) %>% select(region_name))[1,]
   
-  d <- filter(comparison_la_data(main_ud), area %in% c(la, reg, 'England')) 
+  d <- filter(comparison_la_data, area %in% c(la, reg, 'England')) 
   
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl_rate)

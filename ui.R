@@ -1,12 +1,12 @@
-sourceDir <- function(path, trace = TRUE, ...) {
-  for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
-    if(trace) cat(nm,":")           
-    source(file.path(path, nm), ...)
-    if(trace) cat("\n")
-  }
-}
-
-sourceDir("R/")
+# sourceDir <- function(path, trace = TRUE, ...) {
+#   for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
+#     if(trace) cat(nm,":")
+#     source(file.path(path, nm), ...)
+#     if(trace) cat("\n")
+#   }
+# }
+# 
+# sourceDir("R/")
 
 shinyUI(
     navbarPage("Exclusion statistics", 
@@ -128,7 +128,7 @@ shinyUI(
                                       column(2, 
                                              checkboxGroupInput(inputId = "line",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = factor(reason_order_plot),
+                                                                choices = factor(age_order_plot),
                                                                 selected = c("Age 10","Age 14", "Total"))),
                                       column(8,
                                              br(),
@@ -427,5 +427,4 @@ shinyUI(
   )
   
 )
-
 

@@ -1,6 +1,10 @@
 # Characteristics tab
 
-reason_order_bar <- c('4 and under',
+nat_char_prep <- read_csv('data/nat_char_prep.csv', col_types = cols(.default = "c"))
+
+
+
+age_order_bar <- c('4 and under',
                       '5',
                       '6',
                       '7',
@@ -17,61 +21,61 @@ reason_order_bar <- c('4 and under',
                       '18',
                       '19 and over')
 
-reason_order_ethn_plot <- c(
-  
-  "Ethnicity_Major_White_Total"   ,             
-  "Ethnicity_Minor_White_British"         ,      
-  "Ethnicity_Minor_Irish"                ,      
-  "Ethnicity_Minor_Traveller_of_Irish_heritage" ,
-  "Ethnicity_Minor_Gypsy_Roma"                , 
-  "Ethnicity_Minor_Any_other_white_background" , 
-  "Ethnicity_Major_Mixed_Total"              ,  
-  "Ethnicity_Minor_White_and_Black_Caribbean"   ,
-  "Ethnicity_Minor_White_and_Black_African"   , 
-  "Ethnicity_Minor_White_and_Asian"          ,   
-  "Ethnicity_Minor_Any_other_Mixed_background" ,
-  "Ethnicity_Major_Asian_Total"           ,      
-  "Ethnicity_Minor_Indian"            ,         
-  "Ethnicity_Minor_Pakistani"         ,          
-  "Ethnicity_Minor_Bangladeshi"       ,         
-  "Ethnicity_Minor_Any_other_Asian_background" , 
-  "Ethnicity_Major_Black_Total"        ,        
-  "Ethnicity_Minor_Black_Caribbean"        ,     
-  "Ethnicity_Minor_Black_African"        ,      
-  "Ethnicity_Minor_Any_other_black_background"  ,
-  "Ethnicity_Minor_Chinese"             ,       
-  "Ethnicity_Minor_Any_Other_Ethnic_Group"  ,    
-  "Ethnicity_Minority_ethnic_pupil"      ,      
-  "Ethnicity_Unclassified" ,
-  "Total")
+# reason_order_ethn_plot <- c(
+#   
+#   "Ethnicity_Major_White_Total"   ,             
+#   "Ethnicity_Minor_White_British"         ,      
+#   "Ethnicity_Minor_Irish"                ,      
+#   "Ethnicity_Minor_Traveller_of_Irish_heritage" ,
+#   "Ethnicity_Minor_Gypsy_Roma"                , 
+#   "Ethnicity_Minor_Any_other_white_background" , 
+#   "Ethnicity_Major_Mixed_Total"              ,  
+#   "Ethnicity_Minor_White_and_Black_Caribbean"   ,
+#   "Ethnicity_Minor_White_and_Black_African"   , 
+#   "Ethnicity_Minor_White_and_Asian"          ,   
+#   "Ethnicity_Minor_Any_other_Mixed_background" ,
+#   "Ethnicity_Major_Asian_Total"           ,      
+#   "Ethnicity_Minor_Indian"            ,         
+#   "Ethnicity_Minor_Pakistani"         ,          
+#   "Ethnicity_Minor_Bangladeshi"       ,         
+#   "Ethnicity_Minor_Any_other_Asian_background" , 
+#   "Ethnicity_Major_Black_Total"        ,        
+#   "Ethnicity_Minor_Black_Caribbean"        ,     
+#   "Ethnicity_Minor_Black_African"        ,      
+#   "Ethnicity_Minor_Any_other_black_background"  ,
+#   "Ethnicity_Minor_Chinese"             ,       
+#   "Ethnicity_Minor_Any_Other_Ethnic_Group"  ,    
+#   "Ethnicity_Minority_ethnic_pupil"      ,      
+#   "Ethnicity_Unclassified" ,
+#   "Total")
 
-reason_order_ethn_plot_2 <- c(
-  'White Total',               
-  'White British' ,            
-  'White Irish',                
-  'Traveller of Irish Heritage',
-  'Gypsy Roma',                
-  'Any other White background',  
-  'Mixed Total',      
-  'White and Black Carribbean',
-  'White and Black African',  
-  'White and Asian',       
-  'Any other Mixed background',
-  'Asian Total',
-  'Indian',    
-  'Pakistani',         
-  'Bangladeshi',         
-  'Any other Asian background',  
-  'Black Total',   
-  'Black Caribbean',       
-  'Black African',   
-  'Any other Black background',  
-  'Chinese',
-  'Any other Ethnic group',  
-  'Minority Ethnic pupil',
-  'Unclassified',
-  'Total'
-)
+# reason_order_ethn_plot_2 <- c(
+#   'White Total',               
+#   'White British' ,            
+#   'White Irish',                
+#   'Traveller of Irish Heritage',
+#   'Gypsy Roma',                
+#   'Any other White background',  
+#   'Mixed Total',      
+#   'White and Black Carribbean',
+#   'White and Black African',  
+#   'White and Asian',       
+#   'Any other Mixed background',
+#   'Asian Total',
+#   'Indian',    
+#   'Pakistani',         
+#   'Bangladeshi',         
+#   'Any other Asian background',  
+#   'Black Total',   
+#   'Black Caribbean',       
+#   'Black African',   
+#   'Any other Black background',  
+#   'Chinese',
+#   'Any other Ethnic group',  
+#   'Minority Ethnic pupil',
+#   'Unclassified',
+#   'Total'
+# )
 
 button_ethnicity_group <- data.frame( measure = c('White Total',               
                                 'White British' ,            
@@ -263,7 +267,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
                `Age 17` = "17",
                `Age 18` = "18",
                `Age 19 and over`= "19 and over")) %>% 
-        mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_bar)) %>%
+        mutate(characteristic_1 = factor(characteristic_1, levels = age_order_bar)) %>%
         ggplot +
         aes(x = as.factor(characteristic_1), 
             y = as.numeric(y_var)) +
@@ -641,7 +645,7 @@ characteristics_data_download <- function(char) {
 
 
 
-reason_order_plot <- c(
+age_order_plot <- c(
   'Age 4 and under',
   'Age 5',
   'Age 6',
@@ -649,11 +653,11 @@ reason_order_plot <- c(
   'Age 8',
   'Age 9',
   'Age 10',
-  'Age 11',                                              
-  'Age 12',                                                         
-  'Age 13',                                                         
-  'Age 14',                                                           
-  'Age 15',                                                           
+  'Age 11',
+  'Age 12',
+  'Age 13',
+  'Age 14',
+  'Age 15',
   'Age 16',
   'Age 17',
   'Age 18',
@@ -662,7 +666,7 @@ reason_order_plot <- c(
 
 
 
-reason_order_table <- c('4 and under',
+age_order_table <- c('4 and under',
                       '5',
                       '6',
                       '7',
@@ -745,7 +749,7 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
                                               `Age 19 and over`= "19 and over",
                                               `Total` = "Total")) 
     
-    d$characteristic_1 <- factor(d$characteristic_1, levels = reason_order_table[1:17]) 
+    d$characteristic_1 <- factor(d$characteristic_1, levels = age_order_table[1:17]) 
   }
   
   if (category == 'P') {
@@ -805,85 +809,85 @@ char_prop <- function(char, sch_type, category){
 }
 
 
-## dumbell plot
-
-char_gaps <- function(char, sch_type, category){
-  
-  char_ud <- char_ud %>%
-    mutate(school_type = ifelse(
-      school_type == "State-funded primary","Primary",
-      ifelse(school_type == "State-funded secondary","Secondary",
-             ifelse(school_type == "Special", "Special", 
-                    ifelse(school_type == "Total", "Total", "NA"))))) 
-  
-  if(category=='P') {
-    measure <- 'perm_excl_rate'
-  } else if (category=='F') {
-    measure <- 'fixed_excl_rate'
-  } else if (category=='O') {
-    measure <- 'one_plus_fixed_rate'
-  }
-  
-  
-  if (char == 'gender') {
-    d <- char_ud %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type,characteristic_1 %in% c('Gender_male', 'Gender_female'))
-    data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
-      mutate(diff = as.numeric(Gender_male) - as.numeric(Gender_female))
-    data$char_no <- as.numeric(data$Gender_female)
-    data$char_yes <-as.numeric(data$Gender_male)
-    yes_label <- "Boys"
-    no_label <- "Girls"
-  } else if (char == 'sen') {
-    d <- char_ud %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type,characteristic_1 %in% c('SEN_provision_SEN_with_statement_EHC', 'SEN_Provision_No_SEN'))
-    data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
-      mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC) - as.numeric(SEN_Provision_No_SEN))
-    data$char_no <- as.numeric(data$SEN_Provision_No_SEN)
-    data$char_yes <-as.numeric(data$SEN_provision_SEN_with_statement_EHC)
-    yes_label <- "Statement/EHC"
-    no_label <- "No SEN"
-  } else if (char == 'fsm') {
-    d <- char_ud %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type,characteristic_1 %in% c('FSM_Eligible', 'FSM_NotEligible'))
-    data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
-      mutate(diff = as.numeric(FSM_Eligible) - as.numeric(FSM_NotEligible))
-    data$char_no <- as.numeric(data$FSM_NotEligible)
-    data$char_yes <-as.numeric(data$FSM_Eligible)
-    yes_label <- "FSM"
-    no_label <- "Not FSM"
-  }else if (char =='age') {
-    return(NULL)
-  }
-  
-  
-  max_year <- formatyr(max(data$year))
-  data$year <- factor(formatyr(data$year))
-  
-  return(ggplot() + 
-           geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$char_yes)*1.1), color="#b2b2b2", size=0.15) +
-           geom_dumbbell(data=data, aes(y=year, x=char_yes, xend=char_no),
-                         size=2, color="gray", size_x=3, size_xend=3,
-                         colour_x="steelblue4", colour_xend="steelblue2") + 
-           geom_text(data=filter(data, year==max_year),
-                     aes(x=char_yes, y=year, label=yes_label),
-                     color="steelblue4", size=5, vjust=-2, fontface="bold") + 
-           geom_text(data=filter(data, year==max_year),
-                     aes(x=char_no, y=year, label=no_label),
-                     color="steelblue2", size=5, vjust=-2, fontface="bold") + 
-           geom_text(data=data, aes(x=char_yes, y=year, label=char_yes),
-                     color="steelblue4", size=5, vjust=2.5) + 
-           geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
-                     aes(x=char_no, y=year, label=char_no)) + 
-           geom_text(data=data, aes(label=diff, y=year, x=max(c(data$char_no,data$char_yes))*1.1), color="#7a7d7e", size=5, vjust =2.5) +
-           geom_text(data=filter(data, year==max_year), aes(x=max(c(data$char_no,data$char_yes))*1.1, y=year, label="diff"),
-                     color="#7a7d7e", size=5, vjust=-2) + 
-           scale_x_continuous(expand=c(0,0), limits=c(min(c(data$char_no,data$char_yes))*0.6, max(c(data$char_no,data$char_yes))*1.2)) + 
-           labs(x=NULL, y=NULL) + 
-           theme_bw() + 
-           theme(panel.border=element_blank(),
-                 axis.ticks=element_blank(),
-                 axis.text.x=element_blank(),
-                 plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2,face="bold"),
-                 axis.text=element_text(size=12)) 
-  )
-  
-}
+# ## dumbell plot
+# 
+# char_gaps <- function(char, sch_type, category){
+#   
+#   char_ud <- char_ud %>%
+#     mutate(school_type = ifelse(
+#       school_type == "State-funded primary","Primary",
+#       ifelse(school_type == "State-funded secondary","Secondary",
+#              ifelse(school_type == "Special", "Special", 
+#                     ifelse(school_type == "Total", "Total", "NA"))))) 
+#   
+#   if(category=='P') {
+#     measure <- 'perm_excl_rate'
+#   } else if (category=='F') {
+#     measure <- 'fixed_excl_rate'
+#   } else if (category=='O') {
+#     measure <- 'one_plus_fixed_rate'
+#   }
+#   
+#   
+#   if (char == 'gender') {
+#     d <- char_ud %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type,characteristic_1 %in% c('Gender_male', 'Gender_female'))
+#     data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
+#       mutate(diff = as.numeric(Gender_male) - as.numeric(Gender_female))
+#     data$char_no <- as.numeric(data$Gender_female)
+#     data$char_yes <-as.numeric(data$Gender_male)
+#     yes_label <- "Boys"
+#     no_label <- "Girls"
+#   } else if (char == 'sen') {
+#     d <- char_ud %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type,characteristic_1 %in% c('SEN_provision_SEN_with_statement_EHC', 'SEN_Provision_No_SEN'))
+#     data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
+#       mutate(diff = as.numeric(SEN_provision_SEN_with_statement_EHC) - as.numeric(SEN_Provision_No_SEN))
+#     data$char_no <- as.numeric(data$SEN_Provision_No_SEN)
+#     data$char_yes <-as.numeric(data$SEN_provision_SEN_with_statement_EHC)
+#     yes_label <- "Statement/EHC"
+#     no_label <- "No SEN"
+#   } else if (char == 'fsm') {
+#     d <- char_ud %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type,characteristic_1 %in% c('FSM_Eligible', 'FSM_NotEligible'))
+#     data <- d %>% select(year, characteristic_1, measure) %>% spread(key = characteristic_1, value = measure) %>%
+#       mutate(diff = as.numeric(FSM_Eligible) - as.numeric(FSM_NotEligible))
+#     data$char_no <- as.numeric(data$FSM_NotEligible)
+#     data$char_yes <-as.numeric(data$FSM_Eligible)
+#     yes_label <- "FSM"
+#     no_label <- "Not FSM"
+#   }else if (char =='age') {
+#     return(NULL)
+#   }
+#   
+#   
+#   max_year <- formatyr(max(data$year))
+#   data$year <- factor(formatyr(data$year))
+#   
+#   return(ggplot() + 
+#            geom_segment(data=data, aes(y=year, yend=year, x=0, xend=max(data$char_yes)*1.1), color="#b2b2b2", size=0.15) +
+#            geom_dumbbell(data=data, aes(y=year, x=char_yes, xend=char_no),
+#                          size=2, color="gray", size_x=3, size_xend=3,
+#                          colour_x="steelblue4", colour_xend="steelblue2") + 
+#            geom_text(data=filter(data, year==max_year),
+#                      aes(x=char_yes, y=year, label=yes_label),
+#                      color="steelblue4", size=5, vjust=-2, fontface="bold") + 
+#            geom_text(data=filter(data, year==max_year),
+#                      aes(x=char_no, y=year, label=no_label),
+#                      color="steelblue2", size=5, vjust=-2, fontface="bold") + 
+#            geom_text(data=data, aes(x=char_yes, y=year, label=char_yes),
+#                      color="steelblue4", size=5, vjust=2.5) + 
+#            geom_text(data=data, color="steelblue2", size=5, vjust=2.5,
+#                      aes(x=char_no, y=year, label=char_no)) + 
+#            geom_text(data=data, aes(label=diff, y=year, x=max(c(data$char_no,data$char_yes))*1.1), color="#7a7d7e", size=5, vjust =2.5) +
+#            geom_text(data=filter(data, year==max_year), aes(x=max(c(data$char_no,data$char_yes))*1.1, y=year, label="diff"),
+#                      color="#7a7d7e", size=5, vjust=-2) + 
+#            scale_x_continuous(expand=c(0,0), limits=c(min(c(data$char_no,data$char_yes))*0.6, max(c(data$char_no,data$char_yes))*1.2)) + 
+#            labs(x=NULL, y=NULL) + 
+#            theme_bw() + 
+#            theme(panel.border=element_blank(),
+#                  axis.ticks=element_blank(),
+#                  axis.text.x=element_blank(),
+#                  plot.title=element_text(size=9, margin=margin(b=12),hjust=-0.2,face="bold"),
+#                  axis.text=element_text(size=12)) 
+#   )
+#   
+# }
 
