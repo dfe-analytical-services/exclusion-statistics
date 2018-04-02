@@ -13,7 +13,7 @@ source("R/reason_tab.R")
 source("R/school_tab.R")
 
 #---------------------------------------------------------------------
-#Server file
+#Server
 
 shinyServer(function(session, input, output) {
 
@@ -37,7 +37,7 @@ shinyServer(function(session, input, output) {
   })
   
 #------------------------------------------------------------------- 
-#Reason ----
+#Reason
   
   staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
   
@@ -85,13 +85,6 @@ shinyServer(function(session, input, output) {
                                                            "$(this.api().table().header()).css({'background-color': '#ffffff', 'color': '#000'});",
                                                            "}")))
   
-  # output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
-  # 
-  # output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
-  
-  
-  
-  
   output$bar_chart <- renderPlot({bar_chart_percentages(input$char_char, input$char_sch, input$char_cat)})
   
   mydata <- ethnicity_data(nat_char_prep)
@@ -102,8 +95,6 @@ shinyServer(function(session, input, output) {
     myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==input$table_ethn_measure]
     values$cb[myFactor2_list] <- myFactor2_list %in% input$Check_Button_Ethn_Fac_2
   })
-  
-  
   
   observe({
     factor1Choice<-input$table_ethn_measure
@@ -116,10 +107,7 @@ shinyServer(function(session, input, output) {
     
     mydata2<-mydata[mydata$ethnic_level==factor1Choice,]
     
-  #  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$myFactor2_list)})
-    
   })
-  
   
   output$download_characteristics_data <- downloadHandler(
     filename = function() {
@@ -294,6 +282,7 @@ shinyServer(function(session, input, output) {
   
 #------------------------------------------------------------------- 
 #stop app running when closed in browser
+  
   session$onSessionEnded(function() { stopApp() })
   
 
