@@ -31,3 +31,18 @@ reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = co
 # characteristics UD
 char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
+
+#---------------------------------------------------------------------
+#General functions - 
+
+# Change the year variable into xxxx/xx format
+
+formatyr <- function(refyear) {
+  
+  sub("(.{4})(.*)", "\\1/\\2", refyear)
+  
+}
+
+# example
+# formatyr(201213)
+# = 2012/13
