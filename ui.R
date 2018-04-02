@@ -1,12 +1,12 @@
-sourceDir <- function(path, trace = TRUE, ...) {
-  for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
-    if(trace) cat(nm,":")
-    source(file.path(path, nm), ...)
-    if(trace) cat("\n")
-  }
-}
-
-sourceDir("R/")
+# sourceDir <- function(path, trace = TRUE, ...) {
+#   for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
+#     if(trace) cat(nm,":")
+#     source(file.path(path, nm), ...)
+#     if(trace) cat("\n")
+#   }
+# }
+# 
+# sourceDir("R/")
 
 shinyUI(
     navbarPage("Exclusion statistics", 
@@ -113,7 +113,7 @@ shinyUI(
                                                  "Which measure of ethnicity?", 
                                                  c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
                                   ),
-                                  dataTableOutput("char_ts_table", width = "95%"),
+                                  DT::dataTableOutput("char_ts_table", width = "95%"),
                                   br(),
                                   br(),
                                   hr(),
@@ -352,7 +352,7 @@ shinyUI(
                           br(downloadButton("school_data_download", "Download the underlying data for the table below")),
                           width=12),
                         mainPanel(
-                          dataTableOutput("table_school_summary", width = "95%"),
+                          DT::dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
                       hr(),
