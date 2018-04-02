@@ -38,13 +38,13 @@ main_ud <- read_csv('data/SFR35_2017_national_region_la_school_data.csv', col_ty
 # load reason_ud file
 # includes la, region and national level for 2006/07 to 2015/16
 
-#reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = cols(.default = "c"))
+reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = cols(.default = "c"))
 
 # head(reason_ud)
 
 # characteristics UD
 
-#char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
+char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
 # school names data from get schools information full data
 
