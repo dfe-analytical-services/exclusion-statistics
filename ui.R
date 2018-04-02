@@ -62,13 +62,7 @@ shinyUI(
                           radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
                           plotOutput("f_bar", height ="8cm"),
                           width = 7)),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>')
-             ),
+                      hr()),
              
 #---------------------------------------------------------------------               
 #Pupil Characteristics
@@ -180,12 +174,7 @@ shinyUI(
                           br(),
                           width =12)), 
                       
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                  <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                  <br>
-                  </br>')),
+                      hr()),
              
 #---------------------------------------------------------------------               
 #LA Trends
@@ -252,15 +241,7 @@ shinyUI(
                      downloadButton("la_data_download_tab_2", "Download"),
                      br())))
                ),
-               hr(),
-               HTML(
-                 '<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                 <br>
-                 <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                 <br>
-                 </br>'
-               )
-             ), 
+               hr()), 
              
 #---------------------------------------------------------------------               
 #Map
@@ -297,13 +278,7 @@ shinyUI(
                             )
                         )
                       ),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                           <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')
-             ),
+                      hr()),
              
 #---------------------------------------------------------------------               
 #Reason for exclusion
@@ -348,12 +323,7 @@ shinyUI(
                           DT::dataTableOutput("tbl", width = "95%"),
                           width=12
                         )),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>')),
+                      hr()),
 
 #---------------------------------------------------------------------               
 #Schools Summary 
@@ -376,12 +346,7 @@ shinyUI(
                           DT::dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>')),
+                      hr()),
 
 #---------------------------------------------------------------------               
 #Data and methods
@@ -439,14 +404,17 @@ shinyUI(
                           "Pupils with one or more fixed period exclusion refers to pupil enrolments who
                     have at least one fixed period exclusion across the full academic year. It includes
                     those with repeated fixed period exclusions.", width = 9)),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>'))
-             
-  )
+                      hr()),
+
+#---------------------------------------------------------------------               
+#page footer
+footer = HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+     <br>
+     <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+     <br>
+     </br>')
+
+)
   
 )
 
