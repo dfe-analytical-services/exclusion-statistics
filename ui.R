@@ -14,7 +14,6 @@ rm(list = ls())
 
 #load libraries
 source("R/1. packages_and_data.R")
-source("R/code_needed_in_ui.R")
 source("R/school_tab.R")
 
 shinyUI(
@@ -137,7 +136,24 @@ shinyUI(
                                       column(2, 
                                              checkboxGroupInput(inputId = "line",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = factor(age_order_plot),
+                                                                choices = factor(c(
+                                                                  'Age 4 and under',
+                                                                  'Age 5',
+                                                                  'Age 6',
+                                                                  'Age 7',
+                                                                  'Age 8',
+                                                                  'Age 9',
+                                                                  'Age 10',
+                                                                  'Age 11',
+                                                                  'Age 12',
+                                                                  'Age 13',
+                                                                  'Age 14',
+                                                                  'Age 15',
+                                                                  'Age 16',
+                                                                  'Age 17',
+                                                                  'Age 18',
+                                                                  'Age 19 and over',
+                                                                  'Total')),
                                                                 selected = c("Age 10","Age 14", "Total"))),
                                       column(8,
                                              br(),
@@ -154,7 +170,7 @@ shinyUI(
                                              
                                              checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = List_Of_Ethnicities,
+                                                                choices = c(),
                                                                 selected = c("Total", "Mixed Total"))),
                                       column(9,
                                              br(),

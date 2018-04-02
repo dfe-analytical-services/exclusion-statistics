@@ -1,11 +1,7 @@
-
 #server.R
 
-#Load Required Packages 
-
-library(tidyverse)
-
-#Load in  code  
+#---------------------------------------------------------------------
+#Load required code  
 
 source("R/2. overview_tab.R")
 source("R/characteristics_tab.R")
@@ -16,12 +12,13 @@ source("R/map_tab.R")
 source("R/reason_tab.R")
 source("R/school_tab.R")
 
-
-##source("R/load_datasets.R")
+#---------------------------------------------------------------------
+#Server file
 
 shinyServer(function(session, input, output) {
-  
-  # 1. Front page ----
+
+#-------------------------------------------------------------------    
+#Front page
   
   output$p_bar <- renderPlot({
     if (input$bars_type == "number") {
@@ -39,10 +36,9 @@ shinyServer(function(session, input, output) {
     }
   })
   
-
-  # 2. Reason ----
+#------------------------------------------------------------------- 
+#Reason ----
   
-
   staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
   
   output$tbl <- DT::renderDataTable({
@@ -68,9 +64,8 @@ shinyServer(function(session, input, output) {
     dt              
   })
   
-
-
-  # 2. Characteristics ----
+#------------------------------------------------------------------- 
+#Characteristics
   
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
   
@@ -90,9 +85,9 @@ shinyServer(function(session, input, output) {
                                                            "$(this.api().table().header()).css({'background-color': '#ffffff', 'color': '#000'});",
                                                            "}")))
   
-  output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
-  
-  output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
+  # output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
+  # 
+  # output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
   
   
   
@@ -135,8 +130,8 @@ shinyServer(function(session, input, output) {
     }
   )
   
-  
-  # 3. LA trends ----
+#------------------------------------------------------------------- 
+#LA trends
   
   output$t1_chart <- renderPlot({
     if (input$plot_type == "number") {
@@ -197,11 +192,13 @@ shinyServer(function(session, input, output) {
     }
   )
   
-  # 4. Map ----
+#------------------------------------------------------------------- 
+#Map
   
   output$map <- renderLeaflet({excmap(input$select_map)})
-  
-  # 5. Reason for exclusion ----
+
+#-------------------------------------------------------------------     
+#Reason for exclusion
   
   output$download_reason_for_exclusion <-  downloadHandler(
     filename = function() {
@@ -211,7 +208,9 @@ shinyServer(function(session, input, output) {
       write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
     }
   )
-  # 6. Methods ----
+  
+#------------------------------------------------------------------- 
+#Methods
 
   output$downloadData <- downloadHandler(
     filename = function() {
@@ -249,7 +248,8 @@ shinyServer(function(session, input, output) {
     }
   ) 
   
-   # 6. School summary tab ----
+#------------------------------------------------------------------- 
+#School summary tab
   
   output$table_school_summary <- renderDataTable(
     
@@ -292,7 +292,8 @@ shinyServer(function(session, input, output) {
     }
   )
   
-  #stop app running when closed in browser
+#------------------------------------------------------------------- 
+#stop app running when closed in browser
   session$onSessionEnded(function() { stopApp() })
   
 

@@ -449,7 +449,7 @@ char_series_age <- function(char, sch_type, category, input) {
 
 
 Radio_Button_Ethnicity <- c("Major Ethnic Grouping", "Minor Ethnic Grouping")
-List_Of_Ethnicities <- c()
+# List_Of_Ethnicities <- c()
 
 char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, List_Of_Ethnicities) {
   
