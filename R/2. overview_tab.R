@@ -1,12 +1,19 @@
 # Overview tab
 
+#---------------------------------------------------------------------
+#data required
+
 nat_summary <- read_csv('data/nat_summary.csv', col_types = cols(.default = "c"))
 
 nat_summary_total <- filter(nat_summary, school_type == 'total')
-  
-# National bar charts (front page)
+
+#---------------------------------------------------------------------
+#National bar chart functions
+
+# rate
 
 national_bars_rate <- function(category) {
+  
   if (category == 'P') {
     data <- nat_summary_total %>%
       mutate(year = as.factor(year),
@@ -45,7 +52,10 @@ national_bars_rate <- function(category) {
 }
 
 
+# number 
+
 national_bars_num <- function(category) {
+  
   if (category == 'P') {
     data <- nat_summary_total %>%
       mutate(year = as.factor(year),

@@ -5,7 +5,6 @@
 
 source("R/2. overview_tab.R")
 source("R/characteristics_tab.R")
-source("R/general.R")
 source("R/gov_colours.R")
 source("R/la_trends_tab.R")
 source("R/map_tab.R")
@@ -13,10 +12,10 @@ source("R/reason_tab.R")
 source("R/school_tab.R")
 
 #---------------------------------------------------------------------
-#Server file
+#Server
 
 shinyServer(function(session, input, output) {
-
+  
 #-------------------------------------------------------------------    
 #Front page
   
@@ -37,7 +36,7 @@ shinyServer(function(session, input, output) {
   })
   
 #------------------------------------------------------------------- 
-#Reason ----
+#Reason
   
   staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
   
@@ -59,16 +58,24 @@ shinyServer(function(session, input, output) {
                                        drawCallback = staticRender_cb,
                                        pageLength = 12,
                                        dom = 't'
-                                       ))
+                        ))
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
     dt              
   })
+  
+  output$download_reason_for_exclusion <-  downloadHandler(
+    filename = function() {
+      paste(input$la_name_exclusion_select,"_exclusion_reason", ".csv", sep = "") 
+    },
+    content = function(file) {
+      write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
+    }
+  )
   
 #------------------------------------------------------------------- 
 #Characteristics
   
   output$char_ts <- renderPlot({char_series(input$char_char, input$char_sch, input$char_cat)})
-  
   
   output$char_ts_age <- renderPlot({char_series_age(input$char_char, input$char_sch, input$char_cat, input$line)})
   
@@ -85,13 +92,6 @@ shinyServer(function(session, input, output) {
                                                            "$(this.api().table().header()).css({'background-color': '#ffffff', 'color': '#000'});",
                                                            "}")))
   
-  # output$char_prop <- renderPlotly({char_prop(input$char_char, input$char_sch, input$char_cat)})
-  # 
-  # output$char_gaps <- renderPlot({char_gaps(input$char_char, input$char_sch, input$char_cat)})
-  
-  
-  
-  
   output$bar_chart <- renderPlot({bar_chart_percentages(input$char_char, input$char_sch, input$char_cat)})
   
   mydata <- ethnicity_data(nat_char_prep)
@@ -102,8 +102,6 @@ shinyServer(function(session, input, output) {
     myFactor2_list<-mydata$characteristic_1[mydata$ethnic_level==input$table_ethn_measure]
     values$cb[myFactor2_list] <- myFactor2_list %in% input$Check_Button_Ethn_Fac_2
   })
-  
-  
   
   observe({
     factor1Choice<-input$table_ethn_measure
@@ -116,10 +114,7 @@ shinyServer(function(session, input, output) {
     
     mydata2<-mydata[mydata$ethnic_level==factor1Choice,]
     
-  #  output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$myFactor2_list)})
-    
   })
-  
   
   output$download_characteristics_data <- downloadHandler(
     filename = function() {
@@ -173,13 +168,12 @@ shinyServer(function(session, input, output) {
   output$la_comparison_table <- renderTable({la_compare_table(input$select2, input$select_cat)},
                                             bordered = TRUE,spacing = 'm',align = 'c')
   
-  
   output$la_data_download_tab_1 <-  downloadHandler(
     filename = function() {
       paste(input$select2, "_exclusion_data", ".csv", sep = "") 
     },
     content = function(file) {
-      write.csv(clean_la_data_download_tab_1(main_ud, input$select2) , file, row.names = FALSE)
+      write.csv(clean_la_data_download_tab_1(input$select2) , file, row.names = FALSE)
     }
   )
   
@@ -196,22 +190,10 @@ shinyServer(function(session, input, output) {
 #Map
   
   output$map <- renderLeaflet({excmap(input$select_map)})
-
-#-------------------------------------------------------------------     
-#Reason for exclusion
-  
-  output$download_reason_for_exclusion <-  downloadHandler(
-    filename = function() {
-      paste("area_exclusion_reason_data", ".csv", sep = "") 
-      },
-    content = function(file) {
-      write.csv(exclusion_reason_table_download(input$la_name_exclusion_select), file, row.names = FALSE)
-    }
-  )
   
 #------------------------------------------------------------------- 
 #Methods
-
+  
   output$downloadData <- downloadHandler(
     filename = function() {
       paste(input$select2, ".csv", sep = "")
@@ -265,8 +247,6 @@ shinyServer(function(session, input, output) {
                  buttons = c('csv','copy'),
                  columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
   
-  
-  
   la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   
   updateSelectizeInput(
@@ -294,9 +274,9 @@ shinyServer(function(session, input, output) {
   
 #------------------------------------------------------------------- 
 #stop app running when closed in browser
+  
   session$onSessionEnded(function() { stopApp() })
   
-
 })
 
 

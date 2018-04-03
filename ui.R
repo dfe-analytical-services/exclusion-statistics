@@ -1,80 +1,72 @@
-# sourceDir <- function(path, trace = TRUE, ...) {
-#   for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
-#     if(trace) cat(nm,":")
-#     source(file.path(path, nm), ...)
-#     if(trace) cat("\n")
-#   }
-# }
-# 
-# sourceDir("R/")
+#ui.R
 
-
+#---------------------------------------------------------------------
 #Clear the environment
+
 rm(list = ls())
 
-#load libraries
+#---------------------------------------------------------------------
+#load required code and libraries
+
 source("R/1. packages_and_data.R")
 source("R/school_tab.R")
 
+#---------------------------------------------------------------------
+#ui
+
+
 shinyUI(
-    navbarPage("Exclusion statistics", 
-               theme = "shiny.css", 
-               header=singleton(tags$head(includeScript('www/google-analytics.js'))),
-               
-                   # 1. Front page ----
-                   
-                   tabPanel("Overview",
-                            sidebarLayout(
-                              sidebarPanel(verticalLayout(
-                                h3(strong("Exploring school exclusion statistics")),
-                                h4(strong("(Proof of concept)")),
-                                br("This tool is aimed at enabling users to further understand exclusions data and is currently under development."), 
-                                hr(),
-                                strong("Background"),
-                                br("The purpose of this dashboard is to provide insight to lower level breakdowns included within our National Statistics release. 
+  navbarPage("Exclusion statistics", 
+             theme = "shiny.css", 
+             header=singleton(tags$head(includeScript('www/google-analytics.js'))),
+             
+#---------------------------------------------------------------------               
+#Front page
+             tabPanel("Overview",
+                      sidebarLayout(
+                        sidebarPanel(verticalLayout(
+                          h3(strong("Exploring school exclusion statistics")),
+                          h4(strong("(Proof of concept)")),
+                          br("This tool is aimed at enabling users to further understand exclusions data and is currently under development."), 
+                          hr(),
+                          strong("Background"),
+                          br("The purpose of this dashboard is to provide insight to lower level breakdowns included within our National Statistics release. 
                                 It reports on permanent and fixed period exclusions from state-funded primary, state-funded secondary and special schools as 
                                 reported via the School Census."),
-                                br(strong("Latest National Statistics")),
-                                br("All of the data used within this dashboard, including additional breakdowns, has been published in the",
-                                  a("Permanent and fixed-period exclusions in England: 2015 to 2016", 
-                                    href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
-                                    target="_blank"), "National Statistics release's underlying data section and is also available for download via the data and methods tab."),
-                                br(strong("Guidance and methodology")),
-                                br("This dashboard shows breakdowns for the number and rate of permanent and fixed period exclusions as well as enrolments 
+                          br(strong("Latest National Statistics")),
+                          br("All of the data used within this dashboard, including additional breakdowns, has been published in the",
+                             a("Permanent and fixed-period exclusions in England: 2015 to 2016", 
+                               href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2015-to-2016",
+                               target="_blank"), "National Statistics release's underlying data section and is also available for download via the data and methods tab."),
+                          br(strong("Guidance and methodology")),
+                          br("This dashboard shows breakdowns for the number and rate of permanent and fixed period exclusions as well as enrolments 
                                    receiving one or more fixed period exclusion. Rates are calculated using the number of sole and dual registered pupils on roll as of 
                                    Spring Census day. Further info, including definitions, is available in the data and methods tab."),
-                                br(a("An exclusion statistics guide",
-                                     href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
-                                     target = "_blank"),"which provides historical information on exclusion statistics, technical background information to the figures 
+                          br(a("An exclusion statistics guide",
+                               href = "https://www.gov.uk/government/publications/exclusions-statistics-guide",
+                               target = "_blank"),"which provides historical information on exclusion statistics, technical background information to the figures 
                                 and data collection, and definitions of key terms should be referenced alongside this dashboard."), 
-                                br(strong("Definitons")),
-                                br("Key defintions relating to statistics used in this application can be found in the data and methods tab.")
-                              ), width = 5),
-                              mainPanel(
-                                br(),
-                                strong("Permanent exclusions, 2006/07 to 2015/16"), 
-                                br(),
-                                em("State-funded primary, secondary and special schools"),
-                                radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
-                                plotOutput("p_bar", height ="8cm"),
-                                hr(),
-                                strong("Fixed period exclusions, 2006/07 to 2015/16"), 
-                                br(),
-                                em("State-funded primary, secondary and special schools"),
-                                radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
-                                plotOutput("f_bar", height ="8cm"),
-                                width = 7)),
-                            hr(),
-                            HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>')
-             ),
+                          br(strong("Definitons")),
+                          br("Key defintions relating to statistics used in this application can be found in the data and methods tab.")
+                        ), width = 5),
+                        mainPanel(
+                          br(),
+                          strong("Permanent exclusions, 2006/07 to 2015/16"), 
+                          br(),
+                          em("State-funded primary, secondary and special schools"),
+                          radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
+                          plotOutput("p_bar", height ="8cm"),
+                          hr(),
+                          strong("Fixed period exclusions, 2006/07 to 2015/16"), 
+                          br(),
+                          em("State-funded primary, secondary and special schools"),
+                          radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
+                          plotOutput("f_bar", height ="8cm"),
+                          width = 7)),
+                      hr()),
              
-             
-             # 2. Pupil Characteristics ----
-             
+#---------------------------------------------------------------------               
+#Pupil Characteristics
              tabPanel("Pupil characteristics",
                       h4(strong("Exclusions by pupil characteristic")),
                       sidebarLayout(sidebarPanel(
@@ -111,88 +103,78 @@ shinyUI(
                           )
                         ), width = 12),
                         mainPanel(
-                        #   tags$style(type="text/css",
-                        #                      ".shiny-output-error { visibility: hidden; }",
-                        #                      ".shiny-output-error:before { visibility: hidden; }"
-                        # ),
-                                  conditionalPanel(
-                                    condition="input.char_char=='ethn'",
-                                    radioButtons("table_ethn_measure", 
-                                                 "Which measure of ethnicity?", 
-                                                 c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
-                                  ),
-                                  DT::dataTableOutput("char_ts_table", width = "95%"),
-                                  br(),
-                                  br(),
-                                  hr(),
-                                  conditionalPanel(
-                                    condition="input.char_char=='sen' | input.char_char=='fsm' | input.char_char=='gender'",
-                                    plotOutput("char_ts", width="80%")
-                                    
-                                  ),
-                                  conditionalPanel(
-                                    condition="input.char_char=='age'",
-                                    fluidRow (
-                                      column(2, 
-                                             checkboxGroupInput(inputId = "line",                                                                               
-                                                                label = h4("What would you like to plot?"),                                                                       
-                                                                choices = factor(c(
-                                                                  'Age 4 and under',
-                                                                  'Age 5',
-                                                                  'Age 6',
-                                                                  'Age 7',
-                                                                  'Age 8',
-                                                                  'Age 9',
-                                                                  'Age 10',
-                                                                  'Age 11',
-                                                                  'Age 12',
-                                                                  'Age 13',
-                                                                  'Age 14',
-                                                                  'Age 15',
-                                                                  'Age 16',
-                                                                  'Age 17',
-                                                                  'Age 18',
-                                                                  'Age 19 and over',
-                                                                  'Total')),
-                                                                selected = c("Age 10","Age 14", "Total"))),
-                                      column(8,
-                                             br(),
-                                             br(),
-                                             br(),
-                                             plotOutput("char_ts_age")))),
-                                  
-                                  
-                                  conditionalPanel(
-                                    condition="input.char_char=='ethn'",
-                                    
-                                    fluidRow(
-                                      column(3, 
-                                             
-                                             checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
-                                                                label = h4("What would you like to plot?"),                                                                       
-                                                                choices = c(),
-                                                                selected = c("Total", "Mixed Total"))),
-                                      column(9,
-                                             br(),
-                                             br(),
-                                             br(),
-                                             plotOutput("char_ts_ethn")))),
-                                  br(),
-                                  hr(),
-                                  plotOutput("bar_chart", width = "95%", height = '220px'),
-                                  br(),
-                                  width =12)), 
-                       
-             hr(),
-             HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                  <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                  <br>
-                  </br>')),
-
+                            tags$style(type="text/css",
+                                               ".shiny-output-error { visibility: hidden; }",
+                                               ".shiny-output-error:before { visibility: hidden; }"
+                          ),
+                          conditionalPanel(
+                            condition="input.char_char=='ethn'",
+                            radioButtons("table_ethn_measure", 
+                                         "Which measure of ethnicity?", 
+                                         c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
+                          ),
+                          DT::dataTableOutput("char_ts_table", width = "95%"),
+                          br(),
+                          br(),
+                          hr(),
+                          conditionalPanel(
+                            condition="input.char_char=='sen' | input.char_char=='fsm' | input.char_char=='gender'",
+                            plotOutput("char_ts", width="80%")
+                            
+                          ),
+                          conditionalPanel(
+                            condition="input.char_char=='age'",
+                            fluidRow (
+                              column(2, 
+                                     checkboxGroupInput(inputId = "line",                                                                               
+                                                        label = h4("What would you like to plot?"),                                                                       
+                                                        choices = factor(c(
+                                                          'Age 4 and under',
+                                                          'Age 5',
+                                                          'Age 6',
+                                                          'Age 7',
+                                                          'Age 8',
+                                                          'Age 9',
+                                                          'Age 10',
+                                                          'Age 11',
+                                                          'Age 12',
+                                                          'Age 13',
+                                                          'Age 14',
+                                                          'Age 15',
+                                                          'Age 16',
+                                                          'Age 17',
+                                                          'Age 18',
+                                                          'Age 19 and over',
+                                                          'Total')),
+                                                        selected = c("Age 10","Age 14", "Total"))),
+                              column(8,
+                                     br(),
+                                     br(),
+                                     br(),
+                                     plotOutput("char_ts_age")))),
+                          conditionalPanel(
+                            condition="input.char_char=='ethn'",
+                            fluidRow(
+                              column(3, 
+                                     
+                                     checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
+                                                        label = h4("What would you like to plot?"),                                                                       
+                                                        choices = c(),
+                                                        selected = c("Total", "Mixed Total"))),
+                              column(9,
+                                     br(),
+                                     br(),
+                                     br(),
+                                     plotOutput("char_ts_ethn")))),
+                          br(),
+                          hr(),
+                          plotOutput("bar_chart", width = "95%", height = '220px'),
+                          br(),
+                          width =12)), 
+                      hr()),
              
-             # 3. LA Trends ----
-             
+#---------------------------------------------------------------------               
+#LA Trends
              tabPanel(
                "Local Authority",
                sidebarLayout(
@@ -201,20 +183,20 @@ shinyUI(
                    hr(),
                    h5(strong("Pick an area")),
                    selectInput("select2",
-                     label = NULL,
-                     list("England" = "England",
-                          "Local Authority" = sort(unique((
-                            main_ud$la_name[!is.na(main_ud$la_name) &
-                                              main_ud$la_name != "."])))),
-                     selected = "England"
+                               label = NULL,
+                               list("England" = "England",
+                                    "Local Authority" = sort(unique((
+                                      main_ud$la_name[!is.na(main_ud$la_name) &
+                                                        main_ud$la_name != "."])))),
+                               selected = "England"
                    ),
                    h5(strong("Pick an exclusion category")),
                    selectInput("select_cat",
-                     label = NULL,
-                     choices = list("Fixed" = 'F',
-                                    "Permanent" = 'P',
-                                    "One plus" = 'O'),
-                     selected = 'F'
+                               label = NULL,
+                               choices = list("Fixed" = 'F',
+                                              "Permanent" = 'P',
+                                              "One plus" = 'O'),
+                               selected = 'F'
                    ),
                    hr(),
                    h5(strong(textOutput("la_title"))),
@@ -235,7 +217,7 @@ shinyUI(
                      'Trend',
                      fluidRow(column(9,br(),
                                      column(3,
-                                       radioButtons("plot_type", "Which measure?", c("rate", "number"), inline = TRUE)
+                                            radioButtons("plot_type", "Which measure?", c("rate", "number"), inline = TRUE)
                                      ))),
                      plotOutput("t1_chart", width = '23cm'),
                      br(),
@@ -256,18 +238,10 @@ shinyUI(
                      downloadButton("la_data_download_tab_2", "Download"),
                      br())))
                ),
-               hr(),
-               HTML(
-                 '<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                 <br>
-                 <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                 <br>
-                 </br>'
-               )
-             ), 
+               hr()), 
              
-             # 4. Map ----
-             
+#---------------------------------------------------------------------               
+#Map
              tabPanel("Map",
                       sidebarLayout(
                         sidebarPanel(
@@ -301,17 +275,10 @@ shinyUI(
                             )
                         )
                       ),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                           <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')
-                    ),
-
-            
-             #  # 5. Reason for exclusions ----
-            
+                      hr()),
+             
+#---------------------------------------------------------------------               
+#Reason for exclusion
              tabPanel("Reason for exclusion",
                       sidebarLayout(
                         sidebarPanel(
@@ -348,19 +315,13 @@ shinyUI(
                             )), width=12),
                         mainPanel(
                           htmlwidgets::getDependency('sparkline'),
-                          #sparklineOutput("test_spark"),
-
                           DT::dataTableOutput("tbl", width = "95%"),
                           width=12
                         )),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>')),
-             
-             # 6. Schools Summary 
+                      hr()),
+
+#---------------------------------------------------------------------               
+#Schools Summary 
              tabPanel("School level",
                       sidebarLayout(
                         sidebarPanel(
@@ -380,14 +341,10 @@ shinyUI(
                           DT::dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
-                      hr(),
-                      HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>')),
-             
-             # 7. Data and methods ----
+                      hr()),
+
+#---------------------------------------------------------------------               
+#Data and methods
              tabPanel("Data and methods",
                       h4(strong("Data sources")),
                       "This tool uses open data published alongside the 'Permanent and fixed-period exclusions in
@@ -442,14 +399,15 @@ shinyUI(
                           "Pupils with one or more fixed period exclusion refers to pupil enrolments who
                     have at least one fixed period exclusion across the full academic year. It includes
                     those with repeated fixed period exclusions.", width = 9)),
-                      hr(),
-               HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
-                    <br>
-                    <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                    <br>
-                    </br>'))
-             
+                      hr()),
+
+#---------------------------------------------------------------------               
+#page footer
+footer = HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+     <br>
+     <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+     <br>
+     </br>')
   )
-  
 )
 

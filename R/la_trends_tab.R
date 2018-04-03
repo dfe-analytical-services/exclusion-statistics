@@ -1,62 +1,14 @@
 # LA trends tab
 
+#---------------------------------------------------------------------
+#Read in required data
+
 clean_la_data <- read_csv('data/clean_la_data.csv', col_types = cols(.default = "c"))
 
 comparison_la_data <- read_csv('data/comparison_la_data.csv', col_types = cols(.default = "c"))
 
-# Function to clean main_ud file ready for tab
-
-# clean_la_data <- function(x) {
-#   
-#   dplyr::select(
-#     filter(x, level == 'National' | level == 'Local authority' & school_type != 'dummy' & la_name != "."),
-#     year,
-#     level,
-#     la_name,
-#     school_type,
-#     num_schools,
-#     headcount,
-#     perm_excl,
-#     perm_excl_rate,
-#     fixed_excl,
-#     fixed_excl_rate,
-#     one_plus_fixed,
-#     one_or_more_fixed_excl_rate) %>%
-#     mutate(school_type = ifelse(
-#       school_type == "state-funded primary","Primary",
-#       ifelse(school_type == "state-funded secondary","Secondary",
-#              ifelse(school_type == "special", "Special", 
-#                     ifelse(school_type == "total", "Total", NA))))) %>%
-#     mutate(la_name = ifelse(is.na(la_name), "England",
-#                             ifelse(!is.na(la_name), la_name, NA))) %>%
-#     filter(!is.na(school_type))
-#   
-# }
-
-clean_la_data_download_tab_1 <- function(x, select2) {
-  
-  dplyr::select(
-    filter(x, level == 'National' | level == 'Local authority' & school_type != 'dummy'),
-    year,
-    level,
-    la_name,
-    school_type,
-    num_schools,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate) %>%
-    mutate(la_name = ifelse(is.na(la_name), "England",
-                            ifelse(!is.na(la_name), la_name, NA))) %>%
-    filter(!is.na(school_type)) %>%
-    filter(la_name == select2)
-  
-}
-
-# La trend plot based on rate
+#---------------------------------------------------------------------
+#La trends plot based on rate
 
 la_plot_rate <- function(la, category) {
   
@@ -100,7 +52,8 @@ la_plot_rate <- function(la, category) {
             axis.title=element_text(size=14,face="bold")))
 }
 
-# la plot based on number
+#---------------------------------------------------------------------
+#la trends plot based on number
 
 la_plot_num <- function(la, category) {
   
@@ -144,7 +97,8 @@ la_plot_num <- function(la, category) {
             axis.title=element_text(size=14,face="bold")))
 }
 
-# LA time series table based on number
+#---------------------------------------------------------------------
+#LA time series table based on number
 
 la_table_num <- function(la, category) {
   
@@ -175,7 +129,8 @@ la_table_num <- function(la, category) {
   
 }
 
-# LA time series table based on rate
+#---------------------------------------------------------------------
+#LA time series table based on rate
 
 la_table_rate <- function(la, category) {
   
@@ -206,106 +161,61 @@ la_table_rate <- function(la, category) {
   
 }
 
-
+#---------------------------------------------------------------------
 # Numbers for LA summary text
 
 la_perm_num <- function(la, refyear) {
-  
+
   d <- filter(clean_la_data,la_name == la, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl))
-  
 }
 
 la_fixed_num <- function(la, refyear) {
-  
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl))
-  
 }
 
 la_one_plus_num <- function(la, refyear) {
-  
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_plus_fixed))
-  
 }
 
-
 la_perm_rate <- function(la, refyear) {
-  
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
-  
+
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl_rate))
-  
 }
 
 la_fixed_rate <- function(la, refyear) {
-  
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl_rate))
-  
 }
 
 la_one_plus_rate <- function(la, refyear) {
-  
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_or_more_fixed_excl_rate))
-  
 }
 
 
-# Preparing data for LA, region, national comparison
+#---------------------------------------------------------------------
+=======
 
-# comparison_la_data <- function(x) {
-#   
-#   dplyr::select(
-#     filter(x, (level == 'National' | level == 'Region' | level == 'Local authority') & school_type == 'total'),
-#     year,
-#     school_type,
-#     level,
-#     region_name,
-#     la_name,
-#     perm_excl_rate,
-#     fixed_excl_rate,
-#     one_or_more_fixed_excl_rate) %>%
-#   mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
-#                           ifelse(is.na(la_name), region_name,la_name ))) 
-#   
-# }
-
-# Preparing data for LA, region, national comparison downladd with all school types
-
-comparison_la_data_download_prepare <- function(x) {
-  
-  dplyr::select(
-    filter(x, (level == 'National' | level == 'Region' | level == 'Local authority')),
-    year,
-    school_type,
-    level,
-    region_name,
-    la_name,
-    headcount,
-    perm_excl,
-    perm_excl_rate,
-    fixed_excl,
-    fixed_excl_rate,
-    one_plus_fixed,
-    one_or_more_fixed_excl_rate) %>%
-    mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
-                         ifelse(is.na(la_name), region_name,la_name ))) 
-  
-}
 # LA, region, national comparison plot
 
 la_compare_plot <- function(la, category) {
@@ -352,33 +262,8 @@ la_compare_plot <- function(la, category) {
             axis.title=element_text(size=14,face="bold")))
 }
 
-# Download function for the la data comparison
-
-comparison_la_data_download_tab_2 <- function(x, la) {
-  
-  
-  reg <- (filter(comparison_la_data_download_prepare(x), la_name == la) %>% select(region_name))[1,]
-  
-  d <- filter(comparison_la_data_download_prepare(x), area %in% c(la, reg, 'England')) 
-  
-
-  download <- d %>% select(year, 
-                           level, 
-                           region_name, 
-                           la_name, 
-                           school_type,
-                           headcount,
-                           perm_excl,
-                           perm_excl_rate,
-                           fixed_excl,
-                           fixed_excl_rate,
-                           one_plus_fixed,
-                           one_or_more_fixed_excl_rate)
-  
-}
-
-
-# LA, region, national comparison table
+#---------------------------------------------------------------------
+#LA, region, national comparison table
 
 la_compare_table <- function(la, category) {
   
@@ -415,3 +300,56 @@ la_compare_table <- function(la, category) {
   
 }
 
+#---------------------------------------------------------------------
+#Download button data
+
+clean_la_data_download_tab_1 <- function(select2) {
+  
+  clean_la_data %>%
+    filter(la_name == select2)
+  
+}
+
+comparison_la_data_download_prepare <- function(x) {
+  
+  dplyr::select(
+    filter(x, (level == 'National' | level == 'Region' | level == 'Local authority')),
+    year,
+    school_type,
+    level,
+    region_name,
+    la_name,
+    headcount,
+    perm_excl,
+    perm_excl_rate,
+    fixed_excl,
+    fixed_excl_rate,
+    one_plus_fixed,
+    one_or_more_fixed_excl_rate) %>%
+    mutate(area = ifelse(is.na(la_name) & is.na(region_name), "England",
+                         ifelse(is.na(la_name), region_name,la_name ))) 
+  
+}
+
+# Download function for the la data comparison
+
+comparison_la_data_download_tab_2 <- function(x, la) {
+  
+  reg <- (filter(comparison_la_data_download_prepare(x), la_name == la) %>% select(region_name))[1,]
+  
+  d <- filter(comparison_la_data_download_prepare(x), area %in% c(la, reg, 'England')) 
+  
+  download <- d %>% select(year, 
+                           level, 
+                           region_name, 
+                           la_name, 
+                           school_type,
+                           headcount,
+                           perm_excl,
+                           perm_excl_rate,
+                           fixed_excl,
+                           fixed_excl_rate,
+                           one_plus_fixed,
+                           one_or_more_fixed_excl_rate)
+  
+}
