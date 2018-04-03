@@ -214,7 +214,6 @@ la_one_plus_rate <- function(la, refyear) {
 
 
 #---------------------------------------------------------------------
-=======
 
 # LA, region, national comparison plot
 
