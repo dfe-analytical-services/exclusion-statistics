@@ -1,12 +1,20 @@
-sourceDir <- function(path, trace = TRUE, ...) {
-  for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
-    if(trace) cat(nm,":")           
-    source(file.path(path, nm), ...)
-    if(trace) cat("\n")
-  }
-}
+# sourceDir <- function(path, trace = TRUE, ...) {
+#   for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
+#     if(trace) cat(nm,":")
+#     source(file.path(path, nm), ...)
+#     if(trace) cat("\n")
+#   }
+# }
+# 
+# sourceDir("R/")
 
-sourceDir("R/")
+
+#Clear the environment
+rm(list = ls())
+
+#load libraries
+source("R/1. packages_and_data.R")
+source("R/school_tab.R")
 
 shinyUI(
     navbarPage("Exclusion statistics", 
@@ -113,7 +121,7 @@ shinyUI(
                                                  "Which measure of ethnicity?", 
                                                  c("Major Ethnic Grouping", "Minor Ethnic Grouping"), inline = TRUE)
                                   ),
-                                  dataTableOutput("char_ts_table", width = "95%"),
+                                  DT::dataTableOutput("char_ts_table", width = "95%"),
                                   br(),
                                   br(),
                                   hr(),
@@ -128,7 +136,24 @@ shinyUI(
                                       column(2, 
                                              checkboxGroupInput(inputId = "line",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = factor(reason_order_plot),
+                                                                choices = factor(c(
+                                                                  'Age 4 and under',
+                                                                  'Age 5',
+                                                                  'Age 6',
+                                                                  'Age 7',
+                                                                  'Age 8',
+                                                                  'Age 9',
+                                                                  'Age 10',
+                                                                  'Age 11',
+                                                                  'Age 12',
+                                                                  'Age 13',
+                                                                  'Age 14',
+                                                                  'Age 15',
+                                                                  'Age 16',
+                                                                  'Age 17',
+                                                                  'Age 18',
+                                                                  'Age 19 and over',
+                                                                  'Total')),
                                                                 selected = c("Age 10","Age 14", "Total"))),
                                       column(8,
                                              br(),
@@ -145,7 +170,7 @@ shinyUI(
                                              
                                              checkboxGroupInput(inputId = "Check_Button_Ethn_Fac_2",                                                                               
                                                                 label = h4("What would you like to plot?"),                                                                       
-                                                                choices = List_Of_Ethnicities,
+                                                                choices = c(),
                                                                 selected = c("Total", "Mixed Total"))),
                                       column(9,
                                              br(),
@@ -352,7 +377,7 @@ shinyUI(
                           br(downloadButton("school_data_download", "Download the underlying data for the table below")),
                           width=12),
                         mainPanel(
-                          dataTableOutput("table_school_summary", width = "95%"),
+                          DT::dataTableOutput("table_school_summary", width = "95%"),
                           width=12
                         )),
                       hr(),
@@ -427,5 +452,4 @@ shinyUI(
   )
   
 )
-
 
