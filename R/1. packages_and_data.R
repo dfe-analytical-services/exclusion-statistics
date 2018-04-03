@@ -31,6 +31,9 @@ reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = co
 # characteristics UD
 char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
 
+# school names data from get schools information full data
+
+school_names_raw <- read_csv('data/get_schools_information.csv', col_types = cols(.default = "c"))
 
 #---------------------------------------------------------------------
 #General functions - 

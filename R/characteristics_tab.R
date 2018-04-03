@@ -214,6 +214,7 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
   data_wide <- char_sch %>% spread(key = year, value =  t_var)
   
   colnames(data_wide)[1] <- "Characteristic"
+
   
   return(data_wide)
   
@@ -448,6 +449,7 @@ ethnicity_data <- function(x){
 #---------------------------------------------------------------------
 #Bar chart distribution plot
 
+
 bar_chart_percentages <- function(char, sch_type, category) {
   
   if (char =='gender') {
@@ -460,6 +462,7 @@ bar_chart_percentages <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == "201516") %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
   } else if (char =='age') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
+
   }
   
   if (category == 'P') {
@@ -592,6 +595,4 @@ characteristics_data_download <- function(char) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'))
   }
 }
-
-
 

@@ -165,6 +165,7 @@ la_table_rate <- function(la, category) {
 # Numbers for LA summary text
 
 la_perm_num <- function(la, refyear) {
+
   d <- filter(clean_la_data,la_name == la, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
@@ -172,6 +173,7 @@ la_perm_num <- function(la, refyear) {
 }
 
 la_fixed_num <- function(la, refyear) {
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
@@ -179,6 +181,7 @@ la_fixed_num <- function(la, refyear) {
 }
 
 la_one_plus_num <- function(la, refyear) {
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
@@ -186,6 +189,7 @@ la_one_plus_num <- function(la, refyear) {
 }
 
 la_perm_rate <- function(la, refyear) {
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
 
   return(filter(d, school_type == 'Total') %>%
@@ -193,6 +197,7 @@ la_perm_rate <- function(la, refyear) {
 }
 
 la_fixed_rate <- function(la, refyear) {
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
@@ -200,13 +205,17 @@ la_fixed_rate <- function(la, refyear) {
 }
 
 la_one_plus_rate <- function(la, refyear) {
+
   d <- filter(clean_la_data, year == refyear,la_name == la)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_or_more_fixed_excl_rate))
 }
 
+
 #---------------------------------------------------------------------
+=======
+
 # LA, region, national comparison plot
 
 la_compare_plot <- function(la, category) {

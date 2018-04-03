@@ -14,6 +14,7 @@ source("R/school_tab.R")
 #---------------------------------------------------------------------
 #ui
 
+
 shinyUI(
   navbarPage("Exclusion statistics", 
              theme = "shiny.css", 

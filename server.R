@@ -191,8 +191,6 @@ shinyServer(function(session, input, output) {
   
   output$map <- renderLeaflet({excmap(input$select_map)})
   
-
-  
 #------------------------------------------------------------------- 
 #Methods
   
