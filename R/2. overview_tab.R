@@ -1,10 +1,21 @@
 # Overview tab
 
-# National bar charts (front page)
+#---------------------------------------------------------------------
+#data required
+
+nat_summary <- read_csv('data/nat_summary.csv', col_types = cols(.default = "c"))
+
+nat_summary_total <- filter(nat_summary, school_type == 'total')
+
+#---------------------------------------------------------------------
+#National bar chart functions
+
+# rate
 
 national_bars_rate <- function(category) {
+  
   if (category == 'P') {
-    data <- filter(nat_summary, school_type == 'total') %>%
+    data <- nat_summary_total %>%
       mutate(year = as.factor(year),
              value = as.numeric(perm_excl_rate))
     
@@ -15,7 +26,7 @@ national_bars_rate <- function(category) {
   }
   
   if (category == 'F') {
-    data <- filter(nat_summary, school_type == 'total') %>%
+    data <- nat_summary_total %>%
       mutate(year = as.factor(year),
              value = as.numeric(fixed_excl_rate))
     
@@ -41,9 +52,12 @@ national_bars_rate <- function(category) {
 }
 
 
+# number 
+
 national_bars_num <- function(category) {
+  
   if (category == 'P') {
-    data <- filter(nat_summary, school_type == 'total') %>%
+    data <- nat_summary_total %>%
       mutate(year = as.factor(year),
              value = as.numeric(perm_excl))
     
@@ -54,7 +68,7 @@ national_bars_num <- function(category) {
   }
   
   if (category == 'F') {
-    data <- filter(nat_summary, school_type == 'total') %>%
+    data <- nat_summary_total %>%
       mutate(year = as.factor(year),
              value = as.numeric(fixed_excl))
     

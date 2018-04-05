@@ -9,6 +9,7 @@
   ga('create', 'UA-116223405-1', 'auto');
   ga('send', 'pageview');
 
+
 //Track measure inputted on map tab 
   $(document).on('change', '#select_map', function(e) {
     ga('send', 'event', 'widget', 'measure selected in map tab', $(e.currentTarget).val());

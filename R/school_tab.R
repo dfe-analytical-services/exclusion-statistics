@@ -1,52 +1,12 @@
 # school tab 
 
-#school level info for a specific LA
+#---------------------------------------------------------------------
+#Read in data required
 
-la_sch_table <- function(la,refyear) {
-  
-  d <- filter(main_ud, level == "School",la_name == la) %>%
-    select(
-      year,
-      la_name,
-      laestab,
-      school_type,
-      headcount,
-      perm_excl,
-      perm_excl_rate,
-      fixed_excl,
-      fixed_excl_rate,
-      one_plus_fixed,
-      one_or_more_fixed_excl_rate
-    )
-  
-  return(d)
-}
+school_data_sql <- read_csv('data/school_data_sql.csv')
 
-
-#school level info for a specific LA
-
-la_sch_table <- function(la,refyear) {
-  
-  d <- filter(main_ud, level == "School",la_name == la) %>%
-    select(
-      year,
-      la_name,
-      laestab,
-      school_type,
-      headcount,
-      perm_excl,
-      perm_excl_rate,
-      fixed_excl,
-      fixed_excl_rate,
-      one_plus_fixed,
-      one_or_more_fixed_excl_rate
-    )
-  
-  return(d)
-}
-
-
-# School summary ----
+#---------------------------------------------------------------------
+# School summary
 
 school_summary_table <- filter(main_ud, level == "School", la_name != ".") %>% arrange(as.numeric(laestab)) %>%
   select(
@@ -63,18 +23,8 @@ school_summary_table <- filter(main_ud, level == "School", la_name != ".") %>% a
     one_or_more_fixed_excl_rate
   )
 
-#SELECT
-#* --everything
-#INTO #finalt
-#FROM 
-#(SELECT AcademicYear, LA, [LAEstab],[SchoolName] ,[URN] ,
-#  ROW_NUMBER() OVER (PARTITION BY 
-#                     [LAESTAB] ORDER BY [AcademicYear] DESC) as ROW_NUM
-#  FROM [PDR].[Tier1].[CensusSchools_MasterView]) AS Q
-#WHERE
-#ROW_NUM= 1
-
-school_data_sql <- read_csv('data/school_data_sql.csv')
+#---------------------------------------------------------------------
+# School summary
 
 school_data_sql %>%
   select(LA, LAEstab, SchoolName) %>%
@@ -86,14 +36,11 @@ all_schools_data <- left_join(school_summary_table, school_data_sql, by = "laest
 
 all_schools_data$SchoolName <- tolower(all_schools_data$SchoolName)
 
-# all_schools_data$SchoolName <- tools::toTitleCase(all_schools_data$SchoolName)
-
 all_schools_data$SchoolName <- gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", all_schools_data$SchoolName, perl=TRUE)
 
 all_schools_data %>%
   mutate(la_no_and_name = paste(LA, la_name, sep = " - "),
          laestab_school_name = paste(laestab, SchoolName, sep = " - ")) -> all_schools_data
-
 
 all_schools_data %>%
   mutate(la_no_and_name = paste(LA, la_name, sep = " - "),

@@ -1,43 +1,13 @@
 # Reason tab
 
-clean_la_exclusions_data <- function(x) {
-  
-  dplyr::select(
-    filter(x, level == 'National' | level == 'Local authority' & school_type != 'dummy'),
-    year,
-    la_name,
-    school_type,
-    perm_physical_pupils,
-    perm_physical_adult,
-    perm_verbal_pupil,          
-    perm_verbal_adult,
-    perm_bullying,
-    perm_racist_abuse,          
-    perm_sexual_misconduct,
-    perm_drug_alcohol,
-    perm_damage,                
-    perm_theft,
-    perm_persistent_disruptive,
-    perm_other,
-    fixed_physical_pupils,
-    fixed_physical_adult,
-    fixed_verbal_pupil,         
-    fixed_verbal_adult,
-    fixed_bullying,
-    fixed_racist_abuse,         
-    fixed_sexual_misconduct,
-    fixed_drug_alcohol,
-    fixed_damage,
-    fixed_theft,
-    fixed_persistent_disruptive,
-    fixed_other) %>%
-    mutate(la_name = ifelse(is.na(la_name), "England",
-                            ifelse(!is.na(la_name), la_name, NA))) %>%
-    filter(!is.na(school_type))
-  
-}
+#---------------------------------------------------------------------
+#Read in data required
 
-# set order for outputting reason info
+clean_la_exclusions_data <- read_csv('data/clean_la_exclusions_data.csv', col_types = cols(.default = "c"))
+
+#---------------------------------------------------------------------
+#Ordering for outputs
+
 reason_order <- c('Physical assault against a pupil',
                   'Physical assault against an adult',
                   'Verbal abuse / threatening behaviour against a pupil',
@@ -51,9 +21,12 @@ reason_order <- c('Physical assault against a pupil',
                   'Persistent disruptive behaviour',
                   'Other')
 
+#---------------------------------------------------------------------
+#Reason table function
+
 exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) {
   
-  data_long <- clean_la_exclusions_data(reason_ud) %>%
+  data_long <- clean_la_exclusions_data %>%
     gather(key = reason,
            value = exc,
            perm_physical_pupils:fixed_other) %>%
@@ -106,12 +79,14 @@ exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) 
   
 }
 
+#---------------------------------------------------------------------
+#Download data
+
 exclusion_reason_table_download <- function(la_name_exclusion_select) {
   
-  data_long <- clean_la_exclusions_data(reason_ud) %>%
+  clean_la_exclusions_data %>%
     filter(la_name == la_name_exclusion_select) %>%
     select(year, la_name, school_type, perm_physical_pupils:fixed_other)
-  
-  
+
 }
 
