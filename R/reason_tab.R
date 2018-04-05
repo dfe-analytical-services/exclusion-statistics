@@ -67,15 +67,21 @@ exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) 
   # force order of reason presentation
   data_long$reason <- factor(data_long$reason, levels = reason_order)
   
+  data_long$year <- sub("(.{4})(.*)", "\\1/\\2",  data_long$year)
+  
   # widen dataframe
   x <- data_long %>% 
     spread(key = year, value =  exc) %>% 
-    mutate(Trendline = as.factor(paste(`200607`,`200708`,`200809`,`200910`,`201011`, `201112`, `201213`, `201314`, `201415`, `201516`, sep=",")))
-  
+    rename(Reason = reason) %>%
+    mutate(Trendline = 0)
+    
+    for (i in 1:nrow(x)){
+    x[i, ncol(x)] <- (paste(x[i, 5:(ncol(x) - 1)], sep="", collapse = ","))
+}
   # Spaklines can't handle 'X' so force replace with 0.
   x$Trendline <- str_replace_all(x$Trendline, "x", "0")
   
-  return(x %>% arrange(reason))
+  return(x %>% arrange(Reason))
   
 }
 
