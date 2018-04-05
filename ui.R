@@ -16,6 +16,7 @@ source("R/school_tab.R")
 
 
 shinyUI(
+=======
   navbarPage("Exclusion statistics", 
              theme = "shiny.css", 
              header=singleton(tags$head(includeScript('www/google-analytics.js'))),
