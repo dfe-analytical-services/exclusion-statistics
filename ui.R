@@ -283,7 +283,7 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Exclusions by reason")),
-                          "Schools report exclusions broken down by reason",
+                          em("Schools report exclusions broken down by reason"),
                           fluidRow(
                             column(4,
                                    h5(strong("1. Pick an area")),
