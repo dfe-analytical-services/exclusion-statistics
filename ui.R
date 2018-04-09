@@ -105,7 +105,12 @@ shinyUI(
                         mainPanel(
                             tags$style(type="text/css",
                                                ".shiny-output-error { visibility: hidden; }",
-                                               ".shiny-output-error:before { visibility: hidden; }"
+                                               ".shiny-output-error:before { visibility: hidden; }",
+                            tags$head(tags$style(HTML("table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+                                  background-color: #ffffff !important;
+                                  } "))),
+                            tags$style(HTML(".dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,.dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            background-color: #ffffff !important; color: #ffffff !important;}"))
                           ),
                           conditionalPanel(
                             condition="input.char_char=='ethn'",
