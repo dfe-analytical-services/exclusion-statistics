@@ -44,23 +44,28 @@ shinyServer(function(session, input, output) {
     
     line_string <- "type: 'line', width: '220px', height: '40px', chartRangeMin: 0"
     
-    cd <- list(list(targets = 11, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
     
     cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", 
                    line_string, " });\n}"), collapse = "")
     
     staticRender_cb <- JS('function(){debugger;HTMLWidgets.staticRender();}') 
     
-    dt <- DT::datatable(as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type)[,4:15]),
+    df <- as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type))
+    
+    cd <- list(list(targets = ncol(df)-4, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
+    
+    dt <- DT::datatable(df[,4:ncol(df)],
                         rownames = FALSE, 
                         options = list(columnDefs = cd,
                                        fnDrawCallback = cb,
                                        drawCallback = staticRender_cb,
                                        pageLength = 12,
-                                       dom = 't'
-                        ))
+                                       dom = 't',
+                                       ordering = F
+                        )) %>%  formatStyle(names(df[,4:ncol(df)]), target = "row", backgroundColor = "#ffffff") 
+    
     dt$dependencies <- append(dt$dependencies, htmlwidgets:::getDependency("sparkline"))
-    dt              
+    dt             
   })
   
   output$download_reason_for_exclusion <-  downloadHandler(
@@ -81,16 +86,20 @@ shinyServer(function(session, input, output) {
   
   output$char_ts_ethn <- renderPlot({char_series_ethn(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure, input$Check_Button_Ethn_Fac_2)})
   
-  output$char_ts_table <- renderDataTable({char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)}, 
+  output$char_ts_table <- renderDataTable({
+    
+    dat <- datatable(char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure), 
                                           rownames = FALSE, 
                                           extensions = c('Buttons'),
                                           options = list(pageLength = 30,
                                                          dom = 't',
-                                                         buttons = c('csv','copy'),
-                                                         initComplete = JS(
-                                                           "function(settings, json) {",
-                                                           "$(this.api().table().header()).css({'background-color': '#ffffff', 'color': '#000'});",
-                                                           "}")))
+                                                         ordering = F,
+                                                         buttons = c('csv','copy'))) %>% 
+    formatStyle(names(char_series_table(input$char_char, input$char_sch, input$char_cat, input$table_ethn_measure)), target = "row", backgroundColor = "#ffffff")
+  
+    return(dat)
+  })
+  
   
   output$bar_chart <- renderPlot({bar_chart_percentages(input$char_char, input$char_sch, input$char_cat)})
   
@@ -233,19 +242,25 @@ shinyServer(function(session, input, output) {
 #------------------------------------------------------------------- 
 #School summary tab
   
-  output$table_school_summary <- renderDataTable(
+  output$table_school_summary <- renderDataTable({
     
     # Filter
     
-    all_schools_data %>%
+    dat <- datatable(all_schools_data %>%
       filter(
         la_no_and_name == input$la_name_rob,
         laestab_school_name == input$EstablishmentName_rob
       ), 
     extensions = c('Buttons'), 
+    rownames = FALSE,
     options=list(dom = 't',
                  buttons = c('csv','copy'),
-                 columnDefs = list(list(visible=FALSE, targets=c(2,3,12,13,14,15)))))
+                 ordering = F,
+                 columnDefs = list(list(visible=FALSE, targets=c(1,2,11,12,13,14))))) %>%
+      formatStyle(names(all_schools_data)[c(1,4,5,6,7,8,9,10,11)], target = "row", backgroundColor = "#ffffff")
+  
+  return(dat)
+  })
   
   la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
   
@@ -262,6 +277,8 @@ shinyServer(function(session, input, output) {
       choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
       server = TRUE)
   })
+  
+  
   
   output$school_data_download <-  downloadHandler(
     filename = function() {
