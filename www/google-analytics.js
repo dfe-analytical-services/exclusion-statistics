@@ -101,18 +101,8 @@ $(document).on('change', '#bars_type2 :radio', function(e) {
     ga('send', 'event', 'widget', 'map / exclusion measure', $(e.currentTarget).val());
   }); 
   
+
 // REASON FOR EXCLUSION TAB 
-
-
-
-
-
-
-
-
-
-
-
 
   //Track measure of area
   $(document).on('change', '#la_name_exclusion_select', function(e) {
@@ -152,6 +142,7 @@ $(document).on('change', '#bars_type2 :radio', function(e) {
     ga('send', 'event', 'widget', 'school tab / download data');
   });
   
+
 // DATA AND METHODS TAB
 
 // 1. Top Download Button for Main UD
@@ -168,5 +159,6 @@ $(document).on('change', '#bars_type2 :radio', function(e) {
   $(document).on('click', '#downloadnatchar_ud', function() {
     ga('send', 'event', 'widget', 'data and methods / characteristics underlying data');
   });   
+
 
 
