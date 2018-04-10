@@ -16,10 +16,10 @@
 
 $(document).on('change', '#bars_type :radio', function(e) {
   if(this.checked && this.value == 'rate'){
-      ga('send', 'event', 'widget', 'select plot type perm excl', $(e.currentTarget).val());
+      ga('send', 'event', 'widget', 'front page / select plot type rate perm excl', $(e.currentTarget).val());
     } 
   else if(this.checked && this.value == 'number'){
-      ga('send', 'event', 'widget', 'select plot type perm excl', $(e.currentTarget).val());
+      ga('send', 'event', 'widget', 'front page / select plot type num perm excl', $(e.currentTarget).val());
     }
   });
 
@@ -27,10 +27,10 @@ $(document).on('change', '#bars_type :radio', function(e) {
 
 $(document).on('change', '#bars_type2 :radio', function(e) {
   if(this.checked && this.value == 'rate'){
-      ga('send', 'event', 'widget', 'front page / select plot type perm excl', $(e.currentTarget).val());
+      ga('send', 'event', 'widget', 'front page / select plot type rate fixed excl', $(e.currentTarget).val());
     } 
   else if(this.checked && this.value == 'number'){
-      ga('send', 'event', 'widget', 'front page / select plot type perm excl', $(e.currentTarget).val());
+      ga('send', 'event', 'widget', 'front page / select plot type num fixed excl', $(e.currentTarget).val());
     }
   });
   
@@ -170,15 +170,3 @@ $(document).on('change', '#bars_type2 :radio', function(e) {
   });   
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-  
