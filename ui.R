@@ -64,7 +64,153 @@ shinyUI(
                           plotOutput("f_bar", height ="8cm"),
                           width = 7)),
                       hr()),
-             
+
+#---------------------------------------------------------------------               
+#LA Trends
+               tabPanel("Local Authority",
+                        sidebarLayout(
+                          sidebarPanel(
+                            h4(strong("Local Authority (LA) level exclusions")),
+                            hr(),
+                            h5(strong("Pick an area")),
+                            selectInput("select2",
+                                        label = NULL,
+                                        list("England" = "England",
+                                             "Local Authority" = sort(unique((
+                                               main_ud$la_name[!is.na(main_ud$la_name) &
+                                                                 main_ud$la_name != "."])))),
+                                        selected = "England"
+                            ),
+                            h5(strong("Pick an exclusion category")),
+                            selectInput("select_cat",
+                                        label = NULL,
+                                        choices = list("Fixed" = 'F',
+                                                       "Permanent" = 'P',
+                                                       "One plus" = 'O'),
+                                        selected = 'F'
+                            ),
+                            hr(),
+                            h5(strong(textOutput("la_title"))),
+                            textOutput("la_perm"),
+                            br(),
+                            textOutput("la_fixed"),
+                            br(),
+                            textOutput("la_one_plus"),
+                            hr(),
+                            h5(strong("Notes")),
+                            br(),
+                            br(),
+                            br(),
+                            br()
+                          ),
+                          mainPanel(tabsetPanel(
+                            tabPanel(
+                              'Trend',
+                              fluidRow(column(9,br(),
+                                              column(3,
+                                                     radioButtons("plot_type", "Which measure?", c("rate", "number"), inline = TRUE)
+                                              ))),
+                              plotOutput("t1_chart", width = '23cm'),
+                              br(),
+                              tableOutput("t1_table"),
+                              br(),
+                              downloadButton("la_data_download_tab_1", "Download"),
+                              br()),
+                            tabPanel(
+                              'Comparison to region and national',
+                              br(),
+                              strong("State-funded primary, secondary and special schools"),
+                              br(),
+                              br(),
+                              plotOutput("la_comparison_chart", width = '23cm'),
+                              br(),
+                              tableOutput("la_comparison_table"),
+                              br(),
+                              downloadButton("la_data_download_tab_2", "Download"),
+                              br())))
+                        ),
+                        hr()),   
+
+
+#---------------------------------------------------------------------               
+#Map
+                tabPanel("Map",
+                         sidebarLayout(
+                           sidebarPanel(
+                             h4(strong("Mapping exclusion rates")),
+                             em("State-funded primary, secondary and special schools, 2015/16"),
+                             br(),
+                             br(),
+                             h5(strong("Pick exclusion category")),
+                             selectInput(
+                               "select_map",
+                               label = NULL,
+                               choices = list("Permanent" = 'perm',
+                                              "Fixed period" = 'fixed'),
+                               selected = 'fixed'
+                             ),
+                             width = 3,
+                             hr(),
+                             h5(strong("Instructions")),
+                             "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
+                             br(),
+                             br(),
+                             "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate."
+                           ),
+                           mainPanel(
+                             leafletOutput("map", width = '25cm', height = '25cm') %>%
+                               #spinner to appear while chart is loading7
+                               withSpinner(
+                                 color = "blue",
+                                 type = 5,
+                                 size = getOption("spinner.size", default = 0.4)
+                               )
+                           )
+                         ),
+                         hr()),   
+#---------------------------------------------------------------------               
+#Reason for exclusion
+                  tabPanel("Reason for exclusion",
+                           sidebarLayout(
+                             sidebarPanel(
+                               h4(strong("Exclusions by reason")),
+                               em("Schools report exclusions broken down by reason"),
+                               fluidRow(
+                                 column(4,
+                                        h5(strong("1. Pick an area")),
+                                        selectInput("la_name_exclusion_select",
+                                                    label = NULL,
+                                                    list("England" = "England",
+                                                         "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
+                                                    selected = "England",
+                                                    width='80%'),
+                                        h5(strong("3. Pick an exclusion category")),
+                                        selectInput("exclusion_type",
+                                                    label = NULL,
+                                                    choices = list(
+                                                      "Fixed" = 'Fixed',
+                                                      "Permanent" = 'Permanent'),
+                                                    selected = 'Fixed', width='80%')),
+                                 column(4,offset = 1,
+                                        h5(strong("2. Pick a school type")),
+                                        selectInput("schtype",
+                                                    label = NULL,
+                                                    choices = list(
+                                                      "Primary" = 'State-funded primary',
+                                                      "Secondary" = 'State-funded secondary',
+                                                      "Special" = 'Special school',
+                                                      "All schools" = 'Total'),
+                                                    selected = 'Total', width='80%'),
+                                        br(),
+                                        downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
+                                 )), width=12),
+                             mainPanel(
+                               htmlwidgets::getDependency('sparkline'),
+                               DT::dataTableOutput("tbl", width = "95%"),
+                               width=12
+                             )),
+                           hr()),
+                                          
 #---------------------------------------------------------------------               
 #Pupil Characteristics
              tabPanel("Pupil characteristics",
@@ -177,153 +323,7 @@ shinyUI(
                           br(),
                           width =12)), 
                       hr()),
-             
-#---------------------------------------------------------------------               
-#LA Trends
-             tabPanel(
-               "Local Authority",
-               sidebarLayout(
-                 sidebarPanel(
-                   h4(strong("Local Authority (LA) level exclusions")),
-                   hr(),
-                   h5(strong("Pick an area")),
-                   selectInput("select2",
-                               label = NULL,
-                               list("England" = "England",
-                                    "Local Authority" = sort(unique((
-                                      main_ud$la_name[!is.na(main_ud$la_name) &
-                                                        main_ud$la_name != "."])))),
-                               selected = "England"
-                   ),
-                   h5(strong("Pick an exclusion category")),
-                   selectInput("select_cat",
-                               label = NULL,
-                               choices = list("Fixed" = 'F',
-                                              "Permanent" = 'P',
-                                              "One plus" = 'O'),
-                               selected = 'F'
-                   ),
-                   hr(),
-                   h5(strong(textOutput("la_title"))),
-                   textOutput("la_perm"),
-                   br(),
-                   textOutput("la_fixed"),
-                   br(),
-                   textOutput("la_one_plus"),
-                   hr(),
-                   h5(strong("Notes")),
-                   br(),
-                   br(),
-                   br(),
-                   br()
-                 ),
-                 mainPanel(tabsetPanel(
-                   tabPanel(
-                     'Trend',
-                     fluidRow(column(9,br(),
-                                     column(3,
-                                            radioButtons("plot_type", "Which measure?", c("rate", "number"), inline = TRUE)
-                                     ))),
-                     plotOutput("t1_chart", width = '23cm'),
-                     br(),
-                     tableOutput("t1_table"),
-                     br(),
-                     downloadButton("la_data_download_tab_1", "Download"),
-                     br()),
-                   tabPanel(
-                     'Comparison to region and national',
-                     br(),
-                     strong("State-funded primary, secondary and special schools"),
-                     br(),
-                     br(),
-                     plotOutput("la_comparison_chart", width = '23cm'),
-                     br(),
-                     tableOutput("la_comparison_table"),
-                     br(),
-                     downloadButton("la_data_download_tab_2", "Download"),
-                     br())))
-               ),
-               hr()), 
-             
-#---------------------------------------------------------------------               
-#Map
-             tabPanel("Map",
-                      sidebarLayout(
-                        sidebarPanel(
-                          h4(strong("Mapping exclusion rates")),
-                          em("State-funded primary, secondary and special schools, 2015/16"),
-                          br(),
-                          br(),
-                          h5(strong("Pick exclusion category")),
-                          selectInput(
-                            "select_map",
-                            label = NULL,
-                            choices = list("Permanent" = 'perm',
-                                           "Fixed period" = 'fixed'),
-                            selected = 'fixed'
-                          ),
-                          width = 3,
-                          hr(),
-                          h5(strong("Instructions")),
-                          "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
-                          br(),
-                          br(),
-                          "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate."
-                        ),
-                        mainPanel(
-                          leafletOutput("map", width = '25cm', height = '25cm') %>%
-                            #spinner to appear while chart is loading
-                            withSpinner(
-                              color = "blue",
-                              type = 5,
-                              size = getOption("spinner.size", default = 0.4)
-                            )
-                        )
-                      ),
-                      hr()),
-             
-#---------------------------------------------------------------------               
-#Reason for exclusion
-             tabPanel("Reason for exclusion",
-                      sidebarLayout(
-                        sidebarPanel(
-                          h4(strong("Exclusions by reason")),
-                          em("Schools report exclusions broken down by reason"),
-                          fluidRow(
-                            column(4,
-                                   h5(strong("1. Pick an area")),
-                                   selectInput("la_name_exclusion_select",
-                                               label = NULL,
-                                               list("England" = "England",
-                                                    "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
-                                               selected = "England",
-                                               width='80%'),
-                                   h5(strong("3. Pick an exclusion category")),
-                                   selectInput("exclusion_type",
-                                               label = NULL,
-                                               choices = list(
-                                                 "Fixed" = 'Fixed',
-                                                 "Permanent" = 'Permanent'),
-                                               selected = 'Fixed', width='80%')),
-                            column(4,offset = 1,
-                                   h5(strong("2. Pick a school type")),
-                                   selectInput("schtype",
-                                               label = NULL,
-                                               choices = list(
-                                                 "Primary" = 'State-funded primary',
-                                                 "Secondary" = 'State-funded secondary',
-                                                 "Special" = 'Special school',
-                                                 "All schools" = 'Total'),
-                                               selected = 'Total', width='80%'),
-                                   br(),
-                                   downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
-                            )), width=12),
-                        mainPanel(
-                          htmlwidgets::getDependency('sparkline'),
-                          DT::dataTableOutput("tbl", width = "95%"),
-                          width=12
-                        )),
-                      hr()),
+          
 
 #---------------------------------------------------------------------               
 #Schools Summary 
