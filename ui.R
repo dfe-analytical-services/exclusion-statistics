@@ -214,8 +214,9 @@ shinyUI(
 #---------------------------------------------------------------------               
 #Pupil Characteristics
              tabPanel("Pupil characteristics",
-                      h4(strong("Exclusions by pupil characteristic")),
-                      sidebarLayout(sidebarPanel(
+                      sidebarLayout(
+                        sidebarPanel(
+                          h4(strong("Exclusions by pupil characteristic")),
                         fluidRow(
                           column(4,
                                  selectInput("char_char",
@@ -226,7 +227,7 @@ shinyUI(
                                                "Gender" = 'gender',
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
-                                             selected = 'gender'),
+                                             selected = 'gender', width = '80%'),
                                  
                                  selectInput("char_sch",
                                              label = "3. Select a school type",
@@ -235,7 +236,7 @@ shinyUI(
                                                "State-funded secondary" = 'Secondary',
                                                "Special" = 'Special',
                                                "All schools" = 'Total'),
-                                             selected = 'Total')
+                                             selected = 'Total', width='80%')
                           ),
                           column(4,offset = 1,
                                  selectInput("char_cat",
@@ -244,10 +245,15 @@ shinyUI(
                                                "Fixed period exclusions" = 'F',
                                                "Permanent exclusions" = 'P',
                                                "One or more fixed period exclusion" = 'O'),
-                                             selected = 'F'),
+                                             selected = 'F', width='80%'),
                                  downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
-                        ), width = 12),
+                        ), 
+                        
+                        h5(strong("Guide to the below data")),
+                        textOutput("characteristics_text_explainer_server"),
+                        
+                        width = 12),
                         mainPanel(
                             tags$style(type="text/css",
                                                ".shiny-output-error { visibility: hidden; }",

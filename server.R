@@ -134,6 +134,9 @@ shinyServer(function(session, input, output) {
     }
   )
   
+  output$characteristics_text_explainer_server <- renderText({characteristics_text_explainer(input$char_char, input$char_sch, input$char_cat)})
+  
+  
 #------------------------------------------------------------------- 
 #LA trends
   
