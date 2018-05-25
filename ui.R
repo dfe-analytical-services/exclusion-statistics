@@ -72,7 +72,7 @@ shinyUI(
                           sidebarPanel(
                             h4(strong("Local Authority (LA) level exclusions")),
                             hr(),
-                            h5(strong("Pick an area")),
+                            h5(strong("1. Pick an area")),
                             selectInput("select2",
                                         label = NULL,
                                         list("England" = "England",
@@ -81,12 +81,12 @@ shinyUI(
                                                                  main_ud$la_name != "."])))),
                                         selected = "England"
                             ),
-                            h5(strong("Pick an exclusion category")),
+                            h5(strong("2. Pick an exclusion category")),
                             selectInput("select_cat",
                                         label = NULL,
-                                        choices = list("Fixed" = 'F',
-                                                       "Permanent" = 'P',
-                                                       "One plus" = 'O'),
+                                        choices = list("Fixed period exclusions" = 'F',
+                                                       "Permanent exclusions" = 'P',
+                                                       "One or more fixed period exclusion" = 'O'),
                                         selected = 'F'
                             ),
                             hr(),
@@ -145,8 +145,8 @@ shinyUI(
                              selectInput(
                                "select_map",
                                label = NULL,
-                               choices = list("Permanent" = 'perm',
-                                              "Fixed period" = 'fixed'),
+                               choices = list("Permanent exclusions" = 'perm',
+                                              "Fixed period exclusions" = 'fixed'),
                                selected = 'fixed'
                              ),
                              width = 3,
@@ -184,15 +184,7 @@ shinyUI(
                                                          "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
                                                     selected = "England",
                                                     width='80%'),
-                                        h5(strong("3. Pick an exclusion category")),
-                                        selectInput("exclusion_type",
-                                                    label = NULL,
-                                                    choices = list(
-                                                      "Fixed" = 'Fixed',
-                                                      "Permanent" = 'Permanent'),
-                                                    selected = 'Fixed', width='80%')),
-                                 column(4,offset = 1,
-                                        h5(strong("2. Pick a school type")),
+                                        h5(strong("3. Pick a school type")),
                                         selectInput("schtype",
                                                     label = NULL,
                                                     choices = list(
@@ -200,7 +192,15 @@ shinyUI(
                                                       "Secondary" = 'State-funded secondary',
                                                       "Special" = 'Special school',
                                                       "All schools" = 'Total'),
-                                                    selected = 'Total', width='80%'),
+                                                    selected = 'Total', width='80%')),
+                                 column(4,offset = 1,
+                                        h5(strong("2. Pick an exclusion category")),
+                                        selectInput("exclusion_type",
+                                                    label = NULL,
+                                                    choices = list(
+                                                      "Fixed period exclusions" = 'Fixed',
+                                                      "Permanent exclusions" = 'Permanent'),
+                                                    selected = 'Fixed', width='80%'),
                                         br(),
                                         downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
                                  )), width=12),
@@ -218,26 +218,8 @@ shinyUI(
                       sidebarLayout(sidebarPanel(
                         fluidRow(
                           column(4,
-                                 selectInput("char_cat",
-                                             label = "Select exclusion measure",
-                                             choices = list(
-                                               "Fixed period" = 'F',
-                                               "Permanent" = 'P',
-                                               "One or more fixed" = 'O'),
-                                             selected = 'P'),
-                                 
-                                 selectInput("char_sch",
-                                             label = "Select a school type",
-                                             choices = list(
-                                               "State-funded primary" = 'Primary',
-                                               "State-funded secondary" = 'Secondary',
-                                               "Special" = 'Special',
-                                               "Total" = 'Total'),
-                                             selected = 'Total')
-                          ),
-                          column(4,offset = 1,
                                  selectInput("char_char",
-                                             label = "Select pupil characteristic",
+                                             label = "1. Select pupil characteristic",
                                              choices = list(
                                                "SEN provision" = 'sen',
                                                "FSM eligibility" = 'fsm',
@@ -245,6 +227,24 @@ shinyUI(
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
                                              selected = 'gender'),
+                                 
+                                 selectInput("char_sch",
+                                             label = "3. Select a school type",
+                                             choices = list(
+                                               "State-funded primary" = 'Primary',
+                                               "State-funded secondary" = 'Secondary',
+                                               "Special" = 'Special',
+                                               "All schools" = 'Total'),
+                                             selected = 'Total')
+                          ),
+                          column(4,offset = 1,
+                                 selectInput("char_cat",
+                                             label = "2. Select exclusion category",
+                                             choices = list(
+                                               "Fixed period exclusions" = 'F',
+                                               "Permanent exclusions" = 'P',
+                                               "One or more fixed period exclusion" = 'O'),
+                                             selected = 'F'),
                                  downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
                         ), width = 12),
