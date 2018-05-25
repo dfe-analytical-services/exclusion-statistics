@@ -203,7 +203,11 @@ shinyUI(
                                                     selected = 'Fixed', width='80%'),
                                         br(),
                                         downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
-                                 )), width=12),
+                                 )), 
+                               
+                               h5(strong("Guide to the below data")),
+                               textOutput("reason_text_explainer_server"),
+                               width=12),
                              mainPanel(
                                htmlwidgets::getDependency('sparkline'),
                                DT::dataTableOutput("tbl", width = "95%"),
@@ -251,7 +255,7 @@ shinyUI(
                         ), 
                         
                         h5(strong("Guide to the below data")),
-                        textOutput("characteristics_text_explainer_server"),
+                        textOutput("characteristics_text_explainer_server"), 
                         
                         width = 12),
                         mainPanel(

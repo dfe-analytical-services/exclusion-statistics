@@ -77,6 +77,9 @@ shinyServer(function(session, input, output) {
     }
   )
   
+  
+  output$reason_text_explainer_server <- renderText({reason_text_explainer(input$schtype, input$exclusion_type, input$la_name_exclusion_select)})
+  
 #------------------------------------------------------------------- 
 #Characteristics
   
