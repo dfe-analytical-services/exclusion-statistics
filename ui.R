@@ -96,11 +96,6 @@ shinyUI(
                             textOutput("la_fixed"),
                             br(),
                             textOutput("la_one_plus"),
-                            hr(),
-                            h5(strong("Notes")),
-                            br(),
-                            br(),
-                            br(),
                             br()
                           ),
                           mainPanel(tabsetPanel(
@@ -204,8 +199,6 @@ shinyUI(
                                         br(),
                                         downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
                                  )), 
-                               
-                               h5(strong("Guide to the below data")),
                                textOutput("reason_text_explainer_server"),
                                width=12),
                              mainPanel(
@@ -221,6 +214,8 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Exclusions by pupil characteristic")),
+                          textOutput("characteristics_text_explainer_server"), 
+                          br(),
                         fluidRow(
                           column(4,
                                  selectInput("char_char",
@@ -253,10 +248,6 @@ shinyUI(
                                  downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
                         ), 
-                        
-                        h5(strong("Guide to the below data")),
-                        textOutput("characteristics_text_explainer_server"), 
-                        
                         width = 12),
                         mainPanel(
                             tags$style(type="text/css",
