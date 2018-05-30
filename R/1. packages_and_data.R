@@ -18,6 +18,7 @@ library(ggalt)
 library(magrittr)
 library(scales)
 library(sparkline)
+library(extrafont)
 
 #---------------------------------------------------------------------
 #Load the data required
