@@ -324,29 +324,29 @@ shinyUI(
                           width =12)), 
                       hr()),
           
-
-#---------------------------------------------------------------------               
-#Schools Summary 
-             tabPanel("School level",
-                      sidebarLayout(
-                        sidebarPanel(
-                          h4(strong("School level exclusions")),
-                          "The below table shows time series exclusion information for individual schools.",
-                          "First, select the Local Authority the school sits in and then select the school of interest.",
-                          br(),
-                          br(),
-                          selectInput("la_name_rob", label = "1. Select or type Local Authority name or 3 digit number" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),
-                          selectizeInput("EstablishmentName_rob", label = "2. Select or type school name or LA/ESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
-                          h5(strong("Note on suppresion")),
-                          "Values of 'x' represent a value of less than three or a rate based upon a value lower than three, these figures are supressed for data protection purposes.",
-                          br(),
-                          br(downloadButton("school_data_download", "Download the underlying data for the table below")),
-                          width=12),
-                        mainPanel(
-                          DT::dataTableOutput("table_school_summary", width = "95%"),
-                          width=12
-                        )),
-                      hr()),
+# 
+# #---------------------------------------------------------------------               
+# #Schools Summary 
+#              tabPanel("School level",
+#                       sidebarLayout(
+#                         sidebarPanel(
+#                           h4(strong("School level exclusions")),
+#                           "The below table shows time series exclusion information for individual schools.",
+#                           "First, select the Local Authority the school sits in and then select the school of interest.",
+#                           br(),
+#                           br(),
+#                           selectInput("la_name_rob", label = "1. Select or type Local Authority name or 3 digit number" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),
+#                           selectizeInput("EstablishmentName_rob", label = "2. Select or type school name or LA/ESTAB number", choices = NULL, options = list(placeholder = "Select school", maxOptions = 50000),  width='30%'),
+#                           h5(strong("Note on suppresion")),
+#                           "Values of 'x' represent a value of less than three or a rate based upon a value lower than three, these figures are supressed for data protection purposes.",
+#                           br(),
+#                           br(downloadButton("school_data_download", "Download the underlying data for the table below")),
+#                           width=12),
+#                         mainPanel(
+#                           DT::dataTableOutput("table_school_summary", width = "95%"),
+#                           width=12
+#                         )),
+#                       hr()),
 
 #---------------------------------------------------------------------               
 #Data and methods
