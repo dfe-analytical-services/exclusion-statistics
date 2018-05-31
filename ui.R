@@ -169,7 +169,7 @@ shinyUI(
                            sidebarLayout(
                              sidebarPanel(
                                h4(strong("Exclusions by reason")),
-                               em("Schools report exclusions broken down by reason"),
+                               em("The below table shows time series exclusion information by reason of school exclusion. First, select the area of inetrest, e.g. Darlington, pick an exclusion category and then pick a school type."),
                                fluidRow(
                                  column(4,
                                         h5(strong("1. Pick an area")),
@@ -199,7 +199,6 @@ shinyUI(
                                         br(),
                                         downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
                                  )), 
-                               textOutput("reason_text_explainer_server"),
                                width=12),
                              mainPanel(
                                htmlwidgets::getDependency('sparkline'),
@@ -214,7 +213,7 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Exclusions by pupil characteristic")),
-                          textOutput("characteristics_text_explainer_server"), 
+                          em(textOutput("characteristics_text_explainer_server")), 
                           br(),
                         fluidRow(
                           column(4,
@@ -332,8 +331,8 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("School level exclusions")),
-                          "The below table shows time series exclusion information for individual schools.",
-                          "First, select the Local Authority the school sits in and then select the school of interest.",
+                          em("The below table shows time series exclusion information for individual schools.",
+                          "First, select the Local Authority the school sits in and then select the school of interest."),
                           br(),
                           br(),
                           selectInput("la_name_rob", label = "1. Select or type Local Authority name or 3 digit number" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),

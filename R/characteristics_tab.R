@@ -633,24 +633,24 @@ characteristics_text_explainer <- function(char, sch_type, category) {
   } 
   if (category == 'P') {
     
-    return(paste("The below data refers to school exclusions statistics for pupils by their characteristics in England by school type and exclusion type. The below drop-down menus allow you to select the characteristic you're interested in, the type of school exclusion and school type. Selected below is", 
+    return(paste("The below data shows school exclusion information for pupils in England. First select the pupils characteristic, then the type of school exclusion of interest and finally the school type. Below shown is a time series table of data, time series line chart and the distribution of school exclusions in 2015/16 by characteristic as a bar chart.", 
  
                  
                 if (unique(d$characteristic_desc) == 'Gender') {
-                  paste(" the characteristic gender, showing a time series table of data and a graph of permanent exclusions by a pupils their gender, and below that a plot to represent the proportion of all permanent exclusions by gender in 2015/16.")
+                  paste("")
     
                                  
                  }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
-                   paste(" the characteristic special educational needs (SEN) provision status showing a time series table of data and a graph of permanent exclusion rates by SEN status, and below that a plot to represent the proportion of all permanent exclusions by SEN status in 2015/16.")
+                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
                  
                   } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
-                   paste(" the characteristic free school meal (FSM) eligibility of pupils, showing a time series table of data and a graph of permanent exclusions by FSM eligibility, and below that a plot to represent the proportion of all permanent exclusions by pupil FSM eligbility in 2015/16.")
+                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
 
                   } else if (unique(d$characteristic_desc) == 'Ethnicity') {
-                    paste(" the characteristic ethnicity of pupils, showing a time series table of data and a graph of permanent exclusions by pupils ethnicity, and below that a plot to represent the proportion of all permanent exclusions by pupil ethnicity in 2015/16. In the graphical plot, you can switch between major and minor ethncic groupings using the radio buttons provided.")
+                    paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
  
                   } else if (unique(d$characteristic_desc) == 'Age') {
-                    paste(" the age of pupils, showing a time series table of data and a graph of permanent exclusions by pupils age, and below that a plot to represent the proportion of all permanent exclusions by pupil age in 2015/16. In the time series graph, you can add or remove age groups using the radio buttons provided.")
+                    paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
                     
                   } else 
                    paste("")
@@ -660,23 +660,23 @@ characteristics_text_explainer <- function(char, sch_type, category) {
     
   } else if (category == 'F') {
     
-    return(paste("The below data refers to fixed period school exclusions data for pupils in England by their characteristics which can be changed by using the first drop-down menu. Below is data for a pupils", 
+    return(paste("The below data shows school exclusion information for pupils in England. First select the pupils characteristic, then the type of school exclusion of interest and finally the school type. Below shown is a time series table of data, time series line chart and the distribution of school exclusions in 2015/16 by characteristic as a bar chart.", 
                  
                  if (unique(d$characteristic_desc) == 'Gender') {
-                   paste(" gender of pupils. We show a time series table of data and a graph of fixed period exclusions by a pupils gender, and below that a plot to represent the proportion of all fixed period exclusions by gender in 2015/16.")
+                   paste("")
                    
                    
                  }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
-                   paste(" special educational needs (SEN) provision status. We show a time series table of data and a graph of fixed period exclusion rates by SEN status, and below that a plot to represent the proportion of all fixed period exclusions by SEN status in 2015/16.")
+                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
                    
                  } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
-                   paste(" free school meal (FSM) eligibility of pupils. We show a time series table of data and a graph of fixed period exclusions by FSM eligibility, and below that a plot to represent the proportion of all fixed period exclusions by pupil FSM eligbility in 2015/16.")
+                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
                    
                  } else if (unique(d$characteristic_desc) == 'Ethnicity') {
-                   paste(" ethnicity of pupils. We show a time series table of data and a graph of fixed period exclusions by pupils ethnicity, and below that a plot to represent the proportion of all fixed period exclusions by pupil ethnicity in 2015/16. In the graphical plot, you can switch between major and minor ethncic groupings using the radio buttons provided.")
+                   paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
                    
                  } else if (unique(d$characteristic_desc) == 'Age') {
-                   paste(" age of pupils. We show a time series table of data and a graph of fixed period exclusions by pupils age, and below that a plot to represent the proportion of all fixed period exclusions by pupil age in 2015/16. In the time series graph, you can add or remove age groups using the radio buttons provided.")
+                   paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
                    
                  } else 
                    paste("")
@@ -688,23 +688,23 @@ characteristics_text_explainer <- function(char, sch_type, category) {
   } else if (category == 'O') {
     
     
-    return(paste("The below data refers to one or more fixed period school exclusions data for pupils in England by their characteristics which can be changed by using the first drop-down menu. Below is data for a pupils'", 
+    return(paste("The below data shows school exclusion information for pupils in England. First select the pupils characteristic, then the type of school exclusion of interest and finally the school type. Below shown is a time series table of data, time series line chart and the distribution of school exclusions in 2015/16 by characteristic as a bar chart.", 
                  
                  if (unique(d$characteristic_desc) == 'Gender') {
-                   paste(" gender of pupils. We show a time series table of data and a graph of one or more fixed period exclusions by a pupils gender, and below that a plot to represent the proportion of all one or more fixed period exclusions by gender in 2015/16.")
+                   paste("")
                    
                    
                  }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
-                   paste(" special educational needs (SEN) provision status. We show a time series table of data and a graph of one or more fixed period exclusion rates by SEN status, and below that a plot to represent the proportion of all one or more fixed period exclusions by SEN status in 2015/16.")
+                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
                    
                  } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
-                   paste(" free school meal (FSM) eligibility of pupils. We show a time series table of data and a graph of one or more fixed period exclusions by FSM eligibility, and below that a plot to represent the proportion of all one or more fixed period exclusions by pupil FSM eligbility in 2015/16.")
+                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
                    
                  } else if (unique(d$characteristic_desc) == 'Ethnicity') {
-                   paste(" ethnicity of pupils. We show a time series table of data and a graph of one or more fixed period exclusions by pupils ethnicity, and below that a plot to represent the proportion of all one or more fixed period exclusions by pupil ethnicity in 2015/16. In the graphical plot, you can switch between major and minor ethncic groupings using the radio buttons provided.")
+                   paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
                    
                  } else if (unique(d$characteristic_desc) == 'Age') {
-                   paste(" age of pupils. We show a time series table of data and a graph of one or more fixed period exclusions by pupils age, and below that a plot to represent the proportion of all one or more fixed period exclusions by pupil age in 2015/16. In the time series graph, you can add or remove age groups using the radio buttons provided.")
+                   paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
                    
                  } else 
                    paste("")
