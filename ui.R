@@ -154,7 +154,7 @@ shinyUI(
                            ),
                            mainPanel(
                              leafletOutput("map", width = '25cm', height = '25cm') %>%
-                               #spinner to appear while chart is loading7
+                               #spinner to appear while chart is loading
                                withSpinner(
                                  color = "blue",
                                  type = 5,
