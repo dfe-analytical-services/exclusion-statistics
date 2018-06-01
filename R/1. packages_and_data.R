@@ -19,6 +19,7 @@ library(magrittr)
 library(scales)
 library(sparkline)
 library(extrafont)
+library(testit)
 
 #---------------------------------------------------------------------
 #Load the data required
@@ -64,7 +65,6 @@ change_ed <- function(numA, numB) {
 }
 
 
-library(testit)
 
 numeric_ifelse <- function(x) {
   
