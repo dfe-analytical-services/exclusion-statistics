@@ -19,7 +19,6 @@ library(magrittr)
 library(scales)
 library(sparkline)
 library(extrafont)
-library(testit)
 
 #---------------------------------------------------------------------
 #Load the data required
@@ -51,6 +50,19 @@ formatyr <- function(refyear) {
 # example
 # formatyr(201213)
 # = 2012/13
+
+has_warning <- function (expr) 
+{
+  warn = FALSE
+  op = options(warn = -1)
+  on.exit(options(op))
+  withCallingHandlers(expr, warning = function(w) {
+    warn <<- TRUE
+    invokeRestart("muffleWarning")
+  })
+  warn
+}
+
 
 change_ed <- function(numA, numB) {
   
