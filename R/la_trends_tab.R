@@ -186,7 +186,7 @@ la_perm_num_latest <- function(la) {
   d <- filter(clean_la_data,la_name == la) 
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -202,7 +202,7 @@ la_perm_num_previous <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
@@ -220,7 +220,7 @@ la_fixed_num_latest <- function(la) {
   d <- filter(clean_la_data,la_name == la) 
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -236,7 +236,7 @@ la_fixed_num_previous <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
@@ -252,7 +252,7 @@ la_one_plus_num_latest <- function(la) {
   d <- filter(clean_la_data,la_name == la) 
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -268,7 +268,7 @@ la_one_plus_num_previous <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year))) - 101
@@ -284,7 +284,7 @@ la_perm_rate_latest <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -300,7 +300,7 @@ la_perm_rate_previous <- function(la) {
   d <- filter(clean_la_data,la_name == la) 
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
@@ -316,7 +316,7 @@ la_fixed_rate_latest <- function(la) {
   d <- filter(clean_la_data,la_name == la) 
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -332,7 +332,7 @@ la_fixed_rate_previous <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
@@ -348,7 +348,7 @@ la_one_plus_rate_latest <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -364,7 +364,7 @@ la_one_plus_rate_previous <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   } 
   
   refyear <- max(unique(as.numeric(d$year))) -101
@@ -380,7 +380,7 @@ la_tab_year <- function(la) {
   d <- filter(clean_la_data,la_name == la)
   
   if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
-    d <- d %>% filter(year == c("200607", "200708"))
+    d <- d %>% filter(year != "200809")
   }
   refyear <- max(unique(as.numeric(d$year)))
   

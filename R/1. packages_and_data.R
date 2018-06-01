@@ -68,7 +68,7 @@ library(testit)
 numeric_ifelse <- function(x) {
   
   if(has_warning(as.numeric(x))) {
-    return(" not available as an expression per 10,000 pupils due to supression.")
+    return(" one or two pupils per 10,000 pupils, however this is not exact due to supression of small numbers.")
   } 
   
   if(!has_warning(as.numeric(x))) {
@@ -87,9 +87,9 @@ change_ed_x <- function(numA, numB) {
   
   if(is.na(numA) | is.na(numB)) {return ('is not available')}
     
-  if(numA < numB) {return ('increased')}
+  if(as.numeric(numA) < as.numeric(numB)) {return ('increased')}
   
-  if(numA > numB) {return ('decreased')}
+  if(as.numeric(numA) > as.numeric(numB)) {return ('decreased')}
   
   else {return('stayed the same')}
   
