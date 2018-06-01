@@ -49,3 +49,66 @@ formatyr <- function(refyear) {
 # example
 # formatyr(201213)
 # = 2012/13
+
+change_ed <- function(numA, numB) {
+  
+  if(numA == 'x' | numB == 'x') {return ('been suppressed')}
+  
+  if(numA < numB) {return ('increased')}
+  
+  if(numA > numB) {return ('decreased')}
+  
+  else {return('stayed the same')}
+  
+}
+
+
+library(testit)
+
+numeric_ifelse <- function(x) {
+  
+  if(has_warning(as.numeric(x))) {
+    return(" not available as an expression per 10,000 pupils due to supression.")
+  } 
+  
+  if(!has_warning(as.numeric(x))) {
+    return(paste(as.numeric(x)*100, " pupils per 10,000 pupils."))
+  } 
+  
+  else(
+    return(""))
+  
+}
+
+
+change_ed_x <- function(numA, numB) {
+  
+  if(has_warning(as.numeric(numA)) | has_warning(as.numeric(numB))) {return('has been supressed')}
+  
+  if(is.na(numA) | is.na(numB)) {return ('is not available')}
+    
+  if(numA < numB) {return ('increased')}
+  
+  if(numA > numB) {return ('decreased')}
+  
+  else {return('stayed the same')}
+  
+}
+
+
+
+numeric_supress <- function(x) {
+  
+  if(has_warning(as.numeric(x))) {
+    return(paste("has been supressed"))
+  } 
+  
+  if(!has_warning(as.numeric(x))) {
+    return(paste(as.numeric(x)))
+  } 
+  
+  else(
+    return(""))
+  
+}
+

@@ -20,17 +20,17 @@ la_plot_rate <- function(la, category) {
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
-    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = perm_excl_rate) 
   }
   
   if (category == 'F') {
     ylabtitle <- "Fixed period exclusion percentage"
-    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = fixed_excl_rate)  
   }
   
   if (category == 'O') {
     ylabtitle <- "One or more fixed period exclusion percentage"
-    d <- d %>% mutate(y_var = one_or_more_fixed_excl_rate) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = one_or_more_fixed_excl_rate) 
   }
   
   return(
@@ -70,17 +70,17 @@ la_plot_num <- function(la, category) {
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusions"
-    d <- d %>% mutate(y_var = perm_excl) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = perm_excl) 
   }
   
   if (category == 'F') {
     ylabtitle <- "Fixed period exclusions"
-    d <- d %>% mutate(y_var = fixed_excl) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = fixed_excl) 
   }
   
   if (category == 'O') {
     ylabtitle <- "Enrolments with one or more fixed period exclusion"
-    d <- d %>% mutate(y_var = one_plus_fixed) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = one_plus_fixed) 
   }
   
   return(
@@ -183,7 +183,11 @@ la_table_rate <- function(la, category) {
 
 la_perm_num_latest <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))
   
@@ -195,7 +199,11 @@ la_perm_num_latest <- function(la) {
 
 la_perm_num_previous <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
   
@@ -209,7 +217,11 @@ la_perm_num_previous <- function(la) {
 
 la_fixed_num_latest <- function(la) {
 
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))
   
@@ -221,7 +233,11 @@ la_fixed_num_latest <- function(la) {
 
 la_fixed_num_previous <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
   
@@ -233,7 +249,11 @@ la_fixed_num_previous <- function(la) {
 
 la_one_plus_num_latest <- function(la) {
 
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))
   
@@ -245,7 +265,11 @@ la_one_plus_num_latest <- function(la) {
 
 la_one_plus_num_previous <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year))) - 101
   
@@ -257,7 +281,11 @@ la_one_plus_num_previous <- function(la) {
 
 la_perm_rate_latest <- function(la) {
 
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))
   
@@ -269,7 +297,11 @@ la_perm_rate_latest <- function(la) {
 
 la_perm_rate_previous <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
   
@@ -281,7 +313,11 @@ la_perm_rate_previous <- function(la) {
 
 la_fixed_rate_latest <- function(la) {
 
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))
   
@@ -293,7 +329,11 @@ la_fixed_rate_latest <- function(la) {
 
 la_fixed_rate_previous <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))-101
   
@@ -305,7 +345,11 @@ la_fixed_rate_previous <- function(la) {
 
 la_one_plus_rate_latest <- function(la) {
 
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year)))
   
@@ -317,7 +361,11 @@ la_one_plus_rate_latest <- function(la) {
 
 la_one_plus_rate_previous <- function(la) {
   
-  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  d <- filter(clean_la_data,la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  } 
   
   refyear <- max(unique(as.numeric(d$year))) -101
   
@@ -331,8 +379,9 @@ la_tab_year <- function(la) {
   
   d <- filter(clean_la_data,la_name == la)
   
-  d <- d %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
-  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year == c("200607", "200708"))
+  }
   refyear <- max(unique(as.numeric(d$year)))
   
   return(refyear)
