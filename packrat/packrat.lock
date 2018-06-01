@@ -617,6 +617,11 @@ Source: CRAN
 Version: 0.8.2
 Hash: 469fb57fc3f9942867863b93493bf6cd
 
+Package: testit
+Source: CRAN
+Version: 0.7
+Hash: 7be93d8e9d5bccbb63581d8337373b07
+
 Package: testthat
 Source: CRAN
 Version: 1.0.2
