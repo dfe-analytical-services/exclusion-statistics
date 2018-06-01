@@ -14,6 +14,10 @@ la_plot_rate <- function(la, category) {
   
   d <- filter(clean_la_data, la_name == la) 
   
+  if(la=="Bedfordshire (Pre LGR 2009)" | la==" Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year != "200809")
+  } 
+  
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
     d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x') 
@@ -58,6 +62,11 @@ la_plot_rate <- function(la, category) {
 la_plot_num <- function(la, category) {
   
   d <- filter(clean_la_data, la_name == la) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la==" Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year != "200809")
+  } 
+  
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusions"
@@ -104,6 +113,10 @@ la_table_num <- function(la, category) {
   
   d <-  filter(clean_la_data, la_name == la)
   
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year != "200809")
+  } 
+  
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl)
   }
@@ -135,6 +148,10 @@ la_table_num <- function(la, category) {
 la_table_rate <- function(la, category) {
   
   d <- filter(clean_la_data, la_name == la)
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% filter(year != "200809")
+  } 
   
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl_rate)
@@ -223,6 +240,15 @@ la_compare_plot <- function(la, category) {
   
   d <- filter(comparison_la_data, area %in% c(la, reg, 'England')) 
   
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% mutate(perm_excl_rate = ifelse(year == "200809" & level == "Local authority", NA, perm_excl_rate)) %>%
+      mutate(fixed_excl_rate = ifelse(year == "200809" & level == "Local authority", NA,fixed_excl_rate)) %>%
+      mutate(one_or_more_fixed_excl_rate = ifelse(year == "200809" & level == "Local authority", NA, one_or_more_fixed_excl_rate))
+  } 
+  
+  
+  
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
     d <- d %>% mutate(y_var = perm_excl_rate) #%>% filter(y_var != 'x') 
@@ -269,6 +295,13 @@ la_compare_table <- function(la, category) {
   reg <- (filter(comparison_la_data, la_name == la) %>% select(region_name))[1,]
   
   d <- filter(comparison_la_data, area %in% c(la, reg, 'England')) 
+  
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
+    d <- d %>% mutate(perm_excl_rate = ifelse(year == "200809" & level == "Local authority", NA, perm_excl_rate)) %>%
+      mutate(fixed_excl_rate = ifelse(year == "200809" & level == "Local authority", NA,fixed_excl_rate)) %>%
+      mutate(one_or_more_fixed_excl_rate = ifelse(year == "200809" & level == "Local authority", NA, one_or_more_fixed_excl_rate))
+  } 
+  
   
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl_rate)
