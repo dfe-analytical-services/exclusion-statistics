@@ -631,11 +631,8 @@ characteristics_text_explainer <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
     
   } 
-  if (category == 'P') {
-    
-    return(paste("The below data shows school exclusion information for pupils in England. First select the pupils characteristic, then the type of school exclusion of interest and finally the school type. Below shown is a time series table of data, time series line chart and the distribution of school exclusions in 2015/16 by characteristic as a bar chart.", 
- 
-                 
+
+    return(paste(
                 if (unique(d$characteristic_desc) == 'Gender') {
                   paste("")
     
@@ -657,60 +654,5 @@ characteristics_text_explainer <- function(char, sch_type, category) {
                  
                  
     ))
-    
-  } else if (category == 'F') {
-    
-    return(paste("The below data shows school exclusion information for pupils in England. First select the pupils characteristic, then the type of school exclusion of interest and finally the school type. Below shown is a time series table of data, time series line chart and the distribution of school exclusions in 2015/16 by characteristic as a bar chart.", 
-                 
-                 if (unique(d$characteristic_desc) == 'Gender') {
-                   paste("")
-                   
-                   
-                 }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
-                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
-                   
-                 } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
-                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
-                   
-                 } else if (unique(d$characteristic_desc) == 'Ethnicity') {
-                   paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
-                   
-                 } else if (unique(d$characteristic_desc) == 'Age') {
-                   paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
-                   
-                 } else 
-                   paste("")
-                 
-                 
-    ))
-    
-    
-  } else if (category == 'O') {
-    
-    
-    return(paste("The below data shows school exclusion information for pupils in England. First select the pupils characteristic, then the type of school exclusion of interest and finally the school type. Below shown is a time series table of data, time series line chart and the distribution of school exclusions in 2015/16 by characteristic as a bar chart.", 
-                 
-                 if (unique(d$characteristic_desc) == 'Gender') {
-                   paste("")
-                   
-                   
-                 }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
-                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
-                   
-                 } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
-                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
-                   
-                 } else if (unique(d$characteristic_desc) == 'Ethnicity') {
-                   paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
-                   
-                 } else if (unique(d$characteristic_desc) == 'Age') {
-                   paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
-                   
-                 } else 
-                   paste("")
-                 
-    ))
-    
-  }
   
 }
