@@ -231,7 +231,11 @@ char_series <- function(char, sch_type, category) {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
   } else if (char =='fsm') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
-  }
+  } else if (char =='ethn') {
+    return("")
+  } else if (char =='age') {
+    return("")
+  } 
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
@@ -243,19 +247,18 @@ char_series <- function(char, sch_type, category) {
     ylabtitle <- "One or more fixed period exclusion percentage"
     d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
   }
-  
-  return(
+      return(
     d %>%
       ggplot +
       aes(x = as.factor(formatyr(year)), 
           y = as.numeric(y_var), 
           group = characteristic_1, colour = as.factor(characteristic_1)) +
+      scale_colour_manual(values = gov_cols_2) +
       geom_path(size = 1) +
-      scale_colour_manual(values = gov_cols_2[c(5,6,8,10)]) +
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
-      theme_gov() +
+      theme_classic() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
         aes(label = characteristic_1),
@@ -264,8 +267,10 @@ char_series <- function(char, sch_type, category) {
         vjust = -1) +
       theme(legend.position = "none") +
       theme(axis.text=element_text(size=12),
-            axis.title=element_text(size=14,face="bold")))
-}
+            axis.title=element_text(size=14,face="bold"),
+            text=element_text(family="Arial")))
+  
+} 
 
 #---------------------------------------------------------------------
 #Plot exclusion rates (shown for age only)
@@ -307,7 +312,8 @@ char_series_age <- function(char, sch_type, category, input) {
           vjust = -1)) +
         theme(legend.position = "none") +
         theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
+              axis.title=element_text(size=14,face="bold"),
+              text=element_text(family="Arial")))
 }
 
 #---------------------------------------------------------------------
@@ -368,8 +374,8 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
         aes(x = as.factor(formatyr(year)), 
             y = as.numeric(y_var), 
             group = characteristic_1, colour = characteristic_1) +
-        geom_path(size = 1) +
         scale_colour_manual(values = gov_cols_2) +
+        geom_path(size = 1) +
         xlab("Academic year") +
         ylab(ylabtitle) +
         scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
@@ -409,7 +415,8 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
               vjust = -1)) +
         theme(legend.position = "none") +
         theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold")))
+              axis.title=element_text(size=14,face="bold"),
+              text=element_text(family="Arial")))
 }
 
 ethnicity_data <- function(x){
@@ -495,15 +502,16 @@ bar_chart_percentages <- function(char, sch_type, category) {
                   size = 8) +
         theme(line = element_blank(), 
               rect = element_blank(), 
-              axis.text = element_blank(), 
-              axis.title = element_blank(), 
+              text = element_text(family = "Arial", 
+                                  face = "plain", colour = "black", size = 11, lineheight = 0.9, 
+                                  hjust = 0.5, vjust = 0.5, angle = 0, margin = margin(), 
+                                  debug = FALSE), axis.text = element_blank(), axis.title = element_blank(), 
               legend.text = element_text(size = rel(1.2)), 
-              strip.text = element_text(size = rel(0.8)), 
-              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE,
-              title = element_text(ylabtitle),
+              legend.title = element_text(hjust = 0), 
               legend.position = "bottom",
-              legend.title=element_blank(),
-              plot.title = element_text(size = 14, face = "bold", hjust = 0)) + 
+              plot.title = element_text(size = 14, face = "bold", hjust = 0),
+              strip.text = element_text(size = rel(0.8)), 
+              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE) + 
         ggtitle(ylabtitle)) } 
   
   
@@ -524,18 +532,21 @@ bar_chart_percentages <- function(char, sch_type, category) {
             y = as.numeric(y_var)) +
         geom_bar(stat = "identity", fill = "#2B8CC4") +
         scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
-        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
+        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = "")), position=position_dodge(width=0.9), vjust=-0.25) +
         theme(line = element_blank(), 
               rect = element_blank(), 
-              legend.text = element_blank(), 
-              strip.text = element_text(size = rel(0.8)), 
-              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE,
-              title = element_text(ylabtitle),
+              text = element_text(family = "Arial", 
+                                  face = "plain", colour = "black", size = 11, lineheight = 0.9, 
+                                  hjust = 0.5, vjust = 0.5, angle = 0, margin = margin(), 
+                                  debug = FALSE),
+              legend.text = element_text(size = rel(1.2)), 
+              legend.title = element_text(hjust = 0), 
               legend.position = "bottom",
-              legend.title=element_blank(),
-              plot.title = element_text(size = 14, face = "bold", hjust = 0)) + 
-        labs(x = "Age", y = "") +
-        ggtitle("Distribution of fixed period exclusions by major ethnic group, 2015/16")) }
+              plot.title = element_text(size = 14, face = "bold", hjust = 0),
+              strip.text = element_text(size = rel(0.8)), 
+              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE) + 
+        labs(x = "Major ethnic group", y = "") +
+        ggtitle(ylabtitle)) }
   
   else if (char =='age') {
     return (
@@ -564,16 +575,19 @@ bar_chart_percentages <- function(char, sch_type, category) {
             y = as.numeric(y_var)) +
         geom_bar(stat = "identity", fill = "#2B8CC4") +
         scale_y_continuous(limits = c(0,max(d$y_var)+0.1)) +
-        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = ""), nsmall = 1), position=position_dodge(width=0.9), vjust=-0.25) +
+        geom_text(aes(label=paste(format(round(y_var*100, 1)), "%", sep = "")), position=position_dodge(width=0.9), vjust=-0.25) +
         theme(line = element_blank(), 
               rect = element_blank(), 
-              legend.text = element_blank(), 
-              strip.text = element_text(size = rel(0.8)), 
-              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE,
-              title = element_text(ylabtitle),
+              text = element_text(family = "Arial", 
+                                  face = "plain", colour = "black", size = 11, lineheight = 0.9, 
+                                  hjust = 0.5, vjust = 0.5, angle = 0, margin = margin(), 
+                                  debug = FALSE),
+              legend.text = element_text(size = rel(1.2)), 
+              legend.title = element_text(hjust = 0), 
               legend.position = "bottom",
-              legend.title=element_blank(),
-              plot.title = element_text(size = 14, face = "bold", hjust = 0)) + 
+              plot.title = element_text(size = 14, face = "bold", hjust = 0),
+              strip.text = element_text(size = rel(0.8)), 
+              plot.margin = unit(c(0, 0, 0, 0), "lines"), complete = TRUE) + 
         labs(x = "Age", y = "") +
         ggtitle(ylabtitle)) 
   }
@@ -596,3 +610,49 @@ characteristics_data_download <- function(char) {
   }
 }
 
+#---------------------------------------------------------------------
+#Text to explain how the tab is working
+
+characteristics_text_explainer <- function(char, sch_type, category) {
+  
+  if (char =='gender') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == "201516")
+    
+  } else if (char =='sen') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == "201516") 
+    
+  } else if (char =='fsm') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == "201516") 
+    
+  } else if (char =='ethn') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == "201516") %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
+    
+  } else if (char =='age') {
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
+    
+  } 
+
+    return(paste(
+                if (unique(d$characteristic_desc) == 'Gender') {
+                  paste("")
+    
+                                 
+                 }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
+                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
+                 
+                  } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
+                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
+
+                  } else if (unique(d$characteristic_desc) == 'Ethnicity') {
+                    paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
+ 
+                  } else if (unique(d$characteristic_desc) == 'Age') {
+                    paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
+                    
+                  } else 
+                   paste("")
+                 
+                 
+    ))
+  
+}
