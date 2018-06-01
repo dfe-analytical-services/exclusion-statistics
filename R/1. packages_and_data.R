@@ -18,6 +18,7 @@ library(ggalt)
 library(magrittr)
 library(scales)
 library(sparkline)
+library(extrafont)
 
 #---------------------------------------------------------------------
 #Load the data required
@@ -111,4 +112,5 @@ numeric_supress <- function(x) {
     return(""))
   
 }
+
 

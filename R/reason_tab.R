@@ -96,3 +96,42 @@ exclusion_reason_table_download <- function(la_name_exclusion_select) {
 
 }
 
+#---------------------------------------------------------------------
+#Text to explain how the tab is working
+
+# reason_text_explainer <- function(schtype, category, la_name_exclusion_select) {
+#   
+#   data_long <- clean_la_exclusions_data %>%
+#     gather(key = reason,
+#            value = exc,
+#            perm_physical_pupils:fixed_other) %>%
+#     mutate(exclusion_type = ifelse(startsWith(reason, "perm"),"Permanent",
+#                                    ifelse(startsWith(reason, "fixed"), "Fixed", NA)))  %>%
+#     filter(la_name == la_name_exclusion_select,
+#            school_type == schtype,
+#            exclusion_type == category) %>%
+#     select(year, la_name, exclusion_type, school_type, reason, exc)
+#   
+# 
+#   if (category == 'Permanent') {
+#     
+#     return(paste("The below table refers to permanent period school exclusions data for pupils in ", la_name_exclusion_select, "by reason for the exclusion by selected school type."))
+#     
+#   } else if (category == 'Fixed') {
+#     
+#     return(paste("The below table refers to fixed period school exclusions data for pupils in ", la_name_exclusion_select, "by reason for the exclusion by selected school type."))
+#     
+#   } else {
+#     
+#      return(paste(""))
+#                  
+#   }
+#   
+# }
+
+
+#schtype <- "Total"
+#category <- "Fixed"
+#la_name_exclusion_select <- "Wigan"
+
+#reason_text_explainer (schtype, category, la_name_exclusion_select)
