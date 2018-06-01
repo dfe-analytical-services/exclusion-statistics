@@ -71,6 +71,11 @@ shinyUI(
                         sidebarLayout(
                           sidebarPanel(
                             h4(strong("Local Authority (LA) level exclusions")),
+                            br(),
+                            h5(strong("Instructions")),
+                            "From the dropdown menus below, please select the area and exclusion type of interest. Then use the chart and table to see how exclusion figures have changed over time for the coverage selected.",
+                            br(),
+                            "The rate or number radio buttons can be used to change between exclusion rates and number of exclusions respectively. A comparison to regional and national figures figures can also be seen by clicking the appropriae tab.", 
                             hr(),
                             h5(strong("1. Pick an area")),
                             selectInput("select2",
@@ -136,6 +141,12 @@ shinyUI(
                              em("State-funded primary, secondary and special schools, 2015/16"),
                              br(),
                              br(),
+                             h5(strong("Instructions")),
+                             "From the dropdown menu below, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
+                             br(),
+                             br(),
+                             "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate.",
+                             hr(),
                              h5(strong("Pick exclusion category")),
                              selectInput(
                                "select_map",
@@ -144,14 +155,8 @@ shinyUI(
                                               "Fixed period exclusions" = 'fixed'),
                                selected = 'fixed'
                              ),
-                             width = 3,
-                             hr(),
-                             h5(strong("Instructions")),
-                             "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
-                             br(),
-                             br(),
-                             "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate."
-                           ),
+                             width = 3
+                            ),
                            mainPanel(
                              leafletOutput("map", width = '25cm', height = '25cm') %>%
                                #spinner to appear while chart is loading
@@ -169,7 +174,11 @@ shinyUI(
                            sidebarLayout(
                              sidebarPanel(
                                h4(strong("Exclusions by reason")),
-                               em("The below table shows time series exclusion information by reason of school exclusion. First, select the area of inetrest, e.g. Darlington, pick an exclusion category and then pick a school type."),
+                               br(),
+                               h5(strong("Instructions")),
+                               "From the dropdown menus below, please select the area, exclusion type and school type of interest.",
+                               br("Then use the table to see how exclusion numbers for each reason have changed over time for the coverage selected."),
+                               hr(),
                                fluidRow(
                                  column(4,
                                         h5(strong("1. Pick an area")),
@@ -213,8 +222,11 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Exclusions by pupil characteristic")),
-                          em(textOutput("characteristics_text_explainer_server")), 
                           br(),
+                          h5(strong("Instructions")),
+                          "From the dropdown menus below, please select the area, exclusion type and school type of interest.",
+                          br("Then use the table to see how exclusion numbers for each reason have changed over time for the coverage selected."),
+                          hr(),
                         fluidRow(
                           column(4,
                                  selectInput("char_char",
@@ -246,7 +258,10 @@ shinyUI(
                                              selected = 'F', width='80%'),
                                  downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
-                        ), 
+                        ),
+                        h5(strong("Notes")),
+                        textOutput("characteristics_text_explainer_server"), 
+                        br(),
                         width = 12),
                         mainPanel(
                             tags$style(type="text/css",
