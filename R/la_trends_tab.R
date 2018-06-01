@@ -14,7 +14,7 @@ la_plot_rate <- function(la, category) {
   
   d <- filter(clean_la_data, la_name == la) 
   
-  if(la=="Bedfordshire (Pre LGR 2009)" | la==" Cheshire (Pre LGR 2009)") {
+  if(la=="Bedfordshire (Pre LGR 2009)" | la=="Cheshire (Pre LGR 2009)") {
     d <- d %>% filter(year != "200809")
   } 
   
@@ -181,52 +181,161 @@ la_table_rate <- function(la, category) {
 #---------------------------------------------------------------------
 # Numbers for LA summary text
 
-la_perm_num <- function(la, refyear) {
+la_perm_num_latest <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
 
-  d <- filter(clean_la_data,la_name == la, year == refyear)
+  return(filter(d, school_type == 'Total') %>%
+     dplyr::select(perm_excl))
+}
+
+la_perm_num_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl))
 }
 
-la_fixed_num <- function(la, refyear) {
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+
+la_fixed_num_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl))
 }
 
-la_one_plus_num <- function(la, refyear) {
+la_fixed_num_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(fixed_excl))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_one_plus_num_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_plus_fixed))
 }
 
-la_perm_rate <- function(la, refyear) {
+la_one_plus_num_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year))) - 101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(one_plus_fixed))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_perm_rate_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
 
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl_rate))
 }
 
-la_fixed_rate <- function(la, refyear) {
+la_perm_rate_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(perm_excl_rate))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_fixed_rate_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl_rate))
 }
 
-la_one_plus_rate <- function(la, refyear) {
+la_fixed_rate_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(fixed_excl_rate))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_one_plus_rate_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_or_more_fixed_excl_rate))
+}
+
+la_one_plus_rate_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year))) -101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(one_or_more_fixed_excl_rate))
+}
+
+la_tab_year <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  d <- d %>% filter(fixed_excl_rate > 0 | perm_excl_rate > 0 | one_or_more_fixed_excl_rate > 0) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  return(refyear)
 }
 
 
