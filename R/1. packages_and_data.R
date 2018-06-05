@@ -126,3 +126,19 @@ numeric_supress <- function(x) {
 }
 
 
+numeric_round_warning <- function(x) {
+  
+  if(has_warning(as.numeric(x))) {
+    return(x)
+  } 
+  
+  if(!has_warning(as.numeric(x))) {
+    return(format(round(as.numeric(x),2), nsmall=2))
+  } 
+  
+  else(
+    return(""))
+  
+}
+
+
