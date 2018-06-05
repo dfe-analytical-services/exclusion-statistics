@@ -209,7 +209,7 @@ shinyServer(function(session, input, output) {
 #------------------------------------------------------------------- 
 #Methods
   
-  output$downloadData <- downloadHandler(
+  output$downloadData <- downloadHandler( 
     filename = function() {
       paste(input$select2, ".csv", sep = "")
     },
