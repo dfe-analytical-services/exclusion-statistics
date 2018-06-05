@@ -13,27 +13,6 @@ perm_excl_rate_Pal = colorQuantile(map_gov_colours, englishLocalAuthorityData$pr
 
 fixed_excl_rate_Pal = colorQuantile(map_gov_colours, englishLocalAuthorityData$fxd_xc_, n = 5)
 
-
-# hoverText <- sprintf("<div style='font-size:12px;width:200px;float:left'>
-#             <span style='font-size:18px;font-weight:bold'>%s</span><br/> 
-#                      <div style='width:95%%'>
-#                      <span style='float:left'>Male</span>
-#                      <span style='float:right'>Female</span>
-#                      <br/>
-#                      <span style='color:black;float:left'>%s%%</span>
-#                      <span style='color:black;float:right'>%s%%</span><br clear='all'/>
-#                      <span style='background:#D4DCF7;width:%s%%;float:left'>&nbsp;</span>
-#                      <span style='background:#E7CCFC;width:%s%%;float:right'>&nbsp;</span>
-#                      </div>
-#                      <br/><span style='font-size:10px'>%s</span>
-#                      </div>",
-#                      data_for_mapping$SUBUNIT, 
-#                      data_for_mapping$Male_prop, data_for_mapping$Female_prop,
-#                      data_for_mapping$Male_prop, data_for_mapping$Female_prop,
-#                      data_for_mapping$majority_gender) %>%
-#   lapply(htmltools::HTML)
-
-
 # Add a labels for tooltips 
 perm_excl_rate_Labels <-
   sprintf(
