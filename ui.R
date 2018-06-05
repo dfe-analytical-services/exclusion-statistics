@@ -71,8 +71,13 @@ shinyUI(
                         sidebarLayout(
                           sidebarPanel(
                             h4(strong("Local Authority (LA) level exclusions")),
+                            br(),
+                            h5(strong("Instructions")),
+                            "From the dropdown menus below, please select the area and exclusion type of interest. Then use the chart and table to see how exclusion figures have changed over time for the coverage selected.",
+                            br(),
+                            "The rate or number radio buttons can be used to change between exclusion rates and number of exclusions respectively. A comparison to regional and national figures figures can also be seen by clicking the appropriae tab.", 
                             hr(),
-                            h5(strong("Pick an area")),
+                            h5(strong("1. Pick an area")),
                             selectInput("select2",
                                         label = NULL,
                                         list("England" = "England",
@@ -81,12 +86,12 @@ shinyUI(
                                                                  main_ud$la_name != "."])))),
                                         selected = "England"
                             ),
-                            h5(strong("Pick an exclusion category")),
+                            h5(strong("2. Pick an exclusion category")),
                             selectInput("select_cat",
                                         label = NULL,
-                                        choices = list("Fixed" = 'F',
-                                                       "Permanent" = 'P',
-                                                       "One plus" = 'O'),
+                                        choices = list("Fixed period exclusions" = 'F',
+                                                       "Permanent exclusions" = 'P',
+                                                       "One or more fixed period exclusion" = 'O'),
                                         selected = 'F'
                             ),
                             hr(),
@@ -96,11 +101,6 @@ shinyUI(
                             textOutput("la_fixed"),
                             br(),
                             textOutput("la_one_plus"),
-                            hr(),
-                            h5(strong("Notes")),
-                            br(),
-                            br(),
-                            br(),
                             br()
                           ),
                           mainPanel(tabsetPanel(
@@ -141,22 +141,22 @@ shinyUI(
                              em("State-funded primary, secondary and special schools, 2015/16"),
                              br(),
                              br(),
+                             h5(strong("Instructions")),
+                             "From the dropdown menu below, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
+                             br(),
+                             br(),
+                             "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate.",
+                             hr(),
                              h5(strong("Pick exclusion category")),
                              selectInput(
                                "select_map",
                                label = NULL,
-                               choices = list("Permanent" = 'perm',
-                                              "Fixed period" = 'fixed'),
+                               choices = list("Permanent exclusions" = 'perm',
+                                              "Fixed period exclusions" = 'fixed'),
                                selected = 'fixed'
                              ),
-                             width = 3,
-                             hr(),
-                             h5(strong("Instructions")),
-                             "From the dropdown menu above, please select the exclusion rate of interest. Then hover over your selected local authority to find out more information about exclusions data in that area.",
-                             br(),
-                             br(),
-                             "The darkest shaded areas are in the top 20% of all local authorities for the selected exclusion rate and the lightest shaded areas in the bottom 20% for the selected exclusion rate."
-                           ),
+                             width = 3
+                            ),
                            mainPanel(
                              leafletOutput("map", width = '25cm', height = '25cm') %>%
                                #spinner to appear while chart is loading
@@ -174,7 +174,11 @@ shinyUI(
                            sidebarLayout(
                              sidebarPanel(
                                h4(strong("Exclusions by reason")),
-                               em("Schools report exclusions broken down by reason"),
+                               br(),
+                               h5(strong("Instructions")),
+                               "From the dropdown menus below, please select the area, exclusion type and school type of interest.",
+                               br("Then use the table to see how exclusion numbers for each reason have changed over time for the coverage selected."),
+                               hr(),
                                fluidRow(
                                  column(4,
                                         h5(strong("1. Pick an area")),
@@ -184,15 +188,7 @@ shinyUI(
                                                          "Local Authority" = sort(unique((main_ud$la_name[!is.na(main_ud$la_name) & main_ud$la_name != "."])))),
                                                     selected = "England",
                                                     width='80%'),
-                                        h5(strong("3. Pick an exclusion category")),
-                                        selectInput("exclusion_type",
-                                                    label = NULL,
-                                                    choices = list(
-                                                      "Fixed" = 'Fixed',
-                                                      "Permanent" = 'Permanent'),
-                                                    selected = 'Fixed', width='80%')),
-                                 column(4,offset = 1,
-                                        h5(strong("2. Pick a school type")),
+                                        h5(strong("3. Pick a school type")),
                                         selectInput("schtype",
                                                     label = NULL,
                                                     choices = list(
@@ -200,10 +196,19 @@ shinyUI(
                                                       "Secondary" = 'State-funded secondary',
                                                       "Special" = 'Special school',
                                                       "All schools" = 'Total'),
-                                                    selected = 'Total', width='80%'),
+                                                    selected = 'Total', width='80%')),
+                                 column(4,offset = 1,
+                                        h5(strong("2. Pick an exclusion category")),
+                                        selectInput("exclusion_type",
+                                                    label = NULL,
+                                                    choices = list(
+                                                      "Fixed period exclusions" = 'Fixed',
+                                                      "Permanent exclusions" = 'Permanent'),
+                                                    selected = 'Fixed', width='80%'),
                                         br(),
                                         downloadButton("download_reason_for_exclusion", "Download underlying data for the table below")
-                                 )), width=12),
+                                 )), 
+                               width=12),
                              mainPanel(
                                htmlwidgets::getDependency('sparkline'),
                                DT::dataTableOutput("tbl", width = "95%"),
@@ -214,40 +219,50 @@ shinyUI(
 #---------------------------------------------------------------------               
 #Pupil Characteristics
              tabPanel("Pupil characteristics",
-                      h4(strong("Exclusions by pupil characteristic")),
-                      sidebarLayout(sidebarPanel(
+                      sidebarLayout(
+                        sidebarPanel(
+                          h4(strong("Exclusions by pupil characteristic")),
+                          br(),
+                          h5(strong("Instructions")),
+                          "From the dropdown menus below, please select the area, exclusion type and school type of interest.",
+                          br("Then use the table to see how exclusion numbers for each reason have changed over time for the coverage selected."),
+                          hr(),
                         fluidRow(
                           column(4,
-                                 selectInput("char_cat",
-                                             label = "Select exclusion measure",
-                                             choices = list(
-                                               "Fixed period" = 'F',
-                                               "Permanent" = 'P',
-                                               "One or more fixed" = 'O'),
-                                             selected = 'P'),
-                                 
-                                 selectInput("char_sch",
-                                             label = "Select a school type",
-                                             choices = list(
-                                               "State-funded primary" = 'Primary',
-                                               "State-funded secondary" = 'Secondary',
-                                               "Special" = 'Special',
-                                               "Total" = 'Total'),
-                                             selected = 'Total')
-                          ),
-                          column(4,offset = 1,
                                  selectInput("char_char",
-                                             label = "Select pupil characteristic",
+                                             label = "1. Select pupil characteristic",
                                              choices = list(
                                                "SEN provision" = 'sen',
                                                "FSM eligibility" = 'fsm',
                                                "Gender" = 'gender',
                                                "Age" = 'age',
                                                "Ethnicity" = 'ethn'),
-                                             selected = 'gender'),
+                                             selected = 'gender', width = '80%'),
+                                 
+                                 selectInput("char_sch",
+                                             label = "3. Select a school type",
+                                             choices = list(
+                                               "State-funded primary" = 'Primary',
+                                               "State-funded secondary" = 'Secondary',
+                                               "Special" = 'Special',
+                                               "All schools" = 'Total'),
+                                             selected = 'Total', width='80%')
+                          ),
+                          column(4,offset = 1,
+                                 selectInput("char_cat",
+                                             label = "2. Select exclusion category",
+                                             choices = list(
+                                               "Fixed period exclusions" = 'F',
+                                               "Permanent exclusions" = 'P',
+                                               "One or more fixed period exclusion" = 'O'),
+                                             selected = 'F', width='80%'),
                                  downloadButton("download_characteristics_data", "Download the underlying data for the table below")
                           )
-                        ), width = 12),
+                        ),
+                        h5(strong("Notes")),
+                        textOutput("characteristics_text_explainer_server"), 
+                        br(),
+                        width = 12),
                         mainPanel(
                             tags$style(type="text/css",
                                                ".shiny-output-error { visibility: hidden; }",
@@ -331,8 +346,8 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("School level exclusions")),
-                          "The below table shows time series exclusion information for individual schools.",
-                          "First, select the Local Authority the school sits in and then select the school of interest.",
+                          em("The below table shows time series exclusion information for individual schools.",
+                          "First, select the Local Authority the school sits in and then select the school of interest."),
                           br(),
                           br(),
                           selectInput("la_name_rob", label = "1. Select or type Local Authority name or 3 digit number" ,choices = sort(unique(all_schools_data$la_no_and_name)),  width='30%'),
