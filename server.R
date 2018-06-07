@@ -52,7 +52,7 @@ shinyServer(function(session, input, output) {
     
     df <- as.data.frame(exclusion_reason_table(input$la_name_exclusion_select, input$schtype, input$exclusion_type))
     
-    cd <- list(list(targets = ncol(df)-4, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
+    cd <- list(list(className = 'dt-right', targets = ncol(df)-4, render = JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")))
     
     dt <- DT::datatable(df[,4:ncol(df)],
                         rownames = FALSE, 
