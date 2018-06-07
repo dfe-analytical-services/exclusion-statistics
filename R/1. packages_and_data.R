@@ -52,3 +52,48 @@ formatyr <- function(refyear) {
 # = 2012/13
 
 # test change to be deleted 
+
+
+has_warning <- function (expr) 
+{
+  warn = FALSE
+  op = options(warn = -1)
+  on.exit(options(op))
+  withCallingHandlers(expr, warning = function(w) {
+    warn <<- TRUE
+    invokeRestart("muffleWarning")
+  })
+  warn
+}
+
+round_with_supressed_values <- function(x) {
+  
+  if(has_warning(as.numeric(x))) {
+    return(x)
+  } 
+  
+  if(!has_warning(as.numeric(x))) {
+    x <- round(as.numeric(x), 0)
+    return(x)
+  } 
+  
+  else(
+    return(x))
+  
+}
+
+format_with_supressed_numbers <- function(x) {
+  
+  if(has_warning(as.numeric(x))) {
+    return(x)
+  } 
+  
+  if(!has_warning(as.numeric(x))) {
+    x <- format(as.numeric(x), nsmall=0, big.mark=",")
+    return(x)
+  } 
+  
+  else(
+    return(x))
+  
+}
