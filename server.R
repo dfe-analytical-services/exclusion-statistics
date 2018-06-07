@@ -77,6 +77,9 @@ shinyServer(function(session, input, output) {
     }
   )
   
+  
+  output$reason_text_explainer_server <- renderText({reason_text_explainer(input$schtype, input$exclusion_type, input$la_name_exclusion_select)})
+  
 #------------------------------------------------------------------- 
 #Characteristics
   
@@ -133,6 +136,9 @@ shinyServer(function(session, input, output) {
       write.csv(characteristics_data_download(input$char_char), file, row.names = FALSE)
     }
   )
+  
+  output$characteristics_text_explainer_server <- renderText({characteristics_text_explainer(input$char_char, input$char_sch, input$char_cat)})
+  
   
 #------------------------------------------------------------------- 
 #LA trends

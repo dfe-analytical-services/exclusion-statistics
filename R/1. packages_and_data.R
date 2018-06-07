@@ -18,6 +18,7 @@ library(ggalt)
 library(magrittr)
 library(scales)
 library(sparkline)
+library(extrafont)
 
 #---------------------------------------------------------------------
 #Load the data required
@@ -49,3 +50,5 @@ formatyr <- function(refyear) {
 # example
 # formatyr(201213)
 # = 2012/13
+
+# test change to be deleted 
