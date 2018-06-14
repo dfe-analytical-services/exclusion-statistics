@@ -38,18 +38,17 @@ la_plot_rate <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
+      labs(colour = NULL, fill = "") +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) + 
-      theme_classic() +
-      geom_text(
-        d = d %>% filter(year == min(as.numeric(year))+101),
-        aes(label = school_type),
-        size = 5,
-        hjust = 0,
-        vjust = -1) +
-      theme(legend.position = "none") +
+      theme_minimal() +
+      theme(legend.position = "top",
+            legend.justification=c(0, 0)) +
       theme(axis.text=element_text(size=12),
-            axis.title=element_text(size=14,face="bold")))
+            axis.title=element_text(size=14,face="bold")) + 
+      guides(colour = guide_legend(override.aes = list(size=7,linetype=1), 
+                                   keywidth = 3, 
+                                   keyheight = 1)))
 }
 
 #---------------------------------------------------------------------
@@ -83,18 +82,17 @@ la_plot_num <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
-      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
+      labs(colour = NULL, fill = "") +
       scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
-      theme_classic() +
-      geom_text(
-        d = d %>% filter(year == min(as.numeric(year))+101),
-        aes(label = school_type),
-        size = 5,
-        hjust = 0,
-        vjust = -1) +
-      theme(legend.position = "none") +
+      scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) + 
+      theme_minimal() +
+      theme(legend.position = "top",
+            legend.justification=c(0, 0)) +
       theme(axis.text=element_text(size=12),
-            axis.title=element_text(size=14,face="bold")))
+            axis.title=element_text(size=14,face="bold")) + 
+      guides(colour = guide_legend(override.aes = list(size=7,linetype=1), 
+                                   keywidth = 3, 
+                                   keyheight = 1)))
 }
 
 #---------------------------------------------------------------------
