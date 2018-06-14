@@ -128,19 +128,19 @@ $(document).on('change', '#bars_type2 :radio', function(e) {
 // SCHOOL TYPE TAB
 
 //Track measure of area
-  $(document).on('change', '#la_name_rob', function(e) {
-    ga('send', 'event', 'widget', 'school tab / select area level', $(e.currentTarget).val());
-  }); 
-  
-  //Track measure of school name
-  $(document).on('change', '#EstablishmentName_rob', function(e) {
-    ga('send', 'event', 'widget', 'school tab / select school name', $(e.currentTarget).val());
-  });
+// $(document).on('change', '#la_name_rob', function(e) {
+//   ga('send', 'event', 'widget', 'school tab / select area level', $(e.currentTarget).val());
+// }); 
+// 
+// //Track measure of school name
+// $(document).on('change', '#EstablishmentName_rob', function(e) {
+//   ga('send', 'event', 'widget', 'school tab / select school name', $(e.currentTarget).val());
+//  });
 
 //Track downloads of school level data
-  $(document).on('click', '#school_data_download', function() {
-    ga('send', 'event', 'widget', 'school tab / download data');
-  });
+//  $(document).on('click', '#school_data_download', function() {
+//    ga('send', 'event', 'widget', 'school tab / download data');
+//  });
   
 
 // DATA AND METHODS TAB
