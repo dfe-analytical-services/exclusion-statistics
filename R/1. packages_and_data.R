@@ -52,3 +52,8 @@ formatyr <- function(refyear) {
 # = 2012/13
 
 # test change to be deleted 
+
+
+front_page_previous_year <- substring(max(main_ud$year), 1, 4)
+
+front_page_latest_year <- gsub("(^.{2})(.{2})", "\\1", max(main_ud$year), perl = TRUE)
