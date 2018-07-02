@@ -247,53 +247,53 @@ shinyServer(function(session, input, output) {
   
 #------------------------------------------------------------------- 
 #School summary tab
-  
-  output$table_school_summary <- renderDataTable({
-    
-    # Filter
-    
-    dat <- datatable(all_schools_data %>%
-      filter(
-        la_no_and_name == input$la_name_rob,
-        laestab_school_name == input$EstablishmentName_rob
-      ), 
-    extensions = c('Buttons'), 
-    rownames = FALSE,
-    options=list(dom = 't',
-                 buttons = c('csv','copy'),
-                 ordering = F,
-                 columnDefs = list(list(visible=FALSE, targets=c(1,2,11,12,13,14))))) %>%
-      formatStyle(names(all_schools_data)[c(1,4,5,6,7,8,9,10,11)], target = "row", backgroundColor = "#ffffff")
-  
-  return(dat)
-  })
-  
-  la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
-  
-  updateSelectizeInput(
-    session = session, 
-    inputId = 'EstablishmentName_rob',
-    choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == "301 - Barking and Dagenham"],
-    server = TRUE)
-  
-  observe({
-    updateSelectizeInput(
-      session = session, 
-      inputId = 'EstablishmentName_rob',
-      choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
-      server = TRUE)
-  })
-  
-  
-  
-  output$school_data_download <-  downloadHandler(
-    filename = function() {
-      paste(substr(input$EstablishmentName_rob, 1, 7), "_exclusion_data", ".csv", sep = "") 
-    },
-    content = function(file) {
-      write.csv(school_summary_table %>% filter (laestab == substr(input$EstablishmentName_rob, 1, 7)) , file, row.names = FALSE)
-    }
-  )
+  # 
+  # output$table_school_summary <- renderDataTable({
+  #   
+  #   # Filter
+  #   
+  #   dat <- datatable(all_schools_data %>%
+  #     filter(
+  #       la_no_and_name == input$la_name_rob,
+  #       laestab_school_name == input$EstablishmentName_rob
+  #     ), 
+  #   extensions = c('Buttons'), 
+  #   rownames = FALSE,
+  #   options=list(dom = 't',
+  #                buttons = c('csv','copy'),
+  #                ordering = F,
+  #                columnDefs = list(list(visible=FALSE, targets=c(1,2,11,12,13,14))))) %>%
+  #     formatStyle(names(all_schools_data)[c(1,4,5,6,7,8,9,10,11)], target = "row", backgroundColor = "#ffffff")
+  # 
+  # return(dat)
+  # })
+  # 
+  # la_schools <- reactive({all_schools_data %>% filter(la_no_and_name == la_name_rob)})
+  # 
+  # updateSelectizeInput(
+  #   session = session, 
+  #   inputId = 'EstablishmentName_rob',
+  #   choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == "301 - Barking and Dagenham"],
+  #   server = TRUE)
+  # 
+  # observe({
+  #   updateSelectizeInput(
+  #     session = session, 
+  #     inputId = 'EstablishmentName_rob',
+  #     choices = all_schools_data$laestab_school_name[all_schools_data$la_no_and_name == input$la_name_rob],
+  #     server = TRUE)
+  # })
+  # 
+  # 
+  # 
+  # output$school_data_download <-  downloadHandler(
+  #   filename = function() {
+  #     paste(substr(input$EstablishmentName_rob, 1, 7), "_exclusion_data", ".csv", sep = "") 
+  #   },
+  #   content = function(file) {
+  #     write.csv(school_summary_table %>% filter (laestab == substr(input$EstablishmentName_rob, 1, 7)) , file, row.names = FALSE)
+  #   }
+  # )
   
 #------------------------------------------------------------------- 
 #stop app running when closed in browser
