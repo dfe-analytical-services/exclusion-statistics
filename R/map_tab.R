@@ -16,21 +16,31 @@ fixed_excl_rate_Pal = colorQuantile(map_gov_colours, englishLocalAuthorityData$f
 # Add a labels for tooltips 
 perm_excl_rate_Labels <-
   sprintf(
-    "<strong>%s</strong><br/>Headcount <strong>%s</strong><br/>Permanent exclusions <strong>%s</strong><br/>Permanent exclusion rate <strong>%s</strong>",
+    "<div style='width:230px'>
+    <font size='4.5'><strong>%s</strong></font>
+    <br/>Headcount                   <span style='color:black;float:right'><strong>%s</strong></span>
+    <br/>Permanent exclusions        <span style='color:black;float:right'><strong>%s</strong></span>
+    <br/>Permanent exclusion rate    <span style='color:black;float:right'><strong>%s</strong></span>
+    </div>",
     englishLocalAuthorityData$LA15NM,
     format(englishLocalAuthorityData$headcnt,big.mark = ",",trim = TRUE),
     format(englishLocalAuthorityData$prm_xcl,big.mark = ",",trim = TRUE),
-    paste(as.character(englishLocalAuthorityData$prm_xc_), "%")
+    paste(as.character(englishLocalAuthorityData$prm_xc_), "%", sep = "")
   ) %>%
   lapply(htmltools::HTML)
 
 fixed_excl_rate_Labels <-
   sprintf(
-    "<strong>%s</strong><br/>Headcount <strong>%s</strong><br/>Fixed period exclusions <strong>%s</strong><br/>Fixed period exclusion rate <strong>%s</strong>",
+    "<div style='width:230px'>
+    <font size='4.5'><strong>%s</strong></font>
+    <br/>Headcount                   <span style='color:black;float:right'><strong>%s</strong></span>
+    <br/>Fixed period exclusions     <span style='color:black;float:right'><strong>%s</strong></span>
+    <br/>Fixed period exclusion rate <span style='color:black;float:right'><strong>%s</strong></span>
+    </div>",
     englishLocalAuthorityData$LA15NM,
     format(englishLocalAuthorityData$headcnt,big.mark = ",",trim = TRUE),
     format(englishLocalAuthorityData$fxd_xcl,big.mark = ",",trim = TRUE),
-    paste(as.character(englishLocalAuthorityData$fxd_xc_), "%")
+    paste(as.character(englishLocalAuthorityData$fxd_xc_), "%", sep = "")
   ) %>%
   lapply(htmltools::HTML)
 
@@ -46,7 +56,7 @@ excmap <- function(measure) {
                          options = providerTileOptions(minZoom = 6, maxZoom = 10)) %>%
         addPolygons(fillColor = ~perm_excl_rate_Pal(englishLocalAuthorityData$prm_xc_),
                     weight = 1,
-                    opacity = 0.7,
+                    opacity = 1,
                     color = "black",
                     dashArray = "0",
                     fillOpacity = 0.7,
@@ -58,10 +68,11 @@ excmap <- function(measure) {
                       bringToFront = TRUE),
                     label = perm_excl_rate_Labels,
                     labelOptions = labelOptions(
-                      style = list("font-weight" = "normal", padding = "3px 8px"),
+                      style = list("font-weight" = "normal", 
+                                   padding = "3px 8px",
+                                   "background-color" = "white"),
                       textsize = "15px",
-                      direction = "auto",
-                      opacity = 1)) 
+                      direction = "auto")) 
   }
   
   if(measure == 'fixed') {
@@ -71,7 +82,7 @@ excmap <- function(measure) {
                          options = providerTileOptions(minZoom = 6, maxZoom = 10)) %>%
         addPolygons(fillColor = ~fixed_excl_rate_Pal(englishLocalAuthorityData$fxd_xc_),
                     weight = 1,
-                    opacity = 0.7,
+                    opacity = 1,
                     color = "black",
                     dashArray = "0",
                     fillOpacity = 0.7,
@@ -83,14 +94,16 @@ excmap <- function(measure) {
                       bringToFront = TRUE),
                     label = fixed_excl_rate_Labels,
                     labelOptions = labelOptions(
-                      style = list("font-weight" = "normal", padding = "3px 8px"),
+                      style = list("font-weight" = "normal", 
+                                   padding = "3px 8px",
+                                   "background-color" = "white"),
                       textsize = "15px",
                       direction = "auto")) 
   }
   
   return(map %>%
            addLegend(colors = c("#FFBF47", "#EC933D", "#D86733", "#C53A28", "#B10E1E", "#808080"), 
-                     opacity = 0.7, 
+                     opacity = 1, 
                      title = NULL,
                      position = "topright",
                      labels= c("Lowest exclusion rates", "","","","Highest exclusion rates", "Supressed data")) %>%
