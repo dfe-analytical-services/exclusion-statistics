@@ -162,21 +162,21 @@ shinyServer(function(session, input, output) {
   
   output$la_title <- renderText({paste(input$select2," summary")})
   
-  output$la_perm <- renderText({paste("The number of permanent exclusions increased from ",la_perm_num(input$select2,201415),
-                                      " (",la_perm_rate(input$select2,201415)," per cent) in 2014/15 to ",la_perm_num(input$select2,201516),
-                                      " (",la_perm_rate(input$select2,201516), " per cent) in 2015/16, 
-                                      which is equivalent to ", as.numeric(la_perm_rate(input$select2,201516))*100, " pupils per 10,000.")})
+  output$la_perm <- renderText({paste("The number of permanent exclusions ", change_ed_x(la_perm_num_previous(input$select2), la_perm_num_latest(input$select2)) ," from ",la_perm_num_previous(input$select2),
+                                      " (",la_perm_rate_previous(input$select2)," per cent) in ", formatyr(la_tab_year(input$select2)-101), " to ",la_perm_num_latest(input$select2),
+                                      " (",la_perm_rate_latest(input$select2), " per cent) in ", formatyr(la_tab_year(input$select2)),
+                                      " which is equivalent to ", numeric_ifelse(la_perm_rate_latest(input$select2)))})
   
-  output$la_fixed <- renderText({paste("The number of fixed period exclusions increased from ",la_fixed_num(input$select2,201415),
-                                       " (",la_fixed_rate(input$select2,201415)," per cent) in 2014/15 to ",la_fixed_num(input$select2,201516),
-                                       " (",la_fixed_rate(input$select2,201516), " per cent) in 2015/16, 
-                                       which is equivalent to ", as.numeric(la_fixed_rate(input$select2,201516))*100, " pupils per 10,000.")})
+  output$la_fixed <- renderText({paste("The number of fixed period exclusions ", change_ed_x(la_fixed_num_previous(input$select2), la_fixed_num_latest(input$select2)) , " from ",la_fixed_num_previous(input$select2),
+                                       " (",la_fixed_rate_previous(input$select2)," per cent) in ", formatyr(la_tab_year(input$select2)-101), " to ",la_fixed_num_latest(input$select2),
+                                       " (",la_fixed_rate_latest(input$select2), " per cent) in ", formatyr(la_tab_year(input$select2)), 
+                                       " which is equivalent to ", numeric_ifelse(la_fixed_rate_latest(input$select2)))})
   
-  output$la_one_plus <- renderText({paste("The number of pupil enrolments with at least one fixed term exclusion increased from ",
-                                          la_one_plus_num(input$select2,201415),
-                                          " (",la_one_plus_rate(input$select2,201415)," per cent) in 2014/15 to ",la_one_plus_num(input$select2,201516),
-                                          " (",la_one_plus_rate(input$select2,201516), " per cent) in 2015/16, 
-                                          which is equivalent to ", as.numeric(la_one_plus_rate(input$select2,201516))*100, " pupils per 10,000.")})
+  output$la_one_plus <- renderText({paste("The number of pupil enrolments with at least one fixed term exclusion ", change_ed_x(la_one_plus_num_previous(input$select2), la_one_plus_num_latest(input$select2)), " from ",
+                                          la_one_plus_num_previous(input$select2),
+                                          " (",la_one_plus_rate_previous(input$select2)," per cent) in ", formatyr(la_tab_year(input$select2)-101), " to ",la_one_plus_num_latest(input$select2),
+                                          " (",la_one_plus_rate_latest(input$select2), " per cent) in ", formatyr(la_tab_year(input$select2)), 
+                                         " which is equivalent to ", numeric_ifelse(la_one_plus_rate_latest(input$select2)))})
   
   output$la_comparison_chart <- renderPlot({la_compare_plot(input$select2, input$select_cat)})
   

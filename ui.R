@@ -75,7 +75,7 @@ shinyUI(
                             h5(strong("Instructions")),
                             "From the dropdown menus below, please select the area and exclusion type of interest. Then use the chart and table to see how exclusion figures have changed over time for the coverage selected.",
                             br(),
-                            "The rate or number radio buttons can be used to change between exclusion rates and number of exclusions respectively. A comparison to regional and national figures figures can also be seen by clicking the appropriae tab.", 
+                            "The rate or number radio buttons can be used to change between exclusion rates and number of exclusions respectively. A comparison to regional and national figures figures can also be seen by clicking the appropriate tab.", 
                             hr(),
                             h5(strong("1. Pick an area")),
                             selectInput("select2",

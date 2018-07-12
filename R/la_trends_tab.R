@@ -5,7 +5,37 @@
 
 clean_la_data <- read_csv('data/clean_la_data.csv', col_types = cols(.default = "c"))
 
+clean_la_data$perm_excl_rate <- numeric_round_warning(clean_la_data$perm_excl_rate)
+clean_la_data$fixed_excl_rate <- numeric_round_warning(clean_la_data$fixed_excl_rate)
+clean_la_data$one_or_more_fixed_excl_rate <- numeric_round_warning(clean_la_data$one_or_more_fixed_excl_rate)
+
 comparison_la_data <- read_csv('data/comparison_la_data.csv', col_types = cols(.default = "c"))
+
+# Filter data 
+
+la_changes_list <- c("Bedfordshire (Pre LGR 2009)", 
+                     "Cheshire (Pre LGR 2009)",
+                     "Cheshire East",
+                     "Bedford",
+                     "Central Bedfordshire",
+                     "Chester West and Chester")
+
+clean_la_data <- clean_la_data %>%
+  filter(!(la_name %in% la_changes_list & year == "200809"))
+
+
+la_pre_200809_list <- c("Bedfordshire (Pre LGR 2009)", 
+                   "Cheshire (Pre LGR 2009)")
+
+la_post_200809_list <- c("Cheshire East",
+                    "Bedford",
+                    "Central Bedfordshire",
+                    "Chester West and Chester")
+
+comparison_la_data <- comparison_la_data %>%
+  filter(!(la_name %in% la_pre_200809_list & year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516"))) %>%
+  filter(!(la_name %in% la_post_200809_list & year %in% c("200607", "200708", "200809")))
+
 
 #---------------------------------------------------------------------
 #La trends plot based on rate
@@ -16,17 +46,17 @@ la_plot_rate <- function(la, category) {
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
-    d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = perm_excl_rate) 
   }
   
   if (category == 'F') {
     ylabtitle <- "Fixed period exclusion percentage"
-    d <- d %>% mutate(y_var = fixed_excl_rate) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = fixed_excl_rate)  
   }
   
   if (category == 'O') {
     ylabtitle <- "One or more fixed period exclusion percentage"
-    d <- d %>% mutate(y_var = one_or_more_fixed_excl_rate) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = one_or_more_fixed_excl_rate) 
   }
   
   return(
@@ -38,7 +68,7 @@ la_plot_rate <- function(la, category) {
       geom_path(size = 1) +
       xlab("Academic year") +
       ylab(ylabtitle) +
-      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.3)) +
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) + 
       theme_classic() +
       geom_text(
@@ -57,21 +87,22 @@ la_plot_rate <- function(la, category) {
 
 la_plot_num <- function(la, category) {
   
-  d <- filter(clean_la_data, la_name == la) 
+  d <- filter(clean_la_data, la_name == la)
+  
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusions"
-    d <- d %>% mutate(y_var = perm_excl) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = perm_excl) 
   }
   
   if (category == 'F') {
     ylabtitle <- "Fixed period exclusions"
-    d <- d %>% mutate(y_var = fixed_excl) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = fixed_excl) 
   }
   
   if (category == 'O') {
     ylabtitle <- "Enrolments with one or more fixed period exclusion"
-    d <- d %>% mutate(y_var = one_plus_fixed) %>% filter(y_var != 'x') 
+    d <- d %>% mutate(y_var = one_plus_fixed) 
   }
   
   return(
@@ -84,7 +115,7 @@ la_plot_num <- function(la, category) {
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
-      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.3)) +
       theme_classic() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
@@ -103,6 +134,7 @@ la_plot_num <- function(la, category) {
 la_table_num <- function(la, category) {
   
   d <-  filter(clean_la_data, la_name == la)
+  
   
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl)
@@ -124,6 +156,8 @@ la_table_num <- function(la, category) {
     spread(key = yearf, value)
   
   row.names(table) <- NULL
+  
+  table[,2:ncol(table)][is.na(table[,2:ncol(table)])] <- "."
   
   return(table)
   
@@ -157,6 +191,8 @@ la_table_rate <- function(la, category) {
   
   row.names(table) <- NULL
   
+  table[,2:ncol(table)][is.na(table[,2:ncol(table)])] <- "."
+  
   return(table)
   
 }
@@ -164,52 +200,160 @@ la_table_rate <- function(la, category) {
 #---------------------------------------------------------------------
 # Numbers for LA summary text
 
-la_perm_num <- function(la, refyear) {
+la_perm_num_latest <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) 
+  
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
 
-  d <- filter(clean_la_data,la_name == la, year == refyear)
+  return(filter(d, school_type == 'Total') %>%
+     dplyr::select(perm_excl))
+}
+
+la_perm_num_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl))
 }
 
-la_fixed_num <- function(la, refyear) {
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+
+la_fixed_num_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl))
 }
 
-la_one_plus_num <- function(la, refyear) {
+la_fixed_num_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(fixed_excl))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_one_plus_num_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_plus_fixed))
 }
 
-la_perm_rate <- function(la, refyear) {
+la_one_plus_num_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year))) - 101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(one_plus_fixed))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_perm_rate_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
 
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl_rate))
 }
 
-la_fixed_rate <- function(la, refyear) {
+la_perm_rate_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la) 
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(perm_excl_rate))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_fixed_rate_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la) 
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(fixed_excl_rate))
 }
 
-la_one_plus_rate <- function(la, refyear) {
+la_fixed_rate_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year)))-101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(fixed_excl_rate))
+}
 
-  d <- filter(clean_la_data, year == refyear,la_name == la)
+la_one_plus_rate_latest <- function(la) {
+
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  d <- filter(d, year == refyear)
   
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(one_or_more_fixed_excl_rate))
+}
+
+la_one_plus_rate_previous <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year))) -101
+  
+  d <- filter(d, year == refyear)
+  
+  return(filter(d, school_type == 'Total') %>%
+           dplyr::select(one_or_more_fixed_excl_rate))
+}
+
+la_tab_year <- function(la) {
+  
+  d <- filter(clean_la_data,la_name == la)
+  
+  refyear <- max(unique(as.numeric(d$year)))
+  
+  return(refyear)
 }
 
 
@@ -222,6 +366,16 @@ la_compare_plot <- function(la, category) {
   reg <- (filter(comparison_la_data, la_name == la) %>% select(region_name))[1,]
   
   d <- filter(comparison_la_data, area %in% c(la, reg, 'England')) 
+  
+  
+  if (la %in% la_post_200809_list) {
+    d <- d %>% filter(!(year %in% c("200607", "200708", "200809")))
+  } 
+  if (la %in% la_pre_200809_list) {
+    d <- d %>% filter(!(year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516")))
+  } 
+  
+  
   
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
@@ -248,7 +402,7 @@ la_compare_plot <- function(la, category) {
       xlab("Academic year") +
       ylab(ylabtitle) +
       scale_colour_manual(values = gov_cols_2[c(1,3,9,8)]) +
-      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.3)) +
       theme_classic() +
       geom_text(
         d = d %>% filter(year == min(as.numeric(year))+101),
@@ -270,6 +424,7 @@ la_compare_table <- function(la, category) {
   
   d <- filter(comparison_la_data, area %in% c(la, reg, 'England')) 
   
+  
   if(category=='P') { 
     d <- d %>% mutate(t_var = perm_excl_rate)
   }
@@ -283,6 +438,13 @@ la_compare_table <- function(la, category) {
   if(la != 'England') {t_order <- c("England", reg, la)}
   else {t_order <- c("England")}
     
+  if (la %in% la_post_200809_list) {
+    d <- d %>% filter(!(year %in% c("200607", "200708", "200809")))
+  } 
+  if (la %in% la_pre_200809_list) {
+    d <- d %>% filter(!(year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516")))
+  } 
+  
   table <- d %>%
     mutate(
       yearf = formatyr(year),
@@ -294,6 +456,8 @@ la_compare_table <- function(la, category) {
     arrange(Type)
   
   row.names(table) <- NULL
+  
+  table[,2:ncol(table)][is.na(table[,2:ncol(table)])] <- "."
   
   return(table)
   
