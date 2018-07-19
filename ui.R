@@ -194,7 +194,7 @@ shinyUI(
                                                choices = list(
                                                  "Primary" = 'State-funded primary',
                                                  "Secondary" = 'State-funded secondary',
-                                                 "Special" = 'Special school',
+                                                 "Special" = 'Special',
                                                  "All schools" = 'Total'),
                                                selected = 'Total', width='80%')),
                             column(4,offset = 1,
