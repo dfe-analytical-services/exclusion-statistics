@@ -103,7 +103,7 @@ button_ethnicity_group <-
       'Major Ethnic Grouping'
     )
   ) 
-                            
+
 reason_order_ethn_plot_2 <- c(
   'White Total',
   'White British' ,
@@ -140,9 +140,9 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type & characteristic_2 == "Total") 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_eligible', 'Total'), school_type == sch_type & characteristic_2 == "Total") 
   } else if (char =='ethn') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) %>%
       mutate(characteristic_1 = dplyr::recode(characteristic_1,
@@ -211,10 +211,12 @@ char_series_table <- function(char, sch_type, category, table_ethn_measure) {
   
   char_sch <- data %>% select(year,characteristic_1,t_var)  
   
-  data_wide <- char_sch %>% spread(key = year, value =  t_var)
+  data_wide <- char_sch %>% 
+    filter(!is.na(characteristic_1)) %>%
+    spread(key = year, value =  t_var) 
   
   colnames(data_wide)[1] <- "Characteristic"
-
+  
   
   return(data_wide)
   
@@ -228,9 +230,9 @@ char_series <- function(char, sch_type, category) {
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'), school_type == sch_type)
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total'), school_type == sch_type & characteristic_2 == "Total") 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total'), school_type == sch_type) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_eligible', 'Total'), school_type == sch_type & characteristic_2 == "Total") 
   } else if (char =='ethn') {
     return("")
   } else if (char =='age') {
@@ -247,7 +249,7 @@ char_series <- function(char, sch_type, category) {
     ylabtitle <- "One or more fixed period exclusion percentage"
     d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
   }
-      return(
+  return(
     d %>%
       ggplot +
       aes(x = as.factor(formatyr(year)), 
@@ -289,31 +291,31 @@ char_series_age <- function(char, sch_type, category, input) {
     ylabtitle <- "One or more fixed period exclusion percentage"
     d <- d %>% mutate(y_var = one_plus_fixed_rate) %>% filter(y_var != 'x')
   }
-
+  
   return(
-      d %>% 
-        filter(characteristic_1 %in% input) %>%
-        select(year, characteristic_1, y_var) %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(y_var), 
-            group = characteristic_1, colour = characteristic_1) +
-        geom_path(size = 1) +
-        scale_colour_manual(values = gov_cols_2) +
-        xlab("Academic year") +
-        ylab(ylabtitle) +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% filter(year == min(as.numeric(year))+101 & characteristic_1 %in% input),
-          aes(label = characteristic_1,
-          size = 5,
-          hjust = 0,
-          vjust = -1)) +
-        theme(legend.position = "none") +
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold"),
-              text=element_text(family="Arial")))
+    d %>% 
+      filter(characteristic_1 %in% input) %>%
+      select(year, characteristic_1, y_var) %>%
+      ggplot +
+      aes(x = as.factor(formatyr(year)), 
+          y = as.numeric(y_var), 
+          group = characteristic_1, colour = characteristic_1) +
+      geom_path(size = 1) +
+      scale_colour_manual(values = gov_cols_2) +
+      xlab("Academic year") +
+      ylab(ylabtitle) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      theme_classic() +
+      geom_text(
+        d = d %>% filter(year == min(as.numeric(year))+101 & characteristic_1 %in% input),
+        aes(label = characteristic_1,
+            size = 5,
+            hjust = 0,
+            vjust = -1)) +
+      theme(legend.position = "none") +
+      theme(axis.text=element_text(size=12),
+            axis.title=element_text(size=14,face="bold"),
+            text=element_text(family="Arial")))
 }
 
 #---------------------------------------------------------------------
@@ -324,36 +326,36 @@ Radio_Button_Ethnicity <- c("Major Ethnic Grouping", "Minor Ethnic Grouping")
 char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, List_Of_Ethnicities) {
   
   d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type) %>%
-      mutate(characteristic_1 = dplyr::recode(characteristic_1,
-                                              Ethnicity_Major_White_Total = 'White Total',               
-                                              Ethnicity_Minor_White_British  = 'White British' ,            
-                                              Ethnicity_Minor_Irish = 'White Irish'     ,                
-                                              Ethnicity_Minor_Traveller_of_Irish_heritage = 'Traveller of Irish Heritage' ,
-                                              Ethnicity_Minor_Gypsy_Roma = 'Gypsy Roma' ,                
-                                              Ethnicity_Minor_Any_other_white_background = 'Any other White background',  
-                                              Ethnicity_Major_Mixed_Total = 'Mixed Total'         ,      
-                                              Ethnicity_Minor_White_and_Black_Caribbean = 'White and Black Carribbean'  ,
-                                              Ethnicity_Minor_White_and_Black_African = 'White and Black African' ,  
-                                              Ethnicity_Minor_White_and_Asian = 'White and Asian'     ,       
-                                              Ethnicity_Minor_Any_other_Mixed_background = 'Any other Mixed background',
-                                              Ethnicity_Major_Asian_Total = 'Asian Total'                ,
-                                              Ethnicity_Minor_Indian  = 'Indian'               ,    
-                                              Ethnicity_Minor_Pakistani = 'Pakistani'         ,         
-                                              Ethnicity_Minor_Bangladeshi = 'Bangladeshi'      ,         
-                                              Ethnicity_Minor_Any_other_Asian_background = 'Any other Asian background',  
-                                              Ethnicity_Major_Black_Total = 'Black Total'            ,   
-                                              Ethnicity_Minor_Black_Caribbean = 'Black Caribbean'     ,       
-                                              Ethnicity_Minor_Black_African = 'Black African'          ,   
-                                              Ethnicity_Minor_Any_other_black_background = 'Any other Black background' ,  
-                                              Ethnicity_Minor_Chinese = 'Chinese'                   ,
-                                              Ethnicity_Minor_Any_Other_Ethnic_Group = 'Any other Ethnic group'    ,  
-                                              Ethnicity_Minority_ethnic_pupil = 'Minority Ethnic pupil'           ,
-                                              Ethnicity_Unclassified = 'Unclassified' ,
-                                              Total = 'Total')) %>%
-      mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_ethn_plot_2 )) %>%
-      mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>% 
-      filter(ethnic_level %in% Radio_Button_Ethnicity)
-
+    mutate(characteristic_1 = dplyr::recode(characteristic_1,
+                                            Ethnicity_Major_White_Total = 'White Total',               
+                                            Ethnicity_Minor_White_British  = 'White British' ,            
+                                            Ethnicity_Minor_Irish = 'White Irish'     ,                
+                                            Ethnicity_Minor_Traveller_of_Irish_heritage = 'Traveller of Irish Heritage' ,
+                                            Ethnicity_Minor_Gypsy_Roma = 'Gypsy Roma' ,                
+                                            Ethnicity_Minor_Any_other_white_background = 'Any other White background',  
+                                            Ethnicity_Major_Mixed_Total = 'Mixed Total'         ,      
+                                            Ethnicity_Minor_White_and_Black_Caribbean = 'White and Black Carribbean'  ,
+                                            Ethnicity_Minor_White_and_Black_African = 'White and Black African' ,  
+                                            Ethnicity_Minor_White_and_Asian = 'White and Asian'     ,       
+                                            Ethnicity_Minor_Any_other_Mixed_background = 'Any other Mixed background',
+                                            Ethnicity_Major_Asian_Total = 'Asian Total'                ,
+                                            Ethnicity_Minor_Indian  = 'Indian'               ,    
+                                            Ethnicity_Minor_Pakistani = 'Pakistani'         ,         
+                                            Ethnicity_Minor_Bangladeshi = 'Bangladeshi'      ,         
+                                            Ethnicity_Minor_Any_other_Asian_background = 'Any other Asian background',  
+                                            Ethnicity_Major_Black_Total = 'Black Total'            ,   
+                                            Ethnicity_Minor_Black_Caribbean = 'Black Caribbean'     ,       
+                                            Ethnicity_Minor_Black_African = 'Black African'          ,   
+                                            Ethnicity_Minor_Any_other_black_background = 'Any other Black background' ,  
+                                            Ethnicity_Minor_Chinese = 'Chinese'                   ,
+                                            Ethnicity_Minor_Any_Other_Ethnic_Group = 'Any other Ethnic group'    ,  
+                                            Ethnicity_Minority_ethnic_pupil = 'Minority Ethnic pupil'           ,
+                                            Ethnicity_Unclassified = 'Unclassified' ,
+                                            Total = 'Total')) %>%
+    mutate(characteristic_1 = factor(characteristic_1, levels = reason_order_ethn_plot_2 )) %>%
+    mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>% 
+    filter(ethnic_level %in% Radio_Button_Ethnicity)
+  
   if (category == 'P') {
     ylabtitle <- "Permanent exclusion percentage"
     d <- d %>% mutate(y_var = perm_excl_rate) %>% filter(y_var != 'x')
@@ -366,57 +368,57 @@ char_series_ethn <- function(char, sch_type, category, Radio_Button_Ethnicity, L
   }
   
   return(
-      d %>%
-        mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
-        filter(ethnic_level %in% Radio_Button_Ethnicity & characteristic_1 %in% List_Of_Ethnicities) %>%
-        select(year, characteristic_1, y_var) %>%
-        ggplot +
-        aes(x = as.factor(formatyr(year)), 
-            y = as.numeric(y_var), 
-            group = characteristic_1, colour = characteristic_1) +
-        scale_colour_manual(values = gov_cols_2) +
-        geom_path(size = 1) +
-        xlab("Academic year") +
-        ylab(ylabtitle) +
-        scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
-        theme_classic() +
-        geom_text(
-          d = d %>% mutate(characteristic_1 = dplyr::recode(characteristic_1,
-                                                            Ethnicity_Major_White_Total = 'White Total',               
-                                                            Ethnicity_Minor_White_British  = 'White British' ,            
-                                                            Ethnicity_Minor_Irish = 'White Irish'     ,                
-                                                            Ethnicity_Minor_Traveller_of_Irish_heritage = 'Traveller of Irish Heritage' ,
-                                                            Ethnicity_Minor_Gypsy_Roma = 'Gypsy Roma' ,                
-                                                            Ethnicity_Minor_Any_other_white_background = 'Any other White background',  
-                                                            Ethnicity_Major_Mixed_Total = 'Mixed Total'         ,      
-                                                            Ethnicity_Minor_White_and_Black_Caribbean = 'White and Black Carribbean'  ,
-                                                            Ethnicity_Minor_White_and_Black_African = 'White and Black African' ,  
-                                                            Ethnicity_Minor_White_and_Asian = 'White and Asian'     ,       
-                                                            Ethnicity_Minor_Any_other_Mixed_background = 'Any other Mixed background',
-                                                            Ethnicity_Major_Asian_Total = 'Asian Total'                ,
-                                                            Ethnicity_Minor_Indian  = 'Indian'               ,    
-                                                            Ethnicity_Minor_Pakistani = 'Pakistani'         ,         
-                                                            Ethnicity_Minor_Bangladeshi = 'Bangladeshi'      ,         
-                                                            Ethnicity_Minor_Any_other_Asian_background = 'Any other Asian background',  
-                                                            Ethnicity_Major_Black_Total = 'Black Total'            ,   
-                                                            Ethnicity_Minor_Black_Caribbean = 'Black Caribbean'     ,       
-                                                            Ethnicity_Minor_Black_African = 'Black African'          ,   
-                                                            Ethnicity_Minor_Any_other_black_background = 'Any other Black background' ,  
-                                                            Ethnicity_Minor_Chinese = 'Chinese'                   ,
-                                                            Ethnicity_Minor_Any_Other_Ethnic_Group = 'Any other Ethnic group'    ,  
-                                                            Ethnicity_Minority_ethnic_pupil = 'Minority Ethnic pupil'           ,
-                                                            Ethnicity_Unclassified = 'Unclassified' ,
-                                                            Total = 'Total')) %>% filter(year == min(as.numeric(year))+101) %>% 
+    d %>%
+      mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
+      filter(ethnic_level %in% Radio_Button_Ethnicity & characteristic_1 %in% List_Of_Ethnicities) %>%
+      select(year, characteristic_1, y_var) %>%
+      ggplot +
+      aes(x = as.factor(formatyr(year)), 
+          y = as.numeric(y_var), 
+          group = characteristic_1, colour = characteristic_1) +
+      scale_colour_manual(values = gov_cols_2) +
+      geom_path(size = 1) +
+      xlab("Academic year") +
+      ylab(ylabtitle) +
+      scale_y_continuous(limits = c(0, max(as.numeric(d$y_var))*1.1)) +
+      theme_classic() +
+      geom_text(
+        d = d %>% mutate(characteristic_1 = dplyr::recode(characteristic_1,
+                                                          Ethnicity_Major_White_Total = 'White Total',               
+                                                          Ethnicity_Minor_White_British  = 'White British' ,            
+                                                          Ethnicity_Minor_Irish = 'White Irish'     ,                
+                                                          Ethnicity_Minor_Traveller_of_Irish_heritage = 'Traveller of Irish Heritage' ,
+                                                          Ethnicity_Minor_Gypsy_Roma = 'Gypsy Roma' ,                
+                                                          Ethnicity_Minor_Any_other_white_background = 'Any other White background',  
+                                                          Ethnicity_Major_Mixed_Total = 'Mixed Total'         ,      
+                                                          Ethnicity_Minor_White_and_Black_Caribbean = 'White and Black Carribbean'  ,
+                                                          Ethnicity_Minor_White_and_Black_African = 'White and Black African' ,  
+                                                          Ethnicity_Minor_White_and_Asian = 'White and Asian'     ,       
+                                                          Ethnicity_Minor_Any_other_Mixed_background = 'Any other Mixed background',
+                                                          Ethnicity_Major_Asian_Total = 'Asian Total'                ,
+                                                          Ethnicity_Minor_Indian  = 'Indian'               ,    
+                                                          Ethnicity_Minor_Pakistani = 'Pakistani'         ,         
+                                                          Ethnicity_Minor_Bangladeshi = 'Bangladeshi'      ,         
+                                                          Ethnicity_Minor_Any_other_Asian_background = 'Any other Asian background',  
+                                                          Ethnicity_Major_Black_Total = 'Black Total'            ,   
+                                                          Ethnicity_Minor_Black_Caribbean = 'Black Caribbean'     ,       
+                                                          Ethnicity_Minor_Black_African = 'Black African'          ,   
+                                                          Ethnicity_Minor_Any_other_black_background = 'Any other Black background' ,  
+                                                          Ethnicity_Minor_Chinese = 'Chinese'                   ,
+                                                          Ethnicity_Minor_Any_Other_Ethnic_Group = 'Any other Ethnic group'    ,  
+                                                          Ethnicity_Minority_ethnic_pupil = 'Minority Ethnic pupil'           ,
+                                                          Ethnicity_Unclassified = 'Unclassified' ,
+                                                          Total = 'Total')) %>% filter(year == min(as.numeric(year))+101) %>% 
           mutate(ethnic_level = ifelse(grepl("Total", characteristic_1), "Major Ethnic Grouping", "Minor Ethnic Grouping")) %>%
           filter(ethnic_level %in% Radio_Button_Ethnicity & characteristic_1 %in% List_Of_Ethnicities),
-          aes(label = characteristic_1 ,
-              size = 5,
-              hjust = 0,
-              vjust = -1)) +
-        theme(legend.position = "none") +
-        theme(axis.text=element_text(size=12),
-              axis.title=element_text(size=14,face="bold"),
-              text=element_text(family="Arial")))
+        aes(label = characteristic_1 ,
+            size = 5,
+            hjust = 0,
+            vjust = -1)) +
+      theme(legend.position = "none") +
+      theme(axis.text=element_text(size=12),
+            axis.title=element_text(size=14,face="bold"),
+            text=element_text(family="Arial")))
 }
 
 ethnicity_data <- function(x){
@@ -460,26 +462,26 @@ ethnicity_data <- function(x){
 bar_chart_percentages <- function(char, sch_type, category) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == "201516")
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == max(year))
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == "201516") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == max(year) & characteristic_2 == "Total") 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == "201516") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_eligible'), school_type == sch_type, year == max(year) & characteristic_2 == "Total") 
   } else if (char =='ethn') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == "201516") %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == max(year) & characteristic_2 == "Total") %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
-
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == max(year) & characteristic_2 == "Total")
+    
   }
   
   if (category == 'P') {
-    ylabtitle <- "Distribution of permanent exclusions, 2015/16 \n"
+    ylabtitle <- "Distribution of permanent exclusions, 2016/17 \n"
     d <- d %>% group_by (year) %>% filter(perm_excl != 'x') %>% mutate(y_var = as.numeric(perm_excl) / sum(as.numeric(perm_excl))) %>% filter(y_var != 'x')
   } else if (category == 'F') {
-    ylabtitle <- "Distribution of fixed period exclusion, 2015/16 \n"
+    ylabtitle <- "Distribution of fixed period exclusion, 2016/17 \n"
     d <- d %>% group_by (year) %>% filter(fixed_excl != 'x') %>% mutate(y_var = as.numeric(fixed_excl) / sum(as.numeric(fixed_excl))) %>% filter(y_var != 'x')
   } else if (category == 'O') {
-    ylabtitle <- "Distribution of pupils with one or more fixed period exclusion, 2015/16 \n"
+    ylabtitle <- "Distribution of pupils with one or more fixed period exclusion, 2016/17 \n"
     d <- d %>% group_by (year) %>% filter(one_plus_fixed != 'x') %>% mutate(y_var = as.numeric(one_plus_fixed) / sum(as.numeric(one_plus_fixed))) %>% filter(y_var != 'x')
   }
   
@@ -600,9 +602,9 @@ characteristics_data_download <- function(char) {
   if (char =='gender') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender', 'Total'))
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total')) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision', 'Total') & characteristic_2 == "Total") 
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible', 'Total')) 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_eligible', 'Total') & characteristic_2 == "Total") 
   } else if (char =='age') {
     d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age', 'Total')) 
   } else if (char =='ethn') {
@@ -616,43 +618,43 @@ characteristics_data_download <- function(char) {
 characteristics_text_explainer <- function(char, sch_type, category) {
   
   if (char =='gender') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == "201516")
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Gender'), school_type == sch_type, year == max(year))
     
   } else if (char =='sen') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == "201516") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('SEN_provision'), school_type == sch_type, year == max(year) & characteristic_2 == "Total") 
     
   } else if (char =='fsm') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_Eligible'), school_type == sch_type, year == "201516") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('FSM_eligible'), school_type == sch_type, year == max(year) & characteristic_2 == "Total") 
     
   } else if (char =='ethn') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == "201516") %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Ethnicity', 'Total'), school_type == sch_type, year == max(year)) %>% filter(characteristic_1 == "Ethnicity_Major_White_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Mixed_Total" | characteristic_1 == "Ethnicity_Major_Asian_Total" | characteristic_1 == "Ethnicity_Major_Black_Total" | characteristic_1 == "Ethnicity_Minor_Chinese" | characteristic_1 == "Ethnicity_Minor_Any_Other_Ethnic_Group") 
     
   } else if (char =='age') {
-    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == "201516")
+    d <- nat_char_prep %>% filter(characteristic_desc %in% c('Age'), school_type == sch_type, year == max(year))
     
   } 
-
-    return(paste(
-                if (unique(d$characteristic_desc) == 'Gender') {
-                  paste("")
+  
+  return(paste(
+    if (unique(d$characteristic_desc) == 'Gender') {
+      paste("")
+      
+      
+    }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
+      paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
+      
+    } else if (unique(d$characteristic_desc) == 'FSM_eligible') {
+      paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
+      
+    } else if (unique(d$characteristic_desc) == 'Ethnicity') {
+      paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
+      
+    } else if (unique(d$characteristic_desc) == 'Age') {
+      paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
+      
+    } else 
+      paste("")
     
-                                 
-                 }  else if (unique(d$characteristic_desc) == 'SEN_provision') {
-                   paste(" SEN provision relates to a pupils special educational needs status at the time of exclusion.")
-                 
-                  } else if (unique(d$characteristic_desc) == 'FSM_Eligible') {
-                   paste(" FSM Eligibility relates to a pupils free school meals eligibility at the time of exclusion.")
-
-                  } else if (unique(d$characteristic_desc) == 'Ethnicity') {
-                    paste(" In the time series graph, you can switch between major and minor ethncic groupings using the radio buttons provided.")
- 
-                  } else if (unique(d$characteristic_desc) == 'Age') {
-                    paste(" In the time series graph, you can add or remove age groups using the radio buttons provided.")
-                    
-                  } else 
-                   paste("")
-                 
-                 
-    ))
+    
+  ))
   
 }

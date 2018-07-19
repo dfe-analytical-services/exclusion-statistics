@@ -5,7 +5,7 @@
 
 nat_summary <- read_csv('data/nat_summary.csv', col_types = cols(.default = "c"))
 
-nat_summary_total <- filter(nat_summary, school_type == 'total')
+nat_summary_total <- filter(nat_summary, school_type == 'Total')
 
 #---------------------------------------------------------------------
 #National bar chart functions

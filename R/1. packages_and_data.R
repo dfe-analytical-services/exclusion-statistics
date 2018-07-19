@@ -24,13 +24,13 @@ library(extrafont)
 #Load the data required
 
 # main_ud file
-main_ud <- read_csv('data/SFR35_2017_national_region_la_school_data.csv', col_types = cols(.default = "c"))
+main_ud <- read_csv('data/main0617excl_ud_r_df.csv', col_types = cols(.default = "c"))
 
 # reason_ud file
-reason_ud <- read_csv("data/SFR35_2017_reason_for_exclusion.csv", col_types = cols(.default = "c"))
+reason_ud <- read_csv("data/reasons.csv", col_types = cols(.default = "c"))
 
 # characteristics UD
-char_ud <- read_csv('data/SFR35_2017_National_characteristics.csv', col_types = cols(.default = "c"))
+char_ud <- read_csv('data/nat_char (201112 to 201617).csv', col_types = cols(.default = "c"))
 
 # school names data from get schools information full data
 
@@ -99,7 +99,7 @@ change_ed_x <- function(numA, numB) {
   if(has_warning(as.numeric(numA)) | has_warning(as.numeric(numB))) {return('has been supressed')}
   
   if(is.na(numA) | is.na(numB)) {return ('is not available')}
-    
+  
   if(as.numeric(numA) < as.numeric(numB)) {return ('increased')}
   
   if(as.numeric(numA) > as.numeric(numB)) {return ('decreased')}
