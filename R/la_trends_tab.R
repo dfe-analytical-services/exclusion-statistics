@@ -25,15 +25,15 @@ clean_la_data <- clean_la_data %>%
 
 
 la_pre_200809_list <- c("Bedfordshire (Pre LGR 2009)", 
-                   "Cheshire (Pre LGR 2009)")
+                        "Cheshire (Pre LGR 2009)")
 
 la_post_200809_list <- c("Cheshire East",
-                    "Bedford",
-                    "Central Bedfordshire",
-                    "Chester West and Chester")
+                         "Bedford",
+                         "Central Bedfordshire",
+                         "Chester West and Chester")
 
 comparison_la_data <- comparison_la_data %>%
-  filter(!(la_name %in% la_pre_200809_list & year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516"))) %>%
+  filter(!(la_name %in% la_pre_200809_list & year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516", "201617"))) %>%
   filter(!(la_name %in% la_post_200809_list & year %in% c("200607", "200708", "200809")))
 
 
@@ -208,9 +208,9 @@ la_perm_num_latest <- function(la) {
   refyear <- max(unique(as.numeric(d$year)))
   
   d <- filter(d, year == refyear)
-
+  
   return(filter(d, school_type == 'Total') %>%
-     dplyr::select(perm_excl))
+           dplyr::select(perm_excl))
 }
 
 la_perm_num_previous <- function(la) {
@@ -228,7 +228,7 @@ la_perm_num_previous <- function(la) {
 
 
 la_fixed_num_latest <- function(la) {
-
+  
   d <- filter(clean_la_data,la_name == la) 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -252,7 +252,7 @@ la_fixed_num_previous <- function(la) {
 }
 
 la_one_plus_num_latest <- function(la) {
-
+  
   d <- filter(clean_la_data,la_name == la) 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -276,13 +276,13 @@ la_one_plus_num_previous <- function(la) {
 }
 
 la_perm_rate_latest <- function(la) {
-
+  
   d <- filter(clean_la_data,la_name == la)
   
   refyear <- max(unique(as.numeric(d$year)))
   
   d <- filter(d, year == refyear)
-
+  
   return(filter(d, school_type == 'Total') %>%
            dplyr::select(perm_excl_rate))
 }
@@ -300,7 +300,7 @@ la_perm_rate_previous <- function(la) {
 }
 
 la_fixed_rate_latest <- function(la) {
-
+  
   d <- filter(clean_la_data,la_name == la) 
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -324,7 +324,7 @@ la_fixed_rate_previous <- function(la) {
 }
 
 la_one_plus_rate_latest <- function(la) {
-
+  
   d <- filter(clean_la_data,la_name == la)
   
   refyear <- max(unique(as.numeric(d$year)))
@@ -372,7 +372,7 @@ la_compare_plot <- function(la, category) {
     d <- d %>% filter(!(year %in% c("200607", "200708", "200809")))
   } 
   if (la %in% la_pre_200809_list) {
-    d <- d %>% filter(!(year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516")))
+    d <- d %>% filter(!(year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516", "201617")))
   } 
   
   
@@ -437,12 +437,12 @@ la_compare_table <- function(la, category) {
   
   if(la != 'England') {t_order <- c("England", reg, la)}
   else {t_order <- c("England")}
-    
+  
   if (la %in% la_post_200809_list) {
     d <- d %>% filter(!(year %in% c("200607", "200708", "200809")))
   } 
   if (la %in% la_pre_200809_list) {
-    d <- d %>% filter(!(year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516")))
+    d <- d %>% filter(!(year %in% c("200809", "200910", "201011", "201112", "201213", "201314", "201415", "201516", "201617")))
   } 
   
   table <- d %>%
