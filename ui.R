@@ -26,7 +26,7 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(verticalLayout(
                           h3(strong("Exploring school exclusion statistics")),
-                          h4(strong("The latest 2016/17 academic year exclusion statistics will be uploaded shortly after 9:30am on Thursdsay 19th July.")),
+                          h4(strong("(Proof of concept)")),
                           br("This tool is aimed at enabling users to further understand exclusions data and is currently under development."), 
                           hr(),
                           strong("Background"),
