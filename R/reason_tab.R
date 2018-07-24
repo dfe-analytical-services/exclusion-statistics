@@ -69,6 +69,9 @@ exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) 
   
   data_long$year <- sub("(.{4})(.*)", "\\1/\\2",  data_long$year)
   
+  temp <- nth(data_long, 6) 
+  data_long[, 6] <- sapply(temp, round_with_supressed_values, USE.NAMES = FALSE)
+  
   # widen dataframe
   x <- data_long %>% 
     spread(key = year, value =  exc) %>% 
@@ -80,6 +83,10 @@ exclusion_reason_table <- function(la_name_exclusion_select, schtype, category) 
 }
   # Spaklines can't handle 'X' so force replace with 0.
   x$Trendline <- str_replace_all(x$Trendline, "x", "0")
+  
+  x[, 6:ncol(x)-1] <- sapply(x[, 6:ncol(x)-1], format_with_supressed_numbers)
+   
+  x$Reason <- as.factor(x$Reason)
   
   return(x %>% arrange(Reason))
   
