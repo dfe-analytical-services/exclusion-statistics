@@ -16,9 +16,25 @@ source("R/school_tab.R")
 
 
 shinyUI(
-  navbarPage("Exclusion statistics", 
-             theme = "shiny.css", 
+  fluidPage(theme = "flatly.css",
+  titlePanel(windowTitle = "",
+             title =
+               div(
+                 img(
+                   src = "Department_for_Education.png",
+                   height = 85.2,
+                   width = 144,
+                   style = "margin:10px 10px"
+                 ),
+                 "",
+                 class = 'title'
+               )                  
+  ),
+  navbarPage(title = "Exclusion statistics", 
+             theme =  "flatly.css", 
              header=singleton(tags$head(includeScript('www/google-analytics.js'))),
+             
+             
              
              #---------------------------------------------------------------------               
              #Front page
@@ -26,7 +42,6 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(verticalLayout(
                           h3(strong("Exploring school exclusion statistics")),
-                          h4(strong("(Proof of concept)")),
                           br("This tool is aimed at enabling users to further understand exclusions data and is currently under development."), 
                           hr(),
                           strong("Background"),
@@ -63,7 +78,7 @@ shinyUI(
                           radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
                           plotOutput("f_bar", height ="8cm"),
                           width = 7)),
-                      hr()),
+                      hr(style="border-color: #0058a1;border-top: 3px solid #0058a1;")),
              
              #---------------------------------------------------------------------               
              #LA Trends
@@ -129,7 +144,7 @@ shinyUI(
                             downloadButton("la_data_download_tab_2", "Download"),
                             br())))
                       ),
-                      hr()),   
+                      hr(style="border-color: #0058a1;border-top: 3px solid #0058a1;")),   
              
              
              #---------------------------------------------------------------------               
@@ -167,7 +182,7 @@ shinyUI(
                             )
                         )
                       ),
-                      hr()),   
+                      hr(style="border-color: #0058a1;border-top: 3px solid #0058a1;")),   
              #---------------------------------------------------------------------               
              #Reason for exclusion
              tabPanel("Reason for exclusion",
@@ -214,7 +229,7 @@ shinyUI(
                           DT::dataTableOutput("tbl", width = "95%"),
                           width=12
                         )),
-                      hr()),
+                      hr(style="border-color: #0058a1;border-top: 3px solid #0058a1;")),
              
              #---------------------------------------------------------------------               
              #Pupil Characteristics
@@ -337,7 +352,7 @@ shinyUI(
                           plotOutput("bar_chart", width = "95%", height = '220px'),
                           br(),
                           width =12)), 
-                      hr()),
+                      hr(style="border-color: #0058a1;border-top: 3px solid #0058a1;")),
              
              
              # 
@@ -422,15 +437,14 @@ shinyUI(
                           "Pupils with one or more fixed period exclusion refers to pupil enrolments who
                           have at least one fixed period exclusion across the full academic year. It includes
                           those with repeated fixed period exclusions.", width = 9)),
-                      hr()),
+                      hr(style="border-color: #0058a1;border-top: 3px solid #0058a1;")),
              
              #---------------------------------------------------------------------               
              #page footer
-             footer = HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+             footer = HTML('<div><b>Love the dashboard? Hate it? Got a suggestion to improve it? Contact us at schools.statistics@education.gov.uk</b></div>
                            <br>
-                           <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
-                           <br>
-                           </br>')
+                           <br>')
              )
              )
 
+)
