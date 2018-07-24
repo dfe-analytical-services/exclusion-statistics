@@ -51,6 +51,10 @@ formatyr <- function(refyear) {
 # formatyr(201213)
 # = 2012/13
 
+# Some code to extract the latest year from the data. e.g. 201516, latest year will be 2016. App may be have 2015 to 2016 in it, this makes that happen automatically. 
+front_page_previous_year <- substring(max(main_ud$year), 1, 4)
+front_page_latest_year <- gsub("(^.{2})(.{2})", "\\1", max(main_ud$year), perl = TRUE)
+
 has_warning <- function (expr) 
 {
   warn = FALSE
