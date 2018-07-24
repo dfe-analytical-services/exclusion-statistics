@@ -83,9 +83,10 @@ write.csv(nat_char_prep_csv, file = "data/nat_char_prep.csv", row.names = FALSE)
 # CSV file for ...
 
 clean_la_data_csv <- dplyr::select(
-  filter(main_ud, level == 'National' | level == 'Local authority' & school_type != 'dummy' & la_name != "."),
+  filter(main_ud, level == 'National' | level == 'Region' | level == 'Local authority'  & school_type != 'dummy' & la_name != "."),
   year,
   level,
+  region_name,
   la_name,
   school_type,
   num_schools,
@@ -101,9 +102,11 @@ clean_la_data_csv <- dplyr::select(
     ifelse(school_type == "state-funded secondary","Secondary",
            ifelse(school_type == "special", "Special", 
                   ifelse(school_type == "Total", "Total", NA))))) %>%
-  mutate(la_name = ifelse(is.na(la_name), "England",
-                          ifelse(!is.na(la_name), la_name, NA))) %>%
-  filter(!is.na(school_type))
+  mutate(la_name = ifelse(is.na(la_name) & level == 'National', "England",
+                   ifelse(is.na(la_name) & level == 'Region', region_name,      
+                   ifelse(!is.na(la_name), la_name, NA)))) %>%
+  filter(!is.na(school_type)) %>%
+  select(-region_name)
 
 write.csv(clean_la_data_csv, file = "data/clean_la_data.csv", row.names = FALSE)
 
