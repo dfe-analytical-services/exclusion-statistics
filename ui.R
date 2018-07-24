@@ -81,6 +81,7 @@ shinyUI(
                           selectInput("select2",
                                       label = NULL,
                                       list("England" = "England",
+                                           "Region" = sort(unique((main_ud$region_name[!is.na(main_ud$region_name) & main_ud$region_name != "." & main_ud$region_name != "NULL"]))),
                                            "Local Authority" = sort(unique((
                                              main_ud$la_name[!is.na(main_ud$la_name) &
                                                                main_ud$la_name != "."])))),
