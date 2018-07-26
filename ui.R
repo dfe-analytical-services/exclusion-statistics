@@ -16,9 +16,38 @@ source("R/school_tab.R")
 
 
 shinyUI(
-  navbarPage("Exclusion statistics", 
-             theme = "shiny.css", 
-             header=singleton(tags$head(includeScript('www/google-analytics.js'))),
+  fluidPage(fluid = TRUE,
+            div(class = "container-fluid", mbie_header()),
+  navbarPage(title = "Exclusion statistics", 
+             id = 'navbar-default',
+             header=singleton(tags$head(includeScript('www/google-analytics.js'),
+                                        includeCSS("mbie-styles.css"),
+                                        includeCSS("tdstyles.css"),
+                                        tags$script(src = "jszip.min.js"),
+                                        tags$script(src = "accounting.min.js"),
+                                        tags$script("accounting.settings.currency.precision = 0;"),
+                                        dyExtraHead(),
+                                        tags$script(src = "jquery-ui-1-11-4.min.js"),
+                                        ## Add jQuery UI tooltips
+                                        ## Use: have class "jui-tip" and
+                                        ##      title attribute = tooltip message
+                                        ## e.g. tags$div(class = "jui-tip", title = "Tooltip Message", radioButtons(...))
+                                        tags$script('$(function(){$(".jui-tip").tooltip();});'),
+                                        ## Use jQuery UI accordion for nice looking show/hide inputs feature
+                                        tags$script('$(function(){$("div.divinput").accordion({
+                                                    collapsible: true,
+                                                    heightStyle: "content"
+                                                    });});'),
+         ## Disable DataTable error reporting
+         tags$script('$.fn.dataTableExt.sErrMode = "throw";'),
+         # tags$script("galog = []; ga = function(){galog.push(arguments);};"),
+         ## iframe resizer code to dynamically adjust iframe height
+         ## also requires work by mbie web services to work
+         tags$script(src = "iframeResizer.contentWindow.min.js"))),
+             
+         tabPanel("Introduction",
+                  frontp()
+                  ),
              
              #---------------------------------------------------------------------               
              #Front page
@@ -427,11 +456,13 @@ shinyUI(
              
              #---------------------------------------------------------------------               
              #page footer
-             footer = HTML('<div><img src="Department_for_Education.png" alt="Logo", width="120", height = "71"></div>
+             footer = HTML('<br>
                            <br>
-                           <div><b>This is a new service - if you would like to provide feedback on this tool please contact schools.statistics@education.gov.uk</b></div>
+                           <div><b>Love the dashboard? Hate it? Got a suggestion to improve it? Contact us at schools.statistics@education.gov.uk</b></div>
                            <br>
                            </br>')
              )
              )
+  
+)
 
