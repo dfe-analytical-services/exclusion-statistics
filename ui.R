@@ -35,7 +35,7 @@ shinyUI(
                              reported via the School Census."),
                           br(strong("Latest National Statistics")),
                           br("All of the data used within this dashboard, including additional breakdowns, has been published in the",
-                             a("Permanent and fixed-period exclusions in England: 2016 to 2017", 
+                             a("Permanent and fixed-period exclusions in England: ", front_page_previous_year, "to", front_page_latest_year,":", 
                                href = "https://www.gov.uk/government/statistics/permanent-and-fixed-period-exclusions-in-england-2016-to-2017",
                                target="_blank"), "National Statistics release's underlying data section and is also available for download via the data and methods tab."),
                           br(strong("Guidance and methodology")),
@@ -51,13 +51,13 @@ shinyUI(
                           ), width = 5),
                         mainPanel(
                           br(),
-                          strong("Permanent exclusions, 2006/07 to 2016/17"), 
+                          strong("Permanent exclusions, ",formatyr(min(main_ud$year)), "to", formatyr(max(main_ud$year))), 
                           br(),
                           em("State-funded primary, secondary and special schools"),
                           radioButtons("bars_type", label=NULL, c("rate", "number"), inline = TRUE),
                           plotOutput("p_bar", height ="8cm"),
                           hr(),
-                          strong("Fixed period exclusions, 2006/07 to 2016/17"), 
+                          strong("Fixed period exclusions, ",formatyr(min(main_ud$year)), "to", formatyr(max(main_ud$year))), 
                           br(),
                           em("State-funded primary, secondary and special schools"),
                           radioButtons("bars_type2", label=NULL, c("rate", "number"), inline = TRUE),
@@ -139,7 +139,7 @@ shinyUI(
                       sidebarLayout(
                         sidebarPanel(
                           h4(strong("Mapping exclusion rates")),
-                          em("State-funded primary, secondary and special schools, 2016/17"),
+                          em("State-funded primary, secondary and special schools, ", formatyr(max(main_ud$year))),
                           br(),
                           br(),
                           h5(strong("Instructions")),
@@ -372,29 +372,28 @@ shinyUI(
              tabPanel("Data and methods",
                       h4(strong("Data sources")),
                       "This tool uses open data published alongside the 'Permanent and fixed-period exclusions in
-                      England: 2016 to 2017' National Statistics release, available at ....",
+                      England: ", front_page_previous_year, "to", front_page_latest_year, " National Statistics release, available at ....",
                       "The following datasets are available to download via the release's underling data files:",
                       br(),
                       br(),
                       h5(strong("national_region_la_school_data_exc1617")),
                       "Number and percentage of permanent and fixed period exclusions and those pupils receiving
                       one or more fixed period exclusion. National, Regional, Local authority and School level -
-                      2006/07 to 2016/17 inclusive.",
+                      ",formatyr(min(main_ud$year))," to ",formatyr(max(main_ud$year))," inclusive.",
                       br(),
                       downloadButton("downloadmain_ud", "Download"),
                       br(),
                       br(),
                       h5(strong("reason_for_exclusion_exc1617")),
                       "Number of permanent and fixed period exclusions by reason for exclusion. National, Regional
-                      and Local authority level - 2006/07 to 2016/17 inclusive.",
+                      and Local authority level - ",formatyr(min(reason_ud$year))," to ",formatyr(max(reason_ud$year))," inclusive.",
                       br(),
                       downloadButton("downloadreason_ud", "Download"),
                       br(),
                       br(),
                       h5(strong("national_characteristics_exc1617")),
                       "Number and percentage of permanent and fixed period exclusions and those pupils receiving one
-                      or more fixed period exclusion by pupil characteristics. National level - 2011/12 to 2016/17
-                      inclusive.",
+                      or more fixed period exclusion by pupil characteristics. National level - ",formatyr(min(char_ud$year))," to ",formatyr(max(char_ud$year))," inclusive.",
                       br(),
                       downloadButton("downloadnatchar_ud", "Download"),
                       br(),
